@@ -1,6 +1,14 @@
 name: PokeStream — Windows Release
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/release-windows.yml'
+      - 'desktop/**'
+      - 'scripts/**'
+      - 'package.json'
+      - 'package-lock.json'
 permissions:
   contents: write
 concurrency:
@@ -54,6 +62,7 @@ jobs:
           }
           $lines | Set-Content (Join-Path $dir 'SHA256SUMS.txt') -Encoding ascii
       - name: Publish to PUBLIC installer repository releases
+        if: github.event_name == 'workflow_dispatch'
         shell: pwsh
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
