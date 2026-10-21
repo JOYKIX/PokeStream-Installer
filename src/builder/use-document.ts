@@ -20,7 +20,8 @@ export function useBuilderDocument(initial: BuilderRecord) {
       undo: [] as BuilderData[],
       redo: [] as BuilderData[],
     }),
-    [draft, setDraft] = useState<BuilderData | null>(null);
+    [draft, setDraft] = useState<BuilderData | null>(null),
+    [savedData, setSavedData] = useState(initial.data);
   const trackedAssets = useRef(new Set(imageIds(initial.data)));
   const [assetLibrary, setAssetLibrary] = useState<{
     items: BuilderAsset[];
@@ -96,7 +97,7 @@ export function useBuilderDocument(initial: BuilderRecord) {
           p.success &&
           JSON.stringify(p.data) !== JSON.stringify(initial.data)
         )
-          setDraft(p.data);
+          queueMicrotask(() => setDraft(p.data));
       }
     } catch {}
     const unload = (e: BeforeUnloadEvent) => {
@@ -157,6 +158,7 @@ export function useBuilderDocument(initial: BuilderRecord) {
       const next = result.overlay as BuilderRecord;
       version.current = next.version;
       saved.current = next.data;
+      setSavedData(next.data);
       setRecord(next);
       if (Array.isArray(result.assets)) {
         const assets = result.assets as BuilderAsset[],
@@ -223,7 +225,7 @@ export function useBuilderDocument(initial: BuilderRecord) {
     saving,
     error,
     setError,
-    dirty: JSON.stringify(data) !== JSON.stringify(saved.current),
+    dirty: JSON.stringify(data) !== JSON.stringify(savedData),
     draft,
     recover: () => {
       if (draft) update(draft);
