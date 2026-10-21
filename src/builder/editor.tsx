@@ -128,7 +128,7 @@ export function BuilderEditor({
   useEffect(() => {
     const library = doc.assetLibrary;
     if (!library) return;
-    setAssets((old) => {
+    queueMicrotask(() => setAssets((old) => {
       const existing = new Set(library.items.map((a) => a.id));
       const checked = new Set(library.checkedIds);
       // Keep uploads that completed after the save took its snapshot.
@@ -136,7 +136,7 @@ export function BuilderEditor({
         ...old.filter((a) => !checked.has(a.id) && !existing.has(a.id)),
         ...library.items,
       ];
-    });
+    }));
   }, [doc.assetLibrary]);
   const changeElement = useCallback(
     (next: BuilderElement, remember = true) =>
@@ -181,7 +181,7 @@ export function BuilderEditor({
         if (!stopped) timer = setTimeout(poll, 3000);
       }
     }
-    setScene(null);
+    queueMicrotask(() => { if (!stopped) setScene(null); });
     void poll();
     return () => {
       stopped = true;
