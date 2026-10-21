@@ -1,8 +1,13 @@
+import { getTranslations } from "@/i18n/server";
 import "@/app/privacy/privacy.css";
-export const metadata={title:"Confidentialité — PokeStream"};
-export default function Privacy(){return <main id="main" className="document-page privacy-page"><header className="privacy-heading"><h1>Confidentialité</h1><p>Une application locale, sans compte ni abonnement.</p></header>
-<section><h2>Données de PokeStream Desktop</h2><p>Les profils locaux, aventures, compositions, thèmes et paramètres sont enregistrés sur ton ordinateur. L&apos;application utilise un serveur HTTP local pour afficher les overlays dans OBS. Elle ne dépend pas d&apos;une base de données PokeStream en ligne.</p></section>
-<section><h2>Connexions externes</h2><p>Le téléchargement des versions, l&apos;accès à GitHub et certaines ressources Pokémon tierces peuvent nécessiter Internet. Le fonctionnement local de Connect dépend de la compatibilité de ton émulateur. Les images chargées depuis des fournisseurs externes impliquent une connexion à ces services.</p></section>
-<section><h2>Partage et sauvegardes</h2><p>Les créations peuvent être exportées et partagées via un fichier .pokestream ou .json. Les fichiers exportés contiennent les données nécessaires à l&apos;import, y compris les images incorporées lorsque c&apos;est nécessaire. Tu contrôles à qui tu les transmets.</p></section>
-<section><h2>Site vitrine</h2><p>Le site public hébergé sur Vercel présente le logiciel, la documentation et les liens de téléchargement. Son fonctionnement technique relève également des politiques de son hébergeur. Il ne fournit plus de comptes ni d&apos;édition en ligne.</p></section>
-<section><h2>Suppression des données</h2><p>Tu peux supprimer tes profils dans PokeStream Desktop ou supprimer les données locales du logiciel depuis ton ordinateur. Conserve une copie de tes fichiers exportés si tu souhaites les réutiliser plus tard.</p></section></main>}
+export async function generateMetadata(){const t=await getTranslations();return {title:t("Confidentialité")};}
+export default async function Privacy(){
+ const t=await getTranslations();
+ const sections=[
+  ["Stockage local","Tes profils, équipes, thèmes, overlays et paramètres sont enregistrés sur ton ordinateur."],
+  ["Accès à Internet","Les mises à jour et certaines images Pokémon nécessitent une connexion aux services qui les fournissent."],
+  ["Partage et sauvegardes","Les fichiers exportés contiennent tes créations et les ressources nécessaires. Tu choisis à qui les transmettre."],
+  ["Suppression des données","Supprime un profil depuis l’app, ou désinstalle PokeStream depuis le launcher en désactivant la conservation des données."]
+ ];
+ return <main id="main" className="document-page privacy-page"><header className="privacy-heading"><h1>{t("Confidentialité")}</h1><p>{t("Une application locale, sans compte ni abonnement.")}</p></header>{sections.map(([title,description])=><section key={title}><h2>{t(title)}</h2><p>{t(description)}</p></section>)}</main>;
+}

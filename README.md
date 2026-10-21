@@ -6,7 +6,7 @@ Free, local, open source Windows application: Adventure, Connect, Theme Creator 
 
 Download [PokeStream-Setup.exe](https://github.com/JOYKIX/PokeStream-Installer/releases/latest/download/PokeStream-Setup.exe), open it and select **Install**. The custom launcher installs the bundled application on your PC, creates shortcuts to the installed native launcher and manages opening, updates and repair. The bootstrap is extracted once during installation; regular launches do not unpack the portable EXE again. Node.js and .NET are included; no account or administrator privileges are required.
 
-The launcher supports English, French, Japanese, Spanish and German. It detects the system language and remembers manual changes. Updates are optional, show progress and are checked with SHA256 before installation. You can open an installed version offline. Repair replaces application files and preserves profiles.
+The launcher supports English, French, Japanese, Spanish and German. It detects the system language and remembers manual changes. Updates are optional, show progress and are checked with SHA256 before installation. You can open an installed version offline. Repair replaces application files and preserves profiles. Uninstall is available in the launcher, with an explicit choice to keep or delete local profiles and creations. Completed update downloads are restored after restarting the launcher. The launcher and workspace share the same language preference.
 
 ## Local files
 
@@ -25,7 +25,7 @@ npm ci
 npm run desktop:pack
 ~~~
 
-Output: .artifacts/release/PokeStream-2.2.2-win-x64.exe. The build prepares a complete standalone Next.js runtime, the .NET engine, the custom Electron launcher and a verified runtime ZIP. The runtime is isolated from electron-builder file filtering so its node_modules remain intact.
+Output: .artifacts/release/PokeStream-2.2.3-win-x64.exe. The build prepares a complete standalone Next.js runtime, the .NET engine, the custom Electron launcher and a verified runtime ZIP. The runtime is isolated from electron-builder file filtering so its node_modules remain intact.
 
 For development: npm run dev:desktop. This starts the shared Next.js UI and launcher; building Connect first enables the game reader.
 

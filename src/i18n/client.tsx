@@ -17,7 +17,11 @@ export function I18nProvider({ initialLocale, initialPreference, children }: {
     const next = isLocale(value) ? value : detectLocale(navigator.languages?.join(",") || navigator.language);
     document.cookie = localeCookie + "=" + (isLocale(value) ? value : "") + "; Path=/; Max-Age=" + (isLocale(value) ? "31536000" : "0") + "; SameSite=Lax" + (location.protocol === "https:" ? "; Secure" : "");
     document.cookie = legacyLocaleCookie + "=; Path=/; Max-Age=0; SameSite=Lax";
-    setPreference(value); setLocale(next); router.refresh();
+    setPreference(value); setLocale(next);
+    const desktop = (window as Window & { pokeStream?: { language?: { set: (language: Locale | "auto") => Promise<{ locale?: unknown }> } } }).pokeStream?.language;
+    // Persist the same preference for the native launcher and future app sessions.
+    if (desktop) void desktop.set(value).then(result => { if (isLocale(result.locale)) setLocale(result.locale); router.refresh(); }).catch(() => router.refresh());
+    else router.refresh();
   }, [router]);
   const value = useMemo(() => ({ locale, preference, t: translator(locale), setLanguage }), [locale, preference, setLanguage]);
   return <Context.Provider value={value}>{children}</Context.Provider>;

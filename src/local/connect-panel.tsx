@@ -9,6 +9,7 @@ type State={available:boolean;updatedAt?:string;paused:boolean;title?:string;hin
 type Target={sceneId:string|null;scene:string|null;nuzlocke:boolean;overlays:{id:string;name:string}[]};
 export function LocalConnect(){
  const{t}=useI18n(),[state,setState]=useState<State|null>(null),[target,setTarget]=useState<Target|null>(null),[error,setError]=useState(""),[busy,setBusy]=useState(false),[ports,setPorts]=useState({ryujinx:0,citron:0}),[advanced,setAdvanced]=useState(false);
+ function message(value:string){const parts=value.split(" · ");return parts.map(part=>t(part)).join(" · ");}
  const initialized=useRef(false),pending=useRef<string|null>(null),pendingSince=useRef(0);
  useEffect(()=>{let cancelled=false,timer:ReturnType<typeof setTimeout>;async function refresh(){try{const [a,b]=await Promise.all([authFetch("/api/local/engine"),authFetch("/api/local/target")]);if(!a.ok||!b.ok)throw Error();const s=await a.json(),d=await b.json();if(cancelled)return;setState(s);setTarget(d);if(!initialized.current&&s.available){setPorts({ryujinx:s.ryujinxPort,citron:s.citronPort});initialized.current=true;}
  if(pending.current&&Date.now()-pendingSince.current>30000){pending.current=null;setBusy(false);setError(t("Le moteur ne répond pas. Relance PokeStream."));}
@@ -30,6 +31,6 @@ export function LocalConnect(){
  <div><h3>{t("Émulateur")}</h3><Select value={String(state?.selectedPid||0)} onValueChange={id=>void command("emulator",Number(id))}><SelectOption value="0">{t("Automatique")}</SelectOption>{state?.emulators.map(e=><SelectOption key={e.id} value={String(e.id)}>{e.label}</SelectOption>)}</Select><button className="button secondary compact" disabled={busy} onClick={()=>void command("choose-emulator")}>{t("Choisir l’émulateur")}</button></div>
  <form onSubmit={e=>{e.preventDefault();void command("ports",ports);}}><h3>{t("Serveur GDB")}</h3><div className="local-port-fields">{(["ryujinx","citron"]as const).map(k=><label key={k}>{k==="ryujinx"?"Ryujinx":"Citron"}<input type="number" min={0} max={65535} value={ports[k]||""} placeholder={t("Port")} onChange={e=>setPorts(p=>({...p,[k]:Number(e.target.value)}))}/></label>)}</div><button className="button secondary compact" disabled={busy}>{t("Enregistrer")}</button></form>
  </div><div className="local-help"><h3>Azahar / Citra</h3><p>{t("Émulation > Configurer > Général > Débogage > Divers > Activer le serveur RPC")}</p><h3>Ryujinx / Citron</h3><p>{t("Active le serveur GDB dans l’émulateur, puis indique le même port ici.")}</p><p>{t("Switch : lecture en direct expérimentale.")}</p></div></details>
- <details className="local-panel local-details"><summary><Activity size={17}/>{t("Activité")}</summary><ul className="local-activity">{state?.activity.map((a,i)=><li key={i}><time>{a.time}</time><span>{t(a.message)}</span></li>)}</ul></details>
+ <details className="local-panel local-details"><summary><Activity size={17}/>{t("Activité")}</summary><ul className="local-activity">{state?.activity.map((a,i)=><li key={i}><time>{a.time}</time><span>{message(a.message)}</span></li>)}</ul></details>
  </main>;
 }

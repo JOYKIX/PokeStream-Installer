@@ -513,6 +513,7 @@ export function Studio({
                         }
                       >
                         <Image
+                          unoptimized
                           src={badge.image}
                           alt=""
                           width={46}

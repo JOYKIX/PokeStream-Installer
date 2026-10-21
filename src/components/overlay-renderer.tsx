@@ -302,6 +302,7 @@ export function OverlayRenderer({
                 if (!style.badgeBackground) {
                   return (
                     <Image
+                      unoptimized
                       key={badge.image}
                       src={badge.image}
                       alt={tr(badge.name)}
@@ -322,7 +323,7 @@ export function OverlayRenderer({
                     title={tr(label)}
                   >
                     {earned ? (
-                      <Image src={badge.image} alt="" width={44} height={44} />
+                      <Image src={badge.image} alt="" width={44} height={44} unoptimized />
                     ) : (
                       <BadgeImprint image={badge.image} />
                     )}

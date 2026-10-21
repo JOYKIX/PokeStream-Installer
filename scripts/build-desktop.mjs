@@ -38,6 +38,12 @@ const dest=path.join(output,"web");fs.cpSync(standalone,dest,{recursive:true});
 fs.mkdirSync(path.join(dest,".next"),{recursive:true});
 fs.cpSync(path.join(root,".next","static"),path.join(dest,".next","static"),{recursive:true});
 if(fs.existsSync(path.join(root,"public")))fs.cpSync(path.join(root,"public"),path.join(dest,"public"),{recursive:true,filter:p=>!p.split(path.sep).includes("downloads")});
+// Badge artwork is required by the editor and OBS, including offline installations.
+function badgeFiles(directory){return fs.readdirSync(directory,{withFileTypes:true}).flatMap(entry=>entry.isDirectory()?badgeFiles(path.join(directory,entry.name)):[path.join(directory,entry.name)]);}
+const badgeRoot=path.join(root,'public','Badges'),badges=badgeFiles(badgeRoot).filter(file=>file.endsWith('.png'));
+if(!badges.length)fail('Badge artwork missing from public/Badges.');
+for(const source of badges){const target=path.join(dest,'public','Badges',path.relative(badgeRoot,source));if(!fs.existsSync(target)||fs.statSync(target).size!==fs.statSync(source).size)fail('Badge missing from runtime: '+path.relative(badgeRoot,source));}
+console.log('[PokeStream] '+badges.length+' badge images included.');
 // The source ZIP intentionally does not contain compiled .NET binaries.
 if(!webOnly)fs.cpSync(path.join(root,"desktop","connect","dist","win-x64"),path.join(output,"engine"),{recursive:true});
 // Verify the actual staged payload, not the source checkout's node_modules.
