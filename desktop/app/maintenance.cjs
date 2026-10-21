@@ -26,7 +26,7 @@ async function launchMaintenance({scriptName,args=[],launcherAssets,parentPid=pr
  try{
   child=spawn('powershell.exe',['-NoLogo','-NoProfile','-NonInteractive','-ExecutionPolicy','Bypass',
    '-File',script,'-ParentPid',String(parentPid),'-ReadyFile',ready,'-ErrorFile',failure,...args],
-   {detached:true,windowsHide:true,stdio:['ignore',fd,fd],env:{...environment}});
+   {detached:false,windowsHide:true,stdio:['ignore',fd,fd],env:{...environment}});
  }finally{fs.closeSync(fd);}
  let spawnError=null;child.on('error',error=>{spawnError=error;});
  const deadline=Date.now()+timeoutMs;

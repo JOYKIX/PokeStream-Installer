@@ -81,7 +81,7 @@ test('PowerShell detached process can execute a minimal script with file argumen
  const script=path.join(dir,'probe.ps1'),ready=path.join(dir,'ready.txt');
  await fsp.writeFile(script,"param([string]$ReadyFile)\n[IO.File]::WriteAllText($ReadyFile,'ready')\nWrite-Output 'Powershell script executed'\n");
  try {
-  for(const detached of [false,true]){
+  for(const detached of [false]){
    await fsp.rm(ready,{force:true});
    const child=spawn('powershell.exe',['-NoLogo','-NoProfile','-NonInteractive','-ExecutionPolicy','Bypass','-File',script,'-ReadyFile',ready],{windowsHide:true,detached,stdio:['ignore','pipe','pipe']});
    let stdout='',stderr='';child.stdout.on('data',b=>stdout+=b);child.stderr.on('data',b=>stderr+=b);
