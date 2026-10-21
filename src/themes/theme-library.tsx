@@ -16,7 +16,7 @@ function searchable(value: string) {
 const searchNames = new Map(THEME_IDS.map((theme) => [theme, searchable([THEMES[theme].label, THEMES[theme].console, THEMES[theme].collection].filter(Boolean).join(" "))]));
 
 type Props = {
-  selected: ThemeId;
+  selected: ThemeId | null;
   customThemes: CustomTheme[];
   selectedCustomId?: string;
   onSelectCustom: (theme: CustomTheme) => void;

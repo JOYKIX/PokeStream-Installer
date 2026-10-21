@@ -7,6 +7,7 @@ import { Range } from "@/components/range";
 import { NumberInput } from "@/components/number-input";
 import { ColorPicker } from "@/components/color-picker";
 import { Select, SelectOption } from "@/components/select";
+import {ChoiceGroup} from "@/components/choice-group";
 import type { ThemeSurface } from "./schema";
 
 export function ColorControl({ label, value, onChange, reset }: { label: string; value: string; onChange: (v: string) => void; reset?: string }) {
@@ -50,6 +51,7 @@ export function RangeControl({ label, value, onChange, min = 0, max = 40, unit =
 }
 export function ChoiceControl<T extends string>({ label, value, choices, onChange }: { label: string; value: T; choices: ReadonlyArray<readonly [T, string]>; onChange: (v: T) => void }) {
  const { t } = useI18n();
+ if(choices.length<=6)return <div className="field"><span>{t(label)}</span><ChoiceGroup label={t(label)} value={value} options={choices.map(([value,text])=>({value,label:t(text)}))} onChange={onChange}/></div>;
  return <label className="field">{t(label)}<Select value={value} aria-label={t(label)} onValueChange={(v) => onChange(v as T)}>
    {choices.map(([id, text]) => <SelectOption key={id} value={id}>{t(text)}</SelectOption>)}
  </Select></label>;

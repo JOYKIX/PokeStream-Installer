@@ -1,58 +1,60 @@
 {
-  "version": "2.2.7",
+  "version": "3.0.0",
   "launcherVersion": "1.0.0",
   "date": "2026-10-22",
   "locales": {
-    "en": {
+    "fr": {
       "sections": [
         {
-          "title": "Launcher 1.0.0",
+          "title": "Interface 3.0",
           "items": [
-            "Separate launcher and PokeStream application, with independent windows and shortcuts.",
-            "Application updates run without closing the launcher.",
-            "New layout, release notes and direct access to the sprite library."
+            "Nouvelle gestion des profils locaux : avatars, modification du nom, image et couleur.",
+            "Bibliothèque de profils de jeu avec aperçu de l’équipe, recherche et tri.",
+            "Navigation et avatar identiques sur toutes les pages."
           ]
         },
         {
-          "title": "Maintenance",
+          "title": "Éditeurs et réglages",
           "items": [
-            "Fixed the Windows process handoff that interrupted update installation and uninstallation.",
-            "Files are checked before installation. The launcher waits for the actual completion result.",
-            "Uninstall removes the app. Keeping local profiles, creations and sprites is selected by default."
+            "Correction du défilement qui agrandissait la page à l’ouverture d’un menu.",
+            "Style du Studio réparti entre Thème, Équipe, Badges et Compteur.",
+            "Choix courts accessibles par boutons ; sélection visuelle des jeux et des thèmes avec recherche.",
+            "Connect organisé en Session, Réglages de lecture et Activité. Réglages regroupés en Application, Sprites et Partage."
           ]
         },
         {
-          "title": "Sprite library",
+          "title": "Installation",
           "items": [
-            "Pikachu previews for every available sprite family.",
-            "Used sprites are cached automatically. The full library can be downloaded from Settings."
+            "Application 3.0.0 ; launcher 1.0.0 conservé. La mise à jour de l’app garde le launcher ouvert.",
+            "Profils, créations et sprites téléchargés conservés."
           ]
         }
       ]
     },
-    "fr": {
+    "en": {
       "sections": [
         {
-          "title": "Launcher 1.0.0",
+          "title": "Interface 3.0",
           "items": [
-            "Launcher et application PokeStream séparés, avec leurs fenêtres et raccourcis.",
-            "Mises à jour de l’app sans fermer le launcher.",
-            "Nouvelle interface, notes de version et accès à la bibliothèque de sprites."
+            "New local profile management: avatars, names, pictures and colors.",
+            "Game profile library with team previews, search and sorting.",
+            "Consistent navigation and account avatar across all pages."
           ]
         },
         {
-          "title": "Maintenance",
+          "title": "Editors and settings",
           "items": [
-            "Correction du relais Windows qui interrompait les mises à jour et la désinstallation.",
-            "Fichiers vérifiés avant installation. Le launcher attend le résultat de l’opération.",
-            "La désinstallation retire l’app. La conservation des profils, créations et sprites est cochée par défaut."
+            "Fixed page overflow when opening a menu.",
+            "Studio style settings grouped into Theme, Team, Badges and Counter.",
+            "Direct buttons for short choices; searchable visual game and theme pickers.",
+            "Connect organized into Session, Reading settings and Activity. Settings grouped into Application, Sprites and Sharing."
           ]
         },
         {
-          "title": "Bibliothèque de sprites",
+          "title": "Installation",
           "items": [
-            "Aperçus avec Pikachu pour tous les styles disponibles.",
-            "Les sprites utilisés sont conservés automatiquement. Le catalogue complet se télécharge depuis les réglages."
+            "Application 3.0.0; launcher stays on 1.0.0. App updates keep the launcher open.",
+            "Local profiles, creations and downloaded sprites are preserved."
           ]
         }
       ]
@@ -60,26 +62,27 @@
     "es": {
       "sections": [
         {
-          "title": "Launcher 1.0.0",
+          "title": "Interfaz 3.0",
           "items": [
-            "Launcher y aplicación PokeStream separados, con ventanas y accesos directos independientes.",
-            "Las actualizaciones de la aplicación no cierran el launcher.",
-            "Nueva interfaz, notas de versión y acceso a la biblioteca de sprites."
+            "Nueva gestión de perfiles locales: avatares, nombres, imágenes y colores.",
+            "Biblioteca de perfiles de juego con vista previa del equipo, búsqueda y ordenación.",
+            "Navegación y avatar coherentes en todas las páginas."
           ]
         },
         {
-          "title": "Mantenimiento",
+          "title": "Editores y ajustes",
           "items": [
-            "Corregido el proceso de Windows que interrumpía las actualizaciones y la desinstalación.",
-            "Los archivos se verifican antes de instalar. El launcher espera el resultado final.",
-            "La desinstalación elimina la aplicación. Conservar perfiles, creaciones y sprites está activado por defecto."
+            "Corregido el desbordamiento de la página al abrir un menú.",
+            "Ajustes de estilo del Studio divididos en Tema, Equipo, Medallas y Contador.",
+            "Botones para opciones cortas; selectores visuales de juegos y temas con búsqueda.",
+            "Connect organizado en Sesión, Ajustes de lectura y Actividad. Ajustes divididos en Aplicación, Sprites y Compartir."
           ]
         },
         {
-          "title": "Biblioteca de sprites",
+          "title": "Instalación",
           "items": [
-            "Vistas previas con Pikachu para todos los estilos disponibles.",
-            "Los sprites usados se guardan automáticamente. Descarga la biblioteca completa en Ajustes."
+            "Aplicación 3.0.0; launcher 1.0.0. Las actualizaciones de la app mantienen el launcher abierto.",
+            "Se conservan los perfiles, creaciones y sprites descargados."
           ]
         }
       ]
@@ -87,26 +90,27 @@
     "de": {
       "sections": [
         {
-          "title": "Launcher 1.0.0",
+          "title": "Oberfläche 3.0",
           "items": [
-            "Launcher und PokeStream sind getrennte Anwendungen mit eigenen Fenstern und Verknüpfungen.",
-            "App-Updates schließen den Launcher nicht.",
-            "Neue Oberfläche, Versionshinweise und direkter Zugriff auf die Sprite-Bibliothek."
+            "Neue Verwaltung lokaler Profile: Avatare, Namen, Bilder und Farben.",
+            "Spielprofilbibliothek mit Teamvorschau, Suche und Sortierung.",
+            "Einheitliche Navigation und Profilavatare auf allen Seiten."
           ]
         },
         {
-          "title": "Wartung",
+          "title": "Editoren und Einstellungen",
           "items": [
-            "Windows-Prozessübergabe korrigiert, die Updates und Deinstallation unterbrach.",
-            "Dateien werden vorab geprüft. Der Launcher wartet auf das tatsächliche Ergebnis.",
-            "Deinstallation entfernt die App. Profile, Kreationen und Sprites bleiben standardmäßig erhalten."
+            "Seitenüberlauf beim Öffnen von Menüs behoben.",
+            "Studio-Stileinstellungen in Theme, Team, Orden und Zähler gegliedert.",
+            "Direkte Schaltflächen für kurze Auswahlen; visuelle Spiel- und Theme-Auswahl mit Suche.",
+            "Connect mit Sitzung, Leseeinstellungen und Aktivität. Einstellungen in Anwendung, Sprites und Teilen gegliedert."
           ]
         },
         {
-          "title": "Sprite-Bibliothek",
+          "title": "Installation",
           "items": [
-            "Pikachu-Vorschau für alle verfügbaren Stile.",
-            "Verwendete Sprites werden automatisch gespeichert. Die gesamte Bibliothek ist über Einstellungen verfügbar."
+            "Anwendung 3.0.0; Launcher bleibt bei 1.0.0. App-Updates lassen den Launcher geöffnet.",
+            "Lokale Profile, Kreationen und heruntergeladene Sprites bleiben erhalten."
           ]
         }
       ]
@@ -114,26 +118,27 @@
     "ja": {
       "sections": [
         {
-          "title": "ランチャー 1.0.0",
+          "title": "インターフェース3.0",
           "items": [
-            "ランチャーとPokeStreamを分離。ウィンドウとショートカットも独立しました。",
-            "アプリの更新中もランチャーは開いたままになります。",
-            "画面を刷新し、更新履歴とスプライトライブラリへの案内を追加。"
+            "ローカルプロフィール管理を刷新。アバター、名前、画像、色を編集できます。",
+            "ゲームプロフィール一覧にチームプレビュー、検索、並べ替えを追加。",
+            "全ページでナビゲーションとアバターの表示を統一。"
           ]
         },
         {
-          "title": "メンテナンス",
+          "title": "エディターと設定",
           "items": [
-            "更新とアンインストールが中断されるWindowsのプロセス引き継ぎを修正。",
-            "インストール前にファイルを確認し、ランチャーが処理の完了を待ちます。",
-            "アンインストールはアプリを削除します。プロフィール・作品・画像は初期設定で保持されます。"
+            "メニューを開くとページが余分にスクロールする問題を修正。",
+            "Studioのスタイル設定をテーマ、チーム、バッジ、カウンターに整理。",
+            "少数の選択肢はボタンで操作。ゲームとテーマはプレビューと検索で選択できます。",
+            "Connectをセッション、読み取り設定、履歴に整理。設定をアプリ、スプライト、共有に分類。"
           ]
         },
         {
-          "title": "スプライトライブラリ",
+          "title": "インストール",
           "items": [
-            "すべてのスタイルをピカチュウでプレビュー。",
-            "使用した画像は自動保存されます。全ライブラリは設定からダウンロードできます。"
+            "アプリは3.0.0、ランチャーは1.0.0のまま。アプリ更新中もランチャーは開いたままです。",
+            "ローカルプロフィール、作品、ダウンロード済みスプライトを保持します。"
           ]
         }
       ]

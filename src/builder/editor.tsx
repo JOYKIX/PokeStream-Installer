@@ -1,4 +1,5 @@
 "use client";
+import {useEditorViewport} from "@/lib/use-editor-viewport";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
@@ -99,6 +100,7 @@ export function BuilderEditor({
   const { t } = useI18n(),
     doc = useBuilderDocument(initial),
     { update } = doc;
+  useEditorViewport("builder");
   const geometry = useBuilderGeometry();
   const data = useMemo(
     () => ({

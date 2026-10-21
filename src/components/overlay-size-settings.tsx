@@ -1,9 +1,9 @@
 "use client";
 import { useI18n } from "@/i18n/client";
-import { ChevronDown, RotateCcw } from "lucide-react";
-import { TEAM_ELEMENTS, teamElementOrder, TEAM_LAYOUTS, type SceneData } from "@/lib/model";
+import { RotateCcw } from "lucide-react";
+import { TEAM_ELEMENTS, teamElementOrder, type SceneData } from "@/lib/model";
 import { badgeColumnOptions, badgeLayout, itemSpriteScale, teamLayout } from "@/lib/overlay-layout";
-import { Select, SelectOption } from "./select";
+import {ChoiceGroup,TeamLayoutChoices} from "./choice-group";
 import { OverlayElementOrder } from "./overlay-element-order";
 import { Range } from "./range";
 import { Toggle } from "./ui";
@@ -52,8 +52,9 @@ function SizeField({
 }
 
 export function OverlaySizeSettings({
-  style, nuzlocke, badgeCount, onChange,
+  style, nuzlocke, badgeCount, onChange, section="all",
 }: {
+  section?:"all"|"team"|"badges"|"deaths";
   style: SceneData["style"];
   nuzlocke: boolean;
   badgeCount: number;
@@ -84,117 +85,25 @@ export function OverlaySizeSettings({
     });
   }
 
-  return (
-    <div className="inspector-section">
-      <div className="size-settings-heading">
-        <h3>{tr("Tailles et disposition")}</h3>
-        <button
-          type="button" className="size-reset"
-          title={tr("Réinitialiser toutes les tailles et la disposition")}
-          aria-label={tr("Réinitialiser toutes les tailles et la disposition")}
-          disabled={!hasChanges} onClick={resetAll}
-        >
-          <RotateCcw size={16} aria-hidden="true" />
-        </button>
-      </div>
-      {visibleElements.length > 0 && <div className="size-settings-group element-order-settings">
-        <h4>{tr("Ordre des éléments")}</h4>
-        <OverlayElementOrder key={visibleElements.join(",")} value={style.elementOrder} visible={visibleElements}
-          onChange={(elementOrder) => onChange({ elementOrder })} />
-      </div>}
-      <div className="size-settings-group">
-        <h4>{tr("Équipe")}</h4>
-        <label className="field">
-          {tr("Disposition")}<Select aria-label={tr("Disposition de l’équipe")} value={teamLayout(style)}
-            onValueChange={(value) => onChange({ teamLayout: value as NonNullable<SceneData["style"]["teamLayout"]> })}>
-            {TEAM_LAYOUTS.map((layout) => (
-              <SelectOption key={layout} value={layout}>
-                {layout.replace("x", " × ")}
-              </SelectOption>
-            ))}
-          </Select>
-        </label>
-        <SizeField
-          label={tr("Taille générale")} controlLabel={tr("Équipe")}
-          value={style.teamScale ?? style.scale}
-          onChange={(teamScale) => onChange({ teamScale })}
-        />
-        <details className="team-size-details">
-          <summary>{tr("Éléments de l’équipe ")}<ChevronDown size={14} /></summary>
-          <div className="team-size-options">
-            {teamElements.map(([visibleKey, scaleKey, label, defaultEnabled]) => {
-              const enabled = style[visibleKey] ?? defaultEnabled;
-              return (
-                <div className="element-size-setting" key={visibleKey}>
-                  <Toggle label={tr(label)} checked={enabled}
-                    onChange={(visible) => onChange({ [visibleKey]: visible })} />
-                  {enabled && (
-                    <div className="element-size-range">
-                      <SizeField label={tr("Taille")} controlLabel={tr(label)}
-                        value={style[scaleKey] ?? 1}
-                        onChange={(size) => onChange({ [scaleKey]: size })} />
-                      {visibleKey === "showHealth" && <Toggle label={tr("Valeurs des PV")}
-                        checked={style.showHealthValues !== false}
-                        onChange={(showHealthValues) => onChange({ showHealthValues })} />}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-            <div className="element-size-setting">
-              <Toggle label={tr("Objet tenu")} checked={style.showItems && showSprites} disabled={!showSprites}
-                onChange={(showItems) => onChange({ showItems })} />
-              {style.showItems && showSprites && (
-                <div className="element-size-range">
-                  <SizeField label={tr("Contenant")} controlLabel={tr("Contenant de l’objet tenu")}
-                    value={style.itemScale ?? 1}
-                    onChange={(itemScale) => onChange({ itemScale, itemSpriteScale: itemSpriteScale(style) })} />
-                  <SizeField label="Sprite" controlLabel={tr("Sprite de l’objet tenu")}
-                    value={itemSpriteScale(style)}
-                    onChange={(itemSpriteScale) => onChange({ itemSpriteScale })} />
-                </div>
-              )}
-            </div>
-          </div>
-        </details>
-      </div>
-      <div className="size-settings-group">
-        <div className="element-size-setting">
-          <Toggle label="Badges" checked={style.showBadges}
-            onChange={(showBadges) => onChange({ showBadges })} />
-          {badgeCount > 0 ? (
-            <label className="field badge-layout-field">
-              {tr("Disposition")}<Select aria-label={tr("Disposition des badges")} value={String(badgeLayout(style, badgeCount))}
-                onValueChange={(value) => onChange({ badgeColumns: value === "auto" ? "auto" : Number(value) })}>
-                <SelectOption value="auto">{tr("Auto")}</SelectOption>
-                {badgeColumnOptions(badgeCount).map((columns) => (
-                  <SelectOption key={columns} value={String(columns)}>
-                    {columns} × {badgeCount / columns}
-                  </SelectOption>
-                ))}
-              </Select>
-            </label>
-          ) : <p className="muted small">{tr("Aucun badge pour ce jeu.")}</p>}
-          {badgeCount > 0 && (
-            <Toggle label={tr("Fond des badges")} checked={style.badgeBackground ?? false}
-              onChange={(badgeBackground) => onChange({ badgeBackground })} />
-          )}
-          {style.showBadges && badgeCount > 0 && (
-            <div className="element-size-range">
-              <SizeField label={tr("Taille")} controlLabel="Badges"
-                value={style.badgeScale ?? style.scale}
-                onChange={(badgeScale) => onChange({ badgeScale })} />
-            </div>
-          )}
-        </div>
-        {nuzlocke && (
-          <div className="counter-size-setting">
-            <SizeField label={tr("Compteur Nuzlocke")}
-              value={style.deathScale ?? style.scale}
-              onChange={(deathScale) => onChange({ deathScale })} />
-          </div>
-        )}
-      </div>
+  return <div className="inspector-section size-settings-panel">
+   <div className="size-settings-heading"><h3>{tr(section==="team"?"Équipe":section==="badges"?"Badges":section==="deaths"?"Compteur Nuzlocke":"Tailles et disposition")}</h3><button type="button" className="size-reset" title={tr("Réinitialiser toutes les tailles et la disposition")} aria-label={tr("Réinitialiser toutes les tailles et la disposition")} disabled={!hasChanges} onClick={resetAll}><RotateCcw size={16}/></button></div>
+   {(section==="all"||section==="team")&&<>
+    <div className="size-settings-group"><h4>{tr("Disposition")}</h4><TeamLayoutChoices value={teamLayout(style)} onChange={teamLayout=>onChange({teamLayout})}/>
+     <SizeField label={tr("Taille générale")} controlLabel={tr("Équipe")} value={style.teamScale??style.scale} onChange={teamScale=>onChange({teamScale})}/>
     </div>
-  );
+    <div className="size-settings-group"><h4>{tr("Éléments affichés")}</h4><div className="team-size-options">{teamElements.map(([visibleKey,scaleKey,label,defaultEnabled])=>{
+     const enabled=style[visibleKey]??defaultEnabled;
+     return <div className="element-size-setting" key={visibleKey}><Toggle label={tr(label)} checked={enabled} onChange={visible=>onChange({[visibleKey]:visible})}/>{enabled&&<div className="element-size-range"><SizeField label={tr("Taille")} controlLabel={tr(label)} value={style[scaleKey]??1} onChange={size=>onChange({[scaleKey]:size})}/>{visibleKey==="showHealth"&&<Toggle label={tr("Valeurs des PV")} checked={style.showHealthValues!==false} onChange={showHealthValues=>onChange({showHealthValues})}/>}</div>}</div>;
+    })}
+     <div className="element-size-setting"><Toggle label={tr("Objet tenu")} checked={style.showItems&&showSprites} disabled={!showSprites} onChange={showItems=>onChange({showItems})}/>{style.showItems&&showSprites&&<div className="element-size-range"><SizeField label={tr("Contenant")} controlLabel={tr("Contenant de l’objet tenu")} value={style.itemScale??1} onChange={itemScale=>onChange({itemScale,itemSpriteScale:itemSpriteScale(style)})}/><SizeField label="Sprite" controlLabel={tr("Sprite de l’objet tenu")} value={itemSpriteScale(style)} onChange={itemSpriteScale=>onChange({itemSpriteScale})}/></div>}</div>
+    </div></div>
+    {visibleElements.length>0&&<div className="size-settings-group element-order-settings"><h4>{tr("Ordre des éléments")}</h4><OverlayElementOrder key={visibleElements.join(",")} value={style.elementOrder} visible={visibleElements} onChange={elementOrder=>onChange({elementOrder})}/></div>}
+   </>}
+   {(section==="all"||section==="badges")&&<div className="size-settings-group"><Toggle label={tr("Afficher les badges")} checked={style.showBadges} onChange={showBadges=>onChange({showBadges})}/>{badgeCount>0?style.showBadges&&<>
+    <div className="field badge-layout-field"><span>{tr("Disposition")}</span><ChoiceGroup label={tr("Disposition des badges")} value={style.badgeColumns==="auto"?"auto":String(badgeLayout(style,badgeCount))} columns={3} onChange={value=>onChange({badgeColumns:value==="auto"?"auto":Number(value)})} options={[{value:"auto",label:tr("Auto")},...badgeColumnOptions(badgeCount).map(columns=>({value:String(columns),label:columns+" × "+badgeCount/columns}))]}/></div>
+    <Toggle label={tr("Fond des badges")} checked={style.badgeBackground??false} onChange={badgeBackground=>onChange({badgeBackground})}/>
+    <SizeField label={tr("Taille")} controlLabel="Badges" value={style.badgeScale??style.scale} onChange={badgeScale=>onChange({badgeScale})}/>
+   </>:<p className="muted small">{tr("Aucun badge pour ce jeu.")}</p>}</div>}
+   {(section==="all"||section==="deaths")&&(nuzlocke?<div className="size-settings-group"><SizeField label={tr("Taille")} controlLabel={tr("Compteur Nuzlocke")} value={style.deathScale??style.scale} onChange={deathScale=>onChange({deathScale})}/></div>:<p className="muted small">{tr("Active le mode Nuzlocke dans les réglages du profil.")}</p>)}
+  </div>;
 }

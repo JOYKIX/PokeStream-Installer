@@ -1,13 +1,14 @@
 "use client";
-import { readLocalPreference } from "@/lib/legacy-storage";
 import { useI18n } from "@/i18n/client";
 import { THEMES, type StarterId } from "@/themes/catalog";
-import { Select, SelectOption } from "./select";
+import {GamePicker} from "./game-picker";
+import {ChoiceGroup} from "./choice-group";
 import { useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   ArrowUpRight,
+  Search,
   Copy,
   Download,
   LoaderCircle,
@@ -24,12 +25,12 @@ import { PokemonImage } from "./pokemon-image";
 import { ShareCreation } from "./share-creation";
 import {
   emptyScene,
+  normalizeSearch,
   sceneSchema,
   type Scene,
   type SceneData,
 } from "@/lib/model";
 import { GAMES } from "@/lib/games";
-import { DEMO_STORAGE } from "@/lib/demo";
 import { authFetch } from "@/local/client";
 
 export function Dashboard({
@@ -40,11 +41,13 @@ export function Dashboard({
   initialStarter: StarterId | null;
 }) {
   const { t: tr } = useI18n();
-  const [chosenStarter, setStarter] = useState<StarterId | null>(null);
-  const starter = initialStarter ?? chosenStarter;
+  const starter = initialStarter;
   const router = useRouter();
   const [creating, setCreating] = useState(false);
   const [name, setName] = useState("");
+  const [query,setQuery]=useState("");
+  const [sort,setSort]=useState("recent");
+  const visibleScenes=scenes.filter(scene=>normalizeSearch(scene.data.name+" "+tr(GAMES[scene.data.game].label)).includes(normalizeSearch(query))).sort((a,b)=>sort==="name"?a.data.name.localeCompare(b.data.name):Date.parse(b.updated_at)-Date.parse(a.updated_at));
   const [game, setGame] = useState<SceneData["game"]>("kanto");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
@@ -98,20 +101,6 @@ export function Dashboard({
     }
     if (fileRef.current) fileRef.current.value = "";
   }
-  function importDemo() {
-    try {
-      const parsed = sceneSchema.safeParse(
-        JSON.parse(readLocalPreference(DEMO_STORAGE) || "null"),
-      );
-      if (!parsed.success) {
-        setError(tr("Aucune démo enregistrée dans ce navigateur."));
-        return;
-      }
-      void create(parsed.data);
-    } catch {
-      setError(tr("Démo introuvable."));
-    }
-  }
   function exportScene(scene: Scene) {
     const url = URL.createObjectURL(
       new Blob([JSON.stringify(scene.data, null, 2)], {
@@ -130,10 +119,8 @@ export function Dashboard({
       <main className="site-container dashboard-main" id="main">
         <div className="dashboard-heading">
           <div>
-            <h1>{tr("Mes aventures")}</h1>
-            <p>
-              {scenes.length} {tr("/ 20 aventures")}
-            </p>
+            <h1>{tr("Profils de jeu")}<span className="app-count">{scenes.length} / 20</span></h1>
+            <p>{tr("Équipe, apparence et sources OBS.")}</p>
           </div>
           <button
             className="button primary"
@@ -149,124 +136,20 @@ export function Dashboard({
             {tr(error)}
           </div>
         )}
-        <div className="dashboard-toolbar">
-          <span>
-            {tr("Bibliothèque")}
-            {starter && (
-              <span className="dashboard-starter">
-                {" "}
-                {tr("· Starter")} {tr(THEMES[starter].label)}
-              </span>
-            )}
-          </span>
-          <button
-            className="text-link"
-            disabled={busy}
-            onClick={() => fileRef.current?.click()}
-          >
-            <Upload size={14} />
-            {tr("Importer")}
-          </button>
-          <button className="text-link" disabled={busy} onClick={importDemo}>
-            <Copy size={14} />
-            {tr("Importer ma démo")}
-          </button>
-          <input
-            hidden
-            type="file"
-            accept="application/json,.json"
-            ref={fileRef}
-            onChange={(e) => void importFile(e.target.files?.[0])}
-          />
-        </div>
-        <div className="scene-list">
-          {scenes.map((scene) => (
-            <article className="scene-row" key={scene.id}>
-              <Link className="scene-row-main" href={`/studio/${scene.id}`}>
-                <span className="scene-row-icon">
-                  <LayoutGrid size={19} />
-                </span>
-                <div className="scene-row-title">
-                  <h2>{scene.data.name}</h2>
-                  <div className="scene-row-meta">
-                    <span>{tr(GAMES[scene.data.game].region)}</span>
-                    <span>
-                      {scene.data.team.filter(Boolean).length} {tr("Pokémon")}
-                    </span>
-                  </div>
-                </div>
-                <div className="scene-row-team" aria-hidden="true">
-                  {scene.data.team
-                    .filter((p) => p !== null)
-                    .slice(0, 6)
-                    .map((p, i) => (
-                      <PokemonImage key={i} pokemon={p} size={40} />
-                    ))}
-                </div>
-                <span className="scene-row-state">
-                  <span
-                    className={scene.enabled ? "status-dot" : "status-dot off"}
-                  />
-                  <span>
-                    {scene.enabled ? tr("Diffusion active") : tr("En pause")}
-                  </span>
-                </span>
-                <ArrowUpRight size={16} className="muted" />
-              </Link>
-              <div className="scene-row-actions">
-                <ShareCreation kind="profile" sourceId={scene.id} version={scene.version}
-                  name={scene.data.name} disabled={busy} compact />
-                <button
-                  className="icon-button"
-                  disabled={busy}
-                  title={tr("Dupliquer")}
-                  aria-label={tr("Dupliquer {name}", { name: scene.data.name })}
-                  onClick={() =>
-                    void create({
-                      ...scene.data,
-                      name: tr("Copie de {name}", {
-                        name: scene.data.name,
-                      }).slice(0, 48),
-                    })
-                  }
-                >
-                  <Copy size={15} />
-                </button>
-                <button
-                  className="icon-button"
-                  title={tr("Exporter")}
-                  aria-label={tr("Exporter {name}", { name: scene.data.name })}
-                  onClick={() => exportScene(scene)}
-                >
-                  <Download size={15} />
-                </button>
-                <button
-                  className="icon-button"
-                  disabled={busy}
-                  title={tr("Supprimer")}
-                  aria-label={tr("Supprimer {name}", { name: scene.data.name })}
-                  onClick={() => setRemove(scene)}
-                >
-                  <Trash2 size={15} />
-                </button>
-              </div>
-            </article>
-          ))}
-          {!scenes.length && (
-            <section className="dashboard-empty">
-              <LayoutGrid size={28} />
-              <h2>{tr("Aucun profil")}</h2>
-              <p>{tr("Crée un profil ou importe un fichier existant.")}</p>
-              <button
-                className="button secondary"
-                onClick={() => setCreating(true)}
-              >
-                <Plus size={16} />
-                {tr("Créer un profil")}
-              </button>
-            </section>
-          )}
-        </div>
+        <div className="library-searchbar"><div className="app-search"><Search size={16}/><input type="search" placeholder={tr("Rechercher un profil…")} aria-label={tr("Rechercher un profil…")} value={query} onChange={event=>setQuery(event.target.value)}/></div><div className="app-heading-actions"><ChoiceGroup label={tr("Trier")} value={sort} options={[{value:"recent",label:tr("Récents")},{value:"name",label:tr("Nom")}]} onChange={setSort}/><button className="button secondary compact" disabled={busy} onClick={()=>fileRef.current?.click()}><Upload size={15}/>{tr("Importer")}</button></div><input hidden type="file" accept="application/json,.json" ref={fileRef} onChange={event=>void importFile(event.target.files?.[0])}/></div>
+        <div className="profile-library-grid">{visibleScenes.map(scene=><article className="profile-library-card" key={scene.id}>
+          <Link className="profile-library-link" href={"/studio/"+scene.id}><div className="profile-library-title"><div><h2>{scene.data.name}</h2><span className="profile-library-game">{tr(GAMES[scene.data.game].label)}</span></div><span className="profile-status" data-enabled={scene.enabled}><i/>{tr(scene.enabled?"Diffusion active":"En pause")}</span></div>
+            <div className="profile-library-team" aria-hidden="true">{scene.data.team.map((pokemon,i)=>pokemon?<PokemonImage key={i} pokemon={pokemon} size={58}/>:<span key={i}><Plus size={13}/></span>)}</div>
+          </Link>
+          <div className="profile-library-footer"><Link href={"/studio/"+scene.id}>{tr("Ouvrir le profil")}<ArrowUpRight size={14}/></Link><div className="scene-row-actions">
+            <ShareCreation kind="profile" sourceId={scene.id} version={scene.version} name={scene.data.name} disabled={busy} compact/>
+            <button className="icon-button" disabled={busy} title={tr("Dupliquer")} aria-label={tr("Dupliquer")+" · "+scene.data.name} onClick={()=>void create({...scene.data,name:tr("Copie de {name}",{name:scene.data.name}).slice(0,48)})}><Copy size={15}/></button>
+            <button className="icon-button" title={tr("Exporter")} aria-label={tr("Exporter")+" · "+scene.data.name} onClick={()=>exportScene(scene)}><Download size={15}/></button>
+            <button className="icon-button" disabled={busy} title={tr("Supprimer")} aria-label={tr("Supprimer")+" · "+scene.data.name} onClick={()=>setRemove(scene)}><Trash2 size={15}/></button>
+          </div></div>
+        </article>)}</div>
+        {!scenes.length&&<section className="dashboard-empty"><LayoutGrid size={27}/><h2>{tr("Aucun profil")}</h2><p>{tr("Crée un profil ou importe un fichier existant.")}</p><div className="app-heading-actions"><button className="button primary" onClick={()=>setCreating(true)}><Plus size={16}/>{tr("Créer un profil")}</button><Link className="button secondary" href="/studio/demo">{tr("Voir un exemple")}</Link></div></section>}
+        {scenes.length>0&&!visibleScenes.length&&<p className="app-no-results">{tr("Aucun résultat.")}</p>}
         <section className="dashboard-connect">
           <Cable size={19} />
           <div>
@@ -313,17 +196,7 @@ export function Dashboard({
           </label>
           <label className="field">
             {tr("Jeu")}
-            <Select
-              aria-label={tr("Jeu")}
-              value={game}
-              onValueChange={(value) => setGame(value as SceneData["game"])}
-            >
-              {Object.entries(GAMES).map(([id, g]) => (
-                <SelectOption value={id} key={id}>
-                  {tr(g.label)}
-                </SelectOption>
-              ))}
-            </Select>
+            <GamePicker value={game} onChange={setGame}/>
           </label>
           {error && (
             <p className="form-error" role="alert">

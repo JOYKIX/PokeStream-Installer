@@ -1,7 +1,9 @@
 "use client";
 import { pokemonName } from "@/i18n/pokemon";
 import { useI18n } from "@/i18n/client";
-import { Select, SelectOption } from "./select";
+import {ChoiceGroup} from "./choice-group";
+import {GamePicker} from "./game-picker";
+import {useEditorViewport} from "@/lib/use-editor-viewport";
 import { ColorPicker } from "./color-picker";
 import { THEMES, type StarterId } from "@/themes/catalog";
 import { useCustomThemes } from "@/themes/custom/use-custom-themes";
@@ -88,8 +90,9 @@ export function Studio({
   initialCustomThemes?: CustomTheme[];
 }) {
   const { t: tr, locale } = useI18n();
-  const [chosenStarter, setStarter] = useState<StarterId | null>(null);
-  const starter = initialStarter ?? chosenStarter;
+  useEditorViewport("studio");
+  const [styleSection,setStyleSection]=useState<"theme"|"team"|"badges"|"deaths">("theme");
+  const starter = initialStarter;
   const {
     data: manualData,
     record,
@@ -573,23 +576,7 @@ export function Studio({
                       <h3>{tr("Profil")}</h3>
                       <label className="field">
                         {tr("Jeu")}
-                        <Select
-                          aria-label={tr("Jeu")}
-                          disabled={!!connect.device}
-                          value={data.game}
-                          onValueChange={(value) =>
-                            patch({
-                              game: value as SceneData["game"],
-                              badges: [],
-                            })
-                          }
-                        >
-                          {Object.entries(GAMES).map(([id, g]) => (
-                            <SelectOption value={id} key={id}>
-                              {tr(g.label)}
-                            </SelectOption>
-                          ))}
-                        </Select>
+                        <GamePicker value={data.game} disabled={!!connect.device} onChange={game=>patch({game,badges:[]})}/>
                       </label>
                       <div className="game-note">
                         <Shield size={15} />
@@ -690,6 +677,8 @@ export function Studio({
                 )}
                 {tab === "style" && (
                   <>
+                    <div className="app-section-tabs studio-style-tabs" role="group" aria-label={tr("Réglages du style")}>{([["theme","Thème"],["team","Équipe"],["badges","Badges"],["deaths","Compteur"]] as const).map(([value,label])=><button key={value} type="button" aria-pressed={styleSection===value} onClick={()=>setStyleSection(value)}>{tr(label)}</button>)}</div>
+                    {styleSection==="theme"&&<>
                     <div className="inspector-section">
                       <h3>{tr("Thème")}</h3>
                       {starter && (
@@ -793,12 +782,14 @@ export function Studio({
                         />
                       )}
                     </div>
-                    <OverlaySizeSettings
+                    </>}
+                    {styleSection!=="theme"&&<OverlaySizeSettings
+                      section={styleSection}
                       style={data.style}
                       nuzlocke={data.nuzlocke}
                       badgeCount={game.badges.length}
                       onChange={setStyle}
-                    />
+                    />}
                   </>
                 )}
                 {tab === "obs" && (
@@ -807,34 +798,8 @@ export function Studio({
                       <h3>{tr("Source navigateur")}</h3>
                       <label className="field">
                         {tr("Contenu")}
-                        <Select
-                          aria-label={tr("Contenu")}
-                          value={part}
-                          onValueChange={setPart}
-                        >
-                          <SelectOption value="all">
-                            {tr("Profil complet")}
-                          </SelectOption>
-                          <SelectOption value="team">
-                            {tr("Équipe seule")}
-                          </SelectOption>
-                          <SelectOption value="badges">
-                            {tr("Badges seuls")}
-                          </SelectOption>
-                          <SelectOption value="deaths">
-                            {tr("Compteur Nuzlocke")}
-                          </SelectOption>
-                          {data.team.map((p, i) => (
-                            <SelectOption key={i} value={"slot-" + (i + 1)}>
-                              {tr("Emplacement ")}
-                              {i + 1}
-                              {p
-                                ? " · " +
-                                  pokemonName({ ...p, nickname: "" }, locale)
-                                : ""}
-                            </SelectOption>
-                          ))}
-                        </Select>
+<ChoiceGroup label={tr("Contenu")} value={part.startsWith("slot-")?"slots":part} columns={2} onChange={value=>setPart(value==="slots"?"slot-1":value)} options={[{value:"all",label:tr("Profil complet")},{value:"team",label:tr("Équipe seule")},{value:"badges",label:tr("Badges seuls")},{value:"deaths",label:"Nuzlocke"},{value:"slots",label:tr("Pokémon individuel")}]} />
+                        {part.startsWith("slot-")&&<div className="source-slot-choices"><span>{tr("Emplacement")}</span><ChoiceGroup label={tr("Emplacement")} value={part} columns={6} onChange={setPart} options={data.team.map((p,i)=>({value:"slot-"+(i+1),label:String(i+1),title:p?pokemonName({...p,nickname:""},locale):tr("Emplacement vide.")}))}/></div>}
                       </label>
                       {demo ? (
                         <div className="demo-obs">

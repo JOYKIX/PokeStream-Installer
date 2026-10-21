@@ -6,7 +6,7 @@ Free, local, open source Windows application: Adventure, Connect, Theme Creator 
 
 Download [PokeStream-Setup.exe](https://github.com/JOYKIX/PokeStream-Installer/releases/latest/download/PokeStream-Setup.exe), run it and install PokeStream. Node.js and .NET are included; no account or administrator privileges are required.
 
-**PokeStream Launcher 1.0.0** and **PokeStream 2.2.7** are separate installed programs with separate windows, native executables and shortcuts. The launcher handles installation, app updates, release notes, launch, repair and uninstallation. The app hosts the workspace and local game reader. Closing the launcher does not close a running app.
+**PokeStream Launcher 1.0.0** and **PokeStream 3.0.0** are separate installed programs with separate windows, native executables and shortcuts. The launcher handles installation, app updates, release notes, launch, repair and uninstallation. The app hosts the workspace and local game reader. Closing the launcher does not close a running app.
 
 App updates keep the launcher open. If the app is running, it closes gracefully before replacement and reopens after completion. The launcher shows progress, validates SHA256 and waits for the installer result. Its own version is checked separately; it restarts only when its own files need updating.
 
@@ -43,7 +43,7 @@ npm ci
 npm run desktop:pack
 ~~~
 
-Output: .artifacts/release/PokeStream-2.2.7-win-x64.exe. The setup installs both programs; app updates do not replace an unchanged launcher. Regular shortcuts start installed native executables without unpacking a portable archive again.
+Output: .artifacts/release/PokeStream-3.0.0-win-x64.exe. The setup installs both programs; app updates do not replace an unchanged launcher. Regular shortcuts start installed native executables without unpacking a portable archive again.
 
 Versions are declared in package.json: version for the app, launcherVersion for the launcher. Bundled release notes are in desktop/app/release-notes.json and must match both versions.
 

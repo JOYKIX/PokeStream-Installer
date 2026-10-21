@@ -2,11 +2,12 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Plus, Copy, Trash2, Monitor, PenLine, Layers } from "lucide-react";
+import { Plus, Copy, Trash2, Monitor, PenLine, Layers, Search } from "lucide-react";
 import { useI18n } from "@/i18n/client";
 import { authFetch } from "@/local/client";
 import { ShareCreation } from "@/components/share-creation";
 import { Confirm } from "@/components/ui";
+import {normalizeSearch} from "@/lib/model";
 import { newBuilder, type BuilderRecord } from "./schema";
 import { BuilderCanvas } from "./render";
 import type { CustomTheme } from "@/themes/custom/schema";
@@ -24,7 +25,9 @@ export function BuilderLibrary({
     [busy, setBusy] = useState(false),
     [error, setError] = useState(""),
     [remove, setRemove] = useState<BuilderRecord | null>(null),
-    [name, setName] = useState("");
+    [name, setName] = useState(""),
+    [query,setQuery]=useState("");
+  const visible=initial.filter(item=>normalizeSearch(item.data.name).includes(normalizeSearch(query)));
   const limit = active ? 15 : 3;
   async function create(source?: BuilderRecord) {
     setBusy(true);
@@ -71,8 +74,7 @@ export function BuilderLibrary({
     <main className="builder-home">
       <div className="builder-home-heading">
         <div>
-          <span className="eyebrow">POKESTREAM</span>
-          <h1>Overlay Builder</h1>
+          <h1>{t("Overlay Builder")}</h1>
           <p>{t("Compose ta scène OBS.")}</p>
         </div>
         <span className="builder-count">
@@ -115,6 +117,7 @@ export function BuilderLibrary({
           {t(error)}
         </p>
       )}
+      {initial.length>0&&<label className="app-search builder-library-search"><Search size={17}/><input type="search" value={query} onChange={event=>setQuery(event.target.value)} placeholder={t("Rechercher une composition…")} aria-label={t("Rechercher une composition")}/></label>}
       {initial.length === 0 ? (
         <div className="builder-empty">
           <Layers size={36} />
@@ -123,7 +126,7 @@ export function BuilderLibrary({
         </div>
       ) : (
         <div className="builder-cards">
-          {initial.map((o) => (
+          {visible.map((o) => (
             <article key={o.id}>
               <Link href={"/builder/" + o.id} className="builder-thumbnail">
                 <div>
@@ -180,6 +183,7 @@ export function BuilderLibrary({
           ))}
         </div>
       )}
+      {initial.length>0&&!visible.length&&<p className="app-no-results">{t("Aucune composition trouvée.")}</p>}
       <Confirm
         open={!!remove}
         onOpenChange={(open) => {

@@ -1,8 +1,10 @@
 "use client";
+import {useEditorViewport} from "@/lib/use-editor-viewport";
+
 import { memo, useEffect, useRef, useState, useMemo, useDeferredValue, type MouseEvent as ReactMouseEvent, type KeyboardEvent } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Check, Copy, LoaderCircle, Palette, Plus, RotateCcw, Save, Trash2, Undo2, Redo2, LockKeyhole, ArrowUpRight, Upload, Download, Expand, ClipboardPaste } from "lucide-react";
+import { Check, Copy, LoaderCircle, Palette, Plus, RotateCcw, Save, Trash2, Undo2, Redo2, ArrowUpRight, Upload, Download, Expand, ClipboardPaste } from "lucide-react";
 import { useI18n } from "@/i18n/client";
 import { authFetch } from "@/local/client";
 import { OverlayStage, type OverlayDimensions } from "@/components/overlay-stage";
@@ -22,6 +24,7 @@ const PreviewStage = memo(OverlayStage);
 const input = (theme: CustomTheme): ThemeInput => ({ name: theme.name, config: theme.config });
 export function ThemeStudio({ initialThemes, active, profiles = [], profilesUnavailable = false, initialThemeId }: { initialThemes: CustomTheme[]; active: boolean; profiles?: PreviewProfile[]; profilesUnavailable?: boolean; initialThemeId?: string }) {
  const { t } = useI18n();
+ useEditorViewport("theme");
  const router = useRouter();
  const [themes, setThemes] = useState(initialThemes);
  const first = initialThemes.find((theme)=>theme.id===initialThemeId) ?? initialThemes[0];
@@ -218,7 +221,7 @@ export function ThemeStudio({ initialThemes, active, profiles = [], profilesUnav
  const status=notice||(dirty?t("Modifications non enregistrées"):selected?t("Enregistré"):t("Nouveau thème"));
  return <main className="theme-studio" onKeyDown={keyboard} onPointerUpCapture={()=>{lastEdit.current.key="";}}>
   <header className="ts-heading">
-   <div><span className="section-label">{t("MES THÈMES")}</span><h1>{t("Theme Creator")}<span className="ts-count">{themes.length}/{CUSTOM_THEME_LIMIT}</span></h1></div>
+   <div><h1>{t("Theme Creator")}<span className="ts-count">{themes.length}/{CUSTOM_THEME_LIMIT}</span></h1></div>
    <div className="ts-heading-actions">
     <button type="button" className="icon-button" disabled={!editing||!historyStatus.past} aria-label={t("Annuler la modification")} title={t("Annuler la modification")+" · Ctrl Z"} onClick={()=>undo()}><Undo2 size={17}/></button>
     <button type="button" className="icon-button" disabled={!editing||!historyStatus.future} aria-label={t("Rétablir")} title={t("Rétablir")+" · Ctrl Maj Z"} onClick={()=>undo(true)}><Redo2 size={17}/></button>
@@ -277,11 +280,11 @@ export function ThemeStudio({ initialThemes, active, profiles = [], profilesUnav
       {(["6x1","3x2","2x3","1x6"] as const).map((id)=><button type="button" key={id} aria-pressed={layout===id} onClick={()=>setLayout(id)}>{id.replace("x"," × ")}</button>)}
      </div><span>{dimensions?.part===part?dimensions.width+" × "+dimensions.height:"—"} px</span>
     </div>
-    <details className="ts-preview-details" open><summary>{t("Réglages de l’aperçu")}</summary><div className="ts-preview-options">
+    <section className="ts-preview-details"><h3>{t("Réglages de l’aperçu")}</h3><div className="ts-preview-options">
      <ChoiceControl label="Simulation" value={previewState} choices={previewStates} onChange={setPreviewState}/>
      {part.startsWith("slot-")&&<ChoiceControl label="Emplacement" value={part} choices={[1,2,3,4,5,6].map((i)=>["slot-"+i,String(i)] as const)} onChange={setPart}/>}
     </div>
-    </details><div className="ts-draft-toolbar"><span role="status">{status}</span><span className="ts-muted">Ctrl S</span></div>
+    </section><div className="ts-draft-toolbar"><span role="status">{status}</span><span className="ts-muted">Ctrl S</span></div>
     <p className="ts-preview-note">{t("Clique un élément de l’aperçu pour le modifier.")}</p>
    </section>
    <section className="ts-settings" aria-label={t("Réglages du thème")}>

@@ -1,15 +1,15 @@
 "use client";
-import { RotateCcw } from "lucide-react";
-import { useId } from "react";
+import { LoaderCircle, Palette, ChevronDown, RotateCcw } from "lucide-react";
+import { useId, useState } from "react";
 import { NumberInput } from "@/components/number-input";
 import { ColorPicker } from "@/components/color-picker";
 import { useI18n } from "@/i18n/client";
-import { Select, SelectOption, SelectGroup } from "@/components/select";
+import dynamic from "next/dynamic";
+import { Modal } from "@/components/ui";
+import { useThemeFavorites } from "@/themes/use-theme-favorites";
+const ThemeLibrary=dynamic(()=>import("@/themes/theme-library").then(m=>m.ThemeLibrary),{ssr:false,loading:()=> <div className="theme-picker-loading"><LoaderCircle className="spin" size={23}/></div>});
 import {
   THEMES,
-  THEME_IDS,
-  THEME_COLLECTIONS,
-  requiresPro,
   type StarterId,
   type ThemeId,
 } from "@/themes/catalog";
@@ -107,67 +107,21 @@ export function ThemeSelect({
   studio?: { selected: boolean; onSelect: () => void };
 }) {
   const { t } = useI18n();
-  return (
-    <Select
-      aria-label={t("Thème")}
-      value={
-        studio?.selected
-          ? "studio"
-          : value
-            ? value.id === "custom"
-              ? "custom:" + value.customId
-              : value.id
-            : "inherit"
-      }
-      onValueChange={(v) => {
-        if (v === "studio") {
-          studio?.onSelect();
-          return;
-        }
-        onChange(
-          v === "inherit"
-            ? null
-            : v.startsWith("custom:")
-              ? { id: "custom", customId: v.slice(7) }
-              : { id: v as ThemeId },
-        );
-      }}
-    >
-      {inherit && (
-        <SelectOption value="inherit">{t(inheritLabel)}</SelectOption>
-      )}
-      {studio && (
-        <SelectOption value="studio">{t("Profil Studio")}</SelectOption>
-      )}
-      {Object.entries(THEME_COLLECTIONS).map(([collection, label]) => (
-        <SelectGroup key={collection} label={t(label)}>
-          {THEME_IDS.filter(
-            (id) => id !== "custom" && THEMES[id].collection === collection,
-          ).map((id) => (
-            <SelectOption
-              key={id}
-              value={id}
-              disabled={requiresPro(id, starter) && !active}
-            >
-              {t(THEMES[id].label)}
-              {requiresPro(id, starter) && !active ? " · Pro" : ""}
-            </SelectOption>
-          ))}
-        </SelectGroup>
-      ))}
-      {themes.length > 0 && (
-        <SelectGroup label={t("Mes thèmes")}>
-          {themes.map((theme) => (
-            <SelectOption
-              key={theme.id}
-              value={"custom:" + theme.id}
-              disabled={!active}
-            >
-              {theme.name}
-            </SelectOption>
-          ))}
-        </SelectGroup>
-      )}
-    </Select>
-  );
+  const [open,setOpen]=useState(false),[message,setMessage]=useState("");
+  const favorites=useThemeFavorites(open,false);
+  const label=studio?.selected?t("Profil Studio"):!value?t(inheritLabel):value.id==="custom"?themes.find(theme=>theme.id===value.customId)?.name||t("Mes thèmes"):t(THEMES[value.id].label);
+  function choose(next:ThemeRef|null){onChange(next);setOpen(false);}
+  return <>
+   <button type="button" className="theme-picker-trigger" aria-haspopup="dialog" aria-expanded={open} onClick={()=>{setMessage("");setOpen(true);}}><Palette size={16}/><span>{label}</span><ChevronDown size={15}/></button>
+   <Modal open={open} onOpenChange={setOpen} title={t("Choisir un thème")} wide>
+    <div className="theme-picker-dialog">
+     {(inherit||studio)&&<div className="theme-picker-inheritance">
+      {inherit&&<button type="button" aria-pressed={!value&&!studio?.selected} onClick={()=>choose(null)}>{t(inheritLabel)}</button>}
+      {studio&&<button type="button" aria-pressed={studio.selected} onClick={()=>{studio.onSelect();setOpen(false);}}>{t("Profil Studio")}</button>}
+     </div>}
+     {message&&<p role="status" className="builder-note">{message}</p>}
+     {open&&<ThemeLibrary selected={studio?.selected||!value?null:value.id} selectedCustomId={value?.id==="custom"?value.customId:undefined} customThemes={themes} onSelectCustom={theme=>choose({id:"custom",customId:theme.id})} starter={starter} premium={active} demo={false} favorites={favorites} onSelect={(id:ThemeId)=>choose({id})} onMessage={setMessage}/>}
+    </div>
+   </Modal>
+  </>;
 }

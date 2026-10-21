@@ -3,9 +3,9 @@ import {useState} from "react";
 import dynamic from "next/dynamic";
 import {ChevronDown} from "lucide-react";
 import {useI18n} from "@/i18n/client";
-import {Select,SelectOption} from "./select";
+import {ChoiceGroup} from "./choice-group";
 import {PokemonImage} from "./pokemon-image";
-import {spriteSource,VARIANT_LABELS,type SpriteStyle,type SpriteVariant} from "@/lib/sprite-options";
+import {spriteSource,VARIANT_LABELS,type SpriteStyle} from "@/lib/sprite-options";
 import {availableVariants} from "@/lib/sprites";
 import type {SceneData} from "@/lib/model";
 import type {SpriteInheritance} from "./sprite-picker";
@@ -30,7 +30,7 @@ export function SpriteSelector({style,onChange,inherit}:{
     <span className="sprite-trigger-label"><strong>{t(inherit?.active?inherit.label:source.label)}</strong><small>{t(source.group)}</small></span><ChevronDown size={16} aria-hidden="true"/>
    </button>
   </label>
-  {!inherit?.active&&variants.length>1&&<label className="field">{t("Vue")}<Select aria-label={t("Vue")} value={variants.includes(style.spriteVariant??"default")?style.spriteVariant??"default":"default"} onValueChange={value=>onChange({spriteVariant:value as SpriteVariant})}>{variants.map(value=><SelectOption value={value} key={value}>{t(VARIANT_LABELS[value])}</SelectOption>)}</Select></label>}
+  {!inherit?.active&&variants.length>1&&<div className="field"><span>{t("Vue")}</span><ChoiceGroup label={t("Vue")} columns={2} value={variants.includes(style.spriteVariant??"default")?style.spriteVariant??"default":"default"} options={variants.map(value=>({value,label:t(VARIANT_LABELS[value])}))} onChange={spriteVariant=>onChange({spriteVariant})}/></div>}
   <p className="sprite-note">{t("Variantes selon le Pokémon. Remplacement si indisponible.")}</p>
   {open&&<SpritePicker open={open} onClose={()=>setOpen(false)} onSelect={choose} selected={style.sprite} variant={style.spriteVariant} inherit={inherit}/>}
  </>;

@@ -2,9 +2,11 @@
 import { useI18n } from "@/i18n/client";
 import * as Primitive from "@radix-ui/react-select";
 import { Check, ChevronDown, ChevronUp } from "lucide-react";
-import type { ReactNode } from "react";
+import {Children,isValidElement,type ReactNode} from "react";
+import {ChoiceGroup} from "./choice-group";
 
 type SelectProps = {
+  presentation?:"auto"|"dropdown";
   displayValue?: ReactNode;
   title?: string;
   contentClassName?: string;
@@ -32,8 +34,16 @@ export function Select({
   displayValue,
   title,
   contentClassName = "",
+  presentation="auto",
 }: SelectProps) {
   const { t: tr } = useI18n();
+  const items=Children.toArray(children);
+  const options=items.flatMap(child=>{
+    if(!isValidElement<{value?:string|number;children?:ReactNode;disabled?:boolean}>(child)||child.type!==SelectOption||child.props.value===undefined)return [];
+    return [{value:String(child.props.value),label:child.props.children,disabled:child.props.disabled}];
+  });
+  if(presentation==="auto"&&displayValue===undefined&&!name&&!required&&options.length>=2&&options.length<=4&&options.length===items.length)
+    return <ChoiceGroup id={id} label={label?tr(label):title||tr("Options")} className={"site-choice-select "+className} value={String(value)} onChange={onValueChange} options={options} disabled={disabled}/>;
   return (
     <Primitive.Root
       value={String(value)}

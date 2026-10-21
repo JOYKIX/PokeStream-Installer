@@ -11,6 +11,7 @@ import "./globals.css";
 import "@/styles/site.css";
 import "@/styles/controls.css";
 import "@/styles/navigation.css";
+import "@/styles/application.css";
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations();
   return {
