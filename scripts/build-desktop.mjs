@@ -43,8 +43,8 @@ if(fs.existsSync(path.join(root,"public")))fs.cpSync(path.join(root,"public"),pa
 if(!webOnly){
  const pack=path.join(root,"desktop/connect/data/sprites.zip");
  const spriteDir=path.join(dest,"public","sprites");fs.mkdirSync(spriteDir,{recursive:true});
- const safe=(p)=>p.replace(/\x27/g,"\x27\x27");
- run("powershell.exe",["-NoProfile","-NonInteractive","-Command",`Expand-Archive -LiteralPath \x27${safe(pack)}\x27 -DestinationPath \x27${safe(spriteDir)}\x27 -Force`]);
+ // Use the module-free extractor: Windows PowerShell's Archive module may be unavailable.
+ run("powershell.exe",["-NoProfile","-NonInteractive","-ExecutionPolicy","Bypass","-File","desktop/app/runtime-install.ps1","-ArchivePath",pack,"-TargetDirectory",spriteDir]);
  if(!fs.existsSync(path.join(spriteDir,"pokemon","25.png")))fail("Base sprite pack missing from staged offline runtime.");
 }
 const catalog=path.join(root,".artifacts/sprite-catalog/manifest.json.gz");
