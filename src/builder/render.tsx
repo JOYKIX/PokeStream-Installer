@@ -1,7 +1,7 @@
 "use client";
 import {
   memo,
-  useEffect,
+  useSyncExternalStore,
   useLayoutEffect,
   useMemo,
   useRef,
@@ -34,8 +34,7 @@ const DynamicBlock = memo(function DynamicBlock({
   onBounds: BoundsReporter;
 }) {
   const [ready, setReady] = useState(false);
-  const [portal, setPortal] = useState<HTMLElement | null>(null);
-  useEffect(() => setPortal(document.body), []);
+  const portal = useSyncExternalStore<HTMLElement | null>(() => () => {}, () => document.body, () => null);
   const ref = useRef<HTMLDivElement>(null),
     [box, setBox] = useState({ x: 0, y: 0, width: 1, height: 1 });
   useLayoutEffect(() => {
