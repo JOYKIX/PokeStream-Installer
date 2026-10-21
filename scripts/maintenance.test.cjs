@@ -62,6 +62,13 @@ async function run({keepData,updateError}={}){
    assert.equal(fs.existsSync(path.join(a.root,'Updates')),false);
    assert.equal(fs.existsSync(path.join(a.root,'Studio','preserve.txt')),keepData);
   }
+ }catch(error){
+  const diagnostic=path.join(a.root,'maintenance-bootstrap.log');
+  const nativeLog=path.join(a.root,'maintenance.log');
+  for(const logFile of [diagnostic,nativeLog]){
+   try{error.message+='\n'+logFile+':\n'+(await fsp.readFile(logFile,'utf8')).slice(-5000);}catch{}
+  }
+  throw error;
  }finally{
   if(parent.exitCode===null){try{parent.kill();}catch{}}
   await fsp.rm(a.temp,{force:true,recursive:true,maxRetries:10,retryDelay:150}).catch(()=>{});
