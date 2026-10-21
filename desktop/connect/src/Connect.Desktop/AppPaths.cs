@@ -2,11 +2,11 @@ using System.IO;
 namespace PokeStream.Connect;
 
 internal static class AppPaths {
-    public static readonly string Data = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PokeStream Connect");
+    public static readonly string Data = Environment.GetEnvironmentVariable("POKESTREAM_DATA_DIR") is {} local ? Path.Combine(local,"Connect") : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PokeStream Connect");
     // Compatibility only: preserve the pairing, preferences and Nuzlocke journal.
     public const string LegacyMutex = @"Local\PokeOverlay.Connect.Desktop";
     public static void Migrate() {
-        string previous = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PokeOverlay Connect");
+        string previous = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), Environment.GetEnvironmentVariable("POKESTREAM_DATA_DIR") != null ? "PokeStream Connect" : "PokeOverlay Connect");
         Directory.CreateDirectory(Data);
         string marker = Path.Combine(Data, ".settings-migrated");
         if (File.Exists(marker)) return;

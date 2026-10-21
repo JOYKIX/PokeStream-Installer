@@ -31,3 +31,10 @@ desktop/connect/data/sprites.zip
 *.pfx
 *.p12
 *.key
+
+# Local AI/editor instructions do not belong in public application sources
+AGENTS.md
+CLAUDE.md
+.agents/
+.codex/
+.claude/

@@ -1,7 +1,9 @@
+import {prepareLauncher} from './prepare-launcher.mjs';
 import {spawn} from "node:child_process";
 import {createRequire} from "node:module";
 import {randomBytes,randomUUID} from "node:crypto";
 import {setTimeout as sleep} from "node:timers/promises";
+prepareLauncher();
 const require=createRequire(import.meta.url);
 const electron=require("electron");
 const origin="http://127.0.0.1:47653";

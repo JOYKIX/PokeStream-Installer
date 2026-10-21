@@ -9,16 +9,10 @@ type Kind="scene"|"theme"|"builder";
 const groups:{kind:Kind;title:string;key:keyof Pick<Library,"scenes"|"themes"|"builders">}[]=[
  {kind:"scene",title:"Aventures",key:"scenes"},{kind:"theme",title:"Thèmes",key:"themes"},{kind:"builder",title:"Compositions OBS",key:"builders"}];
 type UpdatesBridge={check:()=>Promise<{status:string;version:string;current?:string}>;download:()=>Promise<{status:string;version?:string}>;install:()=>Promise<{status:string}>};
-type DesktopBridge={openData:()=>Promise<void>;updates?:UpdatesBridge};
+type DesktopBridge={openData:()=>Promise<void>;openLauncher?:()=>Promise<void>;updates?:UpdatesBridge};
 function UpdateSettings(){
- const bridge=useSyncExternalStore<UpdatesBridge|null>(()=>()=>{},()=>((window as Window&{pokeStream?:DesktopBridge}).pokeStream?.updates||null),()=>null);
- const [status,setStatus]=useState('');const [version,setVersion]=useState('');
- const [busy,setBusy]=useState(false);
- async function check(){if(!bridge)return;setBusy(true);try{const r=await bridge.check();setStatus(r.status);setVersion(r.version);}catch(e){setStatus('error:'+String(e));}finally{setBusy(false);}}
- async function download(){if(!bridge)return;setBusy(true);try{const r=await bridge.download();setStatus(r.status);if(r.version)setVersion(r.version);}catch(e){setStatus('error:'+String(e));}finally{setBusy(false);}}
- return <section className="local-settings-panel update-panel"><div className="local-settings-panel-head"><RefreshCw size={20}/><div><h2>Mises à jour</h2><p>Versions officielles distribuées via GitHub Releases.</p></div></div>
- <div className="local-settings-action"><p className="local-settings-empty">{!bridge?'Disponible dans PokeStream pour Windows.':status==='available'?`Une mise à jour ${version} est disponible.`:status==='ready'?`Version ${version} prête à installer.`:status==='current'?`Tu disposes de la dernière version (${version}).`:status==='development'?'Les mises à jour sont désactivées en développement.':status.startsWith('error:')?status.slice(6):'Vérification facultative : aucune mise à jour ne se lance pendant un stream.'}</p>
- <div className="update-actions"><button className="button secondary" disabled={!bridge||busy} onClick={()=>void check()}><RefreshCw size={16}/> Rechercher</button>{status==='available'&&<button className="button primary" disabled={busy} onClick={()=>void download()}><ArrowDownToLine size={16}/> Télécharger</button>}{status==='ready'&&<button className="button primary" disabled={busy} onClick={()=>void bridge?.install()}><RefreshCw size={16}/> Installer et fermer</button>}</div><small>Les profils et données locales ne sont pas stockés dans le dossier d’installation.</small></div></section>;
+ const bridge=useSyncExternalStore<DesktopBridge|null>(()=>()=>{},()=>((window as Window&{pokeStream?:DesktopBridge}).pokeStream||null),()=>null);
+ return <section className="local-settings-panel update-panel"><div className="local-settings-panel-head"><RefreshCw size={20}/><div><h2>Launcher PokeStream</h2><p>Installation, mises à jour et réparation.</p></div></div><div className="local-settings-action"><button className="button secondary" disabled={!bridge?.openLauncher} onClick={()=>void bridge?.openLauncher?.()}><RefreshCw size={16}/> Ouvrir le launcher</button><small>Tes profils et tes créations sont conservés lors des mises à jour.</small></div></section>;
 }
 export function LocalSettings(){
  const [data,setData]=useState<Library|null>(null);

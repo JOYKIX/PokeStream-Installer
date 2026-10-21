@@ -1,37 +1,29 @@
 appId: app.pokestream.desktop
 productName: PokeStream
 directories:
+  app: .artifacts/shell
   output: .artifacts/release
 files:
-  - desktop/app/main.cjs
-  - desktop/app/preload.cjs
-  - desktop/app/updater.cjs
-  - desktop/app/loading.html
+  - '*.cjs'
   - package.json
+  - '!**/node_modules/**/*'
+npmRebuild: false
 extraResources:
-  - from: .artifacts/runtime/web
-    to: web
-  - from: .artifacts/runtime/engine
-    to: engine
+  - from: .artifacts/runtime.zip
+    to: runtime.zip
+  - from: .artifacts/runtime.json
+    to: runtime.json
+  - from: .artifacts/runtime/launcher
+    to: launcher
 win:
   target:
-    - target: nsis
-      arch: [x64]
     - target: portable
       arch: [x64]
   icon: desktop/connect/src/Connect.Desktop/Assets/connect.ico
-  signAndEditExecutable: false
-nsis:
-  oneClick: false
-  allowToChangeInstallationDirectory: true
-  perMachine: false
-  createDesktopShortcut: true
-  createStartMenuShortcut: true
-  artifactName: PokeStream-Setup-${version}-win-x64.exe
+  signExecutable: false
 portable:
   artifactName: PokeStream-${version}-win-x64.exe
   requestExecutionLevel: user
-
 publish:
   provider: github
   owner: JOYKIX

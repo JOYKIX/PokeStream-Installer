@@ -1,49 +1,40 @@
-# PokeStream — Windows application
+# PokeStream
 
-**Free · Local · Open source**
+Free, local, open source Windows application: Adventure, Connect, Theme Creator and Overlay Builder.
 
-PokeStream includes Adventure, Connect, Theme Creator and Overlay Builder. The desktop application uses Electron, a local Next.js server, SQLite and the Connect .NET engine. OBS reads the local overlay source.
+## Install
 
-- **Application, installer, updates, releases:** this public repository, [`JOYKIX/PokeStream-Installer`](https://github.com/JOYKIX/PokeStream-Installer).
-- **Website:** [PokeStream](https://github.com/JOYKIX/pokestream) — separate **private** repository, deployed to Vercel. This public repository contains no website landing page.
-- **License:** MIT for original project code. Third-party resources may have different rights; read `OPEN-SOURCE-NOTICES.md` and `desktop/connect/THIRD-PARTY-NOTICES.md`.
+Download [PokeStream-Setup.exe](https://github.com/JOYKIX/PokeStream-Installer/releases/latest/download/PokeStream-Setup.exe), open it and select **Install**. The custom launcher installs the bundled application on your PC, creates shortcuts and manages opening, updates and repair. Node.js and .NET are included; no account or administrator privileges are required.
 
-## Windows build
+The launcher supports English, French, Japanese, Spanish and German. It detects the system language and remembers manual changes. Updates are optional, show progress and are checked with SHA256 before installation. You can open an installed version offline. Repair replaces application files and preserves profiles.
 
-Prerequisites: Node.js 24, .NET SDK 8, Git and internet access for first-time dependencies/sprite preparation.
+## Local files
 
-```powershell
+- Profiles, creations, images and logs: %LOCALAPPDATA%/PokeStream/Studio
+- Application and runtime: %LOCALAPPDATA%/PokeStream/Application
+- Downloaded updates: %LOCALAPPDATA%/PokeStream/Updates
+
+OBS reads the local server at http://127.0.0.1:47653 while PokeStream is running. Connect runs inside the application; its preferences and Nuzlocke journals are kept under Studio/Connect. Switch live reading is experimental.
+
+## Build
+
+Requirements for contributors: Windows, Node.js 24+, .NET SDK 8+ and Git.
+
+~~~powershell
 npm ci
-npm run typecheck
-powershell.exe -ExecutionPolicy Bypass -File .\CONSTRUIRE-APP.ps1
-```
+npm run desktop:pack
+~~~
 
-Packages appear in `.artifacts/release/`:
+Output: .artifacts/release/PokeStream-2.2.0-win-x64.exe. The build prepares a complete standalone Next.js runtime, the .NET engine, the custom Electron launcher and a verified runtime ZIP. The runtime is isolated from electron-builder file filtering so its node_modules remain intact.
 
-- `PokeStream-Setup-X.Y.Z-win-x64.exe`: installer (NSIS)
-- `PokeStream-X.Y.Z-win-x64.exe`: portable edition
+For development: npm run dev:desktop. This starts the shared Next.js UI and launcher; building Connect first enables the game reader.
 
-Use **Actions → PokeStream — Windows Release → Run workflow** on `main` to publish the public GitHub Release and the stable `PokeStream-Setup.exe` download alias. Increase `version` in `package.json` **and** `package-lock.json` before each new release.
+## Publish
 
-An installed application checks the [public GitHub Releases](https://github.com/JOYKIX/PokeStream-Installer/releases) for updates. It downloads the new installer only with user confirmation and checks its SHA-256 before launching it after application shutdown. Offline usage does not require GitHub.
+The public application repository is JOYKIX/PokeStream-Installer. Windows Release builds on main, and publishes when dispatched manually or when the commit contains [release]. Increment version in package.json and package-lock.json before a release. See DEPLOIEMENT.md.
 
-## Development
+The download website is a separate private repository, JOYKIX/pokestream, branch desktop-local, deployed on Vercel.
 
-```powershell
-npm ci
-powershell.exe -ExecutionPolicy Bypass -File .\DEMARRER-APP.ps1
-```
+## License
 
-## Local data
-
-Profiles, configurations and user-created files remain in `%LOCALAPPDATA%\PokeStream\Studio`, separate from the installation directory. Make a backup before migrating beta versions.
-
-## Contributing
-
-You can modify the source, suggest fixes, create forks and distribute alternate versions under the terms of the MIT license. Please label unofficial variants clearly when possible. No project-imposed contribution bureaucracy.
-
-## Important
-
-PokeStream is an independent fan project, not affiliated with Nintendo or The Pokémon Company. **Pokémon sprites, badges and artwork are not covered by the MIT license.** Audit the distribution rights of bundled third-party assets and code before a public binary release.
-
-The Windows Connect engine cannot be compiled on Linux. A successful CI build does not replace testing the installer, Connect, OBS, updates, and persistence on a real Windows machine.
+Original PokeStream code is MIT. See LICENSE, OPEN-SOURCE-NOTICES.md and desktop/connect/THIRD-PARTY-NOTICES.md for third-party code and assets. Pokémon artwork and sprites are not covered by this project's MIT license. The release includes corresponding source for the separate GPL SaveReader tool.

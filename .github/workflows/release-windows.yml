@@ -7,6 +7,9 @@ on:
       - '.github/workflows/release-windows.yml'
       - 'desktop/**'
       - 'scripts/**'
+      - 'src/**'
+      - 'public/**'
+      - 'next.config.ts'
       - 'package.json'
       - 'package-lock.json'
 permissions:
@@ -32,38 +35,35 @@ jobs:
         with:
           path: desktop/connect/data/sprites.zip
           key: connect-sprites-${{ hashFiles('desktop/connect/data/sprite-manifest.json') }}
-      - name: TypeScript validation
-        run: npm run typecheck
-      - name: Electron and build script syntax
+      - name: Validate TypeScript and launcher syntax
         shell: pwsh
         run: |
-          node --check desktop/app/main.cjs
-          node --check desktop/app/preload.cjs
-          node --check desktop/app/updater.cjs
+          npm run typecheck
+          if ($LASTEXITCODE -ne 0) { throw 'TypeScript failed' }
+          Get-ChildItem desktop/app -Filter '*.cjs' | ForEach-Object { node --check $_.FullName; if ($LASTEXITCODE -ne 0) { throw 'Launcher syntax failed' } }
+          node --check desktop/app/launcher.js
           node --check scripts/build-desktop.mjs
-      - name: Compile Next.js, Connect and Windows packages
+      - name: Build local application and custom launcher
         run: npm run desktop:pack
-      - name: Make stable installer link and SHA256 checksums
+      - name: Prepare stable download and SHA256 checksums
         shell: pwsh
         run: |
           $version = node -p "require('./package.json').version"
           $dir = '.artifacts/release'
-          $setup = Join-Path $dir "PokeStream-Setup-$version-win-x64.exe"
-          if (!(Test-Path $setup)) { throw "NSIS installer not found: $setup" }
-          Copy-Item $setup (Join-Path $dir 'PokeStream-Setup.exe')
-          $files = @(Get-ChildItem $dir -Filter '*.exe')
-          if ($files.Count -lt 3) { throw 'Expected NSIS installer, portable EXE and download alias' }
-          $lines = foreach ($f in $files) {
-            $hasher = [System.Security.Cryptography.SHA256]::Create()
-            $stream = [System.IO.File]::OpenRead($f.FullName)
-            try { $hash = [System.BitConverter]::ToString($hasher.ComputeHash($stream)).Replace('-', '').ToLowerInvariant() }
-            finally { $stream.Dispose(); $hasher.Dispose() }
-            "$hash  $($f.Name)"
+          $launcher = Join-Path $dir "PokeStream-$version-win-x64.exe"
+          if (!(Test-Path -LiteralPath $launcher)) { throw 'Custom launcher missing' }
+          Copy-Item -LiteralPath $launcher -Destination (Join-Path $dir 'PokeStream-Setup.exe')
+          Copy-Item desktop/connect/dist/*-source.zip -Destination $dir
+          $files = @(Get-ChildItem $dir -File | Where-Object { $_.Extension -in '.exe','.zip' })
+          $lines = foreach ($file in $files) {
+            $algorithm = [Security.Cryptography.SHA256]::Create()
+            $stream = [IO.File]::OpenRead($file.FullName)
+            try { $hash = [BitConverter]::ToString($algorithm.ComputeHash($stream)).Replace('-', '').ToLowerInvariant() }
+            finally { $stream.Dispose(); $algorithm.Dispose() }
+            "$hash  $($file.Name)"
           }
           $lines | Set-Content (Join-Path $dir 'SHA256SUMS.txt') -Encoding ascii
-      - name: Publish to PUBLIC installer repository releases
-        # Release only when manually dispatched or explicitly marked in a main-branch commit.
-        # Ordinary pushes continue to build/check without publishing.
+      - name: Publish public release
         if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[release]')
         shell: pwsh
         env:
@@ -72,11 +72,10 @@ jobs:
           $version = node -p "require('./package.json').version"
           $tag = "v$version"
           gh release view $tag 2>$null
-          if ($LASTEXITCODE -eq 0) { throw "Release $tag exists. Increment version in package.json." }
-          $assets = @(Get-ChildItem -File '.artifacts/release' | Where-Object { $_.Extension -eq '.exe' -or $_.Name -eq 'SHA256SUMS.txt' } | ForEach-Object { $_.FullName })
-          if ($assets.Count -lt 4) { throw 'Release assets missing' }
-          gh release create $tag @assets --title "PokeStream $tag" --notes "PokeStream Windows · installer, portable and SHA256 checksums." --target "$env:GITHUB_SHA" --latest
-          if ($LASTEXITCODE -ne 0) { throw 'GitHub release publication failed' }
+          if ($LASTEXITCODE -eq 0) { throw "Release $tag exists. Bump package version." }
+          $assets = @(Get-ChildItem -File '.artifacts/release' | Where-Object { $_.Extension -in '.exe','.zip' -or $_.Name -eq 'SHA256SUMS.txt' } | ForEach-Object { $_.FullName })
+          gh release create $tag @assets --title "PokeStream $version" --notes-file RELEASE-NOTES.md --target "$env:GITHUB_SHA" --latest
+          if ($LASTEXITCODE -ne 0) { throw 'Release publication failed' }
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
