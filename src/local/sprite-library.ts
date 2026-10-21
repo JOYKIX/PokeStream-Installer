@@ -10,10 +10,13 @@ const root=()=>path.join(dataDirectory(),"Sprites");
 const online="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/";
 const indexURL="https://pokeapi.github.io/sprites/manifest.json.gz";
 const maxImage=20*1024*1024;
-const pending=new Map<string,Promise<Buffer|null>>();
 type Status={state:"idle"|"indexing"|"downloading"|"paused"|"done"|"error";done:number;total:number;downloaded:number;skipped:number;failed:number;bytes:number;message:string};
-const state:Status={state:"idle",done:0,total:0,downloaded:0,skipped:0,failed:0,bytes:0,message:""};
-let shouldStop=false;
+type Shared={pending:Map<string,Promise<Buffer|null>>;state:Status;shouldStop:boolean};
+// Next.js may bundle separate route entrypoints: share one downloader via process globals.
+const shared=globalThis as typeof globalThis & {pokeStreamSprites?:Shared};
+const service=shared.pokeStreamSprites??={pending:new Map(),state:{state:"idle",done:0,total:0,downloaded:0,skipped:0,failed:0,bytes:0,message:""},shouldStop:false};
+const pending=service.pending;
+const state=service.state;
 
 export function spritePath(parts:string[]):string|null {
  if(parts.length<1||parts.length>12||parts.some(p=>!p||p==="."||p===".."||!/^[a-zA-Z0-9_.-]{1,110}$/.test(p)))return null;
@@ -72,11 +75,11 @@ async function readIndex():Promise<string[]>{
 async function run(){
  try{
   const files=await readIndex();
-  if(shouldStop){state.state="paused";return;}
+  if(service.shouldStop){state.state="paused";return;}
   state.total=files.length;state.state="downloading";
   let next=0;
   const worker=async()=>{
-   while(!shouldStop&&next<files.length){
+   while(!service.shouldStop&&next<files.length){
     const file=files[next++];
     try{
      if(await exists(destination(file))||await exists(packaged(file)))state.skipped++;
@@ -90,13 +93,13 @@ async function run(){
    }
   };
   await Promise.all(Array.from({length:6},()=>worker()));
-  state.state=shouldStop?"paused":state.failed?"error":"done";
+  state.state=service.shouldStop?"paused":state.failed?"error":"done";
   if(state.failed)state.message=state.failed+" fichiers indisponibles ou en erreur. Relancer reprend les fichiers manquants.";
  }catch(error){state.state="error";state.message=error instanceof Error?error.message:"Unable to download sprites";}
 }
 export function startSpriteDownload(){
  if(state.state==="downloading"||state.state==="indexing")return spriteStatus();
- shouldStop=false;Object.assign(state,{state:"indexing",done:0,total:0,downloaded:0,skipped:0,failed:0,bytes:0,message:""});
+ service.shouldStop=false;Object.assign(state,{state:"indexing",done:0,total:0,downloaded:0,skipped:0,failed:0,bytes:0,message:""});
  void run();return spriteStatus();
 }
-export function pauseSpriteDownload(){shouldStop=true;return spriteStatus();}
+export function pauseSpriteDownload(){service.shouldStop=true;return spriteStatus();}
