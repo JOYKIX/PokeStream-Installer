@@ -7,7 +7,8 @@ const fs=require('node:fs');
 const fsp=require('node:fs/promises');
 const path=require('node:path');
 const os=require('node:os');
-const {spawn}=require('node:child_process');
+const {spawn,spawnSync}=require('node:child_process');
+const {createHash}=require('node:crypto');
 const {launchMaintenance}=require('../desktop/app/maintenance.cjs');
 
 const windows=process.platform==='win32';
@@ -34,16 +35,37 @@ async function waitForStatus(root){
  }
  throw Error('Maintenance status was not written; inspect '+root);
 }
-async function run({keepData,updateError}={}){
+async function fakeWindowsInstaller(file,version){
+ const sourceFile=file+'.cs';
+ const literal='{"version":"'+version+'"}';
+ const csharp=[
+  'using System; using System.IO;',
+  'public class PokeStreamFixture { public static int Main(string[] args) {',
+  '  string root=Path.Combine(Environment.GetEnvironmentVariable("LOCALAPPDATA"),"PokeStream","Application");',
+  '  Directory.CreateDirectory(root);',
+  '  File.WriteAllText(Path.Combine(root,"runtime.json"),'+JSON.stringify(literal)+');',
+  '  File.WriteAllText(Path.Combine(root,"desktop.json"),'+JSON.stringify(literal)+');',
+  '  return 0; } }'
+ ].join('\n');
+ await fsp.writeFile(sourceFile,csharp);
+ const quote=p=>"'"+p.replace(/'/g,"''")+"'";
+ const command='Add-Type -Path '+quote(sourceFile)+' -OutputAssembly '+quote(file)+' -OutputType ConsoleApplication';
+ const built=spawnSync('powershell.exe',['-NoProfile','-NonInteractive','-Command',command],{encoding:'utf8',windowsHide:true,timeout:30000});
+ assert.equal(built.status,0,'Could not compile Windows fixture: '+built.stderr+' '+built.stdout);
+ const hash=createHash('sha256').update(await fsp.readFile(file)).digest('hex');
+ return hash;
+}
+async function run({keepData,updateError,updateSuccess}={}){
  const a=await fixture();
  const parent=await launchFakeParent();
  try{
   const version='9.9.9';
   const updateFile=path.join(a.root,'Updates','PokeStream-'+version+'.exe');
   if(updateError)await fsp.writeFile(updateFile,'not a valid signed update');
-  const parameters=updateError?{
+  const updateHash=updateSuccess?await fakeWindowsInstaller(updateFile,version):'0'.repeat(64);
+  const parameters=(updateError||updateSuccess)?{
    scriptName:'update-install.ps1',
-   args:['-Source',updateFile,'-ExpectedHash','0'.repeat(64),'-ExpectedVersion',version]
+   args:['-Source',updateFile,'-ExpectedHash',updateHash,'-ExpectedVersion',version]
   }:{
    scriptName:'uninstall.ps1',
    args:keepData?[]:['-RemoveData']
@@ -54,9 +76,17 @@ async function run({keepData,updateError}={}){
   const result=await waitForStatus(a.root);
   if(updateError){
    assert.equal(result.success,false);
-   assert.match(result.message,/checksum mismatch/i);
+   assert.match(result.message,/SHA256 mismatch/i);
    assert.equal(fs.existsSync(path.join(a.root,'Application','preserve.txt')),true);
    assert.equal(fs.existsSync(updateFile),true);
+  }else if(updateSuccess){
+   assert.equal(result.success,true,JSON.stringify(result));
+   assert.equal(result.version,version);
+   for(const name of ['runtime.json','desktop.json']) {
+    const installed=JSON.parse(await fsp.readFile(path.join(a.root,'Application',name),'utf8'));
+    assert.equal(installed.version,version);
+   }
+   assert.equal(fs.existsSync(path.join(a.root,'Studio','preserve.txt')),true);
   }else{
    assert.equal(result.success,true,JSON.stringify(result));
    assert.equal(fs.existsSync(path.join(a.root,'Application')),false);
@@ -76,7 +106,7 @@ async function run({keepData,updateError}={}){
  }
 }
 
-test('PowerShell detached process can execute a minimal script with file arguments', {skip:!windows},async()=>{
+test('PowerShell non-detached process executes file arguments correctly', {skip:!windows},async()=>{
  const dir=await fsp.mkdtemp(path.join(os.tmpdir(),'PokeStream-probe-'));
  const script=path.join(dir,'probe.ps1'),ready=path.join(dir,'ready.txt');
  await fsp.writeFile(script,"param([string]$ReadyFile)\n[IO.File]::WriteAllText($ReadyFile,'ready')\nWrite-Output 'Powershell script executed'\n");
@@ -95,3 +125,5 @@ test('PowerShell detached process can execute a minimal script with file argumen
 test('Uninstall keeps profiles and removes only product binaries', {skip:!windows},async()=>run({keepData:true}));
 test('Uninstall explicitly removes local user data when requested', {skip:!windows},async()=>run({keepData:false}));
 test('Updater rejects corrupted EXE after safe handoff and preserves installation', {skip:!windows},async()=>run({updateError:true}));
+
+test('Updater installs verified Windows EXE and records both runtime manifests', {skip:!windows},async()=>run({updateSuccess:true}));
