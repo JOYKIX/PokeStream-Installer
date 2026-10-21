@@ -1,17 +1,6 @@
 name: PokeStream — Windows Release
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/release-windows.yml'
-      - 'desktop/**'
-      - 'scripts/**'
-      - 'src/**'
-      - 'public/**'
-      - 'next.config.ts'
-      - 'package.json'
-      - 'package-lock.json'
 permissions:
   contents: write
 concurrency:

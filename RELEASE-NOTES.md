@@ -1,17 +1,12 @@
-PokeStream 2.2.1
+PokeStream 2.2.2
 
-- Custom PokeStream launcher: installation, opening, updates and repair in the same black and red interface.
-- Fixed Windows startup: the complete Next.js server and dependencies are now distributed in a verified runtime archive.
-- Local installation without administrator privileges, with Desktop and Start menu shortcuts.
-- French, English, Japanese, Spanish and German launcher UI; system language detection and saved preference.
-- Updates show download progress and verify SHA256 before replacing the launcher. Offline startup remains available.
-- Profiles and creations remain in the existing local data directory. Connect preferences and Nuzlocke histories are migrated into that directory.
-- Recoverable startup errors, logs, parent-process supervision and Connect command timeout.
+- Fixed local profile creation and editing: same-origin checks now use the browser-facing loopback authority instead of Next.js's internal rewritten URL. The fix applies to local saves throughout the application.
+- Profile errors now distinguish rejected requests, invalid inputs and unavailable local storage.
+- Desktop and Start menu shortcuts open a persistent installed launcher. The portable bootstrap is extracted only when installing or updating, not on every normal launch.
+- The launcher preloads the local server and profile screen. Connect starts in parallel when opening the workspace.
+- Updates install a new desktop version before switching shortcuts; existing profiles and creations are preserved.
+- Built locally before publication. SHA256 checksums and corresponding SaveReader sources are included.
 
-Download **PokeStream-Setup.exe**, open it, then select Install. Subsequent launches open the launcher. Existing profiles are retained.
+Download **PokeStream-Setup.exe**, close the previous PokeStream instance, open the setup and select Install. Use the updated Desktop or Start menu shortcut for subsequent launches.
 
-The Switch live reader remains experimental. This release was compiled without executing automated or emulator tests.
-
-Original application source is included in this repository; the separate SaveReader corresponding source archive is attached to this release.
-
-- Windows title bar has its own space above navigation, preserving the same header in all tools and leaving OBS untouched.
+Switch live reading remains experimental.

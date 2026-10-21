@@ -4,7 +4,7 @@ Free, local, open source Windows application: Adventure, Connect, Theme Creator 
 
 ## Install
 
-Download [PokeStream-Setup.exe](https://github.com/JOYKIX/PokeStream-Installer/releases/latest/download/PokeStream-Setup.exe), open it and select **Install**. The custom launcher installs the bundled application on your PC, creates shortcuts and manages opening, updates and repair. Node.js and .NET are included; no account or administrator privileges are required.
+Download [PokeStream-Setup.exe](https://github.com/JOYKIX/PokeStream-Installer/releases/latest/download/PokeStream-Setup.exe), open it and select **Install**. The custom launcher installs the bundled application on your PC, creates shortcuts to the installed native launcher and manages opening, updates and repair. The bootstrap is extracted once during installation; regular launches do not unpack the portable EXE again. Node.js and .NET are included; no account or administrator privileges are required.
 
 The launcher supports English, French, Japanese, Spanish and German. It detects the system language and remembers manual changes. Updates are optional, show progress and are checked with SHA256 before installation. You can open an installed version offline. Repair replaces application files and preserves profiles.
 
@@ -25,13 +25,13 @@ npm ci
 npm run desktop:pack
 ~~~
 
-Output: .artifacts/release/PokeStream-2.2.1-win-x64.exe. The build prepares a complete standalone Next.js runtime, the .NET engine, the custom Electron launcher and a verified runtime ZIP. The runtime is isolated from electron-builder file filtering so its node_modules remain intact.
+Output: .artifacts/release/PokeStream-2.2.2-win-x64.exe. The build prepares a complete standalone Next.js runtime, the .NET engine, the custom Electron launcher and a verified runtime ZIP. The runtime is isolated from electron-builder file filtering so its node_modules remain intact.
 
 For development: npm run dev:desktop. This starts the shared Next.js UI and launcher; building Connect first enables the game reader.
 
 ## Publish
 
-The public application repository is JOYKIX/PokeStream-Installer. Windows Release builds on main, and publishes when dispatched manually or when the commit contains [release]. Increment version in package.json and package-lock.json before a release. See DEPLOIEMENT.md.
+The public application repository is JOYKIX/PokeStream-Installer. Commit the source, compile locally with npm run desktop:pack, push main, then run npm run desktop:publish. The script uploads exactly that local binary, verifies the source commit and asset sizes, publishes the release and removes older published releases and their version tags. Add -KeepOldReleases when invoking scripts/publish-release.ps1 to preserve older releases. A manually dispatched Windows Release workflow remains available as a fallback. See DEPLOIEMENT.md.
 
 The download website is a separate private repository, JOYKIX/pokestream, branch desktop-local, deployed on Vercel.
 

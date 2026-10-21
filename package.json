@@ -1,6 +1,6 @@
 {
   "name": "pokestream",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -16,7 +16,8 @@
     "dev:local": "node scripts/dev-local.mjs",
     "desktop:web-only": "node scripts/build-desktop.mjs --web-only",
     "dev:desktop": "node scripts/dev-desktop.mjs",
-    "desktop:release": "npm run desktop:build && electron-builder --config desktop/app/electron-builder.yml --win portable --publish never"
+    "desktop:release": "npm run desktop:build && electron-builder --config desktop/app/electron-builder.yml --win portable --publish never",
+    "desktop:publish": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/publish-release.ps1"
   },
   "engines": {
     "node": ">=24.0.0"

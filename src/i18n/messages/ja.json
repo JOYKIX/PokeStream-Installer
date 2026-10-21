@@ -1132,5 +1132,9 @@
   "Partager {name}": "{name}を共有",
   "{name} vous a envoyé un profil.": "{name}さんからプロフィールが届きました。",
   "La bibliothèque de profils du destinataire est pleine (20 maximum).": "受信者のプロフィール数が上限の20件に達しています。",
-  "Le destinataire n’a pas accès au thème de ce profil.": "受信者はこのプロフィールのテーマを利用できません。"
+  "Le destinataire n’a pas accès au thème de ce profil.": "受信者はこのプロフィールのテーマを利用できません。",
+  "Requête locale refusée. Ferme puis relance PokeStream.": "ローカルリクエストが拒否されました。PokeStreamを終了して再起動してください。",
+  "Vérifie le nom, la couleur et l’image du profil.": "プロフィールの名前、色、画像を確認してください。",
+  "Impossible d’enregistrer sur ce PC. Ouvre les logs depuis le launcher.": "このPCに保存できません。ランチャーからログを開いてください。",
+  "Ce profil n’existe plus. Actualise la page.": "このプロフィールは存在しません。ページを更新してください。"
 }

@@ -1130,5 +1130,9 @@
   "Partager {name}": "Share {name}",
   "{name} vous a envoyé un profil.": "{name} sent you a profile.",
   "La bibliothèque de profils du destinataire est pleine (20 maximum).": "The recipient’s profile library is full (maximum 20).",
-  "Le destinataire n’a pas accès au thème de ce profil.": "The recipient does not have access to this profile’s theme."
+  "Le destinataire n’a pas accès au thème de ce profil.": "The recipient does not have access to this profile’s theme.",
+  "Requête locale refusée. Ferme puis relance PokeStream.": "Local request refused. Close and reopen PokeStream.",
+  "Vérifie le nom, la couleur et l’image du profil.": "Check the profile name, colour and image.",
+  "Impossible d’enregistrer sur ce PC. Ouvre les logs depuis le launcher.": "Unable to save on this PC. Open the logs from the launcher.",
+  "Ce profil n’existe plus. Actualise la page.": "This profile no longer exists. Refresh the page."
 }

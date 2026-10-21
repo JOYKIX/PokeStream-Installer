@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { localRequestAllowed } from "@/local/request-origin";
 
 // Vercel hosts a download site only. Private/editor routes are local-only.
 export function proxy(request:NextRequest){
@@ -8,11 +9,7 @@ export function proxy(request:NextRequest){
   if(p.startsWith("/api/")||p.startsWith("/overlay/")||p.startsWith("/builder/obs/"))return new NextResponse(null,{status:410});
   return NextResponse.redirect(new URL("/",request.url));
  }
- const host=request.headers.get("host")||"";
- if(!/^(127\.0\.0\.1|localhost):\d+$/.test(host))return new NextResponse(null,{status:403});
- const origin=request.headers.get("origin");
- if(origin&&origin!=="http://"+host)return new NextResponse(null,{status:403});
- if(request.headers.get("sec-fetch-site")==="cross-site")return new NextResponse(null,{status:403});
+ if(!localRequestAllowed(request))return NextResponse.json({error:"origin_refused"},{status:403});
  return NextResponse.next();
 }
 export const config={matcher:["/((?!_next/static|_next/image).*)"]};
