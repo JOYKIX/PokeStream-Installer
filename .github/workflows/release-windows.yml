@@ -26,6 +26,13 @@ jobs:
           key: connect-sprites-${{ hashFiles('desktop/connect/data/sprite-manifest.json') }}
       - name: TypeScript validation
         run: npm run typecheck
+      - name: Electron and build script syntax
+        shell: pwsh
+        run: |
+          node --check desktop/app/main.cjs
+          node --check desktop/app/preload.cjs
+          node --check desktop/app/updater.cjs
+          node --check scripts/build-desktop.mjs
       - name: Compile Next.js, Connect and Windows packages
         run: npm run desktop:pack
       - name: Make stable installer link and SHA256 checksums
@@ -39,7 +46,10 @@ jobs:
           $files = @(Get-ChildItem $dir -Filter '*.exe')
           if ($files.Count -lt 3) { throw 'Expected NSIS installer, portable EXE and download alias' }
           $lines = foreach ($f in $files) {
-            $hash = (Get-FileHash $f.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
+            $hasher = [System.Security.Cryptography.SHA256]::Create()
+            $stream = [System.IO.File]::OpenRead($f.FullName)
+            try { $hash = [System.BitConverter]::ToString($hasher.ComputeHash($stream)).Replace('-', '').ToLowerInvariant() }
+            finally { $stream.Dispose(); $hasher.Dispose() }
             "$hash  $($f.Name)"
           }
           $lines | Set-Content (Join-Path $dir 'SHA256SUMS.txt') -Encoding ascii
