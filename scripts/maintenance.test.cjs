@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 // Windows-only end-to-end smoke tests for the actual PowerShell maintenance scripts.
 // All destructive operations are confined to isolated temporary LOCALAPPDATA roots.
 const {test}=require('node:test');
@@ -74,6 +75,23 @@ async function run({keepData,updateError}={}){
   await fsp.rm(a.temp,{force:true,recursive:true,maxRetries:10,retryDelay:150}).catch(()=>{});
  }
 }
+
+test('PowerShell detached process can execute a minimal script with file arguments', {skip:!windows},async()=>{
+ const dir=await fsp.mkdtemp(path.join(os.tmpdir(),'PokeStream-probe-'));
+ const script=path.join(dir,'probe.ps1'),ready=path.join(dir,'ready.txt');
+ await fsp.writeFile(script,"param([string]$ReadyFile)\n[IO.File]::WriteAllText($ReadyFile,'ready')\nWrite-Output 'Powershell script executed'\n");
+ try {
+  for(const detached of [false,true]){
+   await fsp.rm(ready,{force:true});
+   const child=spawn('powershell.exe',['-NoLogo','-NoProfile','-NonInteractive','-ExecutionPolicy','Bypass','-File',script,'-ReadyFile',ready],{windowsHide:true,detached,stdio:['ignore','pipe','pipe']});
+   let stdout='',stderr='';child.stdout.on('data',b=>stdout+=b);child.stderr.on('data',b=>stderr+=b);
+   const exitCode=await new Promise((resolve,reject)=>{child.once('exit',resolve);child.once('error',reject);});
+   assert.equal(exitCode,0,'PowerShell did not execute: '+stderr+' | '+stdout);
+   assert.equal(await fsp.readFile(ready,'utf8'),'ready','Missing ready file; detached='+detached+'; output='+stdout+'; error='+stderr);
+  }
+ }finally{await fsp.rm(dir,{recursive:true,force:true}).catch(()=>{});}
+});
+
 test('Uninstall keeps profiles and removes only product binaries', {skip:!windows},async()=>run({keepData:true}));
 test('Uninstall explicitly removes local user data when requested', {skip:!windows},async()=>run({keepData:false}));
 test('Updater rejects corrupted EXE after safe handoff and preserves installation', {skip:!windows},async()=>run({updateError:true}));
