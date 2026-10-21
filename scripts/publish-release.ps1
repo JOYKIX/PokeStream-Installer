@@ -44,7 +44,8 @@ $release=$null;$published=$false;$client=$null
 try{
  try{$existing=Invoke-RestMethod "$api/releases/tags/$tag" -Headers $headers;if($existing){throw "Release $tag already exists. Increment version."}}
  catch{if(!$_.Exception.Response -or [int]$_.Exception.Response.StatusCode -ne 404){throw}}
- $notes=Get-Content -Raw -LiteralPath 'RELEASE-NOTES.md'
+ # Plain CLR text avoids PowerShell 5 serializing Get-Content filesystem metadata.
+ $notes=[IO.File]::ReadAllText((Join-Path (Get-Location) 'RELEASE-NOTES.md'))
  $release=Invoke-RestMethod "$api/releases" -Method Post -Headers $headers -ContentType 'application/json; charset=utf-8' -Body (JsonBody @{tag_name=$tag;target_commitish=$commit;name="PokeStream $version";body=$notes;draft=$true;prerelease=$false})
  $uploadBase=($release.upload_url -split '\{')[0]
  if(([Uri]$uploadBase).Scheme -ne 'https' -or ([Uri]$uploadBase).Host -ne 'uploads.github.com'){throw 'Unexpected upload destination'}
