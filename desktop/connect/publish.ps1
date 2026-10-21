@@ -1,5 +1,12 @@
 param([string]$Website, [switch]$CopyToWebsite, [switch]$SkipTests)
 $ErrorActionPreference = 'Stop'
+function Get-PokeStreamSha256([string]$FilePath) {
+    # System.Management.Automation Get-FileHash is not guaranteed in the runner's nested shell.
+    $algorithm = [System.Security.Cryptography.SHA256]::Create()
+    $stream = [System.IO.File]::OpenRead((Resolve-Path -LiteralPath $FilePath).ProviderPath)
+    try { return [System.BitConverter]::ToString($algorithm.ComputeHash($stream)).Replace('-', '') }
+    finally { $stream.Dispose(); $algorithm.Dispose() }
+}
 Set-Location -LiteralPath $PSScriptRoot
 if ($CopyToWebsite -and [string]::IsNullOrWhiteSpace($Website)) {
     $candidates = @((Join-Path $PSScriptRoot '../..')) + @(Get-ChildItem -LiteralPath (Split-Path $PSScriptRoot) -Directory | Select-Object -ExpandProperty FullName)
@@ -16,7 +23,7 @@ $cache = Join-Path $PSScriptRoot '.artifacts/upstream'
 New-Item -ItemType Directory -Force -Path $cache | Out-Null
 $archive = Join-Path $cache 'pkhex-source.zip'
 if (-not (Test-Path -LiteralPath $archive)) { Invoke-WebRequest "https://codeload.github.com/kwsch/PKHeX/zip/$upstream" -OutFile $archive }
-if ((Get-FileHash -LiteralPath $archive -Algorithm SHA256).Hash -ne $archiveHash) { throw 'Unexpected upstream source archive' }
+if ((Get-PokeStreamSha256 $archive) -ne $archiveHash) { throw 'Unexpected upstream source archive' }
 $core = Join-Path $cache "PKHeX-$upstream/PKHeX.Core/PKHeX.Core.csproj"
 if (-not (Test-Path -LiteralPath $core)) { Expand-Archive -LiteralPath $archive -DestinationPath $cache }
 
@@ -42,7 +49,7 @@ $filename = "PokeStream-Connect-$version-win-x64.exe"
 $binary = Join-Path $PSScriptRoot "dist/$filename"
 Copy-Item -LiteralPath 'dist/win-x64/PokeStream Connect.exe' -Destination $binary
 if ((Get-Item -LiteralPath $binary).Length -ge 100MB) { throw 'Binary exceeds distribution size limit' }
-$hash = (Get-FileHash -LiteralPath $binary -Algorithm SHA256).Hash.ToLowerInvariant()
+$hash = (Get-PokeStreamSha256 $binary).ToLowerInvariant()
 Set-Content -LiteralPath "$binary.sha256" -Value "$hash  $filename"
 
 # Corresponding source for the separate GPL save-to-JSON program, including its exact upstream source.
