@@ -25,7 +25,7 @@ npm ci
 npm run desktop:pack
 ~~~
 
-Output: .artifacts/release/PokeStream-2.2.3-win-x64.exe. The build prepares a complete standalone Next.js runtime, the .NET engine, the custom Electron launcher and a verified runtime ZIP. The runtime is isolated from electron-builder file filtering so its node_modules remain intact.
+Output: .artifacts/release/PokeStream-2.2.4-win-x64.exe. The build prepares a complete standalone Next.js runtime, the .NET engine, the custom Electron launcher and a verified runtime ZIP. The runtime is isolated from electron-builder file filtering so its node_modules remain intact.
 
 For development: npm run dev:desktop. This starts the shared Next.js UI and launcher; building Connect first enables the game reader.
 
@@ -38,3 +38,10 @@ The download website is a separate private repository, JOYKIX/pokestream, branch
 ## License
 
 Original PokeStream code is MIT. See LICENSE, OPEN-SOURCE-NOTICES.md and desktop/connect/THIRD-PARTY-NOTICES.md for third-party code and assets. Pokémon artwork and sprites are not covered by this project's MIT license. The release includes corresponding source for the separate GPL SaveReader tool.
+
+## Pokémon sprite library (2.2.4)
+
+The full [PokéAPI sprites](https://github.com/PokeAPI/sprites) catalog exceeds 10 GB. To avoid making the Windows installer gigantic, PokeStream includes the original Connect base graphics and a complete file index. The local image service downloads missing Pokémon sprites once from PokéAPI and caches them persistently under `%LOCALAPPDATA%/PokeStream/Studio/Sprites/pokemon`. Studio, previews and OBS then reuse the cached images offline, even after upgrading or repairing the application. The latest upstream manifest refreshes the 39 graphic families and alternate-form directory index during `npm run desktop:build`.
+
+To download **the entire library** ahead of offline use, open **Settings → Pokémon sprite library → Download all sprites**. The operation is resumable and can be paused. The full download requires significant bandwidth and free disk space; downloaded sprite files remain local and are not deleted during PokeStream updates. The installer does not bundle the complete third-party image repository. Files unavailable upstream fall back to the application's usual sprite-selection logic.
+

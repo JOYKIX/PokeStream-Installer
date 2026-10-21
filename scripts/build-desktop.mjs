@@ -28,6 +28,7 @@ if(!webOnly){
  const exe=path.join(root,"desktop","connect","dist","win-x64","PokeStream Connect.exe");
  if(!fs.existsSync(exe))fail("Le moteur PokeStream Connect.exe est introuvable après compilation.");
 }
+run("node",["scripts/prepare-sprite-catalog.mjs"]);
 run("npm",["run","build"],{env:{...process.env,POKESTREAM_LOCAL:"1",NODE_ENV:"production"}});
 const standalone=path.join(root,".next","standalone");
 if(!fs.existsSync(path.join(standalone,"server.js")))fail("Next.js n'a pas créé .next/standalone/server.js.");
@@ -38,6 +39,18 @@ const dest=path.join(output,"web");fs.cpSync(standalone,dest,{recursive:true});
 fs.mkdirSync(path.join(dest,".next"),{recursive:true});
 fs.cpSync(path.join(root,".next","static"),path.join(dest,".next","static"),{recursive:true});
 if(fs.existsSync(path.join(root,"public")))fs.cpSync(path.join(root,"public"),path.join(dest,"public"),{recursive:true,filter:p=>!p.split(path.sep).includes("downloads")});
+// Ship Connect\x27s proven base sprites to keep standard teams visible when fully offline.
+if(!webOnly){
+ const pack=path.join(root,"desktop/connect/data/sprites.zip");
+ const spriteDir=path.join(dest,"public","sprites");fs.mkdirSync(spriteDir,{recursive:true});
+ const safe=(p)=>p.replace(/\x27/g,"\x27\x27");
+ run("powershell.exe",["-NoProfile","-NonInteractive","-Command",`Expand-Archive -LiteralPath \x27${safe(pack)}\x27 -DestinationPath \x27${safe(spriteDir)}\x27 -Force`]);
+ if(!fs.existsSync(path.join(spriteDir,"pokemon","25.png")))fail("Base sprite pack missing from staged offline runtime.");
+}
+const catalog=path.join(root,".artifacts/sprite-catalog/manifest.json.gz");
+if(!fs.existsSync(catalog))fail("Complete PokéAPI sprite catalog index missing.");
+fs.mkdirSync(path.join(dest,"public","sprites"),{recursive:true});
+fs.copyFileSync(catalog,path.join(dest,"public","sprites","manifest.json.gz"));
 // Badge artwork is required by the editor and OBS, including offline installations.
 function badgeFiles(directory){return fs.readdirSync(directory,{withFileTypes:true}).flatMap(entry=>entry.isDirectory()?badgeFiles(path.join(directory,entry.name)):[path.join(directory,entry.name)]);}
 const badgeRoot=path.join(root,'public','Badges'),badges=badgeFiles(badgeRoot).filter(file=>file.endsWith('.png'));

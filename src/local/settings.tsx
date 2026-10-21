@@ -2,6 +2,7 @@
 import {useI18n} from "@/i18n/client";
 import {useCallback,useEffect,useRef,useState,useSyncExternalStore} from "react";
 import {ArrowDownToLine,ArrowUpFromLine,Copy,FolderOpen,HardDrive,Users,FileJson,CheckCircle2,AlertCircle,RefreshCw} from "lucide-react";
+import {SpriteLibrarySettings} from "./sprite-library-settings";
 
 type Item={id:string;name:string};
 type Profile={id:string;name:string;color:string};
@@ -64,6 +65,7 @@ export function LocalSettings(){
    <div className="local-settings-side"><section className="local-settings-panel"><div className="local-settings-panel-head"><ArrowDownToLine size={20}/><div><h2>{t("Exporter une création")}</h2><p>{t("Pour conserver ou transmettre ta création.")}</p></div></div><div className="local-settings-action"><strong>{item?.name||t("Sélectionne une création")}</strong><label htmlFor="export-format">{t("Format du fichier")}</label><select id="export-format" value={fileFormat} onChange={e=>setFileFormat(e.target.value)}><option value="pokestream">{t(".pokestream — format PokeStream")}</option><option value="json">{t(".json — format lisible")}</option></select><button className="button primary" disabled={!item||busy} onClick={()=>void download()}><ArrowDownToLine size={17}/>{t("Exporter")}</button><small>{t("Les thèmes associés et les images de composition sont intégrés automatiquement.")}</small></div></section>
     <section className="local-settings-panel"><div className="local-settings-panel-head"><Users size={20}/><div><h2>{t("Copier vers un autre profil")}</h2><p>{t("Une copie indépendante, sans modifier l'original.")}</p></div></div><div className="local-settings-action"><label htmlFor="share-profile">{t("Profil destinataire")}</label><select id="share-profile" value={recipient} onChange={e=>setRecipient(e.target.value)}><option value="">{t("Choisir un profil…")}</option>{data?.users.map(u=><option key={u.id} value={u.id}>{u.name}</option>)}</select><button className="button secondary" disabled={!item||!recipient||busy} onClick={()=>void share("copy",recipient)}><Copy size={17}/>{t("Copier dans ce profil")}</button></div></section>
     <UpdateSettings/>
+    <SpriteLibrarySettings/>
     <section className="local-settings-panel"><div className="local-settings-panel-head"><ArrowUpFromLine size={20}/><div><h2>{t("Importer un fichier")}</h2><p>{t("Une création reçue d'un autre utilisateur ou PC.")}</p></div></div><div className="local-settings-action"><input type="file" hidden ref={file} accept=".pokestream,.json,application/json" onChange={e=>void upload(e.target.files?.[0]||null)}/><button className="button secondary" disabled={busy} onClick={()=>file.current?.click()}><ArrowUpFromLine size={17}/>{t("Choisir un fichier")}</button><small>{t("L'import crée toujours de nouveaux identifiants et de nouveaux liens OBS.")}</small></div></section></div></div>
   <p className="local-settings-footnote"><HardDrive size={15}/>{t("Les données sont enregistrées localement. Pense à en conserver une sauvegarde sur un autre disque.")}</p>
  </main>;

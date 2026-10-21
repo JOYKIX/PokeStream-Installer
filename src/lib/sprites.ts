@@ -8,8 +8,7 @@ import {
   type SpriteVariant,
 } from "./sprite-options";
 
-const BASE =
-  "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon";
+const BASE = "/api/sprites/pokemon";
 const manifest = availability as Record<string, Record<string, number[][]>>;
 const formManifest = formAvailability as Record<string, Record<string, string[]>>;
 type Subject = {
@@ -29,7 +28,7 @@ function variantParts(variant: SpriteVariant) {
   return variant === "default" ? [] : variant.split("-");
 }
 export function availableVariants(style: SpriteStyle): SpriteVariant[] {
-  const dirs = Object.keys(manifest[style]);
+  const dirs = Object.keys(manifest[style] || {});
   return SPRITE_VARIANTS.filter((v) => {
     const wanted = variantParts(v).sort().join("/");
     return dirs.some(
