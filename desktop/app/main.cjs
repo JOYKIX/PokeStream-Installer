@@ -135,7 +135,7 @@ async function maintenance(scriptName,args=[]){
  let failure=null;child.on('error',error=>{failure=error;});
  const deadline=Date.now()+30000;
  while(!fs.existsSync(ready)){
-  if(failure||child.exitCode!==null||Date.now()>deadline)throw failure||Error('Maintenance could not start. Open the logs and try again.');
+  if(failure||child.exitCode!==null||Date.now()>deadline){try{child.kill();}catch{}throw failure||Error('Maintenance could not start. Open the logs and try again.');}
   await new Promise(resolve=>setTimeout(resolve,100));
  }
  // The helper is running outside Application and has checked its inputs before we exit.
