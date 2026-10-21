@@ -15,6 +15,7 @@ const raw=gunzipSync(compressed,{maxOutputLength:100*1024*1024});
 const index=JSON.parse(raw.toString("utf8"));
 if(!Array.isArray(index)||index.length<15000||!index.every(s=>typeof s==="string"))throw new Error("Invalid/incomplete PokéAPI sprite index");
 const sources=JSON.parse(await readFile("src/data/sprite-sources.json","utf8"));
+const priorAvailability=JSON.parse(await readFile("src/data/sprite-availability.json","utf8"));
 const entries=index.filter(p=>p.startsWith("pokemon/")&&/\.(png|gif|svg)$/i.test(p));
 if(entries.length<15000)throw new Error("PokéAPI Pokémon sprite index unexpectedly incomplete");
 const available={},forms={};
@@ -44,8 +45,11 @@ for(const source of sources){
     for(const n of unique){const last=ranges.at(-1);if(last&&n===last[1]+1)last[1]=n;else ranges.push([n,n]);}
     map[dir]=ranges;
   }
-  if(!Object.keys(map).length)throw new Error("No assets for "+source.id);
-  available[source.id]=map;
+  if(!Object.keys(map).length){
+    if(!priorAvailability[source.id])throw new Error("No fallback availability for "+source.id);
+    console.warn("[PokeStream] Source missing in current PokéAPI manifest: "+source.id+"; keeping previous mapping.");
+    available[source.id]=priorAvailability[source.id];
+  }else available[source.id]=map;
 }
 await writeFile("src/data/sprite-availability.json",JSON.stringify(available)+"\n");
 await writeFile("src/data/connect-form-sprites.json",JSON.stringify(forms)+"\n");
