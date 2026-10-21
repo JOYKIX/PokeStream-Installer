@@ -13,7 +13,7 @@ export function findItem(value: string) {
 export function itemSpriteUrl(value: string) {
   const item = findItem(value);
   return item
-    ? "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/" +
+    ? "/api/sprites/items/" +
         item.slug +
         ".png"
     : null;

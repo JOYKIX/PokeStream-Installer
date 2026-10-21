@@ -40,6 +40,30 @@
     "pixelated": true
   },
   {
+    "id": "artwork-red-green",
+    "label": "Illustrations · Rouge & Vert",
+    "group": "Illustrations",
+    "path": "other/official-artwork/versions/generation-i/red-and-green",
+    "extension": "png",
+    "pixelated": false
+  },
+  {
+    "id": "artwork-red-blue",
+    "label": "Illustrations · Rouge & Bleu",
+    "group": "Illustrations",
+    "path": "other/official-artwork/versions/generation-i/red-and-blue",
+    "extension": "png",
+    "pixelated": false
+  },
+  {
+    "id": "artwork-gold-silver",
+    "label": "Illustrations · Or & Argent",
+    "group": "Illustrations",
+    "path": "other/official-artwork/versions/generation-ii/gold-and-silver",
+    "extension": "png",
+    "pixelated": false
+  },
+  {
     "id": "red-green",
     "label": "Rouge & Vert",
     "group": "Génération I",
@@ -235,7 +259,7 @@
     "id": "omega-alpha",
     "label": "Rubis Oméga & Saphir Alpha",
     "group": "Génération VI",
-    "path": "versions/generation-vi/omegaruby-alphasapphire",
+    "path": "versions/generation-vi/omega-ruby-alpha-sapphire",
     "extension": "png",
     "pixelated": false
   },
@@ -280,10 +304,18 @@
     "pixelated": true
   },
   {
+    "id": "sword-shield",
+    "label": "Épée & Bouclier",
+    "group": "Génération VIII",
+    "path": "versions/generation-viii/sword-shield",
+    "extension": "webp",
+    "pixelated": false
+  },
+  {
     "id": "icons-viii",
     "label": "Icônes",
     "group": "Génération VIII",
-    "path": "versions/generation-viii/icons",
+    "path": "versions/generation-viii/sword-shield/icons",
     "extension": "png",
     "pixelated": true
   },
@@ -292,15 +324,39 @@
     "label": "Diamant Étincelant & Perle Scintillante",
     "group": "Génération VIII",
     "path": "versions/generation-viii/brilliant-diamond-shining-pearl",
-    "extension": "png",
+    "extension": "webp",
     "pixelated": false
+  },
+  {
+    "id": "icons-brilliant-shining",
+    "label": "Icônes · Diamant Étincelant & Perle Scintillante",
+    "group": "Génération VIII",
+    "path": "versions/generation-viii/brilliant-diamond-shining-pearl/icons",
+    "extension": "png",
+    "pixelated": true
+  },
+  {
+    "id": "legends-arceus",
+    "label": "Légendes Arceus",
+    "group": "Génération VIII",
+    "path": "versions/generation-viii/legends-arceus",
+    "extension": "webp",
+    "pixelated": false
+  },
+  {
+    "id": "icons-arceus",
+    "label": "Icônes · Légendes Arceus",
+    "group": "Génération VIII",
+    "path": "versions/generation-viii/legends-arceus/icons",
+    "extension": "png",
+    "pixelated": true
   },
   {
     "id": "scarlet-violet",
     "label": "Écarlate & Violet",
     "group": "Génération IX",
     "path": "versions/generation-ix/scarlet-violet",
-    "extension": "png",
+    "extension": "webp",
     "pixelated": false
   },
   {
@@ -308,7 +364,39 @@
     "label": "Champions",
     "group": "Génération IX",
     "path": "versions/generation-ix/champions",
-    "extension": "png",
+    "extension": "webp",
     "pixelated": false
+  },
+  {
+    "id": "icons-ix",
+    "label": "Icônes · Écarlate & Violet",
+    "group": "Génération IX",
+    "path": "versions/generation-ix/scarlet-violet/icons",
+    "extension": "png",
+    "pixelated": true
+  },
+  {
+    "id": "legends-za",
+    "label": "Légendes Z-A",
+    "group": "Génération IX",
+    "path": "versions/generation-ix/legends-za",
+    "extension": "webp",
+    "pixelated": false
+  },
+  {
+    "id": "icons-za",
+    "label": "Icônes · Légendes Z-A",
+    "group": "Génération IX",
+    "path": "versions/generation-ix/legends-za/icons",
+    "extension": "png",
+    "pixelated": true
+  },
+  {
+    "id": "icons-champions",
+    "label": "Icônes · Champions",
+    "group": "Génération IX",
+    "path": "versions/generation-ix/champions/icons",
+    "extension": "png",
+    "pixelated": true
   }
 ]

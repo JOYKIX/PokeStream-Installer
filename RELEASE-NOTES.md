@@ -1,15 +1,13 @@
-PokeStream 2.2.5 — maintenance reliability
+PokeStream 2.2.6
 
-- Fixed update and uninstallation handoff: a detached Windows helper acknowledges startup before long verification and post-exit cleanup.
-- Replaced the generic "Maintenance could not start" message with persistent PowerShell bootstrap diagnostics and specific startup errors.
-- Window is not hidden while the updated PokeStream starts, preventing invisible first launch.
-- Update helper checks verified checksums and both runtime and desktop install manifests before reporting success.
-- Uninstaller safely handles application and updater directories, preserves local profiles by default, and explicitly refuses junction/symlink traversal.
-- Failure messages are saved across restarts, then cleared once acknowledged.
-- Added automated Windows maintenance smoke tests for uninstall (keep/remove local data) and rejected update integrity.
+- Replaced the sprite dropdown with a visual picker shared by Adventure, Theme Creator and Overlay Builder: Pikachu previews, search, generation filters, selected style and shiny preview.
+- All 50 current PokéAPI Pokémon sprite families are selectable, including historical artwork, Sword/Shield, Legends collections and modern icons. Existing profile and theme sprite choices remain compatible.
+- Added WebP support and corrected outdated Omega Ruby/Alpha Sapphire and Switch collection paths. Animations retain their original GIF/APNG/WebP formats.
+- The existing downloaded sprite library now supplies Pokémon and held item images locally. Cached files take priority over bundled images; missing files are downloaded on demand and retained.
+- Full-library download now includes WebP, items, types and badges. Existing downloaded files are preserved and reused.
+- Bundled 243 Pikachu preview variants so the picker works offline without a full-library download. The historical Gold/Silver artwork collection remains available and explicitly indicates that Pikachu is absent.
+- Preserved the update and uninstall fixes from 2.2.5. Built locally; no test suites or emulator tests run.
 
-The updater defect affects the **already installed 2.2.4 binary**: for the first repair install PokeStream-Setup.exe from the official v2.2.5 release. Local profiles, creations, sprites, journals and OBS configurations are preserved.
+Download **PokeStream-Setup.exe**, close PokeStream, open the setup and select Install. Local profiles, creations and downloaded sprites are preserved.
 
-The previous full offline-first PokéAPI sprite library remains available under Settings.
-
-Windows maintenance regression suite: 5/5 checks passed (helper startup, uninstall with and without local profiles, rejected tampered EXE, verified update installer handoff).
+Switch live reading remains experimental.

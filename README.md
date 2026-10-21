@@ -25,7 +25,7 @@ npm ci
 npm run desktop:pack
 ~~~
 
-Output: .artifacts/release/PokeStream-2.2.5-win-x64.exe. The build prepares a complete standalone Next.js runtime, the .NET engine, the custom Electron launcher and a verified runtime ZIP. The runtime is isolated from electron-builder file filtering so its node_modules remain intact.
+Output: .artifacts/release/PokeStream-2.2.6-win-x64.exe. The build prepares a complete standalone Next.js runtime, the .NET engine, the custom Electron launcher and a verified runtime ZIP. The runtime is isolated from electron-builder file filtering so its node_modules remain intact.
 
 For development: npm run dev:desktop. This starts the shared Next.js UI and launcher; building Connect first enables the game reader.
 
@@ -51,3 +51,9 @@ To download **the entire library** ahead of offline use, open **Settings → Pok
 Updates and uninstallation run from a detached PowerShell helper copied to a temporary directory outside the installed Application. Its startup is acknowledged immediately and failures are logged in `%LOCALAPPDATA%/PokeStream/maintenance-bootstrap.log` and `%LOCALAPPDATA%/PokeStream/maintenance.log`. Post-restart results appear in `maintenance.json` until read by the launcher.
 
 **Important:** The broken handoff in 2.2.4 cannot be retroactively patched in an already running executable. Install the 2.2.5 setup from GitHub once, preserving your existing local profiles. The corrected in-app update mechanism then applies to subsequent releases. Default uninstallation keeps profiles and creations unless deletion is explicitly selected.
+
+## Sprite selection
+
+Adventure, Theme Creator and Overlay Builder share a visual sprite picker with search, generation filters and Pikachu previews. All 50 Pokémon sprite families from the current PokéAPI catalog are included, with PNG/APNG, GIF, SVG and WebP support. The installer bundles 243 Pikachu preview variants. The historical Gold/Silver artwork collection has no Pikachu; this is indicated in its card.
+
+Pokémon and held item images use the existing library under Studio/Sprites. Downloaded files take priority over bundled images. Missing images are downloaded on demand and saved locally. The full-library download also includes items, types, badges and WebP files; earlier downloads remain valid.

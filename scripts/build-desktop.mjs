@@ -51,6 +51,7 @@ const catalog=path.join(root,".artifacts/sprite-catalog/manifest.json.gz");
 if(!fs.existsSync(catalog))fail("Complete PokéAPI sprite catalog index missing.");
 fs.mkdirSync(path.join(dest,"public","sprites"),{recursive:true});
 fs.copyFileSync(catalog,path.join(dest,"public","sprites","manifest.json.gz"));
+fs.cpSync(path.join(root,".artifacts/sprite-catalog/previews"),path.join(dest,"public","sprites"),{recursive:true});
 // Badge artwork is required by the editor and OBS, including offline installations.
 function badgeFiles(directory){return fs.readdirSync(directory,{withFileTypes:true}).flatMap(entry=>entry.isDirectory()?badgeFiles(path.join(directory,entry.name)):[path.join(directory,entry.name)]);}
 const badgeRoot=path.join(root,'public','Badges'),badges=badgeFiles(badgeRoot).filter(file=>file.endsWith('.png'));

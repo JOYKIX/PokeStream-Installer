@@ -11,7 +11,7 @@ const copy={
  ja:{title:"ポケモンスプライトライブラリ",subtitle:"PokéAPIの画像をPCに保存し、オフラインで使用できます。",note:"完全なライブラリは10GB以上です。使用した画像は自動保存されます。すべてを一括ダウンロードすることもできます。",start:"すべての画像をダウンロード",resume:"ダウンロードを再開",pause:"一時停止",loading:"ダウンロード中",indexing:"一覧を準備中…",done:"同期完了",error:"ダウンロードが中断されました",count:"処理済みファイル",new:"ダウンロード済み",cached:"保存済み",failed:"取得不可",space:"今回のダウンロード容量"}
 };
 export function SpriteLibrarySettings(){
- const {locale}=useI18n();const t=copy[locale]||copy.en;
+ const {locale,t:tr}=useI18n();const t=copy[locale]||copy.en;
  const [status,setStatus]=useState<Snapshot|null>(null);const [error,setError]=useState("");
  useEffect(()=>{let active=true;
   const refresh=async()=>{try{const r=await fetch("/api/local/sprites",{cache:"no-store"});if(r.ok&&active)setStatus(await r.json());}catch{}};
@@ -27,12 +27,12 @@ export function SpriteLibrarySettings(){
  return <section className="local-settings-panel"><div className="local-settings-panel-head"><HardDrive size={20}/><div><h2>{t.title}</h2><p>{t.subtitle}</p></div></div>
   <div className="local-settings-action">
    <small>{t.note}</small>
-   {status&&status.total>0&&<><progress className="sprite-download-progress" max={status.total} value={status.done}/><small>{status.done.toLocaleString()} / {status.total.toLocaleString()} {t.count} · {status.downloaded.toLocaleString()} {t.new} · {status.skipped.toLocaleString()} {t.cached} · {status.failed} {t.failed}</small><small>{t.space}: {(status.bytes/1048576).toFixed(1)} Mo</small></>}
+   {status&&status.total>0&&<><progress className="sprite-download-progress" max={status.total} value={status.done}/><small>{status.done.toLocaleString(locale)} / {status.total.toLocaleString(locale)} {t.count} · {status.downloaded.toLocaleString(locale)} {t.new} · {status.skipped.toLocaleString(locale)} {t.cached} · {status.failed} {t.failed}</small><small>{t.space}: {(status.bytes/1048576).toLocaleString(locale,{maximumFractionDigits:1})} {locale==="fr"?"Mo":"MB"}</small></>}
    {active?<button type="button" className="button secondary" onClick={()=>void action("pause")}><Pause size={16}/>{t.pause}</button>:<button type="button" className="button secondary" onClick={()=>void action("start")}>{status?.state==="paused"||status?.state==="error"?<RefreshCw size={16}/>:<Download size={16}/>} {status?.state==="paused"||status?.state==="error"?t.resume:t.start}</button>}
    {status?.state==="indexing"&&<small>{t.indexing}</small>}
    {status?.state==="downloading"&&<small>{t.loading}</small>}
    {status?.state==="done"&&<small>{t.done}</small>}
-   {status?.message&&<small role="status">{status.message}</small>}
+   {status?.message&&<small role="status">{tr(status.message)}</small>}
    {error&&<small role="alert">{error}</small>}
   </div></section>;
 }

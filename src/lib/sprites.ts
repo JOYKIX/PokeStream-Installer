@@ -52,7 +52,7 @@ function candidates(p: Subject, style: SpriteStyle, variant: SpriteVariant) {
   if (p.formSprite && !formDirs?.length) return [];
   const available = formDirs?.length
     ? Object.fromEntries(formDirs.map((dir) => [dir, [[p.pokemonId, p.pokemonId]]]))
-    : manifest[style];
+    : manifest[style] ?? {};
   const filename = formDirs?.length ? p.formSprite : p.pokemonId;
   return Object.entries(available)
     .filter(
@@ -85,8 +85,10 @@ export function spriteCandidates(
   p: Subject,
   style: SpriteStyle = "artwork",
   variant: SpriteVariant = "default",
+  fallback = true,
 ): SpriteCandidate[] {
   if (p.isEgg) return eggSpriteCandidates(style, variant);
+  if (!fallback) return candidates(p, style, variant);
   const list = [
     ...candidates(p, style, variant),
     ...candidates(p, "pixel", variant),

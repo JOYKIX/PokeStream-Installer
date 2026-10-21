@@ -35,10 +35,21 @@ export const SPRITE_IDS = [
   "lets-go",
   "icons-lets-go",
   "icons-vii",
+  "sword-shield",
   "icons-viii",
   "brilliant-shining",
   "scarlet-violet",
   "champions",
+  "artwork-red-green",
+  "artwork-red-blue",
+  "artwork-gold-silver",
+  "icons-brilliant-shining",
+  "legends-arceus",
+  "icons-arceus",
+  "icons-ix",
+  "legends-za",
+  "icons-za",
+  "icons-champions",
 ] as const;
 
 export type SpriteStyle = (typeof SPRITE_IDS)[number];

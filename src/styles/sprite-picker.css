@@ -1,0 +1,39 @@
+.sprite-picker-trigger {
+ display:flex;align-items:center;gap:12px;width:100%;min-height:68px;padding:9px 12px;
+ background:#111115;border:1px solid #34343c;border-radius:9px;color:var(--text,#f4f4f5);text-align:left;cursor:pointer;
+ transition:border-color .15s,background .15s;
+}
+.sprite-picker-trigger:hover,.sprite-picker-trigger[aria-expanded="true"] {border-color:var(--red,#ef3340);background:#191319;}
+.sprite-trigger-preview {display:grid;place-items:center;width:44px;height:44px;flex:none;}
+.sprite-trigger-preview .pokemon-image {width:44px;height:44px;object-fit:contain;}
+.sprite-trigger-label {display:grid;gap:5px;flex:1;min-width:0;}
+.sprite-trigger-label strong {font-size:12px;font-weight:600;line-height:1.45;white-space:normal;}
+.sprite-trigger-label small {color:var(--muted,#9999a5);font-size:10px;}
+.sprite-picker {display:flex;flex-direction:column;gap:15px;min-height:0;}
+.sprite-picker-filters {flex-shrink:0;}
+.sprite-picker-filters .search-field {min-width:0;}
+.sprite-picker-filters .search-field input {width:100%;min-width:0;}
+.sprite-picker-filters .site-select {width:190px;flex:none;}
+.sprite-picker-toolbar {display:flex;align-items:center;justify-content:space-between;gap:14px;font-size:11px;color:var(--muted,#9999a5);}
+.sprite-shiny-toggle {display:inline-flex;align-items:center;justify-content:center;gap:7px;background:#1a1a20;border:1px solid #34343c;border-radius:7px;color:#b3b3be;padding:8px 12px;font-size:11px;cursor:pointer;}
+.sprite-shiny-toggle[aria-pressed="true"] {color:#ffd77c;border-color:#86632e;background:#2b2215;}
+.sprite-inherit-option {display:flex;align-items:center;gap:10px;width:100%;padding:12px 14px;border:1px solid #34343c;border-radius:8px;background:#19191f;color:var(--text,#f4f4f5);font-size:12px;text-align:left;cursor:pointer;}
+.sprite-inherit-option span {flex:1;}
+.sprite-inherit-option[aria-pressed="true"] {color:#ff7b88;border-color:#863542;background:#28151c;}
+.sprite-picker-scroll {max-height:min(56dvh,540px);overflow-y:auto;overscroll-behavior:contain;padding:2px 8px 2px 2px;margin:0 -8px 0 -2px;scrollbar-gutter:stable;}
+.sprite-picker-grid {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;}
+.sprite-style-card {position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:9px;min-width:0;padding:12px 11px 16px;background:#19191f;border:1px solid #303038;border-radius:10px;color:var(--text,#f4f4f5);text-align:center;cursor:pointer;transition:background .15s,border-color .15s;}
+.sprite-style-card:hover {border-color:#89525e;background:#21161c;}
+.sprite-style-card.selected {border-color:var(--red,#ef3340);background:#28161d;}
+.sprite-style-meta {display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;font-size:9px;color:var(--muted,#9999a5);line-height:1.4;text-align:left;}
+.sprite-format {flex:none;color:#b5b5c0;font-size:8px;letter-spacing:.6px;}
+.sprite-style-preview {height:112px;width:100%;display:grid;place-items:center;}
+.sprite-style-preview .pokemon-image {height:112px;width:112px;max-width:100%;object-fit:contain;filter:drop-shadow(0 5px 8px #0004);}
+.sprite-style-card strong {font-size:11px;font-weight:600;line-height:1.5;max-width:100%;padding:0 9px;}
+.sprite-style-check {position:absolute;bottom:8px;right:8px;display:grid;place-items:center;width:17px;height:17px;border-radius:50%;color:#fff;}
+.sprite-style-card.selected .sprite-style-check {background:var(--red,#ef3340);}
+.sprite-picker-trigger:focus-visible,.sprite-style-card:focus-visible,.sprite-inherit-option:focus-visible,.sprite-shiny-toggle:focus-visible {outline:2px solid #ff6573;outline-offset:3px;}
+@media(max-width:640px){.sprite-picker-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.sprite-style-preview{height:90px}.sprite-style-preview .pokemon-image{width:90px;height:90px}.sprite-style-meta{font-size:8px}.sprite-picker-filters .site-select{width:150px}}
+@media(max-width:420px){.sprite-picker-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.sprite-picker-filters{flex-direction:column}.sprite-picker-filters .site-select{width:100%}}
+@media(prefers-reduced-motion:reduce){.sprite-picker-trigger,.sprite-style-card{transition:none}}
+.sprite-preview-unavailable {display:grid;justify-items:center;align-content:center;gap:10px;color:var(--muted,#9999a5);font-size:10px;line-height:1.5;}
