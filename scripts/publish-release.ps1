@@ -39,7 +39,7 @@ $credential=@{};foreach($line in $credentialLines){$pair=$line -split '=',2;if($
 if(!$credential.password){throw 'Sign in to GitHub through Git Credential Manager first'}
 $headers=@{Authorization='Bearer '+$credential.password;Accept='application/vnd.github+json';'X-GitHub-Api-Version'='2026-03-10';'User-Agent'='PokeStream-Local-Release'}
 $api='https://api.github.com/repos/'+$repo
-function JsonBody($value){return [Text.Encoding]::UTF8.GetBytes(($value | ConvertTo-Json -Depth 8 -Compress))}
+function JsonBody($value){return ,([Text.Encoding]::UTF8.GetBytes(($value | ConvertTo-Json -Depth 8 -Compress)))}
 $release=$null;$published=$false;$client=$null
 try{
  try{$existing=Invoke-RestMethod "$api/releases/tags/$tag" -Headers $headers;if($existing){throw "Release $tag already exists. Increment version."}}
