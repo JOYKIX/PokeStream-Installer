@@ -13,6 +13,12 @@ $status=$null
 function Note([string]$text){
  if($log){[IO.File]::AppendAllText($log,([DateTime]::UtcNow.ToString('o')+' '+$text+[Environment]::NewLine))}
 }
+function Get-FileSha256([string]$file){
+ $algorithm=[Security.Cryptography.SHA256]::Create()
+ $stream=[IO.File]::OpenRead($file)
+ try{return [BitConverter]::ToString($algorithm.ComputeHash($stream)).Replace('-','').ToLowerInvariant()}
+ finally{$stream.Dispose();$algorithm.Dispose()}
+}
 function Result([bool]$success,[string]$message){
  if($status){
   [IO.File]::WriteAllText($status,(@{operation='update';success=$success;version=$ExpectedVersion;message=$message}|ConvertTo-Json -Compress))
@@ -34,7 +40,7 @@ try {
  [IO.File]::WriteAllText($ReadyFile,'ready')
  Wait-Process -Id $ParentPid -Timeout 90 -ErrorAction SilentlyContinue
  if(Get-Process -Id $ParentPid -ErrorAction SilentlyContinue){throw 'PokeStream is still running: cannot safely replace application files'}
- $actual=(Get-FileHash -LiteralPath $Source -Algorithm SHA256).Hash.ToLowerInvariant()
+ $actual=Get-FileSha256 $Source
  if($actual -ne $ExpectedHash){throw 'Downloaded installer changed after verification (SHA256 mismatch)'}
  Note ('Update '+$ExpectedVersion+' verified; opening installer')
  # Do not hide the installed application window. Windows will manage its normal startup.
