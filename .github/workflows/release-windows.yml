@@ -45,7 +45,7 @@ jobs:
       - name: Validate PowerShell script syntax (Windows PowerShell 5.1)
         shell: powershell
         run: |
-          foreach ($file in @('desktop/app/uninstall.ps1','desktop/app/update-install.ps1','desktop/app/runtime-install.ps1')) {
+          foreach ($file in @('desktop/app/uninstall.ps1','desktop/app/update-install.ps1','desktop/app/runtime-install.ps1','desktop/app/maintenance-common.ps1')) {
             $tokens=$null; $issues=$null
             [void][System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path $file).Path,[ref]$tokens,[ref]$issues)
             if ($issues.Count -gt 0) { $issues | Format-List | Out-String | Write-Host; throw "PowerShell parse failed: $file" }
@@ -63,7 +63,7 @@ jobs:
           if (!(Test-Path -LiteralPath $launcher)) { throw 'Custom launcher missing' }
           Copy-Item -LiteralPath $launcher -Destination (Join-Path $dir 'PokeStream-Setup.exe')
           Copy-Item desktop/connect/dist/*-source.zip -Destination $dir
-          $files = @(Get-ChildItem $dir -File | Where-Object { $_.Extension -in '.exe','.zip' })
+          $files = @(Get-ChildItem $dir -File | Where-Object { $_.Extension -in '.exe','.zip' -or $_.Name -eq 'build-info.json' })
           $lines = foreach ($file in $files) {
             $algorithm = [Security.Cryptography.SHA256]::Create()
             $stream = [IO.File]::OpenRead($file.FullName)
@@ -82,7 +82,7 @@ jobs:
           $tag = "v$version"
           gh release view $tag 2>$null
           if ($LASTEXITCODE -eq 0) { throw "Release $tag exists. Bump package version." }
-          $assets = @(Get-ChildItem -File '.artifacts/release' | Where-Object { $_.Extension -in '.exe','.zip' -or $_.Name -eq 'SHA256SUMS.txt' } | ForEach-Object { $_.FullName })
+          $assets = @(Get-ChildItem -File '.artifacts/release' | Where-Object { $_.Extension -in '.exe','.zip' -or $_.Name -in @('SHA256SUMS.txt','build-info.json') } | ForEach-Object { $_.FullName })
           gh release create $tag @assets --title "PokeStream $version" --notes-file RELEASE-NOTES.md --target "$env:GITHUB_SHA" --latest
           if ($LASTEXITCODE -ne 0) { throw 'Release publication failed' }
       - uses: actions/upload-artifact@v4

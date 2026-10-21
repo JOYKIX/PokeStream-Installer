@@ -24,7 +24,7 @@ export function SpriteLibrarySettings(){
   }catch(e){setError(e instanceof Error?e.message:String(e));}
  }
  const active=status?.state==="downloading"||status?.state==="indexing";
- return <section className="local-settings-panel"><div className="local-settings-panel-head"><HardDrive size={20}/><div><h2>{t.title}</h2><p>{t.subtitle}</p></div></div>
+ return <section className="local-settings-panel" id="sprite-library"><div className="local-settings-panel-head"><HardDrive size={20}/><div><h2>{t.title}</h2><p>{t.subtitle}</p></div></div>
   <div className="local-settings-action">
    <small>{t.note}</small>
    {status&&status.total>0&&<><progress className="sprite-download-progress" max={status.total} value={status.done}/><small>{status.done.toLocaleString(locale)} / {status.total.toLocaleString(locale)} {t.count} · {status.downloaded.toLocaleString(locale)} {t.new} · {status.skipped.toLocaleString(locale)} {t.cached} · {status.failed} {t.failed}</small><small>{t.space}: {(status.bytes/1048576).toLocaleString(locale,{maximumFractionDigits:1})} {locale==="fr"?"Mo":"MB"}</small></>}

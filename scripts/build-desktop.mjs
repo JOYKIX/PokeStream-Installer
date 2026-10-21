@@ -65,9 +65,9 @@ const load=createRequire(path.join(dest,'server.js'));
 for(const dependency of ['next','react','react-dom'])if(!load.resolve(dependency).startsWith(dest+path.sep))fail('Staged dependency missing: '+dependency);
 prepareLauncher(root);
 const shell=path.join(root,'.artifacts/shell');fs.mkdirSync(shell,{recursive:true});
-for(const name of ['main.cjs','preload.cjs','runtime.cjs','installation.cjs','updater.cjs','maintenance.cjs'])fs.copyFileSync(path.join(root,'desktop/app',name),path.join(shell,name));
+for(const name of ['main.cjs','preload.cjs','runtime.cjs','installation.cjs','updater.cjs','maintenance.cjs','workspace-control.cjs'])fs.copyFileSync(path.join(root,'desktop/app',name),path.join(shell,name));
 const manifest=JSON.parse(fs.readFileSync(path.join(root,'package.json'),'utf8'));
-fs.writeFileSync(path.join(shell,'package.json'),JSON.stringify({name:manifest.name,version:manifest.version,description:manifest.description,author:manifest.author,license:manifest.license,main:'main.cjs'}));
+fs.writeFileSync(path.join(shell,'package.json'),JSON.stringify({name:manifest.name,version:manifest.version,launcherVersion:manifest.launcherVersion,description:manifest.description,author:manifest.author,license:manifest.license,main:'main.cjs'}));
 if(!webOnly){
  for(const file of ['LICENSE','OPEN-SOURCE-NOTICES.md'])fs.copyFileSync(path.join(root,file),path.join(output,file));
  fs.copyFileSync(path.join(root,'desktop/connect/THIRD-PARTY-NOTICES.md'),path.join(output,'CONNECT-NOTICES.md'));
@@ -83,6 +83,6 @@ if(webOnly)console.log("[PokeStream] Frontend seulement : impossible de distribu
 else {
  const git=spawnSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'});if(git.status!==0)fail('Unable to record source commit.');
  fs.mkdirSync(path.join(root,'.artifacts/release'),{recursive:true});
- fs.writeFileSync(path.join(root,'.artifacts/release/build-info.json'),JSON.stringify({version:manifest.version,commit:git.stdout.trim(),builtAt:new Date().toISOString()},null,2));
+ fs.writeFileSync(path.join(root,'.artifacts/release/build-info.json'),JSON.stringify({version:manifest.version,launcherVersion:manifest.launcherVersion,commit:git.stdout.trim(),builtAt:new Date().toISOString()},null,2));
  console.log('[PokeStream] Build metadata recorded; launcher ready for packaging.');
 }

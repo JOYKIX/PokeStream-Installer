@@ -2,77 +2,60 @@ param(
  [Parameter(Mandatory=$true)][int]$ParentPid,
  [Parameter(Mandatory=$true)][string]$ReadyFile,
  [Parameter(Mandatory=$true)][string]$ErrorFile,
+ [Parameter(Mandatory=$true)][string]$CommitFile,
+ [Parameter(Mandatory=$true)][string]$CancelFile,
+ [Parameter(Mandatory=$true)][string]$ResultFile,
  [Parameter(Mandatory=$true)][string]$Source,
  [Parameter(Mandatory=$true)][string]$ExpectedHash,
- [Parameter(Mandatory=$true)][string]$ExpectedVersion
+ [Parameter(Mandatory=$true)][string]$ExpectedVersion,
+ [switch]$UpdateLauncher,
+ [switch]$Repair
 )
-$ErrorActionPreference='Stop'
-$root=$null
-$log=$null
-$status=$null
-function Note([string]$text){
- if($log){[IO.File]::AppendAllText($log,([DateTime]::UtcNow.ToString('o')+' '+$text+[Environment]::NewLine))}
-}
-function Get-FileSha256([string]$file){
- $algorithm=[Security.Cryptography.SHA256]::Create()
- $stream=[IO.File]::OpenRead($file)
- try{return [BitConverter]::ToString($algorithm.ComputeHash($stream)).Replace('-','').ToLowerInvariant()}
- finally{$stream.Dispose();$algorithm.Dispose()}
-}
-function Result([bool]$success,[string]$message){
- if($status){
-  [IO.File]::WriteAllText($status,(@{operation='update';success=$success;version=$ExpectedVersion;message=$message}|ConvertTo-Json -Compress))
- }
-}
+. (Join-Path $PSScriptRoot 'maintenance-common.ps1')
 try {
- if([string]::IsNullOrWhiteSpace($env:LOCALAPPDATA)){throw 'LOCALAPPDATA is unavailable'}
- $root=[IO.Path]::GetFullPath((Join-Path $env:LOCALAPPDATA 'PokeStream')).TrimEnd('\')
- [IO.Directory]::CreateDirectory($root)|Out-Null
- $log=Join-Path $root 'maintenance.log'
- $status=Join-Path $root 'maintenance.json'
- if($ParentPid -lt 1 -or $ExpectedVersion -notmatch '^\d+\.\d+\.\d+$' -or $ExpectedHash -notmatch '^[a-f0-9]{64}$'){throw 'Invalid update parameters'}
- $expected=[IO.Path]::GetFullPath((Join-Path $root ('Updates\PokeStream-'+$ExpectedVersion+'.exe')))
- if(![string]::Equals([IO.Path]::GetFullPath($Source),$expected,[StringComparison]::OrdinalIgnoreCase)){throw 'Invalid update path'}
- if(!(Test-Path -LiteralPath $Source -PathType Leaf)){throw 'Downloaded installer is missing'}
- # Signal successful PowerShell start before hashing a potentially large (~200 MB) EXE.
- # The launcher has already verified the SHA256 before requesting handoff.
- Note ('Update helper launched for '+$ExpectedVersion)
- [IO.File]::WriteAllText($ReadyFile,'ready')
- Wait-Process -Id $ParentPid -Timeout 90 -ErrorAction SilentlyContinue
- if(Get-Process -Id $ParentPid -ErrorAction SilentlyContinue){throw 'PokeStream is still running: cannot safely replace application files'}
- $actual=Get-FileSha256 $Source
- if($actual -ne $ExpectedHash){throw 'Downloaded installer changed after verification (SHA256 mismatch)'}
- Note ('Update '+$ExpectedVersion+' verified; opening installer')
- # Do not hide the installed application window. Windows will manage its normal startup.
- $env:PORTABLE_EXECUTABLE_FILE=$null;$env:PORTABLE_EXECUTABLE_DIR=$null;$env:PORTABLE_EXECUTABLE_APP_FILENAME=$null
- $child=Start-Process -FilePath $Source -ArgumentList @('--apply-update','--open-app') -PassThru
- Note ('Setup started: '+$child.Id)
+ Initialize-Maintenance
+ if($ExpectedVersion -notmatch '^\d+\.\d+\.\d+$' -or $ExpectedHash -notmatch '^[a-f0-9]{64}$'){throw 'Invalid update parameters'}
+ if($Repair){
+  $application=Assert-OwnedFolder 'Application'
+  $record=[IO.File]::ReadAllText((Join-Path $application 'desktop.json'))|ConvertFrom-Json
+  if($record.version -ne $ExpectedVersion -or $record.directory -notmatch '^desktop-[a-zA-Z0-9.-]+$'){throw 'Invalid application to repair'}
+  $expected=Join-Path (Join-Path $application $record.directory) 'PokeStream.exe'
+ }else{
+  $updates=Assert-OwnedFolder 'Updates'
+  $expected=Join-Path $updates ('PokeStream-'+$ExpectedVersion+'.exe')
+ }
+ if(![string]::Equals([IO.Path]::GetFullPath($Source),[IO.Path]::GetFullPath($expected),[StringComparison]::OrdinalIgnoreCase)){throw 'Invalid update path'}
+ if(![IO.File]::Exists($Source)){throw 'Downloaded installer is missing'}
+ if((Get-FileSha256 $Source) -ne $ExpectedHash){throw 'Downloaded installer failed verification (SHA256 mismatch)'}
+ Note ('Application '+$ExpectedVersion+' verified before handoff; repair='+[bool]$Repair+'; updateLauncher='+[bool]$UpdateLauncher)
+ Wait-ForCommit
+ if((Get-FileSha256 $Source) -ne $ExpectedHash){throw 'Downloaded installer changed after verification (SHA256 mismatch)'}
+ $installedFile=Join-Path $PSScriptRoot 'installed.json'
+ $arguments='--install-only'
+ if($Repair){$arguments+=' --repair'}
+ if($UpdateLauncher){$arguments+=' --include-launcher'}
+ $child=Start-NativeProcess $Source $arguments @{POKESTREAM_INSTALL_RESULT=$installedFile}
+ Note ('Installer started: '+$child.Id+'; launcher '+$ParentPid+' remains open')
  $deadline=[DateTime]::UtcNow.AddMinutes(5)
  do {
-  Start-Sleep -Milliseconds 750
-  $desktop=Join-Path $root 'Application\desktop.json'
-  $runtime=Join-Path $root 'Application\runtime.json'
-  if((Test-Path -LiteralPath $desktop) -and (Test-Path -LiteralPath $runtime)){
-   try{
-    $installed=[IO.File]::ReadAllText($desktop)|ConvertFrom-Json
-    $runtimeRecord=[IO.File]::ReadAllText($runtime)|ConvertFrom-Json
-   }catch{$installed=$null;$runtimeRecord=$null}
-   if($installed -and $runtimeRecord -and $installed.version -eq $ExpectedVersion -and $runtimeRecord.version -eq $ExpectedVersion){
-    Result $true 'Update installed'
-    Note ('Update '+$ExpectedVersion+' installed');exit 0
-   }
+  [Threading.Thread]::Sleep(250)
+  if([IO.File]::Exists($installedFile)){
+   $result=[IO.File]::ReadAllText($installedFile)|ConvertFrom-Json
+   if(!$result.success){throw $result.message}
+   $desktop=[IO.File]::ReadAllText((Join-Path $root 'Application\desktop.json'))|ConvertFrom-Json
+   $runtime=[IO.File]::ReadAllText((Join-Path $root 'Application\runtime.json'))|ConvertFrom-Json
+   if($result.version -ne $ExpectedVersion -or $desktop.version -ne $ExpectedVersion -or $runtime.version -ne $ExpectedVersion){throw 'Installed application version does not match the requested update'}
+   Write-Result 'update' $true 'Application installed; launcher remained open' @{version=$ExpectedVersion;launcherVersion=$result.launcherVersion}
+   Note ('Application '+$ExpectedVersion+' installed successfully')
+   exit 0
   }
-  $child.Refresh()
-  if($child.HasExited -and ([DateTime]::UtcNow -gt $deadline.AddMinutes(-4))){throw 'New PokeStream setup exited before installation completed. Check launcher.log'}
+  # A portable bootstrap can exit while its extracted installer is running.
+  # The new installer itself writes the completion record after both manifests.
  }while([DateTime]::UtcNow -lt $deadline)
- throw 'The new version did not finish installing. Download its setup directly from GitHub Releases.'
+ throw 'Application installation did not finish. Open the logs and retry.'
 }catch{
  $msg=$_.Exception.Message
- try{Note ('Update failed: '+$msg);Result $false $msg}catch{}
+ try{Note ('Update failed: '+$msg);Write-Result 'update' $false $msg @{version=$ExpectedVersion}}catch{}
  try{[IO.File]::WriteAllText($ErrorFile,$msg)}catch{}
  exit 1
-}finally{
- # Keep the acknowledgement until the old process has exited; cleanup comes later.
- Start-Sleep -Milliseconds 250
- Remove-Item -LiteralPath $PSCommandPath -Force -ErrorAction SilentlyContinue
-}
+}finally{Finish-Maintenance}

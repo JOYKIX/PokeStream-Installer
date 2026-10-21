@@ -6,6 +6,8 @@ $remote=git remote get-url origin
 if($remote.TrimEnd('/') -ne 'https://github.com/JOYKIX/PokeStream-Installer.git'){throw 'Unexpected Git remote'}
 $manifest=Get-Content -Raw package.json | ConvertFrom-Json
 $version=$manifest.version
+$launcherVersion=$manifest.launcherVersion
+if($launcherVersion -notmatch '^\d+\.\d+\.\d+$'){throw 'Invalid launcher version'}
 if($version -notmatch '^\d+\.\d+\.\d+$'){throw 'Invalid version'}
 $tag="v$version";$commit=(git rev-parse HEAD).Trim()
 if(git status --porcelain){throw 'Commit all source changes before publishing'}
@@ -16,7 +18,7 @@ $binary=Join-Path $dir "PokeStream-$version-win-x64.exe"
 $infoFile=Join-Path $dir 'build-info.json'
 if(!(Test-Path -LiteralPath $binary) -or !(Test-Path -LiteralPath $infoFile)){throw 'Compile locally with npm run desktop:pack first'}
 $info=Get-Content -Raw -LiteralPath $infoFile | ConvertFrom-Json
-if($info.version -ne $version -or $info.commit -ne $commit){throw 'The local binary does not match this source commit. Rebuild first.'}
+if($info.version -ne $version -or $info.launcherVersion -ne $launcherVersion -or $info.commit -ne $commit){throw 'The local binary does not match this source commit. Rebuild first.'}
 $alias=Join-Path $dir 'PokeStream-Setup.exe';Copy-Item -LiteralPath $binary -Destination $alias -Force
 $sources=@(Get-ChildItem 'desktop/connect/dist' -Filter '*-source.zip' | Sort-Object LastWriteTime -Descending)
 if($sources.Count -eq 0){throw 'Corresponding SaveReader source archive missing'}
