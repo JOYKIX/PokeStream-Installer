@@ -8,7 +8,7 @@ const colors=["#b12c43","#335ba5","#387c6a","#8757a2","#b57835","#555e79"];
 export function LocalUsers(){
  const {t}=useI18n(),[users,setUsers]=useState<User[]>([]),[loading,setLoading]=useState(true),[manage,setManage]=useState(false),[edit,setEdit]=useState<Partial<User>|null>(null),[busy,setBusy]=useState(false),[error,setError]=useState(""),[remove,setRemove]=useState<User|null>(null),file=useRef<HTMLInputElement>(null);
  async function reload(){const r=await fetch("/api/local/users",{cache:"no-store"});if(!r.ok)throw Error();setUsers((await r.json()).users);}
- useEffect(()=>{reload().catch(()=>setError(t("Chargement impossible. Réessaie."))).finally(()=>setLoading(false));},[t]);
+ useEffect(()=>{let stopped=false;queueMicrotask(()=>{if(!stopped)reload().catch(()=>{if(!stopped)setError(t("Chargement impossible. Réessaie."));}).finally(()=>{if(!stopped)setLoading(false);});});return ()=>{stopped=true;};},[t]);
  async function send(method:string,body:unknown){const r=await fetch("/api/local/users",{method,headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});if(!r.ok)throw Error();}
  async function select(u:User){if(manage){setEdit(u);return;}setBusy(true);try{await send("PATCH",{id:u.id,select:true});window.location.assign("/studio");}catch{setError(t("Impossible d’ouvrir ce profil."));setBusy(false);}}
  async function save(e:React.FormEvent){e.preventDefault();if(!edit?.name?.trim())return;setBusy(true);setError("");try{const details={name:edit.name.trim(),color:edit.color||colors[0],avatar:edit.avatar||""};await send(edit.id?"PATCH":"POST",edit.id?{id:edit.id,details}:details);await reload();setEdit(null);}catch{setError(t("Enregistrement impossible."));}finally{setBusy(false);}}
