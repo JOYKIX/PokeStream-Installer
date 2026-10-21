@@ -1,0 +1,3 @@
+export const BUILDER_IMAGE_MAX_BYTES = 20 * 1024 * 1024;
+export const BUILDER_IMAGE_MAX_SIDE = 4096;
+export const BUILDER_IMAGE_LIMIT = 80;

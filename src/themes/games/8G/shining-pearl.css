@@ -1,0 +1,10 @@
+/* Perle Scintillante · Nintendo Switch. Shared construction: sinnoh-remake; edition-specific surfaces and motifs. */ .theme-shining-pearl {
+  --edition: var(--accent, #d896b5);
+  --surface: linear-gradient(140deg, #ffe8f4, #eab1d2 58%, #b582b3);
+  --surface-raised: #fff1f8;
+  --screen: radial-gradient(ellipse at 25% 20%, #ffffedb3, transparent 55%), repeating-radial-gradient(ellipse at 85% 85%, #fce9f51f 0 18px, #d098c029 19px 21px, transparent 22px 37px), #f4d5e8;
+  --ink: #723f66;
+  --muted-ink: #946986;
+  --line: #d597bc;
+  --item-surface: #fff1f8;
+}

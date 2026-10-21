@@ -1,0 +1,10 @@
+/* Rouge Feu · Game Boy Advance. Shared construction: advance-kanto; edition-specific surfaces and motifs. */ .theme-fire-red {
+  --edition: var(--accent, #d97546);
+  --surface: linear-gradient(145deg, #e88649, #ba4b39);
+  --surface-raised: #f5ba74;
+  --screen: repeating-linear-gradient(0deg, #94704912 0 2px, transparent 2px 5px), #e9dcae;
+  --ink: #fff4da;
+  --muted-ink: #f2d0ad;
+  --line: #965137;
+  --item-surface: #f5ba74;
+}

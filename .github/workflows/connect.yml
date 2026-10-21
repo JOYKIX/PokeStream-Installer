@@ -1,0 +1,28 @@
+name: PokeStream Desktop — Windows
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - run: npm ci
+      - name: Assemble Windows installer + portable
+        run: npm run desktop:pack
+        shell: pwsh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PokeStream-Windows
+          path: |
+            .artifacts/release/*.exe
+            .artifacts/release/*.yml
+          if-no-files-found: error

@@ -1,0 +1,10 @@
+/* Rubis Oméga · Nintendo 3DS. Shared construction: dexnav; edition-specific surfaces and motifs. */ .theme-omega-ruby {
+  --edition: var(--accent, #e87965);
+  --surface: linear-gradient(140deg, #ae4b48, #682b3b);
+  --surface-raised: #c77968;
+  --screen: linear-gradient(#efb79222 1px, transparent 1px) center / 20px 20px, linear-gradient(90deg, #efb79222 1px, transparent 1px) center / 20px 20px, radial-gradient(circle at center, #bf665c33 0 43%, #efbd9355 43% 44%, transparent 44%), #4d2e36;
+  --ink: #fff4df;
+  --muted-ink: #e7c8b5;
+  --line: #d69079;
+  --item-surface: #c77968;
+}

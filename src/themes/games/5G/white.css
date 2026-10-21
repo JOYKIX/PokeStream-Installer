@@ -1,0 +1,13 @@
+/* Blanc · Nintendo DS. Shared construction: ds-unova; edition-specific surfaces and motifs. */ .theme-white {
+  --edition: var(--accent, #7fbdab);
+  --surface: linear-gradient(135deg, #f8f8f1, #dce5dd);
+  --surface-raised: #ffffff;
+  --screen: radial-gradient(circle at 50% 55%, transparent 0 42%, #4a7a6d44 42% 43%, transparent 43% 55%, #4a7a6d22 55% 56%, transparent 56%), linear-gradient(135deg, #dae9dc, #adcec0);
+  --ink: #213934;
+  --muted-ink: #56786a;
+  --line: #7f9a8c;
+  --item-surface: #ffffff;
+}
+.theme-white .overlay-mon-art {
+  border-bottom-color: #243e35;
+}

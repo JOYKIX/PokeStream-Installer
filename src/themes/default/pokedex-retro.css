@@ -1,0 +1,43 @@
+/* Original red device: tactile shell, cream bezel and a green LCD. */ .theme-pokedex-retro {
+  --surface: linear-gradient(120deg, #d3545d, #af394b);
+  --surface-raised: #d8d3b7;
+  --screen: repeating-linear-gradient(0deg, #24371d0d 0 1px, transparent 1px 3px), #acb88a;
+  --ink: #fff4da;
+  --muted-ink: #efccb9;
+  --line: #70273b;
+  --stroke: 2px;
+  --card-radius: 6px 6px 22px 6px;
+  --screen-radius: 2px 2px 10px 2px;
+  --theme-card-top: 29px;
+  --theme-card-inset: 50px;
+  --item-radius: 2px;
+  --item-surface: #acb88a;
+  --card-shadow: inset 2px 2px 0 #ef9b8970, 3px 3px 0 #511e3050;
+  --hp-track: #a7b185;
+  --hp-high: #344e2f;
+  --hp-medium: #647339;
+  --hp-low: #9a6438;
+  --hp-radius: 0px;
+  --hp-pattern: repeating-linear-gradient(90deg, transparent 0 5px, #b5c294 5px 7px);
+  --theme-font: "Pixelify Sans Variable", monospace;
+  --title-font: var(--theme-font);
+}
+.theme-pokedex-retro .overlay-mon-art {
+  border: 5px solid #d8d3b7;
+  box-shadow: inset 2px 2px 0 #748059;
+}
+.theme-pokedex-retro .overlay-mon::before {
+  content: "";
+  position: absolute;
+  top: 7px;
+  left: 13px;
+  width: 13px;
+  height: 13px;
+  border: 3px solid #ede5c8;
+  border-radius: 50%;
+  background: #72cbd7;
+  box-shadow: 21px -1px 0 -4px #e6c967, 32px -1px 0 -4px #8fab70;
+}
+.theme-pokedex-retro .overlay-deaths svg {
+  color: #ffe5b6;
+}

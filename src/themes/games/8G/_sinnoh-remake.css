@@ -1,0 +1,34 @@
+/* Sinnoh remakes: polished pale resin and faceted, softly lit picture wells. */ .family-sinnoh-remake {
+  --surface: linear-gradient(145deg, #fafcff, #dbe4ee);
+  --surface-raised: #f9fdff;
+  --screen: linear-gradient(135deg, #fff8 0 22%, transparent 22% 77%, #fff4 77%), radial-gradient(ellipse at center, #ecf9ff, #c0d6e5);
+  --ink: #3b526b;
+  --muted-ink: #71859a;
+  --line: #a8bed2;
+  --card-radius: 17px;
+  --screen-radius: 11px;
+  --item-radius: 10px;
+  --theme-card-top: 12px;
+  --card-shadow: inset 0 0 0 2px #fff9, 0 4px 7px #27496222;
+  --hp-track: #c5d7df;
+  --hp-high: #64ab9a;
+  --hp-medium: #b49a48;
+  --hp-low: #c97681;
+  --hp-radius: 10px;
+  --gender-male: #4788af;
+  --gender-female: #b95b87;
+}
+.family-sinnoh-remake .overlay-mon-art {
+  border: 2px solid color-mix(in srgb, var(--edition) 50%, #d4e3ea);
+  box-shadow: inset 0 1px 5px #608baa22;
+}
+.family-sinnoh-remake .overlay-mon {
+  border-bottom: 4px solid var(--edition);
+}
+.overlay-stage .family-sinnoh-remake .overlay-deaths {
+  border-radius: 14px;
+  border-top: 3px solid var(--edition);
+}
+.theme-shining-pearl {
+  --screen: linear-gradient(135deg, #fff8 0 22%, transparent 22% 77%, #fff4 77%), radial-gradient(ellipse at center, #fff3fa, #dfc5d8);
+}

@@ -1,0 +1,919 @@
+/* =========================================================
+   POKESTREAM — TYPE PLANTE
+   Canopée / mousse / rosée / lumière naturelle
+
+   Direction :
+   - forêt profonde
+   - feuillage vivant
+   - lumière filtrée
+   - mousse douce
+   - formes organiques
+   - badges posés naturellement, sans cases
+   ========================================================= */
+
+.theme-grass {
+  --grass-accent: var(--edition, var(--accent, #78b84a));
+
+  --grass-green: #65a84b;
+  --grass-green-light: #91cb68;
+  --grass-lime: #badf79;
+
+  --grass-deep: #183820;
+  --grass-deep-2: #102a18;
+  --grass-deep-3: #0b1f12;
+
+  --grass-moss: #597c45;
+  --grass-moss-light: #8fad6b;
+
+  --grass-cream: #e8f0d5;
+  --grass-dew: #c9efe0;
+
+  --surface:
+    radial-gradient(
+      ellipse at 50% -10%,
+      #b8da8140 0%,
+      #5f9c4c1d 34%,
+      transparent 66%
+    ),
+    linear-gradient(
+      155deg,
+      #264b2d 0%,
+      #17351f 52%,
+      #0d2415 100%
+    );
+
+  --surface-raised: #315b36;
+
+  --screen:
+    radial-gradient(
+      ellipse at 50% -5%,
+      #d5ecaa35 0%,
+      #8dbc6724 31%,
+      transparent 62%
+    ),
+    radial-gradient(
+      ellipse at 50% 120%,
+      #426c371f 0%,
+      transparent 65%
+    ),
+    linear-gradient(
+      160deg,
+      #31543a,
+      #1d3e27 56%,
+      #112b1b
+    );
+
+  --ink: #eef7df;
+  --muted-ink: #b2c9a5;
+
+  --line: #638064;
+
+  --card-radius: 18px 28px 18px 18px;
+  --screen-radius: 16px 30px 16px 22px;
+  --item-radius: 50% 50% 42% 50%;
+
+  --item-surface:
+    radial-gradient(
+      circle at 34% 26%,
+      #e7f8ce4d 0%,
+      transparent 20%
+    ),
+    linear-gradient(
+      145deg,
+      #355c39,
+      #17361f
+    );
+
+  --hp-track: #102416;
+  --hp-high: #69a754;
+  --hp-medium: #ba9d42;
+  --hp-low: #b85d50;
+  --hp-radius: 999px;
+
+  --gender-male: #5b9ba7;
+  --gender-female: #c7708d;
+
+  --card-shadow:
+    inset 0 1px 0 #ffffff16,
+    inset 0 -1px 0 #07130b90,
+    0 6px 13px #06130b48;
+
+  color: var(--ink);
+}
+
+
+/* =========================================================
+   TEAM
+   ========================================================= */
+
+.theme-grass .overlay-team {
+  align-items: stretch;
+  gap: 12px;
+}
+
+
+/* =========================================================
+   POKÉMON CARD
+   Feuillage dense / sol forestier
+   ========================================================= */
+
+.overlay-stage .theme-grass .overlay-mon {
+  position: relative;
+  overflow: hidden;
+
+  border: 1px solid #637e5b;
+  border-top-color: #88a977;
+  border-bottom: 4px solid var(--grass-accent);
+
+  border-radius: 18px 28px 18px 18px;
+
+  background:
+    radial-gradient(
+      ellipse at 18% -4%,
+      #d3e99c2c 0%,
+      #6eaa5518 34%,
+      transparent 61%
+    ),
+    radial-gradient(
+      ellipse at 88% 108%,
+      #416b351c 0%,
+      transparent 54%
+    ),
+    linear-gradient(
+      150deg,
+      #315437 0%,
+      #1d3b25 48%,
+      #102819 100%
+    );
+
+  color: #edf6df;
+
+  box-shadow:
+    inset 0 1px 0 #ffffff17,
+    inset 0 -1px 0 #06140a99,
+    0 6px 13px #07150b50;
+}
+
+
+/* lumière de canopée */
+
+.theme-grass .overlay-mon::before {
+  content: "";
+
+  position: absolute;
+  z-index: 0;
+
+  top: -24px;
+  left: 3%;
+  right: 25%;
+
+  height: 53px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      ellipse,
+      #e1efa447 0%,
+      #9ac66925 34%,
+      transparent 70%
+    );
+
+  filter: blur(5px);
+
+  pointer-events: none;
+
+  animation: grass-canopy-breathe 5.4s ease-in-out infinite;
+}
+
+
+/* mousse lumineuse basse */
+
+.theme-grass .overlay-mon::after {
+  content: "";
+
+  position: absolute;
+  z-index: 0;
+
+  left: 8%;
+  right: 8%;
+  bottom: -25px;
+
+  height: 54px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      ellipse,
+      #75a95b2e 0%,
+      #365b301a 42%,
+      transparent 73%
+    );
+
+  filter: blur(5px);
+
+  pointer-events: none;
+}
+
+
+.theme-grass .overlay-mon > * {
+  position: relative;
+  z-index: 1;
+}
+
+
+/* =========================================================
+   ARTWORK
+   Clairière humide
+   ========================================================= */
+
+.overlay-stage .theme-grass .overlay-mon-art {
+  position: relative;
+  overflow: hidden;
+
+  border: 1px solid #72906a;
+  border-top-color: #9db68a;
+  border-bottom-color: #38563b;
+
+  border-radius: 15px 28px 15px 20px;
+
+  background:
+    radial-gradient(
+      ellipse at 50% -8%,
+      #e2efb13f 0%,
+      #b0d27624 27%,
+      transparent 58%
+    ),
+    radial-gradient(
+      ellipse at 50% 111%,
+      #6a975329 0%,
+      #31563318 41%,
+      transparent 67%
+    ),
+    linear-gradient(
+      160deg,
+      #45654a 0%,
+      #294a31 48%,
+      #15341f 100%
+    );
+
+  box-shadow:
+    inset 0 1px 0 #e8f2d71f,
+    inset 0 -5px 14px #08180d70,
+    0 2px 5px #06140a30;
+}
+
+
+/* soleil diffus */
+
+.theme-grass .overlay-mon-art::before {
+  content: "";
+
+  position: absolute;
+
+  top: -20px;
+  left: 10%;
+  right: 18%;
+
+  height: 42px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      ellipse,
+      #f1f5c55c 0%,
+      #c1dd8835 34%,
+      transparent 72%
+    );
+
+  filter: blur(4px);
+
+  opacity: 0.86;
+
+  pointer-events: none;
+
+  animation: grass-light-breathe 4.6s ease-in-out infinite;
+}
+
+
+/* coussin de mousse sous le Pokémon */
+
+.theme-grass .overlay-mon-art::after {
+  content: "";
+
+  position: absolute;
+
+  left: 13%;
+  right: 13%;
+  bottom: -10px;
+
+  height: 31px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      ellipse,
+      #8db86b55 0%,
+      #56814532 34%,
+      #29482c1e 54%,
+      transparent 75%
+    );
+
+  filter: blur(3px);
+
+  pointer-events: none;
+}
+
+
+.theme-grass .overlay-mon-art .pokemon-image {
+  position: relative;
+  z-index: 2;
+
+  filter:
+    drop-shadow(0 4px 5px #06150a80)
+    drop-shadow(0 0 7px #9fc27420);
+}
+
+
+/* =========================================================
+   TEXTE
+   ========================================================= */
+
+.theme-grass .overlay-mon-info strong {
+  font-family: "Space Grotesk Variable", sans-serif;
+
+  color: #f1f8e6;
+
+  text-shadow:
+    0 1px 0 #0b1c10,
+    0 0 8px #b2d5791f;
+}
+
+
+.theme-grass .overlay-level {
+  color: #bfd2b1;
+}
+
+
+.theme-grass .overlay-mon-info small {
+  color: #b1c6a6;
+}
+
+
+/* =========================================================
+   ROSÉE
+   Petites gouttes plutôt que des traits graphiques
+   ========================================================= */
+
+.theme-grass .overlay-mon-info {
+  position: relative;
+}
+
+
+.theme-grass .overlay-mon-info::after {
+  content: "";
+
+  position: absolute;
+
+  top: 3px;
+  right: 11px;
+
+  width: 4px;
+  height: 4px;
+
+  border-radius: 50%;
+
+  background: #d9f7df54;
+
+  box-shadow:
+    8px -4px 0 1px #d5f3dc2c,
+    14px 5px 0 0 #c6e8d02e;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   TYPE PILLS
+   ========================================================= */
+
+.overlay-stage .theme-grass .type-pill {
+  border: 1px solid currentColor;
+
+  background:
+    linear-gradient(
+      180deg,
+      #263a29,
+      #15251a
+    );
+
+  box-shadow:
+    inset 0 1px 0 #ffffff11,
+    0 2px 4px #07140a50;
+
+  text-shadow:
+    0 1px 1px #07130bd0;
+}
+
+
+/* =========================================================
+   OBJET TENU
+   Goutte / graine / capsule végétale
+   ========================================================= */
+
+.theme-grass .overlay-held-item {
+  position: relative;
+  overflow: hidden;
+
+  border: 1px solid #7c9b6d;
+  border-bottom: 3px solid var(--grass-accent);
+
+  border-radius: 50% 50% 42% 50%;
+
+  background:
+    radial-gradient(
+      circle at 31% 24%,
+      #eff9d578 0%,
+      #d6efb230 14%,
+      transparent 26%
+    ),
+    radial-gradient(
+      circle at 50% 55%,
+      #416d42 0%,
+      #284b30 53%,
+      #17351f 100%
+    );
+
+  box-shadow:
+    inset 1px 2px 3px #eff7db21,
+    inset -2px -3px 5px #07170c70,
+    0 3px 7px #07150b50,
+    0 0 8px #8ac06915;
+}
+
+
+/* rosée brillante */
+
+.theme-grass .overlay-held-item::before {
+  content: "";
+
+  position: absolute;
+
+  top: 18%;
+  left: 20%;
+
+  width: 25%;
+  height: 16%;
+
+  border-radius: 50%;
+
+  background: #effbdc82;
+
+  transform: rotate(-25deg);
+
+  filter: blur(0.5px);
+
+  pointer-events: none;
+}
+
+
+/* mousse interne */
+
+.theme-grass .overlay-held-item::after {
+  content: "";
+
+  position: absolute;
+
+  left: 16%;
+  right: 16%;
+  bottom: 7%;
+
+  height: 18%;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      ellipse,
+      #95c27245,
+      transparent 72%
+    );
+
+  filter: blur(2px);
+
+  pointer-events: none;
+}
+
+
+.theme-grass .overlay-held-item .item-sprite {
+  position: relative;
+  z-index: 2;
+
+  filter:
+    drop-shadow(0 2px 3px #07170c80)
+    drop-shadow(0 0 4px #bad88c2c);
+}
+
+
+/* =========================================================
+   NUZLOCKE
+   Petite capsule de mousse
+   ========================================================= */
+
+.overlay-stage .theme-grass .overlay-deaths {
+  position: relative;
+  overflow: hidden;
+
+  border: 1px solid #66815f;
+  border-bottom: 3px solid var(--grass-accent);
+
+  border-radius: 16px 24px 16px 16px;
+
+  background:
+    radial-gradient(
+      ellipse at 40% -10%,
+      #d7eaa02b 0%,
+      transparent 57%
+    ),
+    linear-gradient(
+      155deg,
+      #365b3c,
+      #193723
+    );
+
+  color: #edf6df;
+
+  box-shadow:
+    inset 0 1px 0 #ffffff16,
+    inset 0 -1px 0 #07150b8f,
+    0 3px 7px #07150b45;
+}
+
+
+/* petit halo naturel */
+
+.theme-grass .overlay-deaths::before {
+  content: "";
+
+  position: absolute;
+
+  top: -5px;
+  left: 12%;
+
+  width: 45%;
+  height: 13px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      ellipse,
+      #d7eda44a,
+      transparent 72%
+    );
+
+  filter: blur(2px);
+
+  pointer-events: none;
+}
+
+
+.theme-grass .overlay-deaths svg {
+  position: relative;
+  z-index: 2;
+
+  color: #95c870;
+
+  filter:
+    drop-shadow(0 0 5px #8fbd6744);
+}
+
+
+/* =========================================================
+   BADGES
+   Aucun carré.
+   Les badges reposent sur un petit tapis de mousse.
+   ========================================================= */
+
+.overlay-stage .theme-grass .overlay-badges.badge-case {
+  --case-slot: transparent;
+  --case-slot-border: transparent;
+  --case-imprint: #102819;
+  --case-lip: #bbd69730;
+
+  position: relative;
+  overflow: hidden;
+
+  grid-template-columns: repeat(var(--badge-columns), 48px);
+
+  gap: 8px 10px;
+  padding: 15px 14px 13px;
+
+  border: 1px solid #66805d;
+  border-top-color: #8ea87a;
+  border-bottom: 4px solid var(--grass-accent);
+
+  border-radius: 20px 30px 16px 20px;
+
+  background:
+    radial-gradient(
+      ellipse at 24% -8%,
+      #d7e9a736 0%,
+      #91bd6820 32%,
+      transparent 61%
+    ),
+    radial-gradient(
+      ellipse at 50% 120%,
+      #517b421f 0%,
+      transparent 65%
+    ),
+    linear-gradient(
+      150deg,
+      #315438,
+      #1c3a26 55%,
+      #102819
+    );
+
+  box-shadow:
+    inset 0 1px 0 #ffffff17,
+    inset 0 -1px 0 #07140a95,
+    0 4px 9px #06130a4a;
+}
+
+
+/* lumière douce sur le coffret */
+
+.theme-grass .overlay-badges.badge-case::before {
+  content: "";
+
+  position: absolute;
+
+  top: -19px;
+  left: 6%;
+  right: 31%;
+
+  height: 40px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      ellipse,
+      #e4f0b34d,
+      #9fc77629 38%,
+      transparent 73%
+    );
+
+  filter: blur(4px);
+
+  pointer-events: none;
+
+  animation: grass-light-breathe 5s ease-in-out infinite;
+}
+
+
+/* mousse au sol */
+
+.theme-grass .overlay-badges.badge-case::after {
+  content: "";
+
+  position: absolute;
+
+  left: 9%;
+  right: 9%;
+  bottom: -18px;
+
+  height: 39px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      ellipse,
+      #78a45b31,
+      #3c66351d 43%,
+      transparent 74%
+    );
+
+  filter: blur(5px);
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   BADGE POSITIONS
+   Pas de cases visibles
+   ========================================================= */
+
+.theme-grass .badge-case-slot {
+  position: relative;
+
+  display: grid;
+  place-items: center;
+
+  width: 48px;
+  height: 48px;
+
+  border: 0;
+  border-radius: 0;
+
+  background: transparent;
+
+  box-shadow: none;
+}
+
+
+/* coussin de mousse */
+
+.theme-grass .badge-case-slot::before {
+  content: "";
+
+  position: absolute;
+
+  left: 7px;
+  right: 7px;
+  bottom: 4px;
+
+  height: 13px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      ellipse,
+      #83ac663e,
+      #416b372a 46%,
+      transparent 75%
+    );
+
+  filter: blur(2px);
+
+  opacity: 0.5;
+
+  pointer-events: none;
+}
+
+
+/* empreinte non obtenue */
+
+.theme-grass .badge-imprint {
+  display: block;
+
+  width: 40px;
+  height: 40px;
+
+  opacity: 0.9;
+
+  filter:
+    drop-shadow(0 2px 3px #07150b80);
+}
+
+
+.theme-grass .badge-imprint::before {
+  background-color: #102a19;
+
+  -webkit-mask: var(--badge-shape) center / contain no-repeat;
+  mask: var(--badge-shape) center / contain no-repeat;
+
+  filter:
+    drop-shadow(0 1px 0 #8eb06d1f);
+}
+
+
+/* badge obtenu = lumière de clairière */
+
+.theme-grass .badge-case-slot.earned::before {
+  opacity: 1;
+
+  background:
+    radial-gradient(
+      ellipse,
+      #d3e99f62,
+      #88b66842 35%,
+      #456f3726 58%,
+      transparent 78%
+    );
+
+  box-shadow:
+    0 0 10px #92c16b28;
+}
+
+
+.theme-grass .badge-case-slot.earned > img {
+  position: relative;
+  z-index: 2;
+
+  filter:
+    drop-shadow(0 3px 2px #07150b8c)
+    drop-shadow(0 0 5px #b8dc8a50)
+    drop-shadow(0 0 11px #7eb45f25);
+
+  animation:
+    grass-badge-breathe 4.8s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   FAINTED
+   ========================================================= */
+
+.theme-grass .overlay-mon.fainted .pokemon-image {
+  filter:
+    grayscale(1)
+    drop-shadow(0 3px 3px #07150b60);
+
+  opacity: 0.4;
+}
+
+
+/* =========================================================
+   SELECTOR
+   ========================================================= */
+
+.sample-grass span {
+  border: 1px solid #718665;
+  border-bottom: 3px solid #78b84a;
+
+  border-radius: 8px 13px 8px 8px;
+
+  background:
+    radial-gradient(
+      ellipse at 35% -15%,
+      #dceca638,
+      transparent 57%
+    ),
+    linear-gradient(
+      155deg,
+      #315438,
+      #142f1e
+    );
+
+  box-shadow:
+    inset 0 1px 0 #ffffff15,
+    2px 4px 6px #07150b4a;
+}
+
+
+/* =========================================================
+   ANIMATIONS
+   Vie végétale lente, presque imperceptible
+   ========================================================= */
+
+@keyframes grass-canopy-breathe {
+  0%,
+  100% {
+    opacity: 0.68;
+    transform: scaleX(0.96);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scaleX(1.04);
+  }
+}
+
+
+@keyframes grass-light-breathe {
+  0%,
+  100% {
+    opacity: 0.62;
+    transform: scaleX(0.95);
+  }
+
+  50% {
+    opacity: 0.95;
+    transform: scaleX(1.03);
+  }
+}
+
+
+@keyframes grass-badge-breathe {
+  0%,
+  100% {
+    transform: translateY(0);
+    filter:
+      drop-shadow(0 3px 2px #07150b8c)
+      drop-shadow(0 0 4px #b8dc8a3d);
+  }
+
+  50% {
+    transform: translateY(-1px);
+    filter:
+      drop-shadow(0 3px 2px #07150b8c)
+      drop-shadow(0 0 7px #c9e89e62);
+  }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-grass .overlay-mon::before,
+  .theme-grass .overlay-mon-art::before,
+  .theme-grass .overlay-badges.badge-case::before,
+  .theme-grass .badge-case-slot.earned > img {
+    animation: none;
+  }
+}

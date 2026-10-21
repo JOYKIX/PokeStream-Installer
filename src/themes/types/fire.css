@@ -1,0 +1,773 @@
+/* =========================================================
+   POKESTREAM — TYPE FEU
+   Forge vivante / braises / métal noirci
+   ========================================================= */
+
+.theme-fire {
+  --fire-accent: var(--edition, var(--accent, #fb923c));
+
+  --fire-orange: #f47a2d;
+  --fire-orange-hot: #ffb14d;
+  --fire-gold: #ffd57d;
+  --fire-red: #d34b2c;
+  --fire-deep: #7a2518;
+
+  --fire-coal-1: #120f10;
+  --fire-coal-2: #1a1415;
+  --fire-coal-3: #261a19;
+  --fire-coal-4: #34211d;
+
+  --surface:
+    radial-gradient(
+      ellipse at 50% 118%,
+      #ff742d24 0%,
+      #c8441d14 34%,
+      transparent 66%
+    ),
+    linear-gradient(
+      150deg,
+      #34211d 0%,
+      #1b1515 54%,
+      #100e0f 100%
+    );
+
+  --surface-raised: #3a241f;
+
+  --screen:
+    radial-gradient(
+      ellipse at 50% 110%,
+      #ff87383a 0%,
+      #d44d241d 28%,
+      transparent 66%
+    ),
+    radial-gradient(
+      circle at 50% 28%,
+      #311f1c 0%,
+      #1b1515 58%,
+      #110f10 100%
+    );
+
+  --ink: #fff0de;
+  --muted-ink: #cfb19d;
+  --line: #7c5245;
+
+  --card-radius: 14px;
+  --screen-radius: 12px;
+  --item-radius: 12px;
+
+  --item-surface:
+    radial-gradient(
+      ellipse at 50% 120%,
+      #ff7e302b,
+      transparent 58%
+    ),
+    linear-gradient(
+      145deg,
+      #33211d,
+      #171315
+    );
+
+  --hp-track: #180f10;
+  --hp-high: #ea8a43;
+  --hp-medium: #efb850;
+  --hp-low: #e74c3e;
+  --hp-radius: 999px;
+
+  --gender-male: #67a8c8;
+  --gender-female: #d97794;
+
+  --card-shadow:
+    inset 0 1px 0 #ffffff12,
+    inset 0 -1px 0 #000000a0,
+    0 6px 12px #0000004a;
+
+  color: var(--ink);
+}
+
+
+/* =========================================================
+   TEAM
+   ========================================================= */
+
+.theme-fire .overlay-team {
+  align-items: stretch;
+  gap: 12px;
+}
+
+
+/* =========================================================
+   CARTE POKÉMON
+   Bloc de métal noirci chauffé par en dessous
+   ========================================================= */
+
+.overlay-stage .theme-fire .overlay-mon {
+  position: relative;
+  overflow: hidden;
+
+  border: 1px solid #74483d;
+  border-bottom: 4px solid var(--fire-accent);
+
+  border-radius: 14px;
+
+  background:
+    radial-gradient(
+      ellipse at 50% 120%,
+      #ff7c3028 0%,
+      #c2411d16 35%,
+      transparent 67%
+    ),
+    radial-gradient(
+      circle at 20% 10%,
+      #6f2f221a 0%,
+      transparent 36%
+    ),
+    linear-gradient(
+      145deg,
+      #32211d 0%,
+      #1e1717 48%,
+      #100f10 100%
+    );
+
+  color: var(--ink);
+
+  box-shadow:
+    inset 0 1px 0 #ffffff12,
+    inset 0 -1px 0 #000000a0,
+    0 6px 12px #00000052;
+}
+
+
+/* lèvre chaude */
+
+.theme-fire .overlay-mon::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+
+  top: 0;
+  left: 16%;
+  right: 16%;
+  height: 2px;
+
+  border-radius: 0 0 999px 999px;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      #ffd57b 0%,
+      #ff9646 35%,
+      #c54a27 72%,
+      transparent 100%
+    );
+
+  box-shadow:
+    0 0 10px #f36a2f45;
+
+  opacity: 0.95;
+
+  pointer-events: none;
+}
+
+
+/* chaleur basse */
+
+.theme-fire .overlay-mon::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+
+  left: 12%;
+  right: 12%;
+  bottom: -22px;
+  height: 50px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      ellipse,
+      #ff933d35 0%,
+      #dd4f251f 42%,
+      transparent 73%
+    );
+
+  filter: blur(5px);
+
+  pointer-events: none;
+
+  animation: fire-card-breathe 4s ease-in-out infinite;
+}
+
+.theme-fire .overlay-mon > * {
+  position: relative;
+  z-index: 1;
+}
+
+
+/* =========================================================
+   ARTWORK
+   Le foyer est sous le Pokémon
+   ========================================================= */
+
+.overlay-stage .theme-fire .overlay-mon-art {
+  position: relative;
+  overflow: hidden;
+
+  border: 1px solid #75483c;
+  border-top-color: #a9694b;
+  border-bottom-color: #492c27;
+
+  border-radius: 12px;
+
+  background:
+    radial-gradient(
+      ellipse at 50% 108%,
+      #ff9e4540 0%,
+      #e95b2926 22%,
+      #7a2b1b18 43%,
+      transparent 69%
+    ),
+    radial-gradient(
+      circle at 50% 35%,
+      #34221e 0%,
+      #1b1616 60%,
+      #111011 100%
+    );
+
+  box-shadow:
+    inset 0 1px 0 #ffffff0d,
+    inset 0 -4px 12px #00000070,
+    0 2px 4px #0000002a;
+}
+
+
+/* halo de braise */
+
+.theme-fire .overlay-mon-art::before {
+  content: "";
+  position: absolute;
+
+  left: 14%;
+  right: 14%;
+  bottom: -10px;
+  height: 30px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      ellipse,
+      #ffd57f82 0%,
+      #ff893f68 20%,
+      #df4e2830 47%,
+      transparent 74%
+    );
+
+  filter: blur(4px);
+
+  opacity: 0.82;
+
+  pointer-events: none;
+
+  animation: fire-ember-breathe 3.2s ease-in-out infinite;
+}
+
+
+/* ambiance chaude */
+
+.theme-fire .overlay-mon-art::after {
+  content: "";
+  position: absolute;
+
+  left: 22%;
+  right: 22%;
+  bottom: 0;
+  height: 55%;
+
+  border-radius: 50% 50% 20% 20%;
+
+  background:
+    radial-gradient(
+      ellipse at bottom,
+      #ffb65a1f,
+      #ef67210f 44%,
+      transparent 72%
+    );
+
+  filter: blur(7px);
+
+  pointer-events: none;
+}
+
+.theme-fire .overlay-mon-art .pokemon-image {
+  position: relative;
+  z-index: 2;
+
+  filter:
+    drop-shadow(0 4px 5px #0000008a)
+    drop-shadow(0 0 8px #ff6a252d);
+}
+
+
+/* =========================================================
+   TEXTE
+   ========================================================= */
+
+.theme-fire .overlay-mon-info strong {
+  font-family: "Space Grotesk Variable", sans-serif;
+  color: #fff4e6;
+
+  text-shadow:
+    0 1px 0 #000000,
+    0 0 8px #f06c2822;
+}
+
+.theme-fire .overlay-level {
+  color: #dbb8a3;
+}
+
+.theme-fire .overlay-mon-info small {
+  color: #c9a896;
+}
+
+
+/* =========================================================
+   TYPES
+   ========================================================= */
+
+.overlay-stage .theme-fire .type-pill {
+  border: 1px solid currentColor;
+
+  background:
+    linear-gradient(
+      180deg,
+      #2d2020,
+      #181516
+    );
+
+  box-shadow:
+    inset 0 1px 0 #ffffff10,
+    0 2px 3px #00000055;
+
+  text-shadow:
+    0 1px 1px #000000d0;
+}
+
+
+/* =========================================================
+   OBJET TENU
+   Réceptacle forgé
+   ========================================================= */
+
+.theme-fire .overlay-held-item {
+  position: relative;
+  overflow: hidden;
+
+  border: 1px solid #7a5046;
+  border-bottom: 3px solid var(--fire-accent);
+
+  border-radius: 12px;
+
+  background:
+    radial-gradient(
+      ellipse at 50% 115%,
+      #ff843534,
+      transparent 60%
+    ),
+    linear-gradient(
+      145deg,
+      #34211d,
+      #181416
+    );
+
+  box-shadow:
+    inset 0 1px 0 #ffffff10,
+    inset 0 -1px 0 #0000008a,
+    0 3px 6px #0000004d;
+}
+
+.theme-fire .overlay-held-item::before {
+  content: "";
+  position: absolute;
+
+  left: 16%;
+  right: 16%;
+  bottom: -3px;
+  height: 12px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      ellipse,
+      #ffae586c,
+      #e8612c35 45%,
+      transparent 73%
+    );
+
+  filter: blur(2px);
+
+  pointer-events: none;
+}
+
+.theme-fire .overlay-held-item .item-sprite {
+  position: relative;
+  z-index: 2;
+
+  filter:
+    drop-shadow(0 2px 2px #00000090)
+    drop-shadow(0 0 5px #ff81323a);
+}
+
+
+/* =========================================================
+   COMPTEUR NUZLOCKE
+   ========================================================= */
+
+.overlay-stage .theme-fire .overlay-deaths {
+  position: relative;
+  overflow: hidden;
+
+  border: 1px solid #734a40;
+  border-bottom: 3px solid var(--fire-accent);
+
+  border-radius: 12px;
+
+  background:
+    radial-gradient(
+      circle at 50% 135%,
+      #ff762c35,
+      transparent 64%
+    ),
+    linear-gradient(
+      145deg,
+      #31201d,
+      #171415
+    );
+
+  color: #fff1df;
+
+  box-shadow:
+    inset 0 1px 0 #ffffff0e,
+    inset 0 -1px 0 #00000090,
+    0 3px 6px #00000045;
+}
+
+.theme-fire .overlay-deaths::before {
+  content: "";
+  position: absolute;
+
+  left: 20%;
+  right: 20%;
+  bottom: -4px;
+  height: 12px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      ellipse,
+      #ffae5770,
+      #e8582836 48%,
+      transparent 75%
+    );
+
+  filter: blur(2px);
+
+  pointer-events: none;
+}
+
+.theme-fire .overlay-deaths svg {
+  position: relative;
+  z-index: 2;
+
+  color: #ff8b45;
+
+  filter:
+    drop-shadow(0 0 5px #ff662f55);
+}
+
+
+/* =========================================================
+   BADGE CASE
+   Plus de cases carrées :
+   les badges reposent sur un autel de braises
+   ========================================================= */
+
+.overlay-stage .theme-fire .overlay-badges.badge-case {
+  --case-slot: transparent;
+  --case-slot-border: transparent;
+  --case-imprint: #070708;
+  --case-lip: #c7775338;
+
+  position: relative;
+  overflow: hidden;
+
+  grid-template-columns: repeat(var(--badge-columns), 48px);
+  gap: 8px 10px;
+  padding: 14px 14px 12px;
+
+  border: 1px solid #744b40;
+  border-bottom: 4px solid var(--fire-accent);
+  border-radius: 14px;
+
+  background:
+    radial-gradient(
+      ellipse at 50% 122%,
+      #ff752d2b 0%,
+      #c7431e17 36%,
+      transparent 68%
+    ),
+    linear-gradient(
+      145deg,
+      #30201d,
+      #181415 57%,
+      #100f10
+    );
+
+  box-shadow:
+    inset 0 1px 0 #ffffff0f,
+    inset 0 -1px 0 #0000009c,
+    0 4px 8px #0000004d;
+}
+
+
+/* lèvre chaude du coffret */
+
+.theme-fire .overlay-badges.badge-case::before {
+  content: "";
+  position: absolute;
+
+  top: 0;
+  left: 18%;
+  right: 18%;
+  height: 2px;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      #ffd57b 0%,
+      #ff9747 35%,
+      #c34d28 72%,
+      transparent 100%
+    );
+
+  box-shadow:
+    0 0 9px #f15c2940;
+
+  pointer-events: none;
+}
+
+
+/* grande nappe de chaleur intérieure */
+
+.theme-fire .overlay-badges.badge-case::after {
+  content: "";
+  position: absolute;
+
+  left: 12%;
+  right: 12%;
+  bottom: -20px;
+  height: 44px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      ellipse,
+      #ff8b3c32,
+      #dc4b2520 42%,
+      transparent 72%
+    );
+
+  filter: blur(5px);
+
+  pointer-events: none;
+
+  animation: fire-card-breathe 4.4s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   BADGE SLOTS
+   Plus de carrés : juste une zone de pose invisible
+   ========================================================= */
+
+.theme-fire .badge-case-slot {
+  position: relative;
+  display: grid;
+  place-items: center;
+
+  width: 48px;
+  height: 48px;
+
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+
+/* lit de braises derrière chaque badge */
+
+.theme-fire .badge-case-slot::before {
+  content: "";
+  position: absolute;
+
+  inset: auto 7px 5px 7px;
+  height: 12px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      ellipse,
+      #ffb96534,
+      #de57282a 46%,
+      transparent 74%
+    );
+
+  filter: blur(2px);
+
+  opacity: 0.35;
+
+  pointer-events: none;
+}
+
+
+/* badge non obtenu : simple empreinte sombre */
+
+.theme-fire .badge-imprint {
+  display: block;
+  width: 40px;
+  height: 40px;
+
+  opacity: 0.96;
+
+  filter:
+    drop-shadow(0 1px 0 #7c4c3f55)
+    drop-shadow(0 2px 4px #00000085);
+}
+
+.theme-fire .badge-imprint::before {
+  background:
+    radial-gradient(
+      circle at 50% 35%,
+      #20303f00 0%,
+      #00000000 100%
+    );
+  -webkit-mask: var(--badge-shape) center / contain no-repeat;
+  mask: var(--badge-shape) center / contain no-repeat;
+  background-color: #0a0a0b;
+  box-shadow:
+    inset 0 1px 0 #ffffff10,
+    inset 0 -1px 0 #00000085;
+}
+
+
+/* badge obtenu : il chauffe et rayonne */
+
+.theme-fire .badge-case-slot.earned::before {
+  opacity: 0.95;
+  background:
+    radial-gradient(
+      ellipse,
+      #ffd17d7a,
+      #ff863f50 30%,
+      #d74d2c24 52%,
+      transparent 76%
+    );
+
+  box-shadow:
+    0 0 10px #ff6f2d30;
+}
+
+.theme-fire .badge-case-slot.earned > img {
+  position: relative;
+  z-index: 2;
+
+  filter:
+    drop-shadow(0 3px 2px #00000095)
+    drop-shadow(0 0 6px #ff93495c)
+    drop-shadow(0 0 12px #ff6c2c30);
+}
+
+
+/* =========================================================
+   FAINTED
+   ========================================================= */
+
+.theme-fire .overlay-mon.fainted .pokemon-image {
+  filter:
+    grayscale(1)
+    drop-shadow(0 3px 3px #00000065);
+
+  opacity: 0.4;
+}
+
+
+/* =========================================================
+   APERÇU SELECTOR
+   ========================================================= */
+
+.sample-fire span {
+  border: 1px solid #755045;
+  border-bottom: 3px solid #fb923c;
+
+  border-radius: 6px;
+
+  background:
+    radial-gradient(
+      ellipse at bottom,
+      #ff762d3b,
+      transparent 62%
+    ),
+    linear-gradient(
+      145deg,
+      #32211d,
+      #151314
+    );
+
+  box-shadow:
+    inset 0 1px 0 #ffffff10,
+    2px 3px 5px #00000055;
+}
+
+
+/* =========================================================
+   VIE / CHALEUR
+   ========================================================= */
+
+@keyframes fire-card-breathe {
+  0%,
+  100% {
+    opacity: 0.68;
+    transform: scaleX(0.96);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes fire-ember-breathe {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: scaleX(0.92);
+  }
+
+  50% {
+    opacity: 0.92;
+    transform: scaleX(1.04);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-fire .overlay-mon::after,
+  .theme-fire .overlay-mon-art::before,
+  .theme-fire .overlay-badges.badge-case::after {
+    animation: none;
+  }
+}

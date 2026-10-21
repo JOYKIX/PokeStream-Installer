@@ -1,0 +1,10 @@
+/* Saphir · Game Boy Advance. Shared construction: advance-hoenn; edition-specific surfaces and motifs. */ .theme-sapphire {
+  --edition: var(--accent, #477dcc);
+  --surface: linear-gradient(145deg, #3b76c1, #284583);
+  --surface-raised: #5b87c5;
+  --screen: linear-gradient(180deg, #b9d6e0 0 58%, #729aac 58% 60%, #c8dece 60% 73%, #adc9b8 73%);
+  --ink: #eff5e0;
+  --muted-ink: #bfd6e5;
+  --line: #243d6a;
+  --item-surface: #5b87c5;
+}

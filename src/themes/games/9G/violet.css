@@ -1,0 +1,10 @@
+/* Violet · Nintendo Switch. Shared construction: academy; edition-specific surfaces and motifs. */ .theme-violet {
+  --edition: var(--accent, #9380c3);
+  --surface: repeating-linear-gradient(0deg, #eacaff05 0 1px, transparent 1px 3px), linear-gradient(145deg, #756099, #443755 75%);
+  --surface-raised: #a189b9;
+  --screen: radial-gradient(circle at 85% 10%, #856aa42b 0 11px, transparent 12px), radial-gradient(circle at 72% 18%, #856aa41f 0 11px, transparent 12px), radial-gradient(circle at 86% 26%, #856aa421 0 11px, transparent 12px), linear-gradient(#eee1e8, #d7c2d8);
+  --ink: #fcf0e1;
+  --muted-ink: #dccae4;
+  --line: #b99cc7;
+  --item-surface: #a189b9;
+}

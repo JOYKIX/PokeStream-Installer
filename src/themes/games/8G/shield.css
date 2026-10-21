@@ -1,0 +1,10 @@
+/* Bouclier · Nintendo Switch. Shared construction: stadium; edition-specific surfaces and motifs. */ .theme-shield {
+  --edition: var(--accent, #d85587);
+  --surface: linear-gradient(145deg, #c1457d, #7e326d 65%, #45315a);
+  --surface-raised: #d977a5;
+  --screen: repeating-linear-gradient(60deg, #ffc3e319 0 2px, transparent 2px 13px), radial-gradient(ellipse at bottom, #e56bab66, #523257 75%);
+  --ink: #fff1f9;
+  --muted-ink: #f1cce2;
+  --line: #ed99c5;
+  --item-surface: #d977a5;
+}

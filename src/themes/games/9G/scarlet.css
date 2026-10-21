@@ -1,0 +1,10 @@
+/* Écarlate · Nintendo Switch. Shared construction: academy; edition-specific surfaces and motifs. */ .theme-scarlet {
+  --edition: var(--accent, #d67846);
+  --surface: repeating-linear-gradient(0deg, #ffe4a905 0 1px, transparent 1px 3px), linear-gradient(145deg, #a85c39, #633e3b 75%);
+  --surface-raised: #c78851;
+  --screen: repeating-conic-gradient(from 10deg at 90% 10%, transparent 0 38deg, #c9753322 38deg 40deg), radial-gradient(ellipse at center, #f7e2bc, #ddb88c);
+  --ink: #fff1d4;
+  --muted-ink: #e2c9aa;
+  --line: #c9a16f;
+  --item-surface: #c78851;
+}

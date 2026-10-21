@@ -1,0 +1,10 @@
+/* Or HeartGold · Nintendo DS. Shared construction: ds-johto; edition-specific surfaces and motifs. */ .theme-heartgold {
+  --edition: var(--accent, #c8953b);
+  --surface: linear-gradient(140deg, #f4d875, #dba942 58%, #bb8738);
+  --surface-raised: #ffe8a3;
+  --screen: linear-gradient(90deg, #ad9c601a 1px, transparent 1px) 0 0 / 18px 18px, linear-gradient(#ad9c601a 1px, transparent 1px) 0 0 / 18px 18px, #efdfac;
+  --ink: #554426;
+  --muted-ink: #786437;
+  --line: #a98635;
+  --item-surface: #ffe8a3;
+}

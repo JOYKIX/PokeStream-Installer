@@ -1,0 +1,10 @@
+html:has(.obs-output),
+body:has(.obs-output) {
+  background: transparent !important;
+  margin: 0;
+  overflow: hidden;
+}
+.obs-output {
+  background: transparent;
+  width: 100%;
+}

@@ -1,0 +1,42 @@
+.privacy-page {
+  max-width: 800px;
+}
+.privacy-page .privacy-heading {
+  margin: 38px 0 30px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #2b2b33;
+}
+.privacy-page .privacy-heading h1 {
+  margin-top: 0;
+}
+.privacy-page .privacy-heading p {
+  margin-bottom: 0;
+  color: #a0a0ad;
+}
+.privacy-page section {
+  margin: 28px 0;
+}
+.privacy-page section h2 {
+  font-size: 17px;
+  letter-spacing: -0.2px;
+  margin: 0 0 12px;
+}
+.privacy-page section p {
+  margin: 10px 0;
+  font-size: 14px;
+  line-height: 1.8;
+}
+.privacy-page .privacy-contact {
+  display: inline-block;
+  margin-top: 8px;
+  color: #ff8896;
+  font-size: 13px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.privacy-page .privacy-contact:hover {
+  color: #ffc5cc;
+}
+.privacy-page > .button {
+  margin-top: 10px;
+}

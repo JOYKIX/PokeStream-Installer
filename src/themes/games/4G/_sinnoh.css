@@ -1,0 +1,48 @@
+/* DS Sinnoh: cold silver casing, touch-screen grid and the seam between displays. */ .family-ds-sinnoh {
+  --surface: linear-gradient(120deg, #edf0f3, #cbd2dc);
+  --surface-raised: #f7f9fb;
+  --screen: linear-gradient(#8294a61c 1px, transparent 1px) 0 0 / 12px 12px, linear-gradient(90deg, #8294a61c 1px, transparent 1px) 0 0 / 12px 12px, #dde7ec;
+  --ink: #354353;
+  --muted-ink: #6c7b8b;
+  --line: #8c9aaa;
+  --stroke: 2px;
+  --card-radius: 11px;
+  --screen-radius: 4px;
+  --item-radius: 5px;
+  --theme-card-top: 22px;
+  --card-shadow: inset 0 0 0 2px #fff9, 0 3px 5px #18283b30;
+  --hp-track: #b8c9c8;
+  --hp-high: #4f9d81;
+  --hp-medium: #b59841;
+  --hp-low: #c16672;
+  --hp-radius: 3px;
+  --gender-male: #3976a0;
+  --gender-female: #af4e7e;
+}
+.family-ds-sinnoh .overlay-mon::before {
+  content: "";
+  position: absolute;
+  inset: 6px 16px auto;
+  height: 7px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--edition) 0 28%, #a3adba66 28% 100%);
+}
+.family-ds-sinnoh .overlay-mon-art {
+  border: 2px solid #a0afbd;
+  border-bottom: 5px solid #8b9caa;
+  box-shadow: inset 0 1px 3px #5b748233;
+}
+.family-ds-sinnoh .overlay-level {
+  padding: 1px 8px;
+  background: #acbdca45;
+  border-radius: 3px;
+}
+.overlay-stage .family-ds-sinnoh .overlay-deaths {
+  border-top: 5px solid var(--edition);
+  border-radius: 7px;
+}
+.theme-platinum {
+  --surface: linear-gradient(120deg, #d7dce1, #aeb9c4);
+  --screen: repeating-linear-gradient(135deg, #859aaa15 0 1px, transparent 1px 10px), #dae4eb;
+  --line: #748293;
+}

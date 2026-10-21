@@ -1,0 +1,25 @@
+/* Frosted edge, a quiet transparent centre and capsule-shaped details. */ .theme-glass {
+  --surface: linear-gradient(135deg, #f0f9ff29, #769bbf0d 55%, #d5eaff1c);
+  --surface-raised: #d6eeff24;
+  --screen: radial-gradient(ellipse at 50% 110%, #9fd7ff29, transparent 65%);
+  --line: #eef8ff55;
+  --card-radius: 20px;
+  --screen-radius: 14px;
+  --card-shadow: inset 0 1px 0 #ffffff57, 0 4px 8px #0002;
+  --item-surface: #223346d9;
+  --hp-track: #0f253b66;
+  --hp-radius: 10px;
+  --hp-pattern: linear-gradient(180deg, #fffa, transparent);
+}
+.theme-glass .overlay-mon, .theme-glass .overlay-deaths, .theme-glass .badge-case {
+  backdrop-filter: blur(10px);
+}
+.theme-glass .overlay-mon-art {
+  border-color: #ffffff10;
+}
+.theme-glass .overlay-mon-info {
+  text-shadow: 0 1px 3px #0008;
+}
+.overlay-stage .theme-glass .overlay-deaths {
+  border-radius: 30px;
+}

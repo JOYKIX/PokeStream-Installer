@@ -1,0 +1,10 @@
+/* Rubis · Game Boy Advance. Shared construction: advance-hoenn; edition-specific surfaces and motifs. */ .theme-ruby {
+  --edition: var(--accent, #d05257);
+  --surface: linear-gradient(145deg, #b54d59, #7b293d);
+  --surface-raised: #c56870;
+  --screen: linear-gradient(180deg, #e8c8b0 0 58%, #b78980 58% 60%, #ddd6b0 60% 73%, #c8c09d 73%);
+  --ink: #fff1d6;
+  --muted-ink: #e7c1ad;
+  --line: #632d41;
+  --item-surface: #c56870;
+}

@@ -1,0 +1,10 @@
+/* Ultra-Lune · Nintendo 3DS. Shared construction: ultra; edition-specific surfaces and motifs. */ .theme-ultra-moon {
+  --edition: var(--accent, #85a1ed);
+  --surface: linear-gradient(150deg, #4a559d, #252b52 70%, #18293e);
+  --surface-raised: #727fc0;
+  --screen: conic-gradient(from 25deg at 50% 95%, #a9c9ff30, transparent 20%, #ab85df30 21%, transparent 40%, #97e3eb30 41%, transparent 60%, #c1b3f130 61%, transparent 80%), #202b4d;
+  --ink: #edf4ff;
+  --muted-ink: #c4d1f0;
+  --line: #9daee9;
+  --item-surface: #727fc0;
+}

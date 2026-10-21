@@ -1,0 +1,10 @@
+/* Ultra-Soleil · Nintendo 3DS. Shared construction: ultra; edition-specific surfaces and motifs. */ .theme-ultra-sun {
+  --edition: var(--accent, #f7b456);
+  --surface: linear-gradient(150deg, #674b36, #282939 70%, #182838);
+  --surface-raised: #a4794d;
+  --screen: conic-gradient(from 25deg at 50% 95%, #f7d57930, transparent 20%, #e8944730 21%, transparent 40%, #f8d68930 41%, transparent 60%, #d96f4630 61%, transparent 80%), #28273b;
+  --ink: #fff4d1;
+  --muted-ink: #e2c9a0;
+  --line: #d8ad69;
+  --item-surface: #a4794d;
+}

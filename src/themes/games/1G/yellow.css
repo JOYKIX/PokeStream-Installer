@@ -1,0 +1,13 @@
+/* Jaune · Game Boy. Shared construction: gb; edition-specific surfaces and motifs. */ .theme-yellow {
+  --edition: var(--accent, #d7b13d);
+  --surface: linear-gradient(145deg, #f2cf65, #d6a944);
+  --surface-raised: #f8dea0;
+  --screen: radial-gradient(#493b1815 0.65px, transparent 0.8px) 0 0 / 3px 3px, #e1d8a1;
+  --ink: #4b3e26;
+  --muted-ink: #786334;
+  --line: #786332;
+  --item-surface: #f8dea0;
+}
+.theme-yellow .overlay-mon {
+  border-top-color: #644932;
+}

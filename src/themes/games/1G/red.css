@@ -1,0 +1,13 @@
+/* Rouge · Game Boy. Shared construction: gb; edition-specific surfaces and motifs. */ .theme-red {
+  --edition: var(--accent, #a84c4c);
+  --surface: linear-gradient(145deg, #ac4549, #77373c);
+  --surface-raised: #be6664;
+  --screen: radial-gradient(#26382418 0.65px, transparent 0.8px) 0 0 / 3px 3px, #c4ca9a;
+  --ink: #fff0d1;
+  --muted-ink: #e2c5a4;
+  --line: #512e32;
+  --item-surface: #be6664;
+}
+.theme-red .overlay-mon {
+  border-top-color: #e8b090;
+}

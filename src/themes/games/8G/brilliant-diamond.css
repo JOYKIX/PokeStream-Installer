@@ -1,0 +1,10 @@
+/* Diamant Étincelant · Nintendo Switch. Shared construction: sinnoh-remake; edition-specific surfaces and motifs. */ .theme-brilliant-diamond {
+  --edition: var(--accent, #68aad6);
+  --surface: linear-gradient(140deg, #daf2ff, #92c7e5 58%, #6ba5d3);
+  --surface-raised: #e8f8ff;
+  --screen: linear-gradient(135deg, #fffc 0 19%, transparent 19% 59%, #589ec12b 59% 69%, transparent 69%), linear-gradient(45deg, transparent 66%, #97d4eb6b 66% 83%, transparent 83%), #cfedf7;
+  --ink: #214f72;
+  --muted-ink: #517c9b;
+  --line: #78b1d2;
+  --item-surface: #e8f8ff;
+}

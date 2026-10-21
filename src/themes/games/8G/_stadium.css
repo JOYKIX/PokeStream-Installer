@@ -1,0 +1,46 @@
+/* Galar: broadcast scoreboards, stadium light and sharp league stripes. */ .family-stadium {
+  --surface: #172231;
+  --surface-raised: #2b3a4a;
+  --screen: repeating-linear-gradient(120deg, #77a1c012 0 1px, transparent 1px 11px), radial-gradient(ellipse at 50% 90%, #42808b55, #142233 75%);
+  --ink: #f6f9fa;
+  --muted-ink: #aebfce;
+  --line: #607287;
+  --card-radius: 2px 15px 2px 2px;
+  --screen-radius: 1px 9px 1px 1px;
+  --pill-radius: 1px;
+  --item-radius: 2px;
+  --theme-card-top: 10px;
+  --hp-track: #070f1c;
+  --hp-high: #72d0b0;
+  --hp-radius: 1px;
+  --hp-pattern: none;
+  --card-shadow: 3px 3px 0 #04101d55;
+}
+.family-stadium .overlay-mon {
+  border-top: 6px solid var(--edition);
+}
+.family-stadium .overlay-mon-art {
+  border: 0;
+  border-bottom: 4px solid #e4edf5;
+}
+.family-stadium .overlay-mon-info strong {
+  font-family: "Inter Variable", sans-serif;
+  font-weight: 750;
+  font-style: italic;
+  letter-spacing: -0.04em;
+}
+.family-stadium .overlay-health-values {
+  color: #e6edf4;
+  font-weight: 650;
+}
+.overlay-stage .family-stadium .overlay-deaths {
+  border-left: 7px solid var(--edition);
+  border-radius: 1px 12px 1px 1px;
+  font-style: italic;
+}
+.family-stadium .badge-case {
+  border-top: 5px solid var(--edition);
+}
+.theme-shield {
+  --screen: repeating-linear-gradient(120deg, #bd81a113 0 1px, transparent 1px 11px), radial-gradient(ellipse at 50% 90%, #92446c55, #251f34 75%);
+}

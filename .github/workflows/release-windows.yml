@@ -1,0 +1,64 @@
+name: PokeStream — Windows Release
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: pokestream-release
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/main'
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - run: npm ci
+      - uses: actions/cache@v4
+        with:
+          path: desktop/connect/data/sprites.zip
+          key: connect-sprites-${{ hashFiles('desktop/connect/data/sprite-manifest.json') }}
+      - name: TypeScript validation
+        run: npm run typecheck
+      - name: Compile Next.js, Connect and Windows packages
+        run: npm run desktop:pack
+      - name: Make stable installer link and SHA256 checksums
+        shell: pwsh
+        run: |
+          $version = node -p "require('./package.json').version"
+          $dir = '.artifacts/release'
+          $setup = Join-Path $dir "PokeStream-Setup-$version-win-x64.exe"
+          if (!(Test-Path $setup)) { throw "NSIS installer not found: $setup" }
+          Copy-Item $setup (Join-Path $dir 'PokeStream-Setup.exe')
+          $files = @(Get-ChildItem $dir -Filter '*.exe')
+          if ($files.Count -lt 3) { throw 'Expected NSIS installer, portable EXE and download alias' }
+          $lines = foreach ($f in $files) {
+            $hash = (Get-FileHash $f.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
+            "$hash  $($f.Name)"
+          }
+          $lines | Set-Content (Join-Path $dir 'SHA256SUMS.txt') -Encoding ascii
+      - name: Publish to PUBLIC installer repository releases
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $version = node -p "require('./package.json').version"
+          $tag = "v$version"
+          gh release view $tag 2>$null
+          if ($LASTEXITCODE -eq 0) { throw "Release $tag exists. Increment version in package.json." }
+          $assets = @(Get-ChildItem -File '.artifacts/release' | Where-Object { $_.Extension -eq '.exe' -or $_.Name -eq 'SHA256SUMS.txt' } | ForEach-Object { $_.FullName })
+          if ($assets.Count -lt 4) { throw 'Release assets missing' }
+          gh release create $tag @assets --title "PokeStream $tag" --notes "PokeStream Windows · installer, portable and SHA256 checksums." --target "$env:GITHUB_SHA" --latest
+          if ($LASTEXITCODE -ne 0) { throw 'GitHub release publication failed' }
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: PokeStream-Release-Diagnostics
+          path: .artifacts/release/*
+          if-no-files-found: ignore

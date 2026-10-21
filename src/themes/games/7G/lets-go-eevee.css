@@ -1,0 +1,10 @@
+/* Let’s Go, Évoli · Nintendo Switch. Shared construction: letsgo; edition-specific surfaces and motifs. */ .theme-lets-go-eevee {
+  --edition: var(--accent, #b78a62);
+  --surface: linear-gradient(145deg, #f2dfbf, #c49b70);
+  --surface-raised: #fff0d7;
+  --screen: radial-gradient(circle at center, #fff0d7 0 58%, #936d4344 59% 60%, transparent 61%);
+  --ink: #58432f;
+  --muted-ink: #876c50;
+  --line: #b68d65;
+  --item-surface: #fff0d7;
+}

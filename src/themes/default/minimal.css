@@ -1,0 +1,35 @@
+/* No card surface. The small details remain readable over a stream. */ .theme-minimal {
+  --surface: transparent;
+  --surface-raised: #10141dcc;
+  --screen: transparent;
+  --line: #ffffff38;
+  --stroke: 0px;
+  --card-shadow: none;
+  --card-radius: 0px;
+  --item-surface: #111923dd;
+  --hp-track: #10151dc9;
+  --hp-radius: 0px;
+  --hp-pattern: none;
+  --case-surface: #10141dbb;
+}
+.theme-minimal .overlay-mon-art {
+  border: 0;
+  padding: 5px;
+}
+.theme-minimal .overlay-mon-info {
+  text-shadow: 0 2px 4px #000;
+}
+.theme-minimal .overlay-mon-info strong {
+  font-weight: 550;
+}
+.overlay-stage .theme-minimal .overlay-deaths {
+  border-left: 2px solid var(--edition);
+  border-radius: 0;
+  padding: 3px 9px;
+  text-shadow: 0 2px 4px #000;
+}
+.theme-minimal .overlay-health-track {
+  border: 0;
+  height: calc(4px * var(--health-scale, 1));
+  padding: 0;
+}

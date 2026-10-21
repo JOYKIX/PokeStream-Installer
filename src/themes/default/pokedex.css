@@ -1,0 +1,44 @@
+/* Contemporary Pokédex: light instrument, red seam, single optical sensor. */ .theme-pokedex {
+  --surface: linear-gradient(130deg, #f4f8fa, #dbe5eb);
+  --surface-raised: #f6fbfd;
+  --screen: radial-gradient(ellipse at center, #f2ffff, #c5e3eb);
+  --ink: #203a4c;
+  --muted-ink: #547184;
+  --line: #a6bfca;
+  --card-radius: 22px;
+  --screen-radius: 12px;
+  --theme-card-top: 27px;
+  --item-radius: 9px;
+  --hp-track: #aac5ce;
+  --hp-high: #368e7d;
+  --gender-male: #24789b;
+  --gender-female: #b44876;
+}
+.theme-pokedex .overlay-mon {
+  border-left: 4px solid var(--edition);
+}
+.theme-pokedex .overlay-mon::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 15px;
+  width: 9px;
+  height: 9px;
+  border: 2px solid #397084;
+  border-radius: 50%;
+  background: #8de3ed;
+  box-shadow: inset 1px 1px 0 #fff;
+}
+.theme-pokedex .overlay-mon::after {
+  content: "";
+  position: absolute;
+  top: 11px;
+  right: 18px;
+  width: 22px;
+  height: 3px;
+  background: #839ba9;
+  border-radius: 3px;
+}
+.overlay-stage .theme-pokedex .overlay-deaths, .theme-pokedex .badge-case {
+  border-left: 4px solid var(--edition);
+}

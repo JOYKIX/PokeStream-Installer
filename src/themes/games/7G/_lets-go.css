@@ -1,0 +1,41 @@
+/* Let's Go on Switch: clean cream summary, a round field and friendly green controls. */ .family-letsgo {
+  --surface: #faf7ed;
+  --surface-raised: #fffffa;
+  --screen: radial-gradient(circle at center, #e8efdb 0 59%, transparent 60%);
+  --ink: #43544d;
+  --muted-ink: #83917d;
+  --line: #c0cdb7;
+  --card-radius: 24px;
+  --screen-radius: 50%;
+  --stroke: 1px;
+  --item-radius: 50%;
+  --theme-card-top: 10px;
+  --card-shadow: 0 3px 6px #343e2522;
+  --hp-high: #77a880;
+  --hp-track: #dce7ce;
+  --hp-radius: 20px;
+  --hp-pattern: none;
+  --gender-male: #4d87a0;
+  --gender-female: #bf728a;
+}
+.family-letsgo .overlay-mon-art {
+  border: 0;
+}
+.family-letsgo .overlay-mon-info strong {
+  font-family: "Inter Variable", sans-serif;
+  font-weight: 650;
+}
+.family-letsgo .overlay-level {
+  padding: 2px 10px;
+  background: #e4ebd7;
+  border-radius: 20px;
+}
+.overlay-stage .family-letsgo .overlay-deaths {
+  border: 0;
+  border-bottom: 3px solid var(--edition);
+  border-radius: 24px;
+}
+.family-letsgo .overlay-health-track {
+  border: 0;
+  height: calc(7px * var(--health-scale, 1));
+}
