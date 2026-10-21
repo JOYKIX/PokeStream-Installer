@@ -106,7 +106,7 @@ async function stopServices(){
   const done=()=>{cleanup();resolve();};const cleanup=()=>{clearTimeout(timer);child.off('exit',done);};child.once('exit',done);
  })));
 }
-const env={...process.env,POKESTREAM_LOCAL:'1',POKESTREAM_DATA_DIR:dataDir,POKESTREAM_IPC_DIR:path.join(dataDir,'engine'),POKESTREAM_ENGINE_TOKEN:randomBytes(32).toString('hex'),POKESTREAM_ENGINE_ID:randomUUID(),POKESTREAM_PARENT_PID:String(process.pid),POKESTREAM_INSTANCE:randomUUID(),POKESTREAM_SITE:ORIGIN,PORT:'47653',HOSTNAME:'127.0.0.1',NODE_ENV:DEV?'development':'production'};
+const env={...process.env,POKESTREAM_LOCAL:'1',POKESTREAM_DATA_DIR:dataDir,POKESTREAM_IPC_DIR:path.join(dataDir,'engine'),POKESTREAM_ENGINE_TOKEN:(DEV&&process.env.POKESTREAM_ENGINE_TOKEN)||randomBytes(32).toString('hex'),POKESTREAM_ENGINE_ID:(DEV&&process.env.POKESTREAM_ENGINE_ID)||randomUUID(),POKESTREAM_PARENT_PID:String(process.pid),POKESTREAM_INSTANCE:(DEV&&process.env.POKESTREAM_INSTANCE)||randomUUID(),POKESTREAM_SITE:ORIGIN,PORT:'47653',HOSTNAME:'127.0.0.1',NODE_ENV:DEV?'development':'production'};
 for(const key of Object.keys(env))if(/^(SUPABASE_|PATREON_|FIREBASE_|NEXT_PUBLIC_SUPABASE)/.test(key)||key.startsWith('PORTABLE_'))delete env[key];
 async function waitServer(child){
  const deadline=Date.now()+30000;while(Date.now()<deadline){
