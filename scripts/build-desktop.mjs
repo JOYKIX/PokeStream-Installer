@@ -64,7 +64,7 @@ const load=createRequire(path.join(dest,'server.js'));
 for(const dependency of ['next','react','react-dom'])if(!load.resolve(dependency).startsWith(dest+path.sep))fail('Staged dependency missing: '+dependency);
 prepareLauncher(root);
 const shell=path.join(root,'.artifacts/shell');fs.mkdirSync(shell,{recursive:true});
-for(const name of ['main.cjs','preload.cjs','runtime.cjs','installation.cjs','updater.cjs'])fs.copyFileSync(path.join(root,'desktop/app',name),path.join(shell,name));
+for(const name of ['main.cjs','preload.cjs','runtime.cjs','installation.cjs','updater.cjs','maintenance.cjs'])fs.copyFileSync(path.join(root,'desktop/app',name),path.join(shell,name));
 const manifest=JSON.parse(fs.readFileSync(path.join(root,'package.json'),'utf8'));
 fs.writeFileSync(path.join(shell,'package.json'),JSON.stringify({name:manifest.name,version:manifest.version,description:manifest.description,author:manifest.author,license:manifest.license,main:'main.cjs'}));
 if(!webOnly){

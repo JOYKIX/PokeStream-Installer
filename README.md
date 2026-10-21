@@ -25,7 +25,7 @@ npm ci
 npm run desktop:pack
 ~~~
 
-Output: .artifacts/release/PokeStream-2.2.4-win-x64.exe. The build prepares a complete standalone Next.js runtime, the .NET engine, the custom Electron launcher and a verified runtime ZIP. The runtime is isolated from electron-builder file filtering so its node_modules remain intact.
+Output: .artifacts/release/PokeStream-2.2.5-win-x64.exe. The build prepares a complete standalone Next.js runtime, the .NET engine, the custom Electron launcher and a verified runtime ZIP. The runtime is isolated from electron-builder file filtering so its node_modules remain intact.
 
 For development: npm run dev:desktop. This starts the shared Next.js UI and launcher; building Connect first enables the game reader.
 
@@ -45,3 +45,9 @@ The full [PokéAPI sprites](https://github.com/PokeAPI/sprites) catalog exceeds 
 
 To download **the entire library** ahead of offline use, open **Settings → Pokémon sprite library → Download all sprites**. The operation is resumable and can be paused. The full download requires significant bandwidth and free disk space; downloaded sprite files remain local and are not deleted during PokeStream updates. The installer does not bundle the complete third-party image repository. Files unavailable upstream fall back to the application's usual sprite-selection logic.
 
+
+## Maintenance reliability (2.2.5)
+
+Updates and uninstallation run from a detached PowerShell helper copied to a temporary directory outside the installed Application. Its startup is acknowledged immediately and failures are logged in `%LOCALAPPDATA%/PokeStream/maintenance-bootstrap.log` and `%LOCALAPPDATA%/PokeStream/maintenance.log`. Post-restart results appear in `maintenance.json` until read by the launcher.
+
+**Important:** The broken handoff in 2.2.4 cannot be retroactively patched in an already running executable. Install the 2.2.5 setup from GitHub once, preserving your existing local profiles. The corrected in-app update mechanism then applies to subsequent releases. Default uninstallation keeps profiles and creations unless deletion is explicitly selected.

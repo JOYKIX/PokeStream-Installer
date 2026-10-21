@@ -6,6 +6,7 @@ const fs=require('node:fs'),fsp=require('node:fs/promises'),path=require('node:p
 const {createRuntime}=require('./runtime.cjs');
 const {createInstallation,samePath}=require('./installation.cjs');
 const {createUpdater}=require('./updater.cjs');
+const {launchMaintenance}=require('./maintenance.cjs');
 const ORIGIN='http://127.0.0.1:47653',DEV=process.env.POKESTREAM_DEV_DESKTOP==='1',startedAt=Date.now();
 app.setName('PokeStream');app.setAppUserModelId('app.pokestream.desktop');
 const home=path.join(process.env.LOCALAPPDATA||app.getPath('appData'),'PokeStream');
@@ -38,7 +39,7 @@ const runtime=createRuntime({resources,installDirectory:installDir,version:app.g
 const installation=createInstallation({directory:installDir,version:app.getVersion(),notify:publish});
 function publish(patch){state={...state,...patch};if(window&&!window.isDestroyed())window.webContents.send('pokestream:launcher:state',state);}
 function log(message){fs.appendFileSync(path.join(dataDir,'logs','launcher.log'),new Date().toISOString()+' '+message+'\n');}
-async function openLogs(){const file=path.join(home,'maintenance.log');if(fs.existsSync(file))await fsp.copyFile(file,path.join(dataDir,'logs','maintenance.log'));return shell.openPath(path.join(dataDir,'logs'));}
+async function openLogs(){await fsp.mkdir(path.join(dataDir,'logs'),{recursive:true});for(const name of ['maintenance.log','maintenance-bootstrap.log']){const file=path.join(home,name);if(fs.existsSync(file))await fsp.copyFile(file,path.join(dataDir,'logs',name));}return shell.openPath(path.join(dataDir,'logs'));}
 function external(url){try{const u=new URL(url);if(u.protocol==='https:'||(u.protocol==='http:'&&u.origin===ORIGIN))void shell.openExternal(u.href);}catch{}}
 async function showLauncher(){if(!window)return;const url=window.webContents.getURL();if(url.startsWith(ORIGIN+'/'))lastPage=new URL(url).pathname;
  await window.loadFile(path.join(launcherAssets,'launcher.html'));publish({running,installed:DEV||!!runtime.current()&&!!installation.current()});}
@@ -127,19 +128,14 @@ async function launch(){
  await Promise.all([startEngine(),window.loadURL(ORIGIN+lastPage)]);running=true;publish({running:true,phase:'ready',progress:null});log('Interface ready in '+(Date.now()-startedAt)+' ms');
 }
 async function maintenance(scriptName,args=[]){
- publish({phase:scriptName==='uninstall.ps1'?'uninstalling':'updating',progress:null});
- const directory=await fsp.mkdtemp(path.join(os.tmpdir(),'PokeStream-maintenance-'));
- const script=path.join(directory,scriptName),ready=path.join(directory,'ready');
- await fsp.copyFile(path.join(launcherAssets,scriptName),script);
- const child=spawn('powershell.exe',['-NoProfile','-NonInteractive','-WindowStyle','Hidden','-ExecutionPolicy','Bypass','-File',script,'-ParentPid',String(process.pid),'-ReadyFile',ready,...args],{detached:true,windowsHide:true,stdio:'ignore'});
- let failure=null;child.on('error',error=>{failure=error;});
- const deadline=Date.now()+30000;
- while(!fs.existsSync(ready)){
-  if(failure||child.exitCode!==null||Date.now()>deadline){try{child.kill();}catch{}throw failure||Error('Maintenance could not start. Open the logs and try again.');}
-  await new Promise(resolve=>setTimeout(resolve,100));
- }
- // The helper is running outside Application and has checked its inputs before we exit.
- child.unref();stopChildren();app.quit();return {status:'starting'};
+ publish({phase:scriptName==='uninstall.ps1'?'uninstalling':'updating',progress:null,error:''});
+ const result=await launchMaintenance({scriptName,args,launcherAssets,parentPid:process.pid,dataDir});
+ log('Maintenance '+scriptName+' ready; helper PID '+result.pid);
+ // Never remove the currently running EXE or server. The external, detached
+ // PowerShell helper takes over ONLY after acknowledging startup.
+ stopChildren();
+ app.quit();
+ return {status:'starting'};
 }
 async function installUpdate(){
  const item=await updater.verify();
@@ -172,7 +168,7 @@ async function start(){
  updater=createUpdater({app,directory:path.join(home,'Updates'),notify:update=>publish({update:{...state.update,...update}})});
  if(!fs.existsSync(preferenceFile)){const previous=await window.webContents.session.cookies.get({url:ORIGIN,name:"pokestream-language"});if(languages.includes(previous[0]?.value))language=previous[0].value;}
  await saveLanguage(language);
- try{const last=JSON.parse(await fsp.readFile(path.join(home,'maintenance.json'),'utf8'));if(last.success===false)state.error=last.message;}catch{}
+ try{const resultFile=path.join(home,'maintenance.json');const last=JSON.parse(await fsp.readFile(resultFile,'utf8'));if(last.success===false){state.error=last.message;state.phase='error';}await fsp.rm(resultFile,{force:true});}catch{}
  state.installed=DEV||!!runtime.current()&&!!target;await showLauncher();log('Launcher ready in '+(Date.now()-startedAt)+' ms');void updater.check();
  if(process.argv.includes('--apply-update'))await guarded(()=>install());
  else if(process.argv.includes('--open-app'))await guarded(launch);

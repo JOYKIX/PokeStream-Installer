@@ -1,50 +1,78 @@
 param(
  [Parameter(Mandatory=$true)][int]$ParentPid,
  [Parameter(Mandatory=$true)][string]$ReadyFile,
+ [Parameter(Mandatory=$true)][string]$ErrorFile,
  [switch]$RemoveData
 )
 $ErrorActionPreference='Stop'
-$root=[IO.Path]::GetFullPath((Join-Path $env:LOCALAPPDATA 'PokeStream')).TrimEnd('\')
-$application=[IO.Path]::GetFullPath((Join-Path $root 'Application'))
-$log=Join-Path $root 'maintenance.log'
-$status=Join-Path $root 'maintenance.json'
-function Note([string]$text){[IO.File]::AppendAllText($log,([DateTime]::UtcNow.ToString('o')+' '+$text+[Environment]::NewLine))}
+$root=$null
+$application=$null
+$log=$null
+$status=$null
+function Note([string]$text){
+ if($log){[IO.File]::AppendAllText($log,([DateTime]::UtcNow.ToString('o')+' '+$text+[Environment]::NewLine))}
+}
+function Result([bool]$success,[string]$message){
+ if($status){
+  [IO.File]::WriteAllText($status,(@{operation='uninstall';success=$success;dataRemoved=[bool]$RemoveData;message=$message}|ConvertTo-Json -Compress))
+ }
+}
 function RemoveOwnedFolder([string]$name){
  if($name -notin @('Application','Updates','Studio')){throw 'Unknown product directory'}
  $target=[IO.Path]::GetFullPath((Join-Path $root $name))
- if([IO.Path]::GetDirectoryName($target) -ne $root){throw 'Refusing removal outside PokeStream'}
+ if(![string]::Equals([IO.Path]::GetDirectoryName($target),$root,[StringComparison]::OrdinalIgnoreCase)){throw 'Refusing removal outside PokeStream'}
  if(!(Test-Path -LiteralPath $target)){return}
- # Never traverse junctions or symbolic links placed inside a product directory.
- $links=@(Get-ChildItem -LiteralPath $target -Force -Recurse -Attributes ReparsePoint -ErrorAction Stop)
- if((Get-Item -LiteralPath $target -Force).Attributes -band [IO.FileAttributes]::ReparsePoint -or $links.Count -gt 0){throw 'Linked directory detected. Remove the link before uninstalling.'}
- for($attempt=0;$attempt -lt 10;$attempt++){
-  try{Remove-Item -LiteralPath $target -Recurse -Force -ErrorAction Stop;return}catch{if($attempt -eq 9){throw};Start-Sleep -Seconds 1}
+ # Explicitly walk directory entries without following reparse points. A junction
+ # must never redirect an uninstaller into arbitrary user or system files.
+ $stack=New-Object 'System.Collections.Generic.Stack[string]'
+ $stack.Push($target)
+ while($stack.Count -gt 0){
+  $current=$stack.Pop()
+  if(([IO.File]::GetAttributes($current) -band [IO.FileAttributes]::ReparsePoint) -ne 0){throw 'Linked directory detected: '+$current}
+  foreach($entry in [IO.Directory]::EnumerateFileSystemEntries($current)){
+   $attributes=[IO.File]::GetAttributes($entry)
+   if(($attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0){throw 'Linked file detected: '+$entry}
+   if(($attributes -band [IO.FileAttributes]::Directory) -ne 0){$stack.Push($entry)}
+  }
+ }
+ for($attempt=0;$attempt -lt 20;$attempt++){
+  try{Remove-Item -LiteralPath $target -Recurse -Force -ErrorAction Stop;return}
+  catch{if($attempt -eq 19){throw};Start-Sleep -Milliseconds 750}
  }
 }
 try {
- if([IO.Path]::GetDirectoryName($application) -ne $root){throw 'Invalid installation directory'}
- Note 'Uninstall requested'
+ if([string]::IsNullOrWhiteSpace($env:LOCALAPPDATA)){throw 'LOCALAPPDATA is unavailable'}
+ $root=[IO.Path]::GetFullPath((Join-Path $env:LOCALAPPDATA 'PokeStream')).TrimEnd('\')
+ [IO.Directory]::CreateDirectory($root)|Out-Null
+ $application=[IO.Path]::GetFullPath((Join-Path $root 'Application'))
+ $log=Join-Path $root 'maintenance.log'
+ $status=Join-Path $root 'maintenance.json'
+ if($ParentPid -lt 1 -or ![string]::Equals([IO.Path]::GetDirectoryName($application),$root,[StringComparison]::OrdinalIgnoreCase)){throw 'Invalid uninstallation location'}
+ Note ('Uninstall helper launched; preserveData='+(!$RemoveData))
  [IO.File]::WriteAllText($ReadyFile,'ready')
- Wait-Process -Id $ParentPid -Timeout 60 -ErrorAction SilentlyContinue
- if(Get-Process -Id $ParentPid -ErrorAction SilentlyContinue){throw 'PokeStream is still running'}
+ Wait-Process -Id $ParentPid -Timeout 90 -ErrorAction SilentlyContinue
+ if(Get-Process -Id $ParentPid -ErrorAction SilentlyContinue){throw 'PokeStream is still running: cannot safely uninstall'}
  $shortcutShell=New-Object -ComObject WScript.Shell
  $shortcuts=@((Join-Path ([Environment]::GetFolderPath('Desktop')) 'PokeStream.lnk'),(Join-Path $env:APPDATA 'Microsoft\Windows\Start Menu\Programs\PokeStream.lnk'))
  foreach($link in $shortcuts){
   if(Test-Path -LiteralPath $link){
-   $target=$shortcutShell.CreateShortcut($link).TargetPath
-   if($target -and [IO.Path]::GetFullPath($target).StartsWith($application+'\',[StringComparison]::OrdinalIgnoreCase)){Remove-Item -LiteralPath $link -Force}
+   $shortcutTarget=$shortcutShell.CreateShortcut($link).TargetPath
+   if($shortcutTarget -and [IO.Path]::GetFullPath($shortcutTarget).StartsWith($application+'\',[StringComparison]::OrdinalIgnoreCase)){
+    Remove-Item -LiteralPath $link -Force -ErrorAction Stop
+   }
   }
  }
  RemoveOwnedFolder 'Application'
  RemoveOwnedFolder 'Updates'
  if($RemoveData){RemoveOwnedFolder 'Studio'}
- [IO.File]::WriteAllText($status,(@{operation='uninstall';success=$true;dataRemoved=[bool]$RemoveData}|ConvertTo-Json -Compress))
+ Result $true 'PokeStream uninstalled'
  Note ('Uninstall completed; data removed: '+[bool]$RemoveData)
 }catch{
- Note ('Uninstall failed: '+$_.Exception.Message)
- [IO.File]::WriteAllText($status,(@{operation='uninstall';success=$false;message=$_.Exception.Message}|ConvertTo-Json -Compress))
+ $msg=$_.Exception.Message
+ try{Note ('Uninstall failed: '+$msg);Result $false $msg}catch{}
+ try{[IO.File]::WriteAllText($ErrorFile,$msg)}catch{}
  exit 1
 }finally{
- Remove-Item -LiteralPath $ReadyFile -Force -ErrorAction SilentlyContinue
+ Start-Sleep -Milliseconds 250
  Remove-Item -LiteralPath $PSCommandPath -Force -ErrorAction SilentlyContinue
 }
