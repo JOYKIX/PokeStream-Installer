@@ -1,5 +1,5 @@
 "use client";
-import {useCallback,useEffect,useRef,useState} from "react";
+import {useCallback,useEffect,useRef,useState,useSyncExternalStore} from "react";
 import {ArrowDownToLine,ArrowUpFromLine,Copy,FolderOpen,HardDrive,Users,FileJson,CheckCircle2,AlertCircle,RefreshCw} from "lucide-react";
 
 type Item={id:string;name:string};
@@ -11,10 +11,9 @@ const groups:{kind:Kind;title:string;key:keyof Pick<Library,"scenes"|"themes"|"b
 type UpdatesBridge={check:()=>Promise<{status:string;version:string;current?:string}>;download:()=>Promise<{status:string;version?:string}>;install:()=>Promise<{status:string}>};
 type DesktopBridge={openData:()=>Promise<void>;updates?:UpdatesBridge};
 function UpdateSettings(){
- const [bridge,setBridge]=useState<UpdatesBridge|null>(null);
+ const bridge=useSyncExternalStore<UpdatesBridge|null>(()=>()=>{},()=>((window as Window&{pokeStream?:DesktopBridge}).pokeStream?.updates||null),()=>null);
  const [status,setStatus]=useState('');const [version,setVersion]=useState('');
  const [busy,setBusy]=useState(false);
- useEffect(()=>{setBridge((window as Window&{pokeStream?:DesktopBridge}).pokeStream?.updates||null);},[]);
  async function check(){if(!bridge)return;setBusy(true);try{const r=await bridge.check();setStatus(r.status);setVersion(r.version);}catch(e){setStatus('error:'+String(e));}finally{setBusy(false);}}
  async function download(){if(!bridge)return;setBusy(true);try{const r=await bridge.download();setStatus(r.status);if(r.version)setVersion(r.version);}catch(e){setStatus('error:'+String(e));}finally{setBusy(false);}}
  return <section className="local-settings-panel update-panel"><div className="local-settings-panel-head"><RefreshCw size={20}/><div><h2>Mises à jour</h2><p>Versions officielles distribuées via GitHub Releases.</p></div></div>
@@ -34,7 +33,7 @@ export function LocalSettings(){
   const result=await r.json() as Library;setData(result);
   setSelected(current=>current&&result[groups.find(g=>g.kind===current.kind)!.key].some(i=>i.id===current.id)?current:null);
  },[]);
- useEffect(()=>{refresh().catch(e=>setAlert({error:true,text:e.message}));},[refresh]);
+ useEffect(()=>{let stopped=false;queueMicrotask(()=>{if(!stopped)refresh().catch(e=>{if(!stopped)setAlert({error:true,text:e.message});});});return ()=>{stopped=true;};},[refresh]);
  const item=selected&&data?.[groups.find(g=>g.kind===selected.kind)!.key].find(i=>i.id===selected.id);
  async function perform(task:()=>Promise<void>){setBusy(true);setAlert(null);try{await task();await refresh();}catch(error){setAlert({error:true,text:error instanceof Error?error.message:"Opération impossible."});}finally{setBusy(false);}}
  async function share(action:"copy",targetUserId:string){if(!selected)return;await perform(async()=>{
