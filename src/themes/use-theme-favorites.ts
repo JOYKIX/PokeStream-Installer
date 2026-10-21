@@ -47,11 +47,13 @@ export function useThemeFavorites(enabled: boolean, demo: boolean) {
   useEffect(() => {
     if (!enabled || demo) return;
     const reload = () => { if (document.visibilityState === "visible") void refresh(); };
-    void refresh();
+    let stopped = false;
+    queueMicrotask(() => { if (!stopped) void refresh(); });
     window.addEventListener("focus", reload);
     window.addEventListener("online", reload);
     document.addEventListener("visibilitychange", reload);
     return () => {
+      stopped = true;
       request.current?.abort();
       window.removeEventListener("focus", reload);
       window.removeEventListener("online", reload);
