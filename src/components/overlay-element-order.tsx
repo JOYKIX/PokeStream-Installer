@@ -118,7 +118,7 @@ export function OverlayElementOrder({
     // Capture on the list, which stays mounted when its rows change position.
     listRef.current.setPointerCapture(event.pointerId);
     const scroller = scrollParent(listRef.current);
-    let previousTime = performance.now();
+    let previousTime = event.timeStamp;
     function autoScroll(time: number) {
       const current = drag.current;
       if (!current) return;
