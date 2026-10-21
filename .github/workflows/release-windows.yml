@@ -62,7 +62,9 @@ jobs:
           }
           $lines | Set-Content (Join-Path $dir 'SHA256SUMS.txt') -Encoding ascii
       - name: Publish to PUBLIC installer repository releases
-        if: github.event_name == 'workflow_dispatch'
+        # Release only when manually dispatched or explicitly marked in a main-branch commit.
+        # Ordinary pushes continue to build/check without publishing.
+        if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[release]')
         shell: pwsh
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
