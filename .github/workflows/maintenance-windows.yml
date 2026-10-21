@@ -1,0 +1,22 @@
+name: Windows maintenance regression tests
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'desktop/app/maintenance.cjs'
+      - 'desktop/app/uninstall.ps1'
+      - 'desktop/app/update-install.ps1'
+      - 'scripts/maintenance.test.cjs'
+      - '.github/workflows/maintenance-windows.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  maintenance:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: node --test scripts/maintenance.test.cjs

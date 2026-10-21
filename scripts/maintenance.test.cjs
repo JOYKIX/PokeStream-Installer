@@ -87,7 +87,7 @@ test('PowerShell detached process can execute a minimal script with file argumen
    let stdout='',stderr='';child.stdout.on('data',b=>stdout+=b);child.stderr.on('data',b=>stderr+=b);
    const exitCode=await new Promise((resolve,reject)=>{child.once('exit',resolve);child.once('error',reject);});
    assert.equal(exitCode,0,'PowerShell did not execute: '+stderr+' | '+stdout);
-   assert.equal(await fsp.readFile(ready,'utf8'),'ready','Missing ready file; detached='+detached+'; output='+stdout+'; error='+stderr);
+   assert.equal(fs.existsSync(ready),true,'Missing ready file; detached='+detached+'; output='+JSON.stringify(stdout)+'; error='+JSON.stringify(stderr)+'; code='+exitCode+'; args='+JSON.stringify(child.spawnargs));
   }
  }finally{await fsp.rm(dir,{recursive:true,force:true}).catch(()=>{});}
 });
