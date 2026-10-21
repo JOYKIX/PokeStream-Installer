@@ -51,6 +51,12 @@ for(const source of sources){
     available[source.id]=priorAvailability[source.id];
   }else available[source.id]=map;
 }
+// Retain known historical form-to-sprite mappings for collections omitted from the upstream index.
+const previousForms=JSON.parse(await readFile("src/data/connect-form-sprites.json","utf8"));
+for(const [form,styles] of Object.entries(previousForms)){
+ const target=forms[form]??={};
+ for(const [style,dirs] of Object.entries(styles))if(!target[style])target[style]=dirs;
+}
 await writeFile("src/data/sprite-availability.json",JSON.stringify(available)+"\n");
 await writeFile("src/data/connect-form-sprites.json",JSON.stringify(forms)+"\n");
 const stage=path.resolve(".artifacts/sprite-catalog");await mkdir(stage,{recursive:true});
