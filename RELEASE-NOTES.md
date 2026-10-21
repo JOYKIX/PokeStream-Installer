@@ -11,3 +11,5 @@ PokeStream 2.2.5 — maintenance reliability
 The updater defect affects the **already installed 2.2.4 binary**: for the first repair install PokeStream-Setup.exe from the official v2.2.5 release. Local profiles, creations, sprites, journals and OBS configurations are preserved.
 
 The previous full offline-first PokéAPI sprite library remains available under Settings.
+
+Windows maintenance regression suite: 5/5 checks passed (helper startup, uninstall with and without local profiles, rejected tampered EXE, verified update installer handoff).
