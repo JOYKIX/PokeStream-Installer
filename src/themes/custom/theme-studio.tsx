@@ -58,7 +58,8 @@ export function ThemeStudio({ initialThemes, active, profiles = [], profilesUnav
  const [pending, setPending] = useState<(() => void) | null>(null);
  const [resetOpen, setResetOpen] = useState(false);
  const history = useRef<{ past: ThemeInput[]; future: ThemeInput[] }>({ past: [], future: [] });
- const [, bumpHistory] = useState(0);
+ const [historyStatus, setHistoryStatus] = useState({past:0,future:0});
+ const syncHistory = () => setHistoryStatus({past:history.current.past.length,future:history.current.future.length});
  const newId = useRef<string | null>(null);
  const editing = active && !busy;
  const dirty = JSON.stringify(draft) !== baseline;
@@ -77,26 +78,26 @@ export function ThemeStudio({ initialThemes, active, profiles = [], profilesUnav
      history.current.past = [...history.current.past.slice(-59), draft];
    lastEdit.current={key,time:now};
    history.current.future = [];
-   setDraft(next); setNotice("");
+   syncHistory(); setDraft(next); setNotice("");
  }
  function undo(redo = false) {
    lastEdit.current={key:"",time:0};
    const from = redo ? history.current.future : history.current.past;
    const to = redo ? history.current.past : history.current.future;
    const previous = from.pop();
-   if (previous) { to.push(draft); setDraft(previous); bumpHistory((n) => n + 1); setNotice(""); }
+   if (previous) { to.push(draft); setDraft(previous); syncHistory(); setNotice(""); }
  }
  function select(theme: CustomTheme) {
    lastEdit.current={key:"",time:0};
    setSelected(theme); setDraft(input(theme)); setBaseline(JSON.stringify(input(theme)));
-   history.current = { past: [], future: [] }; newId.current = null; setError(""); setNotice("");
+   history.current = { past: [], future: [] }; syncHistory(); newId.current = null; setError(""); setNotice("");
  }
  function create(preset: "dark" | "light" | "pixel", duplicate = false) {
    if (!newAllowed) return;
    const next = duplicate ? { name: (draft.name + " · " + t("Copie")).slice(0, 40), config: structuredClone(config) }
      : { name: t("Mon thème") + " " + (themes.length + 1), config: customThemePreset(preset) };
    setSelected(null); setDraft(next); setBaseline(""); newId.current = crypto.randomUUID();
-   history.current = { past: [], future: [] }; setNewOpen(false); setError(""); setNotice("");
+   history.current = { past: [], future: [] }; syncHistory(); setNewOpen(false); setError(""); setNotice("");
  }
  useEffect(() => {
    if (!dirty || !active) return;
@@ -124,7 +125,7 @@ export function ThemeStudio({ initialThemes, active, profiles = [], profilesUnav
      setThemes(next);
      const found = next.find((theme) => theme.id === selected?.id) ?? next[0];
      if (found) select(found);
-     else { setSelected(null); setDraft({ name: t("Mon thème"), config: defaultCustomTheme() }); setBaseline(JSON.stringify({ name: t("Mon thème"), config: defaultCustomTheme() })); newId.current = null; history.current = { past: [], future: [] }; }
+     else { setSelected(null); setDraft({ name: t("Mon thème"), config: defaultCustomTheme() }); setBaseline(JSON.stringify({ name: t("Mon thème"), config: defaultCustomTheme() })); newId.current = null; history.current = { past: [], future: [] }; syncHistory(); }
    } catch (e) { setError(e instanceof Error ? e.message : "Chargement des thèmes impossible."); }
    finally { setBusy(false); }
  }
@@ -159,7 +160,7 @@ export function ThemeStudio({ initialThemes, active, profiles = [], profilesUnav
      const next = themes.filter((theme) => theme.id !== selected.id);
      setThemes(next);
      if (next[0]) select(next[0]);
-     else { setSelected(null); setDraft({ name: t("Mon thème"), config: defaultCustomTheme() }); setBaseline(JSON.stringify({ name: t("Mon thème"), config: defaultCustomTheme() })); newId.current = null; history.current = { past: [], future: [] }; }
+     else { setSelected(null); setDraft({ name: t("Mon thème"), config: defaultCustomTheme() }); setBaseline(JSON.stringify({ name: t("Mon thème"), config: defaultCustomTheme() })); newId.current = null; history.current = { past: [], future: [] }; syncHistory(); }
      setNotice(t("Thème supprimé"));
    } catch (e) { setError(e instanceof Error ? e.message : "Suppression du thème impossible."); }
    finally { setBusy(false); }
@@ -206,7 +207,7 @@ export function ThemeStudio({ initialThemes, active, profiles = [], profilesUnav
      const next=parsed.data.theme;
      askToLeave(()=>{
        setSelected(null);setDraft(next);setBaseline("");
-       newId.current=crypto.randomUUID();history.current={past:[],future:[]};
+       newId.current=crypto.randomUUID();history.current={past:[],future:[]};syncHistory();
        lastEdit.current={key:"",time:0};setNotice(t("Thème importé. Enregistre-le pour l’utiliser."));setError("");
      });
    }catch{setError(t("Fichier de thème invalide."));}
@@ -219,8 +220,8 @@ export function ThemeStudio({ initialThemes, active, profiles = [], profilesUnav
   <header className="ts-heading">
    <div><span className="section-label">{t("MES THÈMES")}</span><h1>{t("Theme Creator")}<span className="ts-count">{themes.length}/{CUSTOM_THEME_LIMIT}</span></h1></div>
    <div className="ts-heading-actions">
-    <button type="button" className="icon-button" disabled={!editing||!history.current.past.length} aria-label={t("Annuler la modification")} title={t("Annuler la modification")+" · Ctrl Z"} onClick={()=>undo()}><Undo2 size={17}/></button>
-    <button type="button" className="icon-button" disabled={!editing||!history.current.future.length} aria-label={t("Rétablir")} title={t("Rétablir")+" · Ctrl Maj Z"} onClick={()=>undo(true)}><Redo2 size={17}/></button>
+    <button type="button" className="icon-button" disabled={!editing||!historyStatus.past} aria-label={t("Annuler la modification")} title={t("Annuler la modification")+" · Ctrl Z"} onClick={()=>undo()}><Undo2 size={17}/></button>
+    <button type="button" className="icon-button" disabled={!editing||!historyStatus.future} aria-label={t("Rétablir")} title={t("Rétablir")+" · Ctrl Maj Z"} onClick={()=>undo(true)}><Redo2 size={17}/></button>
     <Link href="/studio" className="button secondary compact">{t("Studio")}<ArrowUpRight size={15}/></Link>
     <button type="button" className="button primary compact" disabled={!editing||!needsSave||!valid||(!selected&&!newAllowed)} onClick={()=>void save()}>
      {busy?<LoaderCircle className="spin" size={16}/>:<Save size={16}/>} {t("Enregistrer")}
