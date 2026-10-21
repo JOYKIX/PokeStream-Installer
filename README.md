@@ -25,7 +25,7 @@ npm ci
 npm run desktop:pack
 ~~~
 
-Output: .artifacts/release/PokeStream-2.2.0-win-x64.exe. The build prepares a complete standalone Next.js runtime, the .NET engine, the custom Electron launcher and a verified runtime ZIP. The runtime is isolated from electron-builder file filtering so its node_modules remain intact.
+Output: .artifacts/release/PokeStream-2.2.1-win-x64.exe. The build prepares a complete standalone Next.js runtime, the .NET engine, the custom Electron launcher and a verified runtime ZIP. The runtime is isolated from electron-builder file filtering so its node_modules remain intact.
 
 For development: npm run dev:desktop. This starts the shared Next.js UI and launcher; building Connect first enables the game reader.
 

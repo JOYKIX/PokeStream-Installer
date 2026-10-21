@@ -16,7 +16,7 @@ permissions:
   contents: write
 concurrency:
   group: pokestream-release
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   publish:
     if: github.ref == 'refs/heads/main'

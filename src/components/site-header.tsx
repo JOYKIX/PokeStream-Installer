@@ -9,7 +9,7 @@ import { Brand } from "./ui";
 import type { Grade } from "@/lib/access";
 export function SiteHeader({local=false,userName,avatar,color}:{local?:boolean;userName?:string|null;avatar?:string;color?:string;grade?:Grade;accountPending?:boolean}){
  const {t}=useI18n(),path=usePathname(),ref=useRef<HTMLElement>(null);
- useEffect(()=>{const node=ref.current;if(!node)return;const update=()=>document.documentElement.style.setProperty("--site-header-height",node.offsetHeight+"px");
+ useEffect(()=>{const node=ref.current;if(!node)return;const update=()=>document.documentElement.style.setProperty("--site-header-height",(node.offsetHeight+(document.querySelector(".desktop-window-bar")?.clientHeight||0))+"px");
  const observer=new ResizeObserver(update);observer.observe(node);update();return()=>observer.disconnect();},[]);
  const links=[["/studio","Adventure",LayoutGrid],["/connect","Connect",Cable],["/theme-creator","Theme Creator",Palette],["/builder","Overlay Builder",PanelsTopLeft]] as const;
  return <header className="site-header" ref={ref}><div className="site-header-inner"><Brand/>

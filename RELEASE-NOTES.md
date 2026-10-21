@@ -1,4 +1,4 @@
-PokeStream 2.2.0
+PokeStream 2.2.1
 
 - Custom PokeStream launcher: installation, opening, updates and repair in the same black and red interface.
 - Fixed Windows startup: the complete Next.js server and dependencies are now distributed in a verified runtime archive.
@@ -13,3 +13,5 @@ Download **PokeStream-Setup.exe**, open it, then select Install. Subsequent laun
 The Switch live reader remains experimental. This release was compiled without executing automated or emulator tests.
 
 Original application source is included in this repository; the separate SaveReader corresponding source archive is attached to this release.
+
+- Windows title bar has its own space above navigation, preserving the same header in all tools and leaving OBS untouched.

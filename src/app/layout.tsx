@@ -1,5 +1,5 @@
 import { legacyLocaleCookie } from "@/lib/legacy-storage";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { getLocale, getTranslations } from "@/i18n/server";
 import { isLocale, localeCookie } from "@/i18n/config";
 import { I18nProvider } from "@/i18n/client";
@@ -29,12 +29,14 @@ export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   const locale = await getLocale();
+  const desktop = (await headers()).get("user-agent")?.includes("Electron/") === true;
   const jar = await cookies();
   const preference =
     jar.get(localeCookie)?.value ?? jar.get(legacyLocaleCookie)?.value;
   return (
     <html lang={locale} data-scroll-behavior="smooth">
-      <body>
+      <body className={desktop ? "desktop-application" : undefined}>
+        {desktop && <div className="desktop-window-bar" aria-hidden="true">PokeStream</div>}
         <I18nProvider
           initialLocale={locale}
           initialPreference={isLocale(preference) ? preference : "auto"}
