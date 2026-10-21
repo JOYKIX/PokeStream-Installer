@@ -54,7 +54,7 @@ function notes(){try{const info=installedApplication();return JSON.parse(fs.read
 let state={version:installedApplication()?.version||VERSION,launcherVersion:LAUNCHER_VERSION,releaseNotes:notes(),installed:!!installedApplication(),phase:'ready',progress:null,error:'',busy:false,running:false,update:{status:'idle',progress:null}};
 function publish(patch){state={...state,...patch};if(installerMode){try{const file=installerResultPath();if(file)fs.writeFileSync(path.join(path.dirname(file),'progress.json'),JSON.stringify({phase:state.phase,progress:state.progress}));}catch{}}if(window&&!window.isDestroyed())window.webContents.send('pokestream:launcher:state',state);}
 function log(message){fs.mkdirSync(path.join(dataDir,'logs'),{recursive:true});fs.appendFileSync(path.join(dataDir,'logs',workspaceMode?'application-shell.log':'launcher.log'),new Date().toISOString()+' '+message+'\n');}
-function external(url){try{const u=new URL(url);if(u.protocol==='https:')void shell.openExternal(u.href);}catch{}}
+function external(url){try{const u=new URL(url);if(u.protocol==='https:'||(u.protocol==='http:'&&u.origin===ORIGIN))void shell.openExternal(u.href);}catch{}}
 async function openLogs(){for(const name of ['maintenance.log','maintenance-bootstrap.log']){const file=path.join(home,name);if(fs.existsSync(file))await fsp.copyFile(file,path.join(dataDir,'logs',name));}return shell.openPath(path.join(dataDir,'logs'));}
 function failed(error){log(error.stack||String(error));publish({phase:'error',error:error.message||String(error),progress:null});}
 async function guarded(task){if(busy)return;busy=true;publish({busy:true,error:''});try{return await task();}catch(error){failed(error);return {error:error.message};}finally{busy=false;publish({busy:false});}}
@@ -125,7 +125,7 @@ function prepareServer(){
    const output=fs.openSync(path.join(dataDir,'logs/application.log'),'w');
    try{child=server=spawn(process.execPath,[path.join(launcherAssets,'server.cjs'),path.join(root,'web/server.js')],{cwd:path.join(root,'web'),env:{...env,ELECTRON_RUN_AS_NODE:'1'},windowsHide:true,stdio:['ignore',output,output]});}finally{fs.closeSync(output);}
    child.on('error',error=>{child.spawnError=error;log('Server: '+error.message);});
-   child.on('exit',code=>{if(epoch!==serviceEpoch||server!==child)return;serverReady=false;servicesPromise=null;if(!quitting){failed(Error('The local server stopped ('+code+'). Restart PokeStream.'));void openLauncher();}});
+   child.on('exit',code=>{if(epoch!==serviceEpoch||server!==child)return;serverReady=false;servicesPromise=null;if(!quitting){failed(Error('The local server stopped ('+code+'). Restart PokeStream.'));void openLauncher().finally(()=>app.quit());}});
   }
   await waitServer(child);if(epoch!==serviceEpoch)throw Error('Server preparation cancelled.');serverReady=true;log('Server ready in '+(Date.now()-startedAt)+' ms');
  })().catch(error=>{if(epoch===serviceEpoch){servicesPromise=null;try{child?.kill();}catch{}if(server===child)server=null;}throw error;});return servicesPromise;
@@ -208,7 +208,7 @@ function createWindow(){
  window=new BrowserWindow({title:workspaceMode?'PokeStream':'PokeStream Launcher',width:1180,height:800,minWidth:980,minHeight:680,backgroundColor:'#09090b',show:false,autoHideMenuBar:true,titleBarStyle:'hidden',titleBarOverlay:{color:'#0d0d10',symbolColor:'#f4f4f5',height:workspaceMode?38:59},webPreferences:{preload:path.join(__dirname,'preload.cjs'),nodeIntegration:false,contextIsolation:true,sandbox:true}});
  window.webContents.setWindowOpenHandler(({url})=>{external(url);return {action:'deny'};});
  window.webContents.on('will-navigate',(event,url)=>{if(!url.startsWith(ORIGIN+'/')){event.preventDefault();external(url);}});
- window.webContents.on('render-process-gone',(_event,details)=>{log('Renderer: '+details.reason);if(!quitting){if(workspaceMode)void openLauncher();else void window.loadFile(path.join(launcherAssets,'launcher.html')).then(()=>failed(Error('The interface stopped. Reopen PokeStream.')));}});
+ window.webContents.on('render-process-gone',(_event,details)=>{log('Renderer: '+details.reason);if(!quitting){if(workspaceMode)void openLauncher().finally(()=>app.quit());else void window.loadFile(path.join(launcherAssets,'launcher.html')).then(()=>failed(Error('The interface stopped. Reopen PokeStream.')));}});
  window.webContents.session.setPermissionRequestHandler((_w,_p,callback)=>callback(false));
  window.once('ready-to-show',()=>window.show());window.on('closed',()=>{window=null;app.quit();});
 }
