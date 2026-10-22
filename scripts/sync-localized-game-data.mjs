@@ -1,7 +1,7 @@
 // Localized names from PokeAPI. UI and OBS never need a translation service.
 import fs from "node:fs/promises";
 const revision = "6bbd96bb8ef7356963b833074ca25672d23e41c4";
-const languages = { ja: "11", es: "7", de: "6", en: "9", fr: "5" };
+const languages = { ja: "11", es: "7", de: "6", en: "9", fr: "5", "pt-BR":"13", it:"8", ko:"3", "zh-CN":"12", "zh-TW":"4" };
 function csv(text) {
   const rows = []; let row = [], value = "", quoted = false;
   for (let i = 0; i < text.length; i++) {

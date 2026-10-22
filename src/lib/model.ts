@@ -121,7 +121,7 @@ export const sceneSchema = z.object({
     customThemeId: z.uuid().optional(),
     customAccent: z.string().regex(/^#[0-9a-fA-F]{6}$/).optional(),
     // Display snapshot, always replaced by the server-owned theme.
-    customTheme: customThemeConfigSchema.optional(),
+    customTheme: customThemeConfigSchema.optional().catch(undefined),
     accent: z.string().regex(/^#[0-9a-fA-F]{6}$/),
     // Kept for importing older scenes. New layouts are independent.
     orientation: z.enum(["horizontal", "vertical"]),

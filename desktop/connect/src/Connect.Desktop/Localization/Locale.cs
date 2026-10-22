@@ -14,8 +14,8 @@ internal static class L {
         ["en"] = Read("en"),
         ["fr"] = Read("fr"),
         ["ja"] = Read("ja"),
-        ["es"] = Read("en"), ["de"] = Read("en"), ["pt-BR"] = Read("en"),
-        ["it"] = Read("en"), ["ko"] = Read("en"), ["zh-CN"] = Read("en"), ["zh-TW"] = Read("en")
+        ["es"] = Read("es"), ["de"] = Read("de"), ["pt-BR"] = Read("pt-BR"),
+        ["it"] = Read("it"), ["ko"] = Read("ko"), ["zh-CN"] = Read("zh-CN"), ["zh-TW"] = Read("zh-TW")
     };
 
     private static readonly Dictionary<string, string> Originals = Catalogs["en"]

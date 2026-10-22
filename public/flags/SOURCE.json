@@ -1,0 +1,19 @@
+{
+  "project": "flag-icons",
+  "version": "v7.3.2",
+  "source": "https://github.com/lipis/flag-icons",
+  "license": "MIT",
+  "format": "4x3",
+  "files": {
+    "gb.svg": "c8be1e7208798a4ae692ee1e937065d498bb29e741943f6172b29118b8ed8066",
+    "fr.svg": "8cdacc8d79bcf210cdca2777a2c0de1f9e5862526877bd3026c9d59ecdcd4578",
+    "jp.svg": "bfea80baf9989383dc4bf7ca594ed95be0df0ff125bfc88d0bfa878eb0198022",
+    "es.svg": "1d60aebdd9ecfc669e11ea317a9f5ba8af6a9d6b98a841b9f70d8243e65b60eb",
+    "de.svg": "efd480af5a154a7651f29da23ee0d09dbc892410fb4041898ddf8face336c575",
+    "br.svg": "d079a828be244afbfefccae98370ae404766e62e4716cb3e0ef2d9eed487b390",
+    "it.svg": "9fa88118818d9b64838f578e2babcca3d0630aed21b5c33b34aff7ac5ce506bc",
+    "kr.svg": "7a6cd5b51d0e2841ed8b79b1147ad8a66cf3c09f6344d4a63b5e4413ffa5d15b",
+    "cn.svg": "981da9bdf82d48e31691f20578cefcb26cf7d0bd95e4ebd5c0df00bdfe988c1a",
+    "tw.svg": "931757f06b9ee751fd1a0cc8dd7cf862e21fdcaf894d10ed7bcc68dabcca59ad"
+  }
+}

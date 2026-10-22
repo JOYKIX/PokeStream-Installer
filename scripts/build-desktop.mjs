@@ -69,7 +69,7 @@ if(!launcherOnly){
  for(const name of ['LICENSE','OPEN-SOURCE-NOTICES.md'])fs.copyFileSync(name,path.join(output,name));
  fs.copyFileSync('desktop/connect/THIRD-PARTY-NOTICES.md',path.join(output,'CONNECT-NOTICES.md'));
 }
-const launcherInput=fingerprint(root,[...sourceFiles(root,'desktop/app'),'public/logo/pokestream-logo-no-stand.svg','.artifacts/sprite-catalog/previews/pokemon/25.png','.artifacts/sprite-catalog/previews/pokemon/other/home/25.png'],toolchain);
+const launcherInput=fingerprint(root,[...sourceFiles(root,'desktop/app'),...sourceFiles(root,'public/flags'),'public/logo/pokestream-logo-no-stand.svg'],toolchain);
 reports.launcher=await cached('launcher',launcherInput,async stage=>prepareLauncher(root,stage),{force});
 const launcherTarget=path.join(output,'launcher');fs.rmSync(launcherTarget,{recursive:true,force:true});fs.cpSync(reports.launcher.directory,launcherTarget,{recursive:true});
 const shell=path.join(artifacts,'shell');fs.mkdirSync(shell,{recursive:true});

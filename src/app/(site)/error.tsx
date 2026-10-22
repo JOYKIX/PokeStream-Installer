@@ -17,7 +17,7 @@ export default function ErrorPage({ error, reset }: { error: Error & {digest?:st
   return <main className="center-page" id="main" role="alert">
     <h1>{tr("Une erreur est survenue.")}</h1>
     <p>{tr("Ton aventure reste sauvegardée.")}</p>
-    {code && <p className="small muted">Diagnostic : <code>{code}</code></p>}
+    {code && <p className="small muted">{tr("Diagnostic")} : <code>{code}</code></p>}
     <div className="error-recovery-actions">
       <button type="button" className="button primary" onClick={reset}>{tr("Réessayer")}</button>
       <Link className="button secondary" href="/studio">{tr("Mes profils")}</Link>

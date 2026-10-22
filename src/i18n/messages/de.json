@@ -1108,7 +1108,7 @@
   "Attends l’enregistrement ou recharge le profil.": "Warte auf das Speichern oder lade das Profil neu.",
   "Ce profil a changé dans un autre onglet. Recharge-le avant de continuer.": "Dieses Profil wurde in einem anderen Tab geändert. Lade es neu, bevor du fortfährst.",
   "Impossible de charger les profils.": "Profile konnten nicht geladen werden.",
-  "Impossible de charger le profil.": "Profil konnte nicht geladen werden.",
+  "Impossible de charger le profil.": "Das Profil konnte nicht geladen werden.",
   "Ce profil contient des données invalides.": "Dieses Profil enthält ungültige Daten.",
   "Choisir un profil Studio": "Studio-Profil wählen",
   "Profil Studio introuvable.": "Studio-Profil nicht gefunden.",
@@ -1361,5 +1361,6 @@
   "Choisis comment partager cette création.": "Wähle, wie du diese Kreation teilen möchtest.",
   "Ajoute un autre profil local pour y copier une création.": "Füge ein weiteres lokales Profil hinzu, um eine Kreation dorthin zu kopieren.",
   "Gérer les profils": "Profile verwalten",
-  "Aperçu de remplacement": "Ersatzvorschau"
+  "Aperçu de remplacement": "Ersatzvorschau",
+  "Diagnostic": "Diagnose"
 }

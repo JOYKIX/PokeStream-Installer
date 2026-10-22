@@ -23,6 +23,8 @@ export async function findCustomTheme(owner: string, id?: string): Promise<Custo
   if (!id) return null;
   const { data, error } = await adminClient().from("custom_themes").select(themeColumns).eq("owner_id", owner).eq("id", id).maybeSingle();
   if (error) throw new Error("Chargement des thèmes impossible.");
-  return data ? customThemeSchema.parse(data) : null;
+  if (!data) return null;
+  const parsed=customThemeSchema.safeParse(data);
+  return parsed.success?parsed.data:null;
 }
 

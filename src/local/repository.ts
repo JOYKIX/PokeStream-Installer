@@ -4,6 +4,17 @@ import { readStore, transact, type Tables, type Store } from "./store";
 type Failure={message:string;code:string};
 type Result<T>={data:T|null;error:Failure|null};
 const clone=<T,>(value:T):T=>structuredClone(value);
+// Match the selected columns instead of exposing storage-only fields to strict schemas.
+function projectRow(row:Record<string,unknown>,columns:string):Record<string,unknown>{
+ const result:Record<string,unknown>={};
+ for(const field of (columns||"*").split(/,(?![^()]*\))/).map(value=>value.trim()).filter(Boolean)){
+  if(field==="*"){Object.assign(result,row);continue;}
+  const relation=/^(\w+)\((.*)\)$/.exec(field);
+  if(relation){const value=row[relation[1]];result[relation[1]]=Array.isArray(value)?value.map(item=>projectRow(item,relation[2])):value&&typeof value==="object"?projectRow(value as Record<string,unknown>,relation[2]):null;}
+  else if(Object.hasOwn(row,field))result[field]=row[field];
+ }
+ return result;
+}
 function cleanup(state:Store,table:keyof Tables,ids:Set<string>) {
  if(table==="scenes"){
   for(const d of state.tables.connect_devices)if(d.scene_id&&ids.has(d.scene_id)){d.scene_id=null;d.snapshot=null;d.selection_revision++;}
@@ -62,7 +73,7 @@ class Query<K extends keyof Tables> implements PromiseLike<Result<Tables[K][]>> 
     for(const sorter of [...this.sorters].reverse())result.sort((a,b)=>String(Reflect.get(a,sorter.key)).localeCompare(String(Reflect.get(b,sorter.key)),undefined,{numeric:true})*(sorter.asc?1:-1));
     result=clone(result.slice(0,this.cap));
     if(this.table==="scenes"&&this.projection.includes("connect_devices"))for(const row of result)Reflect.set(row,"connect_devices",clone(state.tables.connect_devices.filter(d=>d.scene_id===row.id)));
-    return result;
+    return result.map(row=>projectRow(row as Record<string,unknown>,this.projection) as Tables[K]);
    };
    return {data:this.operation==="read"?run(readStore()):transact(run),error:null};
   }catch(error){return {data:null,error:{message:error instanceof Error?error.message:"Storage unavailable",code:typeof error==="object"&&error&&"code" in error?String(error.code):"LOCAL_STORAGE"}};}

@@ -25,3 +25,7 @@ itself, authorize republishing third-party media.
 ## PokéAPI full sprite library (2.2.4)
 
 PokeStream caches original graphics directly from the user's chosen upstream PokéAPI mirror to the user's own local device. The complete third-party image repository is **not** incorporated into the distributable installer. The published index is from `https://pokeapi.github.io/sprites/manifest.json.gz`. Rights to the individual images are not granted by the MIT license of PokeStream or automatically by the PokéAPI repository license. See `https://github.com/PokeAPI/sprites/blob/master/LICENCE.txt`.
+
+## Language flags
+
+Country flag SVGs: [flag-icons](https://github.com/lipis/flag-icons), version 7.3.2, by Lipis. MIT license; the original license is included in `public/flags/LICENSE` and in the launcher assets.

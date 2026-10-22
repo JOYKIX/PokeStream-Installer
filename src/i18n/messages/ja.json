@@ -1110,8 +1110,8 @@
   "Attends l’enregistrement ou recharge le profil.": "変更が保存されるまで待つか、プロフィールを再読み込みしてください。",
   "Ce profil a changé dans un autre onglet. Recharge-le avant de continuer.": "このプロフィールは別のタブで変更されました。続行する前に再読み込みしてください。",
   "Impossible de charger les profils.": "プロフィールを読み込めませんでした。",
-  "Impossible de charger le profil.": "プロフィールを読み込めませんでした。",
-  "Ce profil contient des données invalides.": "このプロフィールには無効なデータが含まれています。",
+  "Impossible de charger le profil.": "プロフィールを読み込めません。",
+  "Ce profil contient des données invalides.": "このプロフィールには無効なデータがあります。",
   "Choisir un profil Studio": "Studio のプロフィールを選択",
   "Profil Studio introuvable.": "Studio のプロフィールが見つかりません。",
   "L’équipe, les badges et Nuzlocke suivent ce profil.": "チーム、バッジ、Nuzlocke はこのプロフィールと同期します。",
@@ -1308,5 +1308,6 @@
   "Choisis comment partager cette création.": "作品の共有方法を選択してください。",
   "Ajoute un autre profil local pour y copier une création.": "別のローカルプロフィールを追加すると作品をコピーできます。",
   "Gérer les profils": "プロフィールを管理",
-  "Aperçu de remplacement": "代替プレビュー"
+  "Aperçu de remplacement": "代替プレビュー",
+  "Diagnostic": "診断コード"
 }

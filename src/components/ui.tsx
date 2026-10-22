@@ -12,7 +12,7 @@ export function Brand({ small = false }: { small?: boolean }) {
   return (
     <Link className="brand" href="/" aria-label={tr("PokeStream, accueil")}>
       <span className="brand-symbol">
-        <Image src="/logo/pokestream-logo-no-stand.svg" width={732} height={732} alt="" unoptimized />
+        <Image src="/logo/pokestream-logo-no-stand.svg" width={755} height={762} alt="" unoptimized />
       </span>
       {!small && (
         <span>
