@@ -1,9 +1,6 @@
-# PokeStream 3.1.0 — OBS Integration Update
+# PokeStream 3.1.1
 
-- Équipes, PV, K.O. et badges actualisés dès qu’ils changent.
-- Liaison des sources OBS aux calques du Compositeur.
-- Position et taille synchronisées, cadrage conservé.
-
-## Après la mise à jour
-
-Actualise une fois tes sources navigateur déjà ouvertes dans OBS.
+- Disposition OBS appliquée à l’enregistrement, avec une option temps réel.
+- Calques réorganisables par glisser-déposer.
+- Composition et création de scènes OBS automatiques (expérimental).
+- Choix des écrans DS et 3DS simplifié.

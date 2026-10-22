@@ -452,43 +452,25 @@ export function Inspector({
               <>
                 <h3>{t("Console")}</h3>
                 <Select
-                  value={e.properties.platform}
+                  value={e.properties.platform.startsWith("3ds-")?"3ds":e.properties.platform}
                   onValueChange={(p) => {
-                    const platform = p as keyof typeof PLATFORM_SIZES,
+                    const screen=e.properties.platform==="3ds-bottom"?"bottom":e.properties.platform==="3ds-top"?"top":e.properties.screen,platform = (p==="3ds"?(screen==="bottom"?"3ds-bottom":"3ds-top"):p) as keyof typeof PLATFORM_SIZES,
                       [w, h] = PLATFORM_SIZES[platform];
                     updateElement({
                       ...e,
                       height: Math.max(16, Math.min(2160, (e.width * h) / w)),
-                      properties: { ...e.properties, platform },
+                      properties: { ...e.properties, platform,screen },
                     });
                   }}
                 >
-                  {Object.entries(PLATFORM_LABELS).map(([id, label]) => (
-                    <SelectOption key={id} value={id}>
+                  {Object.entries({...PLATFORM_LABELS,"3ds-top":"3DS"}).filter(([id])=>id!=="3ds-bottom").map(([id, label]) => (
+                    <SelectOption key={id} value={id==="3ds-top"?"3ds":id}>
                       {t(label)}
                     </SelectOption>
                   ))}
                 </Select>
-                {e.properties.platform === "ds" && (
-                  <Select
-                    value={e.properties.screen}
-                    onValueChange={(screen) =>
-                      updateElement({
-                        ...e,
-                        properties: {
-                          ...e.properties,
-                          screen: screen as "top" | "bottom",
-                        },
-                      })
-                    }
-                  >
-                    <SelectOption value="top">
-                      {t("Écran supérieur")}
-                    </SelectOption>
-                    <SelectOption value="bottom">
-                      {t("Écran inférieur")}
-                    </SelectOption>
-                  </Select>
+                {(e.properties.platform === "ds"||e.properties.platform.startsWith("3ds-")) && (
+                  <div className="choice-group console-screens" role="group" aria-label={t("Écran")} >{(["top","bottom"] as const).map(screen=><button key={screen} type="button" aria-pressed={(e.properties.platform.startsWith("3ds-")?(e.properties.platform==="3ds-bottom"?"bottom":"top"):e.properties.screen)===screen} onClick={()=>{const platform=e.properties.platform.startsWith("3ds-")?(screen==="top"?"3ds-top":"3ds-bottom"):"ds",[w,h]=PLATFORM_SIZES[platform];updateElement({...e,height:Math.max(16,Math.min(2160,e.width*h/w)),properties:{...e.properties,platform,screen}});}}>{t(screen==="top"?"Écran supérieur":"Écran inférieur")}</button>)}</div>
                 )}
               </>
             )}

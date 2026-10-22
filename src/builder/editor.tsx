@@ -18,6 +18,7 @@ import {
   Eye,
   EyeOff,
   Layers,
+  GripVertical,
   LockKeyhole,
   Unlock,
   Monitor,
@@ -60,6 +61,8 @@ import { BuilderCanvas, elementStyle } from "./render";
 import { Inspector, type BuilderContext } from "./inspector";
 import { useBuilderDocument } from "./use-document";
 import { OBSIntegrationPanel,useOBSIntegration } from "./obs-integration";
+import {CompositionGenerator} from "./composition-generator";
+import {CreateOBSScene} from "./create-obs-scene";
 import { exportBuilderPNG } from "./export";
 const icons = {
   "game-screen": Monitor,
@@ -121,6 +124,8 @@ export function BuilderEditor({
     [scene, setScene] = useState<SceneData | null>(null),
     [assets, setAssets] = useState(initialAssets),
     [exporting, setExporting] = useState(false),
+    [layerDrag,setLayerDrag]=useState<string|null>(null),
+    [layerOver,setLayerOver]=useState<{id:string;after:boolean}|null>(null),
     [guides, setGuides] = useState<{ x?: number; y?: number }>({}),
     [liveError, setLiveError] = useState(false);
   const viewport = useRef<HTMLDivElement>(null),
@@ -129,9 +134,8 @@ export function BuilderEditor({
     canvas = useRef<HTMLDivElement>(null);
   const element = data.elements.find((e) => e.id === selected);
   const obs=useOBSIntegration(initial.id,data.elements,doc.record.version);
-  const linked=!!obs.state?.bindings.length;
-  const save=useCallback(async()=>{update(data,false);return saveDocument();},[update,data,saveDocument]);
-  useEffect(()=>{if(!linked||!doc.dirty||doc.saving)return;const timer=setTimeout(()=>void save(),400);return()=>clearTimeout(timer);},[linked,doc.dirty,doc.saving,save]);
+  const applyOBS=obs.applySaved;
+  const save=useCallback(async()=>{update(data,false);const saved=await saveDocument();if(saved)await applyOBS();return saved;},[update,data,saveDocument,applyOBS]);
   useEffect(() => {
     const library = doc.assetLibrary;
     if (!library) return;
@@ -205,6 +209,7 @@ export function BuilderEditor({
     });
     setSelected(copy.id);
   };
+  const reorderLayer=(id:string,targetId:string,after:boolean)=>{const layers=data.elements.toSorted((a,b)=>b.zIndex-a.zIndex),moving=layers.find(e=>e.id===id);if(!moving||id===targetId)return;const next=layers.filter(e=>e.id!==id),target=next.findIndex(e=>e.id===targetId);if(target<0)return;next.splice(target+(after?1:0),0,moving);update({...data,elements:next.reverse().map((e,zIndex)=>({...e,zIndex}))});setSelected(id);};
   const moveLayer = (direction: number) => {
     if (!element) return;
     const sorted = [...data.elements].sort((a, b) => a.zIndex - b.zIndex),
@@ -571,6 +576,8 @@ export function BuilderEditor({
           </>
         )}
         <TeamPreviewToggle checked={demo} onChange={setDemo} />
+        <CompositionGenerator data={data} scene={scene} themes={context.themes} onApply={next=>{update(next);setSelected(null);}}/>
+        <CreateOBSScene obs={obs} data={data} onPrepare={save}/>
       </div>
       {(doc.error || liveError) && (
         <div className="builder-alert" role="alert">
@@ -626,9 +633,12 @@ export function BuilderEditor({
                   const Icon = icons[e.type];
                   return (
                     <div
-                      className={e.id === selected ? "selected" : ""}
+                      className={(e.id === selected ? "selected" : "")+(layerDrag===e.id?" is-dragging":"")+(layerOver?.id===e.id?(layerOver.after?" drop-after":" drop-before"):"")}
                       key={e.id}
+                      onDragOver={event=>{if(!layerDrag||layerDrag===e.id)return;event.preventDefault();event.dataTransfer.dropEffect="move";const r=event.currentTarget.getBoundingClientRect();setLayerOver({id:e.id,after:event.clientY>r.top+r.height/2});}}
+                      onDrop={event=>{event.preventDefault();if(layerDrag&&layerOver?.id===e.id)reorderLayer(layerDrag,e.id,layerOver.after);setLayerDrag(null);setLayerOver(null);}}
                     >
+                      <button type="button" className="builder-layer-grip" draggable onFocus={()=>setSelected(e.id)} onKeyDown={event=>{if(!["ArrowUp","ArrowDown"].includes(event.key))return;event.preventDefault();event.stopPropagation();const sorted=data.elements.toSorted((a,b)=>b.zIndex-a.zIndex),i=sorted.findIndex(layer=>layer.id===e.id),target=sorted[i+(event.key==="ArrowUp"?-1:1)];if(target)reorderLayer(e.id,target.id,event.key==="ArrowDown");}} aria-label={t("Réordonner le calque")+" · "+e.name} title={t("Glisse pour changer l’ordre des calques")} onDragStart={event=>{event.dataTransfer.setData("text/plain",e.id);event.dataTransfer.effectAllowed="move";setLayerDrag(e.id);setSelected(e.id);}} onDragEnd={()=>{setLayerDrag(null);setLayerOver(null);}}><GripVertical size={13}/></button>
                       <button
                         className="builder-layer-name"
                         onClick={() => setSelected(e.id)}

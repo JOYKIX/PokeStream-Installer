@@ -1,7 +1,7 @@
 import "server-only";
 import type { BuilderData } from "@/builder/schema";
 import { publishLocalChange } from "./events";
-export type LiveBox={id:string;x:number;y:number;width:number;height:number;rotation:number;visible:boolean};
+export type LiveBox={id:string;x:number;y:number;width:number;height:number;rotation:number;visible:boolean;zIndex?:number};
 type Live={owner:string;session:string;sequence:number;version:number;elements:LiveBox[];boundIds:string[]};
 const shared=globalThis as typeof globalThis&{pokeStreamBuilderLive?:Map<string,Live>;pokeStreamBuilderClosed?:Set<string>};
 const drafts=()=>shared.pokeStreamBuilderLive??=new Map<string,Live>();

@@ -127,7 +127,8 @@ export function useBuilderDocument(initial: BuilderRecord) {
     options: { enabled?: boolean; rotateToken?: boolean } = {},
   ) => {
     if (busy.current || blocked.current) return false;
-    const parsed = builderSchema.safeParse(latest.current);
+    const submitted=latest.current;
+    const parsed = builderSchema.safeParse(submitted);
     if (!parsed.success) {
       setError("Création invalide.");
       return false;
@@ -160,6 +161,8 @@ export function useBuilderDocument(initial: BuilderRecord) {
       saved.current = next.data;
       setSavedData(next.data);
       setRecord(next);
+      // Adopt the validated snapshot only when no edit arrived during the request.
+      if(latest.current===submitted){latest.current=next.data;setData(next.data);}
       if (Array.isArray(result.assets)) {
         const assets = result.assets as BuilderAsset[],
           existing = new Set(assets.map((a) => a.id));

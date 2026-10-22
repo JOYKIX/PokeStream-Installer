@@ -6,7 +6,7 @@ Free, local, open source Windows application: Adventure, Connect, Theme Creator 
 
 Download [PokeStream-Setup.exe](https://github.com/JOYKIX/PokeStream-Installer/releases/latest/download/PokeStream-Setup.exe), run it and install PokeStream. Node.js and .NET are included; no account or administrator privileges are required.
 
-**PokeStream Launcher 1.1.3** and **PokeStream 3.1.0** are separate installed programs with separate windows, native executables and shortcuts. The launcher handles installation, app updates, release notes, launch, repair and uninstallation. The app hosts the workspace and local game reader. Closing the launcher does not close a running app.
+**PokeStream Launcher 1.1.3** and **PokeStream 3.1.1** are separate installed programs with separate windows, native executables and shortcuts. The launcher handles installation, app updates, release notes, launch, repair and uninstallation. The app hosts the workspace and local game reader. Closing the launcher does not close a running app.
 
 App updates keep the launcher open. If the app is running, it closes gracefully before replacement and reopens after completion. The launcher shows progress, validates SHA256 and waits for the installer result. Its own version is checked separately; it restarts only when its own files need updating.
 
@@ -43,7 +43,7 @@ npm ci
 npm run desktop:pack
 ~~~
 
-Output: .artifacts/release/PokeStream-3.1.0-win-x64.exe. The setup installs both programs; app updates do not replace an unchanged launcher. Regular shortcuts start installed native executables without unpacking a portable archive again.
+Output: .artifacts/release/PokeStream-3.1.1-win-x64.exe. The setup installs both programs; app updates do not replace an unchanged launcher. Regular shortcuts start installed native executables without unpacking a portable archive again.
 
 Versions are declared in package.json: version for the app, launcherVersion for the launcher. Bundled release notes are in desktop/app/release-notes.json and must match both versions.
 
@@ -81,6 +81,12 @@ Connect samples active emulator memory every 100 ms and sends a frame only when 
 
 In OBS, enable **Tools → WebSocket Server Settings** (default port 4455). In the Windows app, select a game screen, camera or chat layer in the Builder, choose **Connect OBS**, then **Link an OBS source**. Choose its scene and source independently of the layer name. Frame the source in OBS at the layer’s initial position before linking it.
 
-PokeStream duplicates the scene item into a dedicated nested scene, preserving its complete transform, crop and input filters. Only the container follows the layer’s position, size, rotation and visibility. To adjust the internal framing afterwards, open the created PokeStream scene in OBS. Unlinking restores the original item and removes the unused container. Linked layouts save automatically after editing.
+PokeStream duplicates the scene item into a dedicated nested scene, preserving its complete transform, crop and input filters. Only the container follows the layer’s position, size, rotation and visibility. To adjust the internal framing afterwards, open the created PokeStream scene in OBS. Unlinking restores the original item and removes the unused container. By default, OBS placement changes only when clicking Save. An optional per-overlay real-time mode previews placement changes without saving. Game data always remains live.
 
 Bindings stay on this PC, under Studio/OBS, scoped to the local profile, overlay and OBS scene collection. Passwords are encrypted with Windows protection; links and credentials are excluded from shared/exported overlays. The implementation uses the official [OBS WebSocket 5 protocol](https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md). No OBS plugin is required.
+
+## Layout tools (3.1.1)
+
+Drag the grip next to a layer name to reorder it; keyboard arrows and the existing up/down controls are also available. DS and 3DS both expose separate top/bottom screen buttons.
+
+**Automatic layout** is experimental: choose a console, screen arrangement, camera, chat and Pokémon data, review the proposal, then apply it to the editor. Existing layouts can be replaced with undo support. **Create an OBS scene** saves the composition and associates each visible capture area with an existing OBS scene item. It creates a new scene, fitted copies of those items, their links and a browser overlay with transparent cutouts. The source items in existing scenes and their crop settings remain untouched. The currently live scene is not switched. Camera/game capture inputs must already exist in OBS.

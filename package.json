@@ -1,6 +1,6 @@
 {
   "name": "pokestream",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -21,7 +21,7 @@
     "desktop:update": "node scripts/build-desktop.mjs --update-only",
     "desktop:launcher": "node scripts/build-desktop.mjs --launcher-only && electron-builder --config desktop/app/electron-builder.yml --win portable --publish never",
     "sprites:refresh": "node scripts/prepare-sprite-catalog.mjs --refresh",
-    "test:obs": "node --test tests/obs-integration.test.cjs"
+    "test:obs": "node --test tests/obs-integration.test.cjs tests/composition-layout.test.cjs"
   },
   "engines": {
     "node": ">=24.0.0"

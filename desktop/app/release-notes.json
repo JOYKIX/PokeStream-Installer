@@ -1,22 +1,17 @@
 {
-  "version": "3.1.0",
+  "version": "3.1.1",
   "launcherVersion": "1.1.3",
   "date": "2026-10-22",
   "locales": {
     "fr": {
       "sections": [
         {
-          "title": "OBS Integration Update",
+          "title": "OBS",
           "items": [
-            "Équipes, PV, K.O. et badges actualisés dès qu’ils changent.",
-            "Liaison des sources OBS aux calques du Compositeur.",
-            "Position et taille synchronisées, cadrage conservé."
-          ]
-        },
-        {
-          "title": "Après la mise à jour",
-          "items": [
-            "Actualise une fois tes sources navigateur déjà ouvertes dans OBS."
+            "Disposition OBS appliquée à l’enregistrement, avec une option temps réel.",
+            "Calques réorganisables par glisser-déposer.",
+            "Composition et création de scènes OBS automatiques (expérimental).",
+            "Choix des écrans DS et 3DS simplifié."
           ]
         }
       ]
@@ -24,17 +19,12 @@
     "en": {
       "sections": [
         {
-          "title": "OBS Integration Update",
+          "title": "OBS",
           "items": [
-            "Teams, HP, K.O. and badges update as soon as they change.",
-            "Link OBS sources to Builder layers.",
-            "Position and size stay in sync, with framing preserved."
-          ]
-        },
-        {
-          "title": "After updating",
-          "items": [
-            "Refresh browser sources already open in OBS once."
+            "OBS layout updates when saved, with an optional real-time mode.",
+            "Drag and drop to reorder layers.",
+            "Automatic layouts and OBS scene creation (experimental).",
+            "Simpler DS and 3DS screen selection."
           ]
         }
       ]
@@ -42,17 +32,12 @@
     "ja": {
       "sections": [
         {
-          "title": "OBS Integration Update",
+          "title": "OBS",
           "items": [
-            "チーム・HP・ひんし・バッジの変更をすぐに反映。",
-            "OBSソースとビルダーのレイヤーを連携。",
-            "構図を維持したまま位置とサイズを同期。"
-          ]
-        },
-        {
-          "title": "更新後",
-          "items": [
-            "OBSですでに開いているブラウザソースを一度更新してください。"
+            "OBSの配置は保存時に更新。リアルタイム同期も選択可能。",
+            "ドラッグ＆ドロップでレイヤーの順序を変更。",
+            "レイアウトとOBSシーンの自動作成（試験的機能）。",
+            "DSと3DSの画面選択を改善。"
           ]
         }
       ]
@@ -60,17 +45,12 @@
     "es": {
       "sections": [
         {
-          "title": "OBS Integration Update",
+          "title": "OBS",
           "items": [
-            "Equipos, PS, K.O. y medallas se actualizan en cuanto cambian.",
-            "Vincula fuentes de OBS a las capas del compositor.",
-            "Posición y tamaño sincronizados, sin perder el encuadre."
-          ]
-        },
-        {
-          "title": "Después de actualizar",
-          "items": [
-            "Actualiza una vez las fuentes de navegador ya abiertas en OBS."
+            "La disposición de OBS se aplica al guardar, con modo en tiempo real opcional.",
+            "Reordena capas arrastrando y soltando.",
+            "Composición y creación automática de escenas de OBS (experimental).",
+            "Selección de pantallas DS y 3DS simplificada."
           ]
         }
       ]
@@ -78,17 +58,12 @@
     "de": {
       "sections": [
         {
-          "title": "OBS Integration Update",
+          "title": "OBS",
           "items": [
-            "Teams, KP, K.O. und Orden werden bei Änderungen sofort aktualisiert.",
-            "OBS-Quellen mit Ebenen im Builder verknüpfen.",
-            "Position und Größe synchronisiert, Bildausschnitt bleibt erhalten."
-          ]
-        },
-        {
-          "title": "Nach dem Update",
-          "items": [
-            "Aktualisiere bereits geöffnete Browserquellen in OBS einmal."
+            "OBS-Layout wird beim Speichern übernommen, Echtzeitmodus optional.",
+            "Ebenen per Drag-and-drop neu anordnen.",
+            "Automatische Layouts und OBS-Szenenerstellung (experimentell).",
+            "Einfachere Auswahl der DS- und 3DS-Bildschirme."
           ]
         }
       ]
@@ -96,17 +71,12 @@
     "pt-BR": {
       "sections": [
         {
-          "title": "OBS Integration Update",
+          "title": "OBS",
           "items": [
-            "Equipes, PV, K.O. e insígnias atualizados assim que mudam.",
-            "Vincule fontes do OBS às camadas do compositor.",
-            "Posição e tamanho sincronizados, com enquadramento preservado."
-          ]
-        },
-        {
-          "title": "Após atualizar",
-          "items": [
-            "Atualize uma vez as fontes de navegador já abertas no OBS."
+            "Layout do OBS aplicado ao salvar, com modo em tempo real opcional.",
+            "Reordene camadas arrastando e soltando.",
+            "Composição e criação de cenas do OBS automáticas (experimental).",
+            "Seleção das telas DS e 3DS simplificada."
           ]
         }
       ]
@@ -114,17 +84,12 @@
     "it": {
       "sections": [
         {
-          "title": "OBS Integration Update",
+          "title": "OBS",
           "items": [
-            "Squadre, PS, K.O. e medaglie si aggiornano appena cambiano.",
-            "Collega le sorgenti OBS ai livelli del compositore.",
-            "Posizione e dimensioni sincronizzate, inquadratura mantenuta."
-          ]
-        },
-        {
-          "title": "Dopo l’aggiornamento",
-          "items": [
-            "Aggiorna una volta le sorgenti browser già aperte in OBS."
+            "Disposizione OBS applicata al salvataggio, con modalità in tempo reale facoltativa.",
+            "Riordina i livelli trascinandoli.",
+            "Composizione e creazione di scene OBS automatiche (sperimentale).",
+            "Selezione degli schermi DS e 3DS semplificata."
           ]
         }
       ]
@@ -132,17 +97,12 @@
     "ko": {
       "sections": [
         {
-          "title": "OBS Integration Update",
+          "title": "OBS",
           "items": [
-            "팀, HP, 기절 상태와 배지가 변경되면 바로 반영됩니다.",
-            "OBS 소스를 빌더 레이어에 연결할 수 있습니다.",
-            "구도를 유지하면서 위치와 크기를 동기화합니다."
-          ]
-        },
-        {
-          "title": "업데이트 후",
-          "items": [
-            "OBS에 이미 열려 있는 브라우저 소스를 한 번 새로고침하세요."
+            "OBS 배치는 저장 시 적용되며 실시간 모드를 선택할 수 있습니다.",
+            "드래그 앤 드롭으로 레이어 순서를 변경합니다.",
+            "자동 구성 및 OBS 장면 생성 기능을 추가했습니다(실험적 기능).",
+            "DS와 3DS 화면 선택을 개선했습니다."
           ]
         }
       ]
@@ -150,17 +110,12 @@
     "zh-CN": {
       "sections": [
         {
-          "title": "OBS Integration Update",
+          "title": "OBS",
           "items": [
-            "队伍、HP、倒下状态和徽章发生变化时立即更新。",
-            "将 OBS 来源连接到编辑器图层。",
-            "同步位置和大小，保留原有取景。"
-          ]
-        },
-        {
-          "title": "更新后",
-          "items": [
-            "请将 OBS 中已打开的浏览器来源刷新一次。"
+            "OBS 布局在保存时应用，也可选择实时模式。",
+            "支持拖放调整图层顺序。",
+            "自动布局与 OBS 场景创建（实验性功能）。",
+            "简化 DS 和 3DS 屏幕选择。"
           ]
         }
       ]
@@ -168,17 +123,12 @@
     "zh-TW": {
       "sections": [
         {
-          "title": "OBS Integration Update",
+          "title": "OBS",
           "items": [
-            "隊伍、HP、倒下狀態和徽章變更時立即更新。",
-            "將 OBS 來源連結至編輯器圖層。",
-            "同步位置和大小，保留原有取景。"
-          ]
-        },
-        {
-          "title": "更新後",
-          "items": [
-            "請將 OBS 中已開啟的瀏覽器來源重新整理一次。"
+            "OBS 配置在儲存時套用，也可選擇即時模式。",
+            "支援拖放調整圖層順序。",
+            "自動配置與 OBS 場景建立（實驗性功能）。",
+            "簡化 DS 和 3DS 螢幕選擇。"
           ]
         }
       ]
