@@ -37,11 +37,19 @@ export default async function ScenePage({
       getStarter(auth.user.id),
       listCustomThemes(auth.user.id),
     ]);
-  if (error) throw new Error(tr("Impossible de charger le profil."));
+  if (error) {
+    console.error("[PokeStream] Studio profile query failed", {id, code:error.code, message:error.message});
+    throw new Error(tr("Impossible de charger le profil."));
+  }
   if (!scene) notFound();
   const parsed = sceneSchema.safeParse(scene.data);
-  if (!parsed.success)
+  if (!parsed.success) {
+    console.error("[PokeStream] Studio profile validation failed", {
+      id,
+      issues:parsed.error.issues.map(issue=>({path:issue.path.join("."),code:issue.code}))
+    });
     throw new Error(tr("Ce profil contient des données invalides."));
+  }
   return (
     <Studio
       grade={access.grade}
