@@ -20,5 +20,5 @@ export function itemSpriteUrl(value: string) {
 }
 
 export function itemName(item: (typeof ITEMS)[number], locale: Locale) {
-  return (names.items[locale] as Record<string, string>)[item.slug] || (locale === "fr" ? item.name : item.en);
+  return (names.items[locale as keyof typeof names.items] as Record<string, string> | undefined)?.[item.slug] || (locale === "fr" ? item.name : item.en);
 }

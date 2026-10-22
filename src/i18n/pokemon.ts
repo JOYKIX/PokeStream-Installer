@@ -4,7 +4,7 @@ import type { Locale } from "./config";
 import type { Pokemon } from "@/lib/model";
 import { translator } from "./catalog";
 const names = new Map(dex.map((entry) => [entry.id, entry]));
-export const localizedSpecies = gameNames.pokemon as Record<Locale, Record<string, string>>;
+export const localizedSpecies = gameNames.pokemon as Partial<Record<Locale, Record<string, string>>>;
 export const localizedForms = gameNames.forms as Record<Locale, Record<string, string>>;
 export function speciesName(id: number, locale: Locale, fallback = "") {
   const species = names.get(id);
