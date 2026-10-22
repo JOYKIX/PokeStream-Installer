@@ -33,7 +33,7 @@ const PAINTED_ELEMENTS = [
   ".overlay-health-values",
   ".pokemon-image",
   ".missing-sprite",
-  ".shiny-indicator",
+  ".shiny-icon",
   ".overlay-held-item",
   ".item-sprite",
   ".overlay-badges.badge-case",

@@ -1,4 +1,4 @@
-const {app,BrowserWindow,shell,ipcMain,dialog}=require('electron');
+const {app,BrowserWindow,shell,ipcMain,dialog,clipboard}=require('electron');
 const {spawn}=require('node:child_process');
 const {randomBytes,randomUUID}=require('node:crypto');
 const fs=require('node:fs'),fsp=require('node:fs/promises'),path=require('node:path'),os=require('node:os'),net=require('node:net');
@@ -202,6 +202,10 @@ async function uninstall(options){
 function trusted(event){if(!window||event.sender!==window.webContents)throw Error('Unknown window.');const url=event.senderFrame?.url||'';if(!url.startsWith(ORIGIN+'/')&&!url.startsWith('file://'))throw Error('Unknown page.');}
 function handle(channel,task){ipcMain.handle(channel,async(event,...args)=>{trusted(event);return task(...args);});}
 handle('pokestream:launcher:state',()=>state);handle('pokestream:open-data',async()=>{await fsp.mkdir(dataDir,{recursive:true});return shell.openPath(dataDir);});handle('pokestream:launcher:open',openLauncher);
+handle('pokestream:clipboard:write',value=>{
+ if(!workspaceMode||typeof value!=='string'||value.length>32768)throw Error('Invalid clipboard text.');
+ clipboard.writeText(value);
+});
 handle('pokestream:language:get',languageState);handle('pokestream:language:set',saveLanguage);
 handle('pokestream:updates:check',()=>busy?state.update:updater.check());handle('pokestream:updates:download',()=>workspaceMode?openLauncher():guarded(()=>updater.download()));
 handle('pokestream:updates:install',()=>workspaceMode?openLauncher():guarded(installUpdate));

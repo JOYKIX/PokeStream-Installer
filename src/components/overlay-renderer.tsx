@@ -3,7 +3,8 @@ import { pokemonName } from "@/i18n/pokemon";
 import { useI18n } from "@/i18n/client";
 import { GenderIcon } from "./gender-icon";
 import Image from "next/image";
-import { Skull, Sparkles } from "lucide-react";
+import { Skull } from "lucide-react";
+import { ShinyIcon } from "./shiny-icon";
 import type { CSSProperties } from "react";
 import { GAMES } from "@/lib/games";
 import {
@@ -62,9 +63,6 @@ function TeamCard({
                       size={180}
                     />
                   )}
-                  {!p.isEgg && p.shiny && (
-                    <Sparkles className="shiny-indicator" size={16} />
-                  )}
                   {!p.isEgg &&
                     style.showItems &&
                     p.item &&
@@ -91,7 +89,12 @@ function TeamCard({
                 key={element}
               >
                 <div className="overlay-name-line">
-                  {style.showNames && <strong>{pokemonName(p, locale)}</strong>}
+                  {style.showNames && (
+                    <strong>
+                      {!p.isEgg && p.shiny && style.showShiny !== false && <ShinyIcon label={tr("Chromatique")} />}
+                      {pokemonName(p, locale)}
+                    </strong>
+                  )}
                   {style.showGender &&
                     !p.isEgg &&
                     (p.gender === "male" || p.gender === "female") && (

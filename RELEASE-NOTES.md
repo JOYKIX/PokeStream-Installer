@@ -1,8 +1,6 @@
-# PokeStream 3.0.4
+# PokeStream 3.0.5
 
-## Personnalisation
+## Équipe et OBS
 
-- Choix des thèmes plus simple.
-- Fiche Pokémon réorganisée.
-- Illustrations de l’aventure utilisées dans l’équipe et l’ajout de Pokémon.
-- Badges de types par jeu, en français ou en anglais.
+- Nouvelle icône chromatique devant le nom, avec une option pour la masquer.
+- Copie des liens OBS corrigée.

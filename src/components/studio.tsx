@@ -39,12 +39,13 @@ import {
   Settings2,
   Shield,
   Skull,
-  Sparkles,
   Swords,
   Undo2,
 } from "lucide-react";
 import { Confirm, Modal, Toggle } from "./ui";
 import { PokemonImage } from "./pokemon-image";
+import { ShinyIcon } from "./shiny-icon";
+import { copyText } from "@/lib/clipboard";
 import { OverlayStage, type OverlayDimensions } from "./overlay-stage";
 import { TeamPreviewToggle } from "./team-preview-toggle";
 import { ShareCreation } from "./share-creation";
@@ -175,12 +176,12 @@ export function Studio({
   }
   async function copySource() {
     try {
-      await navigator.clipboard.writeText(
+      await copyText(
         `${window.location.origin}${sourcePath}`,
       );
       notify(tr("Lien OBS copié"));
     } catch {
-      notify(tr("Copie le lien depuis l’onglet OBS."));
+      notify(tr("Copie impossible."));
     }
   }
   function exportScene() {
@@ -440,9 +441,6 @@ export function Studio({
                         <span className="slot-number">0{i + 1}</span>
                         {p ? (
                           <>
-                            {!p.isEgg && p.shiny && (
-                              <Sparkles size={14} className="team-shiny" />
-                            )}
                             <PokemonImage
                               pokemon={p}
                               size={150}
@@ -450,7 +448,10 @@ export function Studio({
                               fallbackStyle="home"
                               variant={data.style.spriteVariant}
                             />
-                            <strong>{pokemonName(p, locale)}</strong>
+                            <strong>
+                              {!p.isEgg && p.shiny && data.style.showShiny !== false && <ShinyIcon label={tr("Chromatique")} />}
+                              {pokemonName(p, locale)}
+                            </strong>
                             {!p.isEgg && (
                               <div className="team-card-bottom">
                                 <span>

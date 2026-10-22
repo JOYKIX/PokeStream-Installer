@@ -1,6 +1,7 @@
 const {contextBridge,ipcRenderer}=require('electron');
 contextBridge.exposeInMainWorld('pokeStream',Object.freeze({
  desktop:true,
+ clipboard:{writeText:value=>ipcRenderer.invoke('pokestream:clipboard:write',value)},
  language:{get:()=>ipcRenderer.invoke('pokestream:language:get'),set:value=>ipcRenderer.invoke('pokestream:language:set',value)},
  openData:()=>ipcRenderer.invoke('pokestream:open-data'),
  openLauncher:()=>ipcRenderer.invoke('pokestream:launcher:open'),

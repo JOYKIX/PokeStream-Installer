@@ -140,6 +140,7 @@ export const sceneSchema = z.object({
       .optional(),
     showSprites: z.boolean().optional(),
     showNames: z.boolean(),
+    showShiny: z.boolean().optional(),
     showLevels: z.boolean(),
     showTypes: z.boolean(),
     typeBadgeStyle: z.enum(TYPE_BADGE_IDS).optional(),

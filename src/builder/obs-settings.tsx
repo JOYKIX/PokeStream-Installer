@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { Copy, Check, Download, ArrowLeft, ExternalLink } from "lucide-react";
 import { useI18n } from "@/i18n/client";
 import { Toggle, Confirm } from "@/components/ui";
+import { copyText } from "@/lib/clipboard";
 import type { SceneData } from "@/lib/model";
 import { external, type BuilderRecord } from "./schema";
 import { BuilderCanvas, type DisplayTheme } from "./render";
@@ -27,7 +28,7 @@ export function BuilderOBSSettings({
   const path = "/builder/obs/" + doc.record.view_token + "?lang=" + locale;
   async function copy(value: string, key: string) {
     try {
-      await navigator.clipboard.writeText(value);
+      await copyText(value);
       setCopied(key);
       setTimeout(() => setCopied(""), 1800);
     } catch {

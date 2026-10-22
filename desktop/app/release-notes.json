@@ -1,17 +1,15 @@
 {
-  "version": "3.0.4",
+  "version": "3.0.5",
   "launcherVersion": "1.1.2",
   "date": "2026-10-22",
   "locales": {
     "fr": {
       "sections": [
         {
-          "title": "Personnalisation",
+          "title": "Équipe et OBS",
           "items": [
-            "Choix des thèmes plus simple.",
-            "Fiche Pokémon réorganisée.",
-            "Illustrations de l’aventure utilisées dans l’équipe et l’ajout de Pokémon.",
-            "Badges de types par jeu, en français ou en anglais."
+            "Nouvelle icône chromatique devant le nom, avec une option pour la masquer.",
+            "Copie des liens OBS corrigée."
           ]
         }
       ]
@@ -19,12 +17,10 @@
     "en": {
       "sections": [
         {
-          "title": "Customization",
+          "title": "Team and OBS",
           "items": [
-            "Easier theme selection.",
-            "Redesigned Pokémon editor.",
-            "Team cards and Pokémon selection use your adventure’s artwork style.",
-            "Game type badges in French or English."
+            "New shiny icon before the name, with an option to hide it.",
+            "Fixed copying OBS links."
           ]
         }
       ]
@@ -32,12 +28,10 @@
     "ja": {
       "sections": [
         {
-          "title": "カスタマイズ",
+          "title": "チームとOBS",
           "items": [
-            "テーマを選びやすく改善。",
-            "ポケモン編集画面を整理。",
-            "チームと追加画面にアドベンチャーで選んだ画像スタイルを使用。",
-            "ゲーム別のタイプ画像をフランス語と英語で追加。"
+            "名前の前に新しい色違いマークを表示。設定で非表示にできます。",
+            "OBSリンクのコピーを修正。"
           ]
         }
       ]
@@ -45,12 +39,10 @@
     "es": {
       "sections": [
         {
-          "title": "Personalización",
+          "title": "Equipo y OBS",
           "items": [
-            "Selección de temas más sencilla.",
-            "Editor de Pokémon reorganizado.",
-            "El equipo y la selección de Pokémon usan las ilustraciones de tu aventura.",
-            "Insignias de tipos por juego, en francés o inglés."
+            "Nuevo icono variocolor delante del nombre, con opción para ocultarlo.",
+            "Corregida la copia de enlaces OBS."
           ]
         }
       ]
@@ -58,12 +50,10 @@
     "de": {
       "sections": [
         {
-          "title": "Anpassung",
+          "title": "Team und OBS",
           "items": [
-            "Einfachere Theme-Auswahl.",
-            "Überarbeiteter Pokémon-Editor.",
-            "Teamkarten und Pokémon-Auswahl verwenden den Illustrationsstil deines Abenteuers.",
-            "Typengrafiken nach Spiel, auf Französisch oder Englisch."
+            "Neues Schillernd-Symbol vor dem Namen, das sich ausblenden lässt.",
+            "Kopieren von OBS-Links korrigiert."
           ]
         }
       ]
@@ -71,12 +61,10 @@
     "pt-BR": {
       "sections": [
         {
-          "title": "Personalização",
+          "title": "Equipe e OBS",
           "items": [
-            "Seleção de temas mais simples.",
-            "Editor de Pokémon reorganizado.",
-            "A equipe e a seleção de Pokémon usam o estilo de ilustração da aventura.",
-            "Emblemas de tipos por jogo, em francês ou inglês."
+            "Novo ícone shiny antes do nome, com opção para ocultar.",
+            "Cópia de links do OBS corrigida."
           ]
         }
       ]
@@ -84,12 +72,10 @@
     "it": {
       "sections": [
         {
-          "title": "Personalizzazione",
+          "title": "Squadra e OBS",
           "items": [
-            "Scelta dei temi più semplice.",
-            "Editor dei Pokémon riorganizzato.",
-            "Squadra e selezione dei Pokémon usano lo stile delle illustrazioni dell’avventura.",
-            "Grafiche dei tipi per gioco, in francese o inglese."
+            "Nuova icona cromatica prima del nome, con opzione per nasconderla.",
+            "Corretta la copia dei link OBS."
           ]
         }
       ]
@@ -97,12 +83,10 @@
     "ko": {
       "sections": [
         {
-          "title": "꾸미기",
+          "title": "팀 및 OBS",
           "items": [
-            "더 쉬워진 테마 선택.",
-            "포켓몬 편집 화면 개편.",
-            "팀과 포켓몬 추가 화면에 모험에서 선택한 이미지 스타일 사용.",
-            "게임별 프랑스어 및 영어 타입 배지 추가."
+            "이름 앞에 새로운 색이 다른 포켓몬 아이콘을 표시하며, 설정에서 숨길 수 있습니다.",
+            "OBS 링크 복사 오류를 수정했습니다."
           ]
         }
       ]
@@ -110,12 +94,10 @@
     "zh-CN": {
       "sections": [
         {
-          "title": "个性化",
+          "title": "队伍与 OBS",
           "items": [
-            "主题选择更方便。",
-            "重新整理宝可梦编辑界面。",
-            "队伍卡片和添加宝可梦时使用冒险中选择的图片样式。",
-            "可按游戏选择法语或英语属性徽章。"
+            "名字前显示新的异色图标，可在设置中隐藏。",
+            "修复 OBS 链接复制问题。"
           ]
         }
       ]
@@ -123,12 +105,10 @@
     "zh-TW": {
       "sections": [
         {
-          "title": "個人化",
+          "title": "隊伍與 OBS",
           "items": [
-            "主題選擇更方便。",
-            "重新整理寶可夢編輯介面。",
-            "隊伍卡片與新增寶可夢時使用冒險中選擇的圖片樣式。",
-            "可依遊戲選擇法語或英語屬性徽章。"
+            "名字前顯示新的異色圖示，可在設定中隱藏。",
+            "修正 OBS 連結複製問題。"
           ]
         }
       ]

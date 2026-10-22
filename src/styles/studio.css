@@ -394,12 +394,6 @@
   font-size: 15px;
   padding: 5px 9px;
 }
-.shiny-indicator {
-  position: absolute;
-  top: 12px;
-  right: 7px;
-  color: #ffde7b;
-}
 .expanded-preview {
   min-height: 300px;
   padding: 65px 20px 30px;
@@ -499,12 +493,6 @@
 .team-card-bottom > div {
   display: flex;
   gap: 4px;
-}
-.team-shiny {
-  position: absolute;
-  top: 9px;
-  right: 9px;
-  color: #e6c25e;
 }
 .empty-card {
   border-style: dashed;
@@ -1430,10 +1418,6 @@
     width: 6px;
     height: 6px;
   }
-  .team-shiny {
-    width: 11px;
-    right: 6px;
-  }
   .section-heading h2 {
     font-size: 13px;
   }
@@ -1621,7 +1605,7 @@
   height: calc(var(--sprite-base) * var(--sprite-scale));
 }
 .overlay-stage .overlay-sprite > .pokemon-image { transform: none; }
-.overlay-stage .overlay-sprite > svg:not(.shiny-indicator) { width: 60%; height: 60%; }
+.overlay-stage .overlay-sprite > svg { width: 60%; height: 60%; }
 .overlay-stage .without-sprites .overlay-mon { padding-top: 12px; }
 .overlay-stage .overlay-mon-info { gap: 5px; }
 .overlay-stage .overlay-mon-info strong {

@@ -779,5 +779,6 @@
   "Choisis une langue et un jeu. Un type absent utilise son libellé traduit.": "选择语言和游戏。缺少图片的属性会显示本地化名称。",
   "Langue des badges": "徽章语言",
   "Badges français inclus, disponibles hors ligne.": "内置法语徽章，可离线使用。",
-  "Légendes : Z-A": "传说 Z-A"
+  "Légendes : Z-A": "传说 Z-A",
+  "Indicateur chromatique": "异色标记"
 }

@@ -1330,5 +1330,6 @@
   "Choisis une langue et un jeu. Un type absent utilise son libellé traduit.": "言語とゲームを選択します。画像がないタイプは翻訳された名前で表示します。",
   "Langue des badges": "タイプ画像の言語",
   "Badges français inclus, disponibles hors ligne.": "フランス語のタイプ画像は同梱され、オフラインでも利用できます。",
-  "Légendes : Z-A": "Pokémon LEGENDS Z-A"
+  "Légendes : Z-A": "Pokémon LEGENDS Z-A",
+  "Indicateur chromatique": "色違いマーク"
 }

@@ -1328,5 +1328,6 @@
   "Choisis une langue et un jeu. Un type absent utilise son libellé traduit.": "Choose a language and game. Missing types use translated labels.",
   "Langue des badges": "Badge language",
   "Badges français inclus, disponibles hors ligne.": "French badges are included and available offline.",
-  "Légendes : Z-A": "Legends: Z-A"
+  "Légendes : Z-A": "Legends: Z-A",
+  "Indicateur chromatique": "Shiny indicator"
 }
