@@ -50,7 +50,7 @@ try{
  // Store the exact corresponding native reader source once; every release links it.
  const legalRoot=path.join(root,'.artifacts/connect-sources'),sourceMeta=JSON.parse(fs.readFileSync(path.join(legalRoot,'SOURCE.json'),'utf8')),sourceName=sourceMeta.file;
  if(sourceMeta.revision!==info.components?.engine?.revision)throw Error('Reader source archive does not match the compiled engine.');
- if(!sourceName)throw Error('Corresponding SaveReader source archive is missing.');
+ if(!/^PokeStream-SaveReader-\d+\.\d+\.\d+-source\.zip$/.test(sourceName))throw Error('Corresponding SaveReader source archive is missing.');
  const source=path.join(legalRoot,sourceName),sourceHash=await digest(source),legalName='SaveReader-source-'+sourceHash+'.zip';
  if(!assets.some(a=>a.name===legalName))assets.push(await upload(distribution,source,legalName));
  const sourceRecord={name:legalName,sha256:sourceHash,size:fs.statSync(source).size,url:BASE+legalName};
