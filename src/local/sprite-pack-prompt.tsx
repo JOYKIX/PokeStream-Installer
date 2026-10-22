@@ -7,6 +7,7 @@ import {Download,Package} from "lucide-react";
 import {spriteCopy,packLabel,formatBytes,spriteError} from "./sprites/copy";
 import type {LibrarySnapshot} from "./sprites/service";
 export function packForStyle(style:string){
+ if(style==="type-badges")return "types";
  const source=sources.find(s=>s.id===style);if(!source)return null;
  const roman=["i","ii","iii","iv","v","vi","vii","viii","ix"],generation=/generation-([^/]+)\//.exec(source.path)?.[1];
  if(generation&&roman.includes(generation))return "gen-"+(roman.indexOf(generation)+1);
@@ -21,6 +22,7 @@ export function useSpritePackPrompt(enabled:boolean){
  const {locale}=useI18n(),t=spriteCopy[locale];
  const [pending,setPending]=useState<Pending|null>(null),[status,setStatus]=useState<LibrarySnapshot|null>(null),[dontAsk,setDontAsk]=useState(false),[busy,setBusy]=useState(false),[error,setError]=useState("");
  const generation=useRef(0);
+ useEffect(()=>()=>{generation.current++;},[]);
  useEffect(()=>{if(!pending)return;const controller=new AbortController();let timer:ReturnType<typeof setTimeout>;let active=true;
   const refresh=async()=>{try{const r=await fetch("/api/local/sprites",{cache:"no-store",signal:controller.signal});if(!r.ok)throw Error();const data:LibrarySnapshot=await r.json();if(active){setStatus(data);if(data.scan.state==="scanning")timer=setTimeout(()=>void refresh(),1000);}}catch{if(active)setError(t.failure);}};
   void refresh();return()=>{active=false;controller.abort();clearTimeout(timer);};

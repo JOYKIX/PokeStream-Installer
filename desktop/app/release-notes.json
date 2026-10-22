@@ -1,29 +1,17 @@
 {
-  "version": "3.0.3",
+  "version": "3.0.4",
   "launcherVersion": "1.1.2",
   "date": "2026-10-22",
   "locales": {
     "fr": {
       "sections": [
         {
-          "title": "Langues et interface",
+          "title": "Personnalisation",
           "items": [
-            "Portugais (Brésil), italien, coréen, chinois simplifié et chinois traditionnel ajoutés.",
-            "Menus de langue défilants avec noms des langues et drapeaux SVG.",
-            "Nouveau logo dans l’application et le launcher."
-          ]
-        },
-        {
-          "title": "Aventures",
-          "items": [
-            "Correction de l’ouverture des aventures lorsqu’un thème personnalisé est enregistré. Les données existantes sont conservées.",
-            "Les aperçus des cartes Aventure utilisent les sprites Pokémon HOME."
-          ]
-        },
-        {
-          "title": "Launcher 1.1.2",
-          "items": [
-            "Retrait des Pikachu décoratifs dans la section Bibliothèque de sprites."
+            "Choix des thèmes plus simple.",
+            "Fiche Pokémon réorganisée.",
+            "Illustrations de l’aventure utilisées dans l’équipe et l’ajout de Pokémon.",
+            "Badges de types par jeu, en français ou en anglais."
           ]
         }
       ]
@@ -31,74 +19,12 @@
     "en": {
       "sections": [
         {
-          "title": "Languages and interface",
+          "title": "Customization",
           "items": [
-            "Added Brazilian Portuguese, Italian, Korean, Simplified Chinese and Traditional Chinese.",
-            "Scrollable language menus with language names and SVG flags.",
-            "New logo in the app and launcher."
-          ]
-        },
-        {
-          "title": "Adventures",
-          "items": [
-            "Fixed adventures failing to open when a custom theme is saved. Existing data is preserved.",
-            "Adventure cards now use Pokémon HOME sprites."
-          ]
-        },
-        {
-          "title": "Launcher 1.1.2",
-          "items": [
-            "Removed the decorative Pikachu from the sprite library section."
-          ]
-        }
-      ]
-    },
-    "es": {
-      "sections": [
-        {
-          "title": "Idiomas e interfaz",
-          "items": [
-            "Añadidos portugués de Brasil, italiano, coreano, chino simplificado y chino tradicional.",
-            "Menús de idiomas desplazables con nombres y banderas SVG.",
-            "Nuevo logotipo en la aplicación y el launcher."
-          ]
-        },
-        {
-          "title": "Aventuras",
-          "items": [
-            "Corregido el error al abrir aventuras con temas personalizados guardados. Se conservan los datos existentes.",
-            "Las tarjetas de aventura usan sprites de Pokémon HOME."
-          ]
-        },
-        {
-          "title": "Launcher 1.1.2",
-          "items": [
-            "Eliminados los Pikachu decorativos de la sección de biblioteca de sprites."
-          ]
-        }
-      ]
-    },
-    "de": {
-      "sections": [
-        {
-          "title": "Sprachen und Oberfläche",
-          "items": [
-            "Brasilianisches Portugiesisch, Italienisch, Koreanisch sowie vereinfachtes und traditionelles Chinesisch hinzugefügt.",
-            "Scrollbare Sprachmenüs mit Sprachnamen und SVG-Flaggen.",
-            "Neues Logo in App und Launcher."
-          ]
-        },
-        {
-          "title": "Abenteuer",
-          "items": [
-            "Fehler beim Öffnen von Abenteuern mit gespeicherten eigenen Themes behoben. Bestehende Daten bleiben erhalten.",
-            "Abenteuerkarten verwenden jetzt Pokémon-HOME-Sprites."
-          ]
-        },
-        {
-          "title": "Launcher 1.1.2",
-          "items": [
-            "Dekorative Pikachu aus der Sprite-Bibliothek entfernt."
+            "Easier theme selection.",
+            "Redesigned Pokémon editor.",
+            "Team cards and Pokémon selection use your adventure’s artwork style.",
+            "Game type badges in French or English."
           ]
         }
       ]
@@ -106,24 +32,38 @@
     "ja": {
       "sections": [
         {
-          "title": "言語とインターフェース",
+          "title": "カスタマイズ",
           "items": [
-            "ブラジルポルトガル語、イタリア語、韓国語、簡体字中国語、繁体字中国語を追加。",
-            "言語名とSVG国旗を表示するスクロール可能な言語メニュー。",
-            "アプリとランチャーのロゴを変更。"
+            "テーマを選びやすく改善。",
+            "ポケモン編集画面を整理。",
+            "チームと追加画面にアドベンチャーで選んだ画像スタイルを使用。",
+            "ゲーム別のタイプ画像をフランス語と英語で追加。"
           ]
-        },
+        }
+      ]
+    },
+    "es": {
+      "sections": [
         {
-          "title": "アドベンチャー",
+          "title": "Personalización",
           "items": [
-            "カスタムテーマを保存するとアドベンチャーを開けなくなる問題を修正。保存済みデータは保持されます。",
-            "アドベンチャーカードにPokémon HOMEの画像を使用。"
+            "Selección de temas más sencilla.",
+            "Editor de Pokémon reorganizado.",
+            "El equipo y la selección de Pokémon usan las ilustraciones de tu aventura.",
+            "Insignias de tipos por juego, en francés o inglés."
           ]
-        },
+        }
+      ]
+    },
+    "de": {
+      "sections": [
         {
-          "title": "ランチャー1.1.2",
+          "title": "Anpassung",
           "items": [
-            "スプライトライブラリの装飾用ピカチュウを削除。"
+            "Einfachere Theme-Auswahl.",
+            "Überarbeiteter Pokémon-Editor.",
+            "Teamkarten und Pokémon-Auswahl verwenden den Illustrationsstil deines Abenteuers.",
+            "Typengrafiken nach Spiel, auf Französisch oder Englisch."
           ]
         }
       ]
@@ -131,24 +71,12 @@
     "pt-BR": {
       "sections": [
         {
-          "title": "Idiomas e interface",
+          "title": "Personalização",
           "items": [
-            "Adicionados português do Brasil, italiano, coreano, chinês simplificado e chinês tradicional.",
-            "Menus de idiomas com rolagem, nomes e bandeiras SVG.",
-            "Novo logotipo no aplicativo e no launcher."
-          ]
-        },
-        {
-          "title": "Aventuras",
-          "items": [
-            "Corrigida a abertura de aventuras com temas personalizados salvos. Os dados existentes são preservados.",
-            "Os cartões de aventura usam sprites do Pokémon HOME."
-          ]
-        },
-        {
-          "title": "Launcher 1.1.2",
-          "items": [
-            "Removidos os Pikachu decorativos da biblioteca de sprites."
+            "Seleção de temas mais simples.",
+            "Editor de Pokémon reorganizado.",
+            "A equipe e a seleção de Pokémon usam o estilo de ilustração da aventura.",
+            "Emblemas de tipos por jogo, em francês ou inglês."
           ]
         }
       ]
@@ -156,24 +84,12 @@
     "it": {
       "sections": [
         {
-          "title": "Lingue e interfaccia",
+          "title": "Personalizzazione",
           "items": [
-            "Aggiunti portoghese brasiliano, italiano, coreano, cinese semplificato e cinese tradizionale.",
-            "Menu delle lingue scorrevoli con nomi e bandiere SVG.",
-            "Nuovo logo nell’app e nel launcher."
-          ]
-        },
-        {
-          "title": "Avventure",
-          "items": [
-            "Corretto il problema che impediva di aprire le avventure con temi personalizzati salvati. I dati esistenti vengono conservati.",
-            "Le schede delle avventure usano gli sprite di Pokémon HOME."
-          ]
-        },
-        {
-          "title": "Launcher 1.1.2",
-          "items": [
-            "Rimossi i Pikachu decorativi dalla libreria di sprite."
+            "Scelta dei temi più semplice.",
+            "Editor dei Pokémon riorganizzato.",
+            "Squadra e selezione dei Pokémon usano lo stile delle illustrazioni dell’avventura.",
+            "Grafiche dei tipi per gioco, in francese o inglese."
           ]
         }
       ]
@@ -181,24 +97,12 @@
     "ko": {
       "sections": [
         {
-          "title": "언어 및 인터페이스",
+          "title": "꾸미기",
           "items": [
-            "브라질 포르투갈어, 이탈리아어, 한국어, 중국어 간체 및 번체 추가.",
-            "언어 이름과 SVG 국기가 표시되는 스크롤 언어 메뉴.",
-            "앱과 런처의 로고 변경."
-          ]
-        },
-        {
-          "title": "모험",
-          "items": [
-            "사용자 테마가 저장되어 있을 때 모험을 열지 못하는 문제 수정. 기존 데이터는 유지됩니다.",
-            "모험 카드에 Pokémon HOME 스프라이트 사용."
-          ]
-        },
-        {
-          "title": "런처 1.1.2",
-          "items": [
-            "스프라이트 라이브러리의 장식용 피카츄 제거."
+            "더 쉬워진 테마 선택.",
+            "포켓몬 편집 화면 개편.",
+            "팀과 포켓몬 추가 화면에 모험에서 선택한 이미지 스타일 사용.",
+            "게임별 프랑스어 및 영어 타입 배지 추가."
           ]
         }
       ]
@@ -206,24 +110,12 @@
     "zh-CN": {
       "sections": [
         {
-          "title": "语言与界面",
+          "title": "个性化",
           "items": [
-            "新增巴西葡萄牙语、意大利语、韩语、简体中文和繁体中文。",
-            "语言菜单支持滚动，显示语言名称和 SVG 国旗。",
-            "更新应用和启动器的标志。"
-          ]
-        },
-        {
-          "title": "冒险",
-          "items": [
-            "修复保存自定义主题后无法打开冒险的问题，保留现有数据。",
-            "冒险卡片使用 Pokémon HOME 图片。"
-          ]
-        },
-        {
-          "title": "启动器 1.1.2",
-          "items": [
-            "移除图片库区域的装饰性皮卡丘。"
+            "主题选择更方便。",
+            "重新整理宝可梦编辑界面。",
+            "队伍卡片和添加宝可梦时使用冒险中选择的图片样式。",
+            "可按游戏选择法语或英语属性徽章。"
           ]
         }
       ]
@@ -231,24 +123,12 @@
     "zh-TW": {
       "sections": [
         {
-          "title": "語言與介面",
+          "title": "個人化",
           "items": [
-            "新增巴西葡萄牙語、義大利語、韓語、簡體中文和繁體中文。",
-            "語言選單支援捲動，顯示語言名稱和 SVG 國旗。",
-            "更新應用程式和啟動器的標誌。"
-          ]
-        },
-        {
-          "title": "冒險",
-          "items": [
-            "修正儲存自訂主題後無法開啟冒險的問題，保留現有資料。",
-            "冒險卡片使用 Pokémon HOME 圖片。"
-          ]
-        },
-        {
-          "title": "啟動器 1.1.2",
-          "items": [
-            "移除圖片庫區域的裝飾性皮卡丘。"
+            "主題選擇更方便。",
+            "重新整理寶可夢編輯介面。",
+            "隊伍卡片與新增寶可夢時使用冒險中選擇的圖片樣式。",
+            "可依遊戲選擇法語或英語屬性徽章。"
           ]
         }
       ]

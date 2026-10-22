@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useI18n } from "@/i18n/client";
+import { TypeBadgePicker } from "@/components/type-badge-picker";
 import { SpriteSelector } from "@/components/sprite-selector";
 import { Toggle } from "@/components/ui";
 import { ColorControl, RangeControl, SurfaceControls, ChoiceControl } from "./controls";
@@ -35,6 +36,8 @@ export function ThemeSettings({config,section,onChange}:{config:CustomThemeConfi
            <Toggle label="Gras" checked={config[key].bold} onChange={(bold) => set(key,{ ...config[key], bold })}/><Toggle label="Majuscules" checked={config[key].uppercase} onChange={(uppercase) => set(key,{ ...config[key], uppercase })}/><RangeControl label="Espacement des lettres" min={-2} max={6} value={config[key].tracking} reset={0} onChange={(tracking) => set(key,{...config[key],tracking})}/><ChoiceControl label="Relief du texte" value={config[key].shadow} choices={[["none","Aucun"],["soft","Ombre"],["outline","Contour"]]} onChange={(shadow) => set(key,{...config[key],shadow})}/>
          </div>)}
          {section === "types" && <div className="ts-control-stack">
+           <TypeBadgePicker value={config.types.badgeStyle} onChange={badgeStyle=>set("types",{...config.types,badgeStyle})}/>
+           {config.types.badgeStyle==="text"&&<>
            <ChoiceControl label="Rendu des types" value={config.types.mode} choices={[["tonal","Teinté"],["solid","Plein"],["outline","Contour"]]} onChange={(mode) => set("types",{...config.types,mode})}/>
            <Toggle label="Couleurs des types" checked={config.types.natural} onChange={(natural) => set("types",{...config.types,natural})}/>
            {config.types.natural && <TypePalette config={config} onChange={(types) => set("types",types)}/>}
@@ -42,6 +45,7 @@ export function ThemeSettings({config,section,onChange}:{config:CustomThemeConfi
            {!config.types.natural && <><ColorControl label="Couleur du texte" value={config.types.color} reset={defaults.types.color} onChange={(color) => set("types",{...config.types,color})}/>
            {config.types.mode !== "outline" && <ColorControl label="Fond" value={config.types.background} reset={defaults.types.background} onChange={(background) => set("types",{...config.types,background})}/>}</>}
            <RangeControl label="Arrondi" value={config.types.radius} reset={defaults.types.radius} onChange={(radius) => set("types",{...config.types,radius})}/>
+           </>}
            <RangeControl label="Taille" unit="%" min={50} max={160} value={config.types.size} reset={defaults.types.size} onChange={(size) => set("types",{...config.types,size})}/>
          </div>}
          {section === "gender" && <div className="ts-control-stack">

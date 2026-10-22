@@ -1,0 +1,2980 @@
+{
+  "source": "https://github.com/PokeAPI/sprites",
+  "commit": "97a7832d307311c0e1c6ea9035308bf80cc94f81",
+  "styles": [
+    {
+      "id": "colosseum",
+      "label": "Colosseum",
+      "variant": "",
+      "generation": 3,
+      "path": "generation-iii/colosseum",
+      "types": [
+        1,
+        10,
+        10001,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "language": "en"
+    },
+    {
+      "id": "emerald",
+      "label": "Émeraude",
+      "variant": "",
+      "generation": 3,
+      "path": "generation-iii/emerald",
+      "types": [
+        1,
+        10,
+        10001,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "language": "en"
+    },
+    {
+      "id": "firered-leafgreen",
+      "label": "Rouge Feu · Vert Feuille",
+      "variant": "",
+      "generation": 3,
+      "path": "generation-iii/firered-leafgreen",
+      "types": [
+        1,
+        10,
+        10001,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "language": "en"
+    },
+    {
+      "id": "ruby-sapphire",
+      "label": "Rubis · Saphir",
+      "variant": "",
+      "generation": 3,
+      "path": "generation-iii/ruby-sapphire",
+      "types": [
+        1,
+        10,
+        10001,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "language": "en"
+    },
+    {
+      "id": "xd",
+      "label": "XD",
+      "variant": "",
+      "generation": 3,
+      "path": "generation-iii/xd",
+      "types": [
+        1,
+        10,
+        10001,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "language": "en"
+    },
+    {
+      "id": "diamond-pearl",
+      "label": "Diamant · Perle",
+      "variant": "",
+      "generation": 4,
+      "path": "generation-iv/diamond-pearl",
+      "types": [
+        1,
+        10,
+        10001,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "language": "en"
+    },
+    {
+      "id": "heartgold-soulsilver",
+      "label": "HeartGold · SoulSilver",
+      "variant": "",
+      "generation": 4,
+      "path": "generation-iv/heartgold-soulsilver",
+      "types": [
+        1,
+        10,
+        10001,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "language": "en"
+    },
+    {
+      "id": "platinum",
+      "label": "Platine",
+      "variant": "",
+      "generation": 4,
+      "path": "generation-iv/platinum",
+      "types": [
+        1,
+        10,
+        10001,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "language": "en"
+    },
+    {
+      "id": "champions",
+      "label": "Champions",
+      "variant": "",
+      "generation": 9,
+      "path": "generation-ix/champions",
+      "types": [
+        1,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "language": "en"
+    },
+    {
+      "id": "champions-small",
+      "label": "Champions",
+      "variant": "small",
+      "generation": 9,
+      "path": "generation-ix/champions/small",
+      "types": [
+        1,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "language": "en"
+    },
+    {
+      "id": "scarlet-violet",
+      "label": "Écarlate · Violet",
+      "variant": "",
+      "generation": 9,
+      "path": "generation-ix/scarlet-violet",
+      "types": [
+        1,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "language": "en"
+    },
+    {
+      "id": "scarlet-violet-small",
+      "label": "Écarlate · Violet",
+      "variant": "small",
+      "generation": 9,
+      "path": "generation-ix/scarlet-violet/small",
+      "types": [
+        1,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "language": "en"
+    },
+    {
+      "id": "scarlet-violet-small-tera",
+      "label": "Écarlate · Violet",
+      "variant": "small/Tera",
+      "generation": 9,
+      "path": "generation-ix/scarlet-violet/small/Tera",
+      "types": [
+        1,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "language": "en"
+    },
+    {
+      "id": "scarlet-violet-tera",
+      "label": "Écarlate · Violet",
+      "variant": "Tera",
+      "generation": 9,
+      "path": "generation-ix/scarlet-violet/Tera",
+      "types": [
+        1,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "language": "en"
+    },
+    {
+      "id": "black-2-white-2",
+      "label": "Noir 2 · Blanc 2",
+      "variant": "",
+      "generation": 5,
+      "path": "generation-v/black-2-white-2",
+      "types": [
+        1,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "language": "en"
+    },
+    {
+      "id": "black-white",
+      "label": "Noir · Blanc",
+      "variant": "",
+      "generation": 5,
+      "path": "generation-v/black-white",
+      "types": [
+        1,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "language": "en"
+    },
+    {
+      "id": "omega-ruby-alpha-sapphire",
+      "label": "Rubis Oméga · Saphir Alpha",
+      "variant": "",
+      "generation": 6,
+      "path": "generation-vi/omega-ruby-alpha-sapphire",
+      "types": [
+        1,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "language": "en"
+    },
+    {
+      "id": "x-y",
+      "label": "X · Y",
+      "variant": "",
+      "generation": 6,
+      "path": "generation-vi/x-y",
+      "types": [
+        1,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "language": "en"
+    },
+    {
+      "id": "lets-go-pikachu-lets-go-eevee",
+      "label": "Let’s Go",
+      "variant": "",
+      "generation": 7,
+      "path": "generation-vii/lets-go-pikachu-lets-go-eevee",
+      "types": [
+        1,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "language": "en"
+    },
+    {
+      "id": "lets-go-pikachu-lets-go-eevee-small",
+      "label": "Let’s Go",
+      "variant": "small",
+      "generation": 7,
+      "path": "generation-vii/lets-go-pikachu-lets-go-eevee/small",
+      "types": [
+        1,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "language": "en"
+    },
+    {
+      "id": "sun-moon",
+      "label": "Soleil · Lune",
+      "variant": "",
+      "generation": 7,
+      "path": "generation-vii/sun-moon",
+      "types": [
+        1,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "language": "en"
+    },
+    {
+      "id": "ultra-sun-ultra-moon",
+      "label": "Ultra-Soleil · Ultra-Lune",
+      "variant": "",
+      "generation": 7,
+      "path": "generation-vii/ultra-sun-ultra-moon",
+      "types": [
+        1,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "language": "en"
+    },
+    {
+      "id": "brilliant-diamond-shining-pearl",
+      "label": "Diamant Étincelant · Perle Scintillante",
+      "variant": "",
+      "generation": 8,
+      "path": "generation-viii/brilliant-diamond-shining-pearl",
+      "types": [
+        1,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "language": "en"
+    },
+    {
+      "id": "brilliant-diamond-shining-pearl-small",
+      "label": "Diamant Étincelant · Perle Scintillante",
+      "variant": "small",
+      "generation": 8,
+      "path": "generation-viii/brilliant-diamond-shining-pearl/small",
+      "types": [
+        1,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "language": "en"
+    },
+    {
+      "id": "legends-arceus",
+      "label": "Légendes : Arceus",
+      "variant": "",
+      "generation": 8,
+      "path": "generation-viii/legends-arceus",
+      "types": [
+        1,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "language": "en"
+    },
+    {
+      "id": "legends-arceus-small",
+      "label": "Légendes : Arceus",
+      "variant": "small",
+      "generation": 8,
+      "path": "generation-viii/legends-arceus/small",
+      "types": [
+        1,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "language": "en"
+    },
+    {
+      "id": "sword-shield",
+      "label": "Épée · Bouclier",
+      "variant": "",
+      "generation": 8,
+      "path": "generation-viii/sword-shield",
+      "types": [
+        1,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "language": "en"
+    },
+    {
+      "id": "sword-shield-small",
+      "label": "Épée · Bouclier",
+      "variant": "small",
+      "generation": 8,
+      "path": "generation-viii/sword-shield/small",
+      "types": [
+        1,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "language": "en"
+    },
+    {
+      "id": "fr-legends-arceus",
+      "label": "Légendes : Arceus",
+      "generation": 8,
+      "path": "",
+      "language": "fr",
+      "variant": "",
+      "types": [
+        9,
+        2,
+        16,
+        11,
+        13,
+        18,
+        10,
+        15,
+        7,
+        1,
+        12,
+        4,
+        14,
+        6,
+        5,
+        8,
+        17,
+        3
+      ],
+      "assets": {
+        "steel": "/type-badges/fr/legends-arceus/steel.png",
+        "fighting": "/type-badges/fr/legends-arceus/fighting.png",
+        "dragon": "/type-badges/fr/legends-arceus/dragon.png",
+        "water": "/type-badges/fr/legends-arceus/water.png",
+        "electric": "/type-badges/fr/legends-arceus/electric.png",
+        "fairy": "/type-badges/fr/legends-arceus/fairy.png",
+        "fire": "/type-badges/fr/legends-arceus/fire.png",
+        "ice": "/type-badges/fr/legends-arceus/ice.png",
+        "bug": "/type-badges/fr/legends-arceus/bug.png",
+        "normal": "/type-badges/fr/legends-arceus/normal.png",
+        "grass": "/type-badges/fr/legends-arceus/grass.png",
+        "poison": "/type-badges/fr/legends-arceus/poison.png",
+        "psychic": "/type-badges/fr/legends-arceus/psychic.png",
+        "rock": "/type-badges/fr/legends-arceus/rock.png",
+        "ground": "/type-badges/fr/legends-arceus/ground.png",
+        "ghost": "/type-badges/fr/legends-arceus/ghost.png",
+        "dark": "/type-badges/fr/legends-arceus/dark.png",
+        "flying": "/type-badges/fr/legends-arceus/flying.png"
+      },
+      "dimensions": {
+        "steel": [
+          152,
+          36
+        ],
+        "fighting": [
+          152,
+          36
+        ],
+        "dragon": [
+          152,
+          36
+        ],
+        "water": [
+          152,
+          36
+        ],
+        "electric": [
+          152,
+          36
+        ],
+        "fairy": [
+          152,
+          36
+        ],
+        "fire": [
+          152,
+          36
+        ],
+        "ice": [
+          152,
+          36
+        ],
+        "bug": [
+          152,
+          36
+        ],
+        "normal": [
+          152,
+          36
+        ],
+        "grass": [
+          152,
+          36
+        ],
+        "poison": [
+          152,
+          36
+        ],
+        "psychic": [
+          152,
+          36
+        ],
+        "rock": [
+          152,
+          36
+        ],
+        "ground": [
+          152,
+          36
+        ],
+        "ghost": [
+          152,
+          36
+        ],
+        "dark": [
+          152,
+          36
+        ],
+        "flying": [
+          152,
+          36
+        ]
+      }
+    },
+    {
+      "id": "fr-legends-arceus-small",
+      "label": "Légendes : Arceus",
+      "generation": 8,
+      "path": "",
+      "language": "fr",
+      "variant": "small",
+      "types": [
+        9,
+        2,
+        16,
+        11,
+        13,
+        18,
+        10,
+        15,
+        7,
+        1,
+        12,
+        4,
+        14,
+        6,
+        5,
+        8,
+        17,
+        3
+      ],
+      "assets": {
+        "steel": "/type-badges/fr/legends-arceus-small/steel.png",
+        "fighting": "/type-badges/fr/legends-arceus-small/fighting.png",
+        "dragon": "/type-badges/fr/legends-arceus-small/dragon.png",
+        "water": "/type-badges/fr/legends-arceus-small/water.png",
+        "electric": "/type-badges/fr/legends-arceus-small/electric.png",
+        "fairy": "/type-badges/fr/legends-arceus-small/fairy.png",
+        "fire": "/type-badges/fr/legends-arceus-small/fire.png",
+        "ice": "/type-badges/fr/legends-arceus-small/ice.png",
+        "bug": "/type-badges/fr/legends-arceus-small/bug.png",
+        "normal": "/type-badges/fr/legends-arceus-small/normal.png",
+        "grass": "/type-badges/fr/legends-arceus-small/grass.png",
+        "poison": "/type-badges/fr/legends-arceus-small/poison.png",
+        "psychic": "/type-badges/fr/legends-arceus-small/psychic.png",
+        "rock": "/type-badges/fr/legends-arceus-small/rock.png",
+        "ground": "/type-badges/fr/legends-arceus-small/ground.png",
+        "ghost": "/type-badges/fr/legends-arceus-small/ghost.png",
+        "dark": "/type-badges/fr/legends-arceus-small/dark.png",
+        "flying": "/type-badges/fr/legends-arceus-small/flying.png"
+      },
+      "dimensions": {
+        "steel": [
+          107,
+          107
+        ],
+        "fighting": [
+          107,
+          107
+        ],
+        "dragon": [
+          107,
+          107
+        ],
+        "water": [
+          107,
+          107
+        ],
+        "electric": [
+          107,
+          107
+        ],
+        "fairy": [
+          107,
+          107
+        ],
+        "fire": [
+          107,
+          107
+        ],
+        "ice": [
+          107,
+          107
+        ],
+        "bug": [
+          107,
+          107
+        ],
+        "normal": [
+          107,
+          107
+        ],
+        "grass": [
+          107,
+          107
+        ],
+        "poison": [
+          107,
+          107
+        ],
+        "psychic": [
+          107,
+          107
+        ],
+        "rock": [
+          107,
+          107
+        ],
+        "ground": [
+          107,
+          107
+        ],
+        "ghost": [
+          107,
+          107
+        ],
+        "dark": [
+          107,
+          107
+        ],
+        "flying": [
+          107,
+          107
+        ]
+      }
+    },
+    {
+      "id": "fr-legends-za",
+      "label": "Légendes : Z-A",
+      "generation": 9,
+      "path": "",
+      "language": "fr",
+      "variant": "",
+      "types": [
+        9,
+        2,
+        16,
+        11,
+        13,
+        18,
+        10,
+        15,
+        7,
+        1,
+        12,
+        4,
+        14,
+        6,
+        5,
+        8,
+        17,
+        3
+      ],
+      "assets": {
+        "steel": "/type-badges/fr/legends-za/steel.png",
+        "fighting": "/type-badges/fr/legends-za/fighting.png",
+        "dragon": "/type-badges/fr/legends-za/dragon.png",
+        "water": "/type-badges/fr/legends-za/water.png",
+        "electric": "/type-badges/fr/legends-za/electric.png",
+        "fairy": "/type-badges/fr/legends-za/fairy.png",
+        "fire": "/type-badges/fr/legends-za/fire.png",
+        "ice": "/type-badges/fr/legends-za/ice.png",
+        "bug": "/type-badges/fr/legends-za/bug.png",
+        "normal": "/type-badges/fr/legends-za/normal.png",
+        "grass": "/type-badges/fr/legends-za/grass.png",
+        "poison": "/type-badges/fr/legends-za/poison.png",
+        "psychic": "/type-badges/fr/legends-za/psychic.png",
+        "rock": "/type-badges/fr/legends-za/rock.png",
+        "ground": "/type-badges/fr/legends-za/ground.png",
+        "ghost": "/type-badges/fr/legends-za/ghost.png",
+        "dark": "/type-badges/fr/legends-za/dark.png",
+        "flying": "/type-badges/fr/legends-za/flying.png"
+      },
+      "dimensions": {
+        "steel": [
+          150,
+          36
+        ],
+        "fighting": [
+          150,
+          36
+        ],
+        "dragon": [
+          150,
+          36
+        ],
+        "water": [
+          150,
+          36
+        ],
+        "electric": [
+          150,
+          36
+        ],
+        "fairy": [
+          150,
+          36
+        ],
+        "fire": [
+          150,
+          36
+        ],
+        "ice": [
+          150,
+          36
+        ],
+        "bug": [
+          150,
+          36
+        ],
+        "normal": [
+          150,
+          36
+        ],
+        "grass": [
+          150,
+          36
+        ],
+        "poison": [
+          150,
+          36
+        ],
+        "psychic": [
+          150,
+          36
+        ],
+        "rock": [
+          150,
+          36
+        ],
+        "ground": [
+          150,
+          36
+        ],
+        "ghost": [
+          150,
+          36
+        ],
+        "dark": [
+          150,
+          36
+        ],
+        "flying": [
+          150,
+          36
+        ]
+      }
+    },
+    {
+      "id": "fr-legends-za-small",
+      "label": "Légendes : Z-A",
+      "generation": 9,
+      "path": "",
+      "language": "fr",
+      "variant": "small",
+      "types": [
+        9,
+        2,
+        16,
+        11,
+        13,
+        18,
+        10,
+        15,
+        7,
+        1,
+        12,
+        4,
+        14,
+        6,
+        5,
+        8,
+        17,
+        3
+      ],
+      "assets": {
+        "steel": "/type-badges/fr/legends-za-small/steel.png",
+        "fighting": "/type-badges/fr/legends-za-small/fighting.png",
+        "dragon": "/type-badges/fr/legends-za-small/dragon.png",
+        "water": "/type-badges/fr/legends-za-small/water.png",
+        "electric": "/type-badges/fr/legends-za-small/electric.png",
+        "fairy": "/type-badges/fr/legends-za-small/fairy.png",
+        "fire": "/type-badges/fr/legends-za-small/fire.png",
+        "ice": "/type-badges/fr/legends-za-small/ice.png",
+        "bug": "/type-badges/fr/legends-za-small/bug.png",
+        "normal": "/type-badges/fr/legends-za-small/normal.png",
+        "grass": "/type-badges/fr/legends-za-small/grass.png",
+        "poison": "/type-badges/fr/legends-za-small/poison.png",
+        "psychic": "/type-badges/fr/legends-za-small/psychic.png",
+        "rock": "/type-badges/fr/legends-za-small/rock.png",
+        "ground": "/type-badges/fr/legends-za-small/ground.png",
+        "ghost": "/type-badges/fr/legends-za-small/ghost.png",
+        "dark": "/type-badges/fr/legends-za-small/dark.png",
+        "flying": "/type-badges/fr/legends-za-small/flying.png"
+      },
+      "dimensions": {
+        "steel": [
+          36,
+          36
+        ],
+        "fighting": [
+          36,
+          36
+        ],
+        "dragon": [
+          36,
+          36
+        ],
+        "water": [
+          36,
+          36
+        ],
+        "electric": [
+          36,
+          36
+        ],
+        "fairy": [
+          36,
+          36
+        ],
+        "fire": [
+          36,
+          36
+        ],
+        "ice": [
+          36,
+          36
+        ],
+        "bug": [
+          36,
+          36
+        ],
+        "normal": [
+          36,
+          36
+        ],
+        "grass": [
+          36,
+          36
+        ],
+        "poison": [
+          36,
+          36
+        ],
+        "psychic": [
+          36,
+          36
+        ],
+        "rock": [
+          36,
+          36
+        ],
+        "ground": [
+          36,
+          36
+        ],
+        "ghost": [
+          36,
+          36
+        ],
+        "dark": [
+          36,
+          36
+        ],
+        "flying": [
+          36,
+          36
+        ]
+      }
+    },
+    {
+      "id": "fr-pokedex",
+      "label": "Pokédex",
+      "generation": 4,
+      "path": "",
+      "language": "fr",
+      "variant": "",
+      "types": [
+        9,
+        2,
+        16,
+        11,
+        13,
+        10,
+        15,
+        7,
+        1,
+        12,
+        4,
+        14,
+        6,
+        5,
+        8,
+        17,
+        3
+      ],
+      "assets": {
+        "steel": "/type-badges/fr/pokedex/steel.png",
+        "fighting": "/type-badges/fr/pokedex/fighting.png",
+        "dragon": "/type-badges/fr/pokedex/dragon.png",
+        "water": "/type-badges/fr/pokedex/water.png",
+        "electric": "/type-badges/fr/pokedex/electric.png",
+        "fire": "/type-badges/fr/pokedex/fire.png",
+        "ice": "/type-badges/fr/pokedex/ice.png",
+        "bug": "/type-badges/fr/pokedex/bug.png",
+        "normal": "/type-badges/fr/pokedex/normal.png",
+        "grass": "/type-badges/fr/pokedex/grass.png",
+        "poison": "/type-badges/fr/pokedex/poison.png",
+        "psychic": "/type-badges/fr/pokedex/psychic.png",
+        "rock": "/type-badges/fr/pokedex/rock.png",
+        "ground": "/type-badges/fr/pokedex/ground.png",
+        "ghost": "/type-badges/fr/pokedex/ghost.png",
+        "dark": "/type-badges/fr/pokedex/dark.png",
+        "flying": "/type-badges/fr/pokedex/flying.png"
+      },
+      "dimensions": {
+        "steel": [
+          48,
+          16
+        ],
+        "fighting": [
+          48,
+          16
+        ],
+        "dragon": [
+          48,
+          16
+        ],
+        "water": [
+          48,
+          16
+        ],
+        "electric": [
+          48,
+          16
+        ],
+        "fire": [
+          48,
+          16
+        ],
+        "ice": [
+          48,
+          16
+        ],
+        "bug": [
+          48,
+          16
+        ],
+        "normal": [
+          48,
+          16
+        ],
+        "grass": [
+          48,
+          16
+        ],
+        "poison": [
+          48,
+          16
+        ],
+        "psychic": [
+          48,
+          16
+        ],
+        "rock": [
+          48,
+          16
+        ],
+        "ground": [
+          48,
+          16
+        ],
+        "ghost": [
+          48,
+          16
+        ],
+        "dark": [
+          48,
+          16
+        ],
+        "flying": [
+          48,
+          16
+        ]
+      }
+    },
+    {
+      "id": "fr-brilliant-diamond-shining-pearl",
+      "label": "Diamant Étincelant · Perle Scintillante",
+      "generation": 8,
+      "path": "",
+      "language": "fr",
+      "variant": "",
+      "types": [
+        9,
+        2,
+        16,
+        11,
+        13,
+        18,
+        10,
+        15,
+        7,
+        1,
+        12,
+        4,
+        14,
+        6,
+        5,
+        8,
+        17,
+        3
+      ],
+      "assets": {
+        "steel": "/type-badges/fr/brilliant-diamond-shining-pearl/steel.png",
+        "fighting": "/type-badges/fr/brilliant-diamond-shining-pearl/fighting.png",
+        "dragon": "/type-badges/fr/brilliant-diamond-shining-pearl/dragon.png",
+        "water": "/type-badges/fr/brilliant-diamond-shining-pearl/water.png",
+        "electric": "/type-badges/fr/brilliant-diamond-shining-pearl/electric.png",
+        "fairy": "/type-badges/fr/brilliant-diamond-shining-pearl/fairy.png",
+        "fire": "/type-badges/fr/brilliant-diamond-shining-pearl/fire.png",
+        "ice": "/type-badges/fr/brilliant-diamond-shining-pearl/ice.png",
+        "bug": "/type-badges/fr/brilliant-diamond-shining-pearl/bug.png",
+        "normal": "/type-badges/fr/brilliant-diamond-shining-pearl/normal.png",
+        "grass": "/type-badges/fr/brilliant-diamond-shining-pearl/grass.png",
+        "poison": "/type-badges/fr/brilliant-diamond-shining-pearl/poison.png",
+        "psychic": "/type-badges/fr/brilliant-diamond-shining-pearl/psychic.png",
+        "rock": "/type-badges/fr/brilliant-diamond-shining-pearl/rock.png",
+        "ground": "/type-badges/fr/brilliant-diamond-shining-pearl/ground.png",
+        "ghost": "/type-badges/fr/brilliant-diamond-shining-pearl/ghost.png",
+        "dark": "/type-badges/fr/brilliant-diamond-shining-pearl/dark.png",
+        "flying": "/type-badges/fr/brilliant-diamond-shining-pearl/flying.png"
+      },
+      "dimensions": {
+        "steel": [
+          144,
+          32
+        ],
+        "fighting": [
+          144,
+          32
+        ],
+        "dragon": [
+          144,
+          32
+        ],
+        "water": [
+          144,
+          32
+        ],
+        "electric": [
+          144,
+          32
+        ],
+        "fairy": [
+          144,
+          32
+        ],
+        "fire": [
+          144,
+          32
+        ],
+        "ice": [
+          144,
+          32
+        ],
+        "bug": [
+          144,
+          32
+        ],
+        "normal": [
+          144,
+          32
+        ],
+        "grass": [
+          144,
+          32
+        ],
+        "poison": [
+          144,
+          32
+        ],
+        "psychic": [
+          144,
+          32
+        ],
+        "rock": [
+          144,
+          32
+        ],
+        "ground": [
+          144,
+          32
+        ],
+        "ghost": [
+          144,
+          32
+        ],
+        "dark": [
+          144,
+          32
+        ],
+        "flying": [
+          144,
+          32
+        ]
+      }
+    },
+    {
+      "id": "fr-scarlet-violet",
+      "label": "Écarlate · Violet",
+      "generation": 9,
+      "path": "",
+      "language": "fr",
+      "variant": "",
+      "types": [
+        9,
+        2,
+        16,
+        11,
+        13,
+        18,
+        10,
+        15,
+        7,
+        1,
+        12,
+        4,
+        14,
+        6,
+        5,
+        8,
+        17,
+        3
+      ],
+      "assets": {
+        "steel": "/type-badges/fr/scarlet-violet/steel.png",
+        "fighting": "/type-badges/fr/scarlet-violet/fighting.png",
+        "dragon": "/type-badges/fr/scarlet-violet/dragon.png",
+        "water": "/type-badges/fr/scarlet-violet/water.png",
+        "electric": "/type-badges/fr/scarlet-violet/electric.png",
+        "fairy": "/type-badges/fr/scarlet-violet/fairy.png",
+        "fire": "/type-badges/fr/scarlet-violet/fire.png",
+        "ice": "/type-badges/fr/scarlet-violet/ice.png",
+        "bug": "/type-badges/fr/scarlet-violet/bug.png",
+        "normal": "/type-badges/fr/scarlet-violet/normal.png",
+        "grass": "/type-badges/fr/scarlet-violet/grass.png",
+        "poison": "/type-badges/fr/scarlet-violet/poison.png",
+        "psychic": "/type-badges/fr/scarlet-violet/psychic.png",
+        "rock": "/type-badges/fr/scarlet-violet/rock.png",
+        "ground": "/type-badges/fr/scarlet-violet/ground.png",
+        "ghost": "/type-badges/fr/scarlet-violet/ghost.png",
+        "dark": "/type-badges/fr/scarlet-violet/dark.png",
+        "flying": "/type-badges/fr/scarlet-violet/flying.png"
+      },
+      "dimensions": {
+        "steel": [
+          200,
+          40
+        ],
+        "fighting": [
+          200,
+          40
+        ],
+        "dragon": [
+          200,
+          40
+        ],
+        "water": [
+          200,
+          40
+        ],
+        "electric": [
+          200,
+          40
+        ],
+        "fairy": [
+          200,
+          40
+        ],
+        "fire": [
+          200,
+          40
+        ],
+        "ice": [
+          200,
+          40
+        ],
+        "bug": [
+          200,
+          40
+        ],
+        "normal": [
+          200,
+          40
+        ],
+        "grass": [
+          200,
+          40
+        ],
+        "poison": [
+          200,
+          40
+        ],
+        "psychic": [
+          200,
+          40
+        ],
+        "rock": [
+          200,
+          40
+        ],
+        "ground": [
+          200,
+          40
+        ],
+        "ghost": [
+          200,
+          40
+        ],
+        "dark": [
+          200,
+          40
+        ],
+        "flying": [
+          200,
+          40
+        ]
+      }
+    },
+    {
+      "id": "fr-scarlet-violet-small",
+      "label": "Écarlate · Violet",
+      "generation": 9,
+      "path": "",
+      "language": "fr",
+      "variant": "small",
+      "types": [
+        9,
+        2,
+        16,
+        11,
+        13,
+        18,
+        10,
+        15,
+        7,
+        1,
+        12,
+        4,
+        14,
+        6,
+        5,
+        8,
+        17,
+        3
+      ],
+      "assets": {
+        "steel": "/type-badges/fr/scarlet-violet-small/steel.png",
+        "fighting": "/type-badges/fr/scarlet-violet-small/fighting.png",
+        "dragon": "/type-badges/fr/scarlet-violet-small/dragon.png",
+        "water": "/type-badges/fr/scarlet-violet-small/water.png",
+        "electric": "/type-badges/fr/scarlet-violet-small/electric.png",
+        "fairy": "/type-badges/fr/scarlet-violet-small/fairy.png",
+        "fire": "/type-badges/fr/scarlet-violet-small/fire.png",
+        "ice": "/type-badges/fr/scarlet-violet-small/ice.png",
+        "bug": "/type-badges/fr/scarlet-violet-small/bug.png",
+        "normal": "/type-badges/fr/scarlet-violet-small/normal.png",
+        "grass": "/type-badges/fr/scarlet-violet-small/grass.png",
+        "poison": "/type-badges/fr/scarlet-violet-small/poison.png",
+        "psychic": "/type-badges/fr/scarlet-violet-small/psychic.png",
+        "rock": "/type-badges/fr/scarlet-violet-small/rock.png",
+        "ground": "/type-badges/fr/scarlet-violet-small/ground.png",
+        "ghost": "/type-badges/fr/scarlet-violet-small/ghost.png",
+        "dark": "/type-badges/fr/scarlet-violet-small/dark.png",
+        "flying": "/type-badges/fr/scarlet-violet-small/flying.png"
+      },
+      "dimensions": {
+        "steel": [
+          60,
+          60
+        ],
+        "fighting": [
+          60,
+          60
+        ],
+        "dragon": [
+          60,
+          60
+        ],
+        "water": [
+          60,
+          60
+        ],
+        "electric": [
+          60,
+          60
+        ],
+        "fairy": [
+          60,
+          60
+        ],
+        "fire": [
+          60,
+          60
+        ],
+        "ice": [
+          60,
+          60
+        ],
+        "bug": [
+          60,
+          60
+        ],
+        "normal": [
+          60,
+          60
+        ],
+        "grass": [
+          60,
+          60
+        ],
+        "poison": [
+          60,
+          60
+        ],
+        "psychic": [
+          60,
+          60
+        ],
+        "rock": [
+          60,
+          60
+        ],
+        "ground": [
+          60,
+          60
+        ],
+        "ghost": [
+          60,
+          60
+        ],
+        "dark": [
+          60,
+          60
+        ],
+        "flying": [
+          60,
+          60
+        ]
+      }
+    },
+    {
+      "id": "fr-sword-shield",
+      "label": "Épée · Bouclier",
+      "generation": 8,
+      "path": "",
+      "language": "fr",
+      "variant": "",
+      "types": [
+        9,
+        2,
+        16,
+        11,
+        13,
+        18,
+        10,
+        15,
+        7,
+        1,
+        12,
+        4,
+        14,
+        6,
+        5,
+        8,
+        17,
+        3
+      ],
+      "assets": {
+        "steel": "/type-badges/fr/sword-shield/steel.png",
+        "fighting": "/type-badges/fr/sword-shield/fighting.png",
+        "dragon": "/type-badges/fr/sword-shield/dragon.png",
+        "water": "/type-badges/fr/sword-shield/water.png",
+        "electric": "/type-badges/fr/sword-shield/electric.png",
+        "fairy": "/type-badges/fr/sword-shield/fairy.png",
+        "fire": "/type-badges/fr/sword-shield/fire.png",
+        "ice": "/type-badges/fr/sword-shield/ice.png",
+        "bug": "/type-badges/fr/sword-shield/bug.png",
+        "normal": "/type-badges/fr/sword-shield/normal.png",
+        "grass": "/type-badges/fr/sword-shield/grass.png",
+        "poison": "/type-badges/fr/sword-shield/poison.png",
+        "psychic": "/type-badges/fr/sword-shield/psychic.png",
+        "rock": "/type-badges/fr/sword-shield/rock.png",
+        "ground": "/type-badges/fr/sword-shield/ground.png",
+        "ghost": "/type-badges/fr/sword-shield/ghost.png",
+        "dark": "/type-badges/fr/sword-shield/dark.png",
+        "flying": "/type-badges/fr/sword-shield/flying.png"
+      },
+      "dimensions": {
+        "steel": [
+          200,
+          44
+        ],
+        "fighting": [
+          200,
+          44
+        ],
+        "dragon": [
+          200,
+          44
+        ],
+        "water": [
+          200,
+          44
+        ],
+        "electric": [
+          200,
+          44
+        ],
+        "fairy": [
+          200,
+          44
+        ],
+        "fire": [
+          200,
+          44
+        ],
+        "ice": [
+          200,
+          44
+        ],
+        "bug": [
+          200,
+          44
+        ],
+        "normal": [
+          200,
+          44
+        ],
+        "grass": [
+          200,
+          44
+        ],
+        "poison": [
+          200,
+          44
+        ],
+        "psychic": [
+          200,
+          44
+        ],
+        "rock": [
+          200,
+          44
+        ],
+        "ground": [
+          200,
+          44
+        ],
+        "ghost": [
+          200,
+          44
+        ],
+        "dark": [
+          200,
+          44
+        ],
+        "flying": [
+          200,
+          44
+        ]
+      }
+    },
+    {
+      "id": "fr-sword-shield-small",
+      "label": "Épée · Bouclier",
+      "generation": 8,
+      "path": "",
+      "language": "fr",
+      "variant": "small",
+      "types": [
+        9,
+        2,
+        16,
+        11,
+        13,
+        18,
+        10,
+        15,
+        7,
+        1,
+        12,
+        4,
+        14,
+        6,
+        5,
+        8,
+        17,
+        3
+      ],
+      "assets": {
+        "steel": "/type-badges/fr/sword-shield-small/steel.png",
+        "fighting": "/type-badges/fr/sword-shield-small/fighting.png",
+        "dragon": "/type-badges/fr/sword-shield-small/dragon.png",
+        "water": "/type-badges/fr/sword-shield-small/water.png",
+        "electric": "/type-badges/fr/sword-shield-small/electric.png",
+        "fairy": "/type-badges/fr/sword-shield-small/fairy.png",
+        "fire": "/type-badges/fr/sword-shield-small/fire.png",
+        "ice": "/type-badges/fr/sword-shield-small/ice.png",
+        "bug": "/type-badges/fr/sword-shield-small/bug.png",
+        "normal": "/type-badges/fr/sword-shield-small/normal.png",
+        "grass": "/type-badges/fr/sword-shield-small/grass.png",
+        "poison": "/type-badges/fr/sword-shield-small/poison.png",
+        "psychic": "/type-badges/fr/sword-shield-small/psychic.png",
+        "rock": "/type-badges/fr/sword-shield-small/rock.png",
+        "ground": "/type-badges/fr/sword-shield-small/ground.png",
+        "ghost": "/type-badges/fr/sword-shield-small/ghost.png",
+        "dark": "/type-badges/fr/sword-shield-small/dark.png",
+        "flying": "/type-badges/fr/sword-shield-small/flying.png"
+      },
+      "dimensions": {
+        "steel": [
+          64,
+          64
+        ],
+        "fighting": [
+          64,
+          64
+        ],
+        "dragon": [
+          64,
+          64
+        ],
+        "water": [
+          64,
+          64
+        ],
+        "electric": [
+          64,
+          64
+        ],
+        "fairy": [
+          64,
+          64
+        ],
+        "fire": [
+          64,
+          64
+        ],
+        "ice": [
+          64,
+          64
+        ],
+        "bug": [
+          64,
+          64
+        ],
+        "normal": [
+          64,
+          64
+        ],
+        "grass": [
+          64,
+          64
+        ],
+        "poison": [
+          64,
+          64
+        ],
+        "psychic": [
+          64,
+          64
+        ],
+        "rock": [
+          64,
+          64
+        ],
+        "ground": [
+          64,
+          64
+        ],
+        "ghost": [
+          64,
+          64
+        ],
+        "dark": [
+          64,
+          64
+        ],
+        "flying": [
+          64,
+          64
+        ]
+      }
+    },
+    {
+      "id": "fr-lets-go",
+      "label": "Let’s Go",
+      "generation": 7,
+      "path": "",
+      "language": "fr",
+      "variant": "",
+      "types": [
+        9,
+        2,
+        16,
+        11,
+        13,
+        18,
+        10,
+        15,
+        7,
+        1,
+        12,
+        4,
+        14,
+        6,
+        5,
+        8,
+        17,
+        3
+      ],
+      "assets": {
+        "steel": "/type-badges/fr/lets-go/steel.png",
+        "fighting": "/type-badges/fr/lets-go/fighting.png",
+        "dragon": "/type-badges/fr/lets-go/dragon.png",
+        "water": "/type-badges/fr/lets-go/water.png",
+        "electric": "/type-badges/fr/lets-go/electric.png",
+        "fairy": "/type-badges/fr/lets-go/fairy.png",
+        "fire": "/type-badges/fr/lets-go/fire.png",
+        "ice": "/type-badges/fr/lets-go/ice.png",
+        "bug": "/type-badges/fr/lets-go/bug.png",
+        "normal": "/type-badges/fr/lets-go/normal.png",
+        "grass": "/type-badges/fr/lets-go/grass.png",
+        "poison": "/type-badges/fr/lets-go/poison.png",
+        "psychic": "/type-badges/fr/lets-go/psychic.png",
+        "rock": "/type-badges/fr/lets-go/rock.png",
+        "ground": "/type-badges/fr/lets-go/ground.png",
+        "ghost": "/type-badges/fr/lets-go/ghost.png",
+        "dark": "/type-badges/fr/lets-go/dark.png",
+        "flying": "/type-badges/fr/lets-go/flying.png"
+      },
+      "dimensions": {
+        "steel": [
+          96,
+          32
+        ],
+        "fighting": [
+          96,
+          32
+        ],
+        "dragon": [
+          96,
+          32
+        ],
+        "water": [
+          96,
+          32
+        ],
+        "electric": [
+          96,
+          32
+        ],
+        "fairy": [
+          96,
+          32
+        ],
+        "fire": [
+          96,
+          32
+        ],
+        "ice": [
+          96,
+          32
+        ],
+        "bug": [
+          96,
+          32
+        ],
+        "normal": [
+          96,
+          32
+        ],
+        "grass": [
+          96,
+          32
+        ],
+        "poison": [
+          96,
+          32
+        ],
+        "psychic": [
+          96,
+          32
+        ],
+        "rock": [
+          96,
+          32
+        ],
+        "ground": [
+          96,
+          32
+        ],
+        "ghost": [
+          96,
+          32
+        ],
+        "dark": [
+          96,
+          32
+        ],
+        "flying": [
+          96,
+          32
+        ]
+      }
+    },
+    {
+      "id": "fr-black-white",
+      "label": "Noir · Blanc",
+      "generation": 5,
+      "path": "",
+      "language": "fr",
+      "variant": "",
+      "types": [
+        9,
+        2,
+        16,
+        11,
+        13,
+        10,
+        15,
+        7,
+        1,
+        12,
+        4,
+        14,
+        6,
+        5,
+        8,
+        17,
+        3
+      ],
+      "assets": {
+        "steel": "/type-badges/fr/black-white/steel.png",
+        "fighting": "/type-badges/fr/black-white/fighting.png",
+        "dragon": "/type-badges/fr/black-white/dragon.png",
+        "water": "/type-badges/fr/black-white/water.png",
+        "electric": "/type-badges/fr/black-white/electric.png",
+        "fire": "/type-badges/fr/black-white/fire.png",
+        "ice": "/type-badges/fr/black-white/ice.png",
+        "bug": "/type-badges/fr/black-white/bug.png",
+        "normal": "/type-badges/fr/black-white/normal.png",
+        "grass": "/type-badges/fr/black-white/grass.png",
+        "poison": "/type-badges/fr/black-white/poison.png",
+        "psychic": "/type-badges/fr/black-white/psychic.png",
+        "rock": "/type-badges/fr/black-white/rock.png",
+        "ground": "/type-badges/fr/black-white/ground.png",
+        "ghost": "/type-badges/fr/black-white/ghost.png",
+        "dark": "/type-badges/fr/black-white/dark.png",
+        "flying": "/type-badges/fr/black-white/flying.png"
+      },
+      "dimensions": {
+        "steel": [
+          32,
+          14
+        ],
+        "fighting": [
+          32,
+          14
+        ],
+        "dragon": [
+          32,
+          14
+        ],
+        "water": [
+          32,
+          14
+        ],
+        "electric": [
+          32,
+          14
+        ],
+        "fire": [
+          32,
+          14
+        ],
+        "ice": [
+          32,
+          14
+        ],
+        "bug": [
+          32,
+          14
+        ],
+        "normal": [
+          32,
+          14
+        ],
+        "grass": [
+          32,
+          14
+        ],
+        "poison": [
+          32,
+          14
+        ],
+        "psychic": [
+          32,
+          14
+        ],
+        "rock": [
+          32,
+          14
+        ],
+        "ground": [
+          32,
+          14
+        ],
+        "ghost": [
+          32,
+          14
+        ],
+        "dark": [
+          32,
+          14
+        ],
+        "flying": [
+          32,
+          14
+        ]
+      },
+      "games": [
+        "Noir · Blanc",
+        "Noir 2 · Blanc 2"
+      ]
+    },
+    {
+      "id": "fr-firered-leafgreen",
+      "label": "Rouge Feu · Vert Feuille",
+      "generation": 3,
+      "path": "",
+      "language": "fr",
+      "variant": "",
+      "types": [
+        9,
+        2,
+        16,
+        11,
+        13,
+        10,
+        15,
+        7,
+        1,
+        12,
+        4,
+        14,
+        6,
+        5,
+        8,
+        17,
+        3
+      ],
+      "assets": {
+        "steel": "/type-badges/fr/firered-leafgreen/steel.png",
+        "fighting": "/type-badges/fr/firered-leafgreen/fighting.png",
+        "dragon": "/type-badges/fr/firered-leafgreen/dragon.png",
+        "water": "/type-badges/fr/firered-leafgreen/water.png",
+        "electric": "/type-badges/fr/firered-leafgreen/electric.png",
+        "fire": "/type-badges/fr/firered-leafgreen/fire.png",
+        "ice": "/type-badges/fr/firered-leafgreen/ice.png",
+        "bug": "/type-badges/fr/firered-leafgreen/bug.png",
+        "normal": "/type-badges/fr/firered-leafgreen/normal.png",
+        "grass": "/type-badges/fr/firered-leafgreen/grass.png",
+        "poison": "/type-badges/fr/firered-leafgreen/poison.png",
+        "psychic": "/type-badges/fr/firered-leafgreen/psychic.png",
+        "rock": "/type-badges/fr/firered-leafgreen/rock.png",
+        "ground": "/type-badges/fr/firered-leafgreen/ground.png",
+        "ghost": "/type-badges/fr/firered-leafgreen/ghost.png",
+        "dark": "/type-badges/fr/firered-leafgreen/dark.png",
+        "flying": "/type-badges/fr/firered-leafgreen/flying.png"
+      },
+      "dimensions": {
+        "steel": [
+          32,
+          12
+        ],
+        "fighting": [
+          32,
+          12
+        ],
+        "dragon": [
+          32,
+          12
+        ],
+        "water": [
+          32,
+          12
+        ],
+        "electric": [
+          32,
+          12
+        ],
+        "fire": [
+          32,
+          12
+        ],
+        "ice": [
+          32,
+          12
+        ],
+        "bug": [
+          32,
+          12
+        ],
+        "normal": [
+          32,
+          12
+        ],
+        "grass": [
+          32,
+          12
+        ],
+        "poison": [
+          32,
+          12
+        ],
+        "psychic": [
+          32,
+          12
+        ],
+        "rock": [
+          32,
+          12
+        ],
+        "ground": [
+          32,
+          12
+        ],
+        "ghost": [
+          32,
+          12
+        ],
+        "dark": [
+          32,
+          12
+        ],
+        "flying": [
+          32,
+          12
+        ]
+      }
+    },
+    {
+      "id": "fr-ruby-sapphire-emerald",
+      "label": "Rubis · Saphir",
+      "generation": 3,
+      "path": "",
+      "language": "fr",
+      "variant": "",
+      "types": [
+        9,
+        2,
+        16,
+        11,
+        13,
+        10,
+        15,
+        7,
+        1,
+        12,
+        4,
+        14,
+        6,
+        5,
+        8,
+        17,
+        3
+      ],
+      "assets": {
+        "steel": "/type-badges/fr/ruby-sapphire-emerald/steel.png",
+        "fighting": "/type-badges/fr/ruby-sapphire-emerald/fighting.png",
+        "dragon": "/type-badges/fr/ruby-sapphire-emerald/dragon.png",
+        "water": "/type-badges/fr/ruby-sapphire-emerald/water.png",
+        "electric": "/type-badges/fr/ruby-sapphire-emerald/electric.png",
+        "fire": "/type-badges/fr/ruby-sapphire-emerald/fire.png",
+        "ice": "/type-badges/fr/ruby-sapphire-emerald/ice.png",
+        "bug": "/type-badges/fr/ruby-sapphire-emerald/bug.png",
+        "normal": "/type-badges/fr/ruby-sapphire-emerald/normal.png",
+        "grass": "/type-badges/fr/ruby-sapphire-emerald/grass.png",
+        "poison": "/type-badges/fr/ruby-sapphire-emerald/poison.png",
+        "psychic": "/type-badges/fr/ruby-sapphire-emerald/psychic.png",
+        "rock": "/type-badges/fr/ruby-sapphire-emerald/rock.png",
+        "ground": "/type-badges/fr/ruby-sapphire-emerald/ground.png",
+        "ghost": "/type-badges/fr/ruby-sapphire-emerald/ghost.png",
+        "dark": "/type-badges/fr/ruby-sapphire-emerald/dark.png",
+        "flying": "/type-badges/fr/ruby-sapphire-emerald/flying.png"
+      },
+      "dimensions": {
+        "steel": [
+          32,
+          14
+        ],
+        "fighting": [
+          32,
+          14
+        ],
+        "dragon": [
+          32,
+          14
+        ],
+        "water": [
+          32,
+          14
+        ],
+        "electric": [
+          32,
+          14
+        ],
+        "fire": [
+          32,
+          14
+        ],
+        "ice": [
+          32,
+          14
+        ],
+        "bug": [
+          32,
+          14
+        ],
+        "normal": [
+          32,
+          14
+        ],
+        "grass": [
+          32,
+          14
+        ],
+        "poison": [
+          32,
+          14
+        ],
+        "psychic": [
+          32,
+          14
+        ],
+        "rock": [
+          32,
+          14
+        ],
+        "ground": [
+          32,
+          14
+        ],
+        "ghost": [
+          32,
+          14
+        ],
+        "dark": [
+          32,
+          14
+        ],
+        "flying": [
+          32,
+          14
+        ]
+      },
+      "games": [
+        "Rubis · Saphir",
+        "Émeraude"
+      ]
+    },
+    {
+      "id": "fr-sun-moon",
+      "label": "Soleil · Lune",
+      "generation": 7,
+      "path": "",
+      "language": "fr",
+      "variant": "",
+      "types": [
+        9,
+        2,
+        16,
+        11,
+        13,
+        18,
+        10,
+        15,
+        7,
+        1,
+        12,
+        4,
+        14,
+        6,
+        5,
+        8,
+        17,
+        3
+      ],
+      "assets": {
+        "steel": "/type-badges/fr/sun-moon/steel.png",
+        "fighting": "/type-badges/fr/sun-moon/fighting.png",
+        "dragon": "/type-badges/fr/sun-moon/dragon.png",
+        "water": "/type-badges/fr/sun-moon/water.png",
+        "electric": "/type-badges/fr/sun-moon/electric.png",
+        "fairy": "/type-badges/fr/sun-moon/fairy.png",
+        "fire": "/type-badges/fr/sun-moon/fire.png",
+        "ice": "/type-badges/fr/sun-moon/ice.png",
+        "bug": "/type-badges/fr/sun-moon/bug.png",
+        "normal": "/type-badges/fr/sun-moon/normal.png",
+        "grass": "/type-badges/fr/sun-moon/grass.png",
+        "poison": "/type-badges/fr/sun-moon/poison.png",
+        "psychic": "/type-badges/fr/sun-moon/psychic.png",
+        "rock": "/type-badges/fr/sun-moon/rock.png",
+        "ground": "/type-badges/fr/sun-moon/ground.png",
+        "ghost": "/type-badges/fr/sun-moon/ghost.png",
+        "dark": "/type-badges/fr/sun-moon/dark.png",
+        "flying": "/type-badges/fr/sun-moon/flying.png"
+      },
+      "dimensions": {
+        "steel": [
+          50,
+          20
+        ],
+        "fighting": [
+          50,
+          20
+        ],
+        "dragon": [
+          50,
+          20
+        ],
+        "water": [
+          50,
+          20
+        ],
+        "electric": [
+          50,
+          20
+        ],
+        "fairy": [
+          50,
+          20
+        ],
+        "fire": [
+          50,
+          20
+        ],
+        "ice": [
+          51,
+          20
+        ],
+        "bug": [
+          50,
+          20
+        ],
+        "normal": [
+          49,
+          20
+        ],
+        "grass": [
+          50,
+          20
+        ],
+        "poison": [
+          50,
+          20
+        ],
+        "psychic": [
+          50,
+          20
+        ],
+        "rock": [
+          50,
+          20
+        ],
+        "ground": [
+          50,
+          20
+        ],
+        "ghost": [
+          50,
+          20
+        ],
+        "dark": [
+          50,
+          20
+        ],
+        "flying": [
+          50,
+          20
+        ]
+      },
+      "games": [
+        "Soleil · Lune",
+        "Ultra-Soleil · Ultra-Lune"
+      ]
+    },
+    {
+      "id": "fr-x-y",
+      "label": "X · Y",
+      "generation": 6,
+      "path": "",
+      "language": "fr",
+      "variant": "",
+      "types": [
+        9,
+        2,
+        16,
+        11,
+        13,
+        18,
+        10,
+        15,
+        7,
+        1,
+        12,
+        4,
+        14,
+        6,
+        5,
+        8,
+        17,
+        3
+      ],
+      "assets": {
+        "steel": "/type-badges/fr/x-y/steel.png",
+        "fighting": "/type-badges/fr/x-y/fighting.png",
+        "dragon": "/type-badges/fr/x-y/dragon.png",
+        "water": "/type-badges/fr/x-y/water.png",
+        "electric": "/type-badges/fr/x-y/electric.png",
+        "fairy": "/type-badges/fr/x-y/fairy.png",
+        "fire": "/type-badges/fr/x-y/fire.png",
+        "ice": "/type-badges/fr/x-y/ice.png",
+        "bug": "/type-badges/fr/x-y/bug.png",
+        "normal": "/type-badges/fr/x-y/normal.png",
+        "grass": "/type-badges/fr/x-y/grass.png",
+        "poison": "/type-badges/fr/x-y/poison.png",
+        "psychic": "/type-badges/fr/x-y/psychic.png",
+        "rock": "/type-badges/fr/x-y/rock.png",
+        "ground": "/type-badges/fr/x-y/ground.png",
+        "ghost": "/type-badges/fr/x-y/ghost.png",
+        "dark": "/type-badges/fr/x-y/dark.png",
+        "flying": "/type-badges/fr/x-y/flying.png"
+      },
+      "dimensions": {
+        "steel": [
+          50,
+          18
+        ],
+        "fighting": [
+          50,
+          18
+        ],
+        "dragon": [
+          50,
+          18
+        ],
+        "water": [
+          50,
+          18
+        ],
+        "electric": [
+          50,
+          18
+        ],
+        "fairy": [
+          50,
+          18
+        ],
+        "fire": [
+          50,
+          18
+        ],
+        "ice": [
+          50,
+          18
+        ],
+        "bug": [
+          50,
+          18
+        ],
+        "normal": [
+          50,
+          18
+        ],
+        "grass": [
+          50,
+          18
+        ],
+        "poison": [
+          50,
+          18
+        ],
+        "psychic": [
+          50,
+          18
+        ],
+        "rock": [
+          50,
+          18
+        ],
+        "ground": [
+          50,
+          18
+        ],
+        "ghost": [
+          50,
+          18
+        ],
+        "dark": [
+          50,
+          18
+        ],
+        "flying": [
+          50,
+          18
+        ]
+      },
+      "games": [
+        "X · Y",
+        "Rubis Oméga · Saphir Alpha"
+      ]
+    },
+    {
+      "id": "fr-scarlet-violet-tera",
+      "label": "Écarlate · Violet",
+      "generation": 9,
+      "path": "",
+      "language": "fr",
+      "variant": "Tera",
+      "types": [
+        9,
+        2,
+        16,
+        11,
+        13,
+        18,
+        10,
+        15,
+        7,
+        1,
+        12,
+        4,
+        14,
+        6,
+        5,
+        8,
+        17,
+        3
+      ],
+      "assets": {
+        "steel": "/type-badges/fr/scarlet-violet-tera/steel.png",
+        "fighting": "/type-badges/fr/scarlet-violet-tera/fighting.png",
+        "dragon": "/type-badges/fr/scarlet-violet-tera/dragon.png",
+        "water": "/type-badges/fr/scarlet-violet-tera/water.png",
+        "electric": "/type-badges/fr/scarlet-violet-tera/electric.png",
+        "fairy": "/type-badges/fr/scarlet-violet-tera/fairy.png",
+        "fire": "/type-badges/fr/scarlet-violet-tera/fire.png",
+        "ice": "/type-badges/fr/scarlet-violet-tera/ice.png",
+        "bug": "/type-badges/fr/scarlet-violet-tera/bug.png",
+        "normal": "/type-badges/fr/scarlet-violet-tera/normal.png",
+        "grass": "/type-badges/fr/scarlet-violet-tera/grass.png",
+        "poison": "/type-badges/fr/scarlet-violet-tera/poison.png",
+        "psychic": "/type-badges/fr/scarlet-violet-tera/psychic.png",
+        "rock": "/type-badges/fr/scarlet-violet-tera/rock.png",
+        "ground": "/type-badges/fr/scarlet-violet-tera/ground.png",
+        "ghost": "/type-badges/fr/scarlet-violet-tera/ghost.png",
+        "dark": "/type-badges/fr/scarlet-violet-tera/dark.png",
+        "flying": "/type-badges/fr/scarlet-violet-tera/flying.png"
+      },
+      "dimensions": {
+        "steel": [
+          200,
+          48
+        ],
+        "fighting": [
+          200,
+          48
+        ],
+        "dragon": [
+          200,
+          48
+        ],
+        "water": [
+          200,
+          48
+        ],
+        "electric": [
+          200,
+          48
+        ],
+        "fairy": [
+          200,
+          48
+        ],
+        "fire": [
+          200,
+          48
+        ],
+        "ice": [
+          200,
+          48
+        ],
+        "bug": [
+          200,
+          48
+        ],
+        "normal": [
+          200,
+          48
+        ],
+        "grass": [
+          200,
+          48
+        ],
+        "poison": [
+          200,
+          48
+        ],
+        "psychic": [
+          200,
+          48
+        ],
+        "rock": [
+          200,
+          48
+        ],
+        "ground": [
+          200,
+          48
+        ],
+        "ghost": [
+          200,
+          48
+        ],
+        "dark": [
+          200,
+          48
+        ],
+        "flying": [
+          200,
+          48
+        ]
+      }
+    },
+    {
+      "id": "fr-scarlet-violet-tera-small",
+      "label": "Écarlate · Violet",
+      "generation": 9,
+      "path": "",
+      "language": "fr",
+      "variant": "small/Tera",
+      "types": [
+        9,
+        2,
+        16,
+        11,
+        13,
+        18,
+        10,
+        15,
+        7,
+        1,
+        12,
+        4,
+        14,
+        6,
+        5,
+        8,
+        17,
+        3
+      ],
+      "assets": {
+        "steel": "/type-badges/fr/scarlet-violet-tera-small/steel.png",
+        "fighting": "/type-badges/fr/scarlet-violet-tera-small/fighting.png",
+        "dragon": "/type-badges/fr/scarlet-violet-tera-small/dragon.png",
+        "water": "/type-badges/fr/scarlet-violet-tera-small/water.png",
+        "electric": "/type-badges/fr/scarlet-violet-tera-small/electric.png",
+        "fairy": "/type-badges/fr/scarlet-violet-tera-small/fairy.png",
+        "fire": "/type-badges/fr/scarlet-violet-tera-small/fire.png",
+        "ice": "/type-badges/fr/scarlet-violet-tera-small/ice.png",
+        "bug": "/type-badges/fr/scarlet-violet-tera-small/bug.png",
+        "normal": "/type-badges/fr/scarlet-violet-tera-small/normal.png",
+        "grass": "/type-badges/fr/scarlet-violet-tera-small/grass.png",
+        "poison": "/type-badges/fr/scarlet-violet-tera-small/poison.png",
+        "psychic": "/type-badges/fr/scarlet-violet-tera-small/psychic.png",
+        "rock": "/type-badges/fr/scarlet-violet-tera-small/rock.png",
+        "ground": "/type-badges/fr/scarlet-violet-tera-small/ground.png",
+        "ghost": "/type-badges/fr/scarlet-violet-tera-small/ghost.png",
+        "dark": "/type-badges/fr/scarlet-violet-tera-small/dark.png",
+        "flying": "/type-badges/fr/scarlet-violet-tera-small/flying.png"
+      },
+      "dimensions": {
+        "steel": [
+          60,
+          60
+        ],
+        "fighting": [
+          60,
+          60
+        ],
+        "dragon": [
+          60,
+          60
+        ],
+        "water": [
+          60,
+          60
+        ],
+        "electric": [
+          60,
+          60
+        ],
+        "fairy": [
+          60,
+          60
+        ],
+        "fire": [
+          60,
+          60
+        ],
+        "ice": [
+          60,
+          60
+        ],
+        "bug": [
+          60,
+          60
+        ],
+        "normal": [
+          60,
+          60
+        ],
+        "grass": [
+          60,
+          60
+        ],
+        "poison": [
+          60,
+          60
+        ],
+        "psychic": [
+          60,
+          60
+        ],
+        "rock": [
+          60,
+          60
+        ],
+        "ground": [
+          60,
+          60
+        ],
+        "ghost": [
+          60,
+          60
+        ],
+        "dark": [
+          60,
+          60
+        ],
+        "flying": [
+          60,
+          60
+        ]
+      }
+    }
+  ]
+}

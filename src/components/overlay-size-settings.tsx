@@ -7,6 +7,7 @@ import {ChoiceGroup,TeamLayoutChoices} from "./choice-group";
 import { OverlayElementOrder } from "./overlay-element-order";
 import { Range } from "./range";
 import { Toggle } from "./ui";
+import { TypeBadgePicker } from "./type-badge-picker";
 
 const teamElements = [
   ["showSprites", "spriteScale", "Sprite", true],
@@ -93,7 +94,8 @@ export function OverlaySizeSettings({
     </div>
     <div className="size-settings-group"><h4>{tr("Éléments affichés")}</h4><div className="team-size-options">{teamElements.map(([visibleKey,scaleKey,label,defaultEnabled])=>{
      const enabled=style[visibleKey]??defaultEnabled;
-     return <div className="element-size-setting" key={visibleKey}><Toggle label={tr(label)} checked={enabled} onChange={visible=>onChange({[visibleKey]:visible})}/>{enabled&&<div className="element-size-range"><SizeField label={tr("Taille")} controlLabel={tr(label)} value={style[scaleKey]??1} onChange={size=>onChange({[scaleKey]:size})}/>{visibleKey==="showHealth"&&<Toggle label={tr("Valeurs des PV")} checked={style.showHealthValues!==false} onChange={showHealthValues=>onChange({showHealthValues})}/>}</div>}</div>;
+     return <div className="element-size-setting" key={visibleKey}><Toggle label={tr(label)} checked={enabled} onChange={visible=>onChange({[visibleKey]:visible})}/>{enabled&&<div className="element-size-range"><SizeField label={tr("Taille")} controlLabel={tr(label)} value={style[scaleKey]??1} onChange={size=>onChange({[scaleKey]:size})}/>{visibleKey==="showTypes"&&<TypeBadgePicker value={style.typeBadgeStyle??style.customTheme?.types.badgeStyle??"text"} onChange={typeBadgeStyle=>onChange({typeBadgeStyle})}/>}
+{visibleKey==="showHealth"&&<Toggle label={tr("Valeurs des PV")} checked={style.showHealthValues!==false} onChange={showHealthValues=>onChange({showHealthValues})}/>}</div>}</div>;
     })}
      <div className="element-size-setting"><Toggle label={tr("Objet tenu")} checked={style.showItems&&showSprites} disabled={!showSprites} onChange={showItems=>onChange({showItems})}/>{style.showItems&&showSprites&&<div className="element-size-range"><SizeField label={tr("Contenant")} controlLabel={tr("Contenant de l’objet tenu")} value={style.itemScale??1} onChange={itemScale=>onChange({itemScale,itemSpriteScale:itemSpriteScale(style)})}/><SizeField label="Sprite" controlLabel={tr("Sprite de l’objet tenu")} value={itemSpriteScale(style)} onChange={itemSpriteScale=>onChange({itemSpriteScale})}/></div>}</div>
     </div></div>

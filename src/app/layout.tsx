@@ -13,6 +13,7 @@ import "@/styles/controls.css";
 import "@/styles/navigation.css";
 import "@/styles/application.css";
 import "@/styles/flat.css";
+import "@/styles/adventure-tools.css";
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations();
   return {

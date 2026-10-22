@@ -1,4 +1,5 @@
 "use client";
+import { TypeBadgePicker } from "@/components/type-badge-picker";
 import { useState } from "react";
 import { useI18n } from "@/i18n/client";
 import { Select, SelectOption } from "@/components/select";
@@ -398,6 +399,7 @@ export function Inspector({
         />
         {e.type === "team" && (
           <div className="builder-sprites">
+            <TypeBadgePicker value={e.properties.typeBadgeStyle??scene?.style.typeBadgeStyle??scene?.style.customTheme?.types.badgeStyle??"text"} inherit={{active:!e.properties.typeBadgeStyle,label:"Profil Studio",onSelect:()=>updateElement({...e,properties:{...e.properties,typeBadgeStyle:null}})}} onChange={typeBadgeStyle=>updateElement({...e,properties:{...e.properties,typeBadgeStyle}})}/>
             <SpriteSelector
               style={{
                 sprite: e.properties.sprite ?? scene?.style.sprite ?? "artwork",

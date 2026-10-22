@@ -8,7 +8,6 @@ import type { CSSProperties } from "react";
 import { GAMES } from "@/lib/games";
 import {
   teamElementOrder,
-  TYPE_LABELS,
   type SceneData,
   type Pokemon,
 } from "@/lib/model";
@@ -17,6 +16,7 @@ import {
   itemSpriteScale,
   teamLayout,
 } from "@/lib/overlay-layout";
+import { TypeBadge } from "./type-badge";
 import { PokemonImage } from "./pokemon-image";
 import { ItemImage } from "./item-image";
 import { PokemonHealth } from "./pokemon-health";
@@ -138,9 +138,7 @@ function TeamCard({
               >
                 <div className="type-pills">
                   {p.types.map((type) => (
-                    <span key={type} className={`type-pill type-${type}`}>
-                      {tr(TYPE_LABELS[type])}
-                    </span>
+                    <TypeBadge key={type} type={type} style={style.typeBadgeStyle ?? style.customTheme?.types.badgeStyle ?? "text"} reserved={reserved}/>
                   ))}
                 </div>
               </div>

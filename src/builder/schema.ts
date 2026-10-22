@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { TYPE_BADGE_IDS } from "@/lib/type-badges";
 import { TEAM_LAYOUTS } from "@/lib/model";
 import { SPRITE_IDS, SPRITE_VARIANTS } from "@/lib/sprite-options";
 import { THEME_IDS } from "@/themes/catalog";
@@ -97,6 +98,7 @@ const teamProperties = dynamic.extend({
   layout: z.enum(TEAM_LAYOUTS).nullable().optional(),
   sprite: z.enum(SPRITE_IDS).nullable().optional(),
   spriteVariant: z.enum(SPRITE_VARIANTS).nullable().optional(),
+  typeBadgeStyle: z.enum(TYPE_BADGE_IDS).nullable().optional(),
 });
 const badgeProperties = dynamic.extend({
   columns: z

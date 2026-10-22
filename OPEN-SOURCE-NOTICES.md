@@ -29,3 +29,7 @@ PokeStream caches original graphics directly from the user's chosen upstream Pok
 ## Language flags
 
 Country flag SVGs: [flag-icons](https://github.com/lipis/flag-icons), version 7.3.2, by Lipis. MIT license; the original license is included in `public/flags/LICENSE` and in the launcher assets.
+
+## French type badges
+
+French Pokémon type images were supplied by the project author from Poképédia. Original image pages and image URLs are recorded in `public/type-badges/fr/SOURCES.csv`; original filenames and SHA-256 digests are in `SOURCE.json`. Pokémon graphics remain the property of their respective rightsholders and are not covered by the application MIT license.

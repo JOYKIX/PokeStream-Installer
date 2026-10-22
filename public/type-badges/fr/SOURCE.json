@@ -1,0 +1,1605 @@
+{
+  "source": "User-provided French type badges; original public sources are recorded in SOURCES.csv",
+  "files": [
+    {
+      "file": "legends-arceus/steel.png",
+      "original": "legendes-pokemon-arceus/acier/Miniature_Type_Acier_LPA.png",
+      "sha256": "e56344c694344c1ac8510fa227427b0bf98c86f5885265b2e8e66a81b25a8766"
+    },
+    {
+      "file": "legends-arceus/fighting.png",
+      "original": "legendes-pokemon-arceus/combat/Miniature_Type_Combat_LPA.png",
+      "sha256": "dd779dabd4650d80c04e6035751ce22bd117606e4b3bfad3ebd4b5bb3dea4143"
+    },
+    {
+      "file": "legends-arceus/dragon.png",
+      "original": "legendes-pokemon-arceus/dragon/Miniature_Type_Dragon_LPA.png",
+      "sha256": "a80ba24cc76d92034a6d7e458b6bd75e78a3af3b7622231ebc6019042f8a308a"
+    },
+    {
+      "file": "legends-arceus/water.png",
+      "original": "legendes-pokemon-arceus/eau/Miniature_Type_Eau_LPA.png",
+      "sha256": "3281d5156b6c345f2e2559ecb31ebf15985d50befc2d47d295ff86b09363c40b"
+    },
+    {
+      "file": "legends-arceus/electric.png",
+      "original": "legendes-pokemon-arceus/electrik/Miniature_Type_Électrik_LPA.png",
+      "sha256": "e51e403254e0a3004fc1fa796eddf4c32459fb6895de7f9b877214c89971b779"
+    },
+    {
+      "file": "legends-arceus/fairy.png",
+      "original": "legendes-pokemon-arceus/fee/Miniature_Type_Fée_LPA.png",
+      "sha256": "6a44ab19bed4254749ebe4811bd90f53e78df5dbb2b718c2621d98bb30378d3c"
+    },
+    {
+      "file": "legends-arceus/fire.png",
+      "original": "legendes-pokemon-arceus/feu/Miniature_Type_Feu_LPA.png",
+      "sha256": "770e4e363ea421386fa782afab9b6064869422efed3c0b65a324733e9311a535"
+    },
+    {
+      "file": "legends-arceus/ice.png",
+      "original": "legendes-pokemon-arceus/glace/Miniature_Type_Glace_LPA.png",
+      "sha256": "31acc31196eb35c55516f4cda92ffd7c6816375f6c910b6cb068d339b882fcdb"
+    },
+    {
+      "file": "legends-arceus/bug.png",
+      "original": "legendes-pokemon-arceus/insecte/Miniature_Type_Insecte_LPA.png",
+      "sha256": "4dcf6eaf2b5358917e5f75a24b697de07831873d17de3c5df8537ff870b31312"
+    },
+    {
+      "file": "legends-arceus/normal.png",
+      "original": "legendes-pokemon-arceus/normal/Miniature_Type_Normal_LPA.png",
+      "sha256": "35a1fdfe98cf7b8b4d181980dcf0023a3da9903deedc36c56c475dfa020db911"
+    },
+    {
+      "file": "legends-arceus/grass.png",
+      "original": "legendes-pokemon-arceus/plante/Miniature_Type_Plante_LPA.png",
+      "sha256": "8e8dd53c79daa09b3d83289c9e7d9f2d40a1a52f3657b8c3ba05215d2f832850"
+    },
+    {
+      "file": "legends-arceus/poison.png",
+      "original": "legendes-pokemon-arceus/poison/Miniature_Type_Poison_LPA.png",
+      "sha256": "972dd6aa297669263bb343c0f291a3796df7e2715bac96648b7c881f1fab602d"
+    },
+    {
+      "file": "legends-arceus/psychic.png",
+      "original": "legendes-pokemon-arceus/psy/Miniature_Type_Psy_LPA.png",
+      "sha256": "cdc84e4988509cc968b1a623f26a37a9b0c874ee1dfc64a569879828c0f27051"
+    },
+    {
+      "file": "legends-arceus/rock.png",
+      "original": "legendes-pokemon-arceus/roche/Miniature_Type_Roche_LPA.png",
+      "sha256": "72ab3137ad444389ae2412fde271732f752e97d5db79f0066e1e399e4c4c6805"
+    },
+    {
+      "file": "legends-arceus/ground.png",
+      "original": "legendes-pokemon-arceus/sol/Miniature_Type_Sol_LPA.png",
+      "sha256": "e60a0b5dbaaa792301dd0080d04aec33e5e5c7350d43a2d0371ead16cffb8b78"
+    },
+    {
+      "file": "legends-arceus/ghost.png",
+      "original": "legendes-pokemon-arceus/spectre/Miniature_Type_Spectre_LPA.png",
+      "sha256": "ee71f0fb26f7c45d3bce60b6ad3f9da4c9fc999e279045064b6dbddf923684ea"
+    },
+    {
+      "file": "legends-arceus/dark.png",
+      "original": "legendes-pokemon-arceus/tenebres/Miniature_Type_Ténèbres_LPA.png",
+      "sha256": "bbf22eb8b470fdfda7a1c9c2077f56e522dd08e1e910c5ae87d31387d4c018af"
+    },
+    {
+      "file": "legends-arceus/flying.png",
+      "original": "legendes-pokemon-arceus/vol/Miniature_Type_Vol_LPA.png",
+      "sha256": "8fb0a2ab1927d5baed4613ba7c7b3bb66c52f3eb4fa317480994b458d763b1c4"
+    },
+    {
+      "file": "legends-arceus-small/steel.png",
+      "original": "legendes-pokemon-arceus/acier/Icône_Type_Acier_LPA.png",
+      "sha256": "071ea8f2ab11a9b37c1eda332b3a8c7adbecc3d99c8e2fb50f9b31a6448b1a11"
+    },
+    {
+      "file": "legends-arceus-small/fighting.png",
+      "original": "legendes-pokemon-arceus/combat/Icône_Type_Combat_LPA.png",
+      "sha256": "6054ce3180a46b50195ce09f7e5b23575415bec554d519f131b7b2788a78ed3d"
+    },
+    {
+      "file": "legends-arceus-small/dragon.png",
+      "original": "legendes-pokemon-arceus/dragon/Icône_Type_Dragon_LPA.png",
+      "sha256": "501a77c24a42b3f229cc6b4277a0bd93eff0a6d8149ffd32a90c0c8a38b8f4c2"
+    },
+    {
+      "file": "legends-arceus-small/water.png",
+      "original": "legendes-pokemon-arceus/eau/Icône_Type_Eau_LPA.png",
+      "sha256": "49ffc8398fa1b07b71bf2b2c7b777a57cf7c557a7de3fa71cdf111d01a003ce2"
+    },
+    {
+      "file": "legends-arceus-small/electric.png",
+      "original": "legendes-pokemon-arceus/electrik/Icône_Type_Électrik_LPA.png",
+      "sha256": "8684c69068048bf007427b728eb18fd51d8c979be7e270542a711c88b242613d"
+    },
+    {
+      "file": "legends-arceus-small/fairy.png",
+      "original": "legendes-pokemon-arceus/fee/Icône_Type_Fée_LPA.png",
+      "sha256": "ac56a581eaa6666cc0a7377a7f2f911ab51d57824a724ddf18cec67a69a5a3cf"
+    },
+    {
+      "file": "legends-arceus-small/fire.png",
+      "original": "legendes-pokemon-arceus/feu/Icône_Type_Feu_LPA.png",
+      "sha256": "52f7130ed2037844f04402c1c45d52a84fcf1f18f230a9f96f57bd433afc1327"
+    },
+    {
+      "file": "legends-arceus-small/ice.png",
+      "original": "legendes-pokemon-arceus/glace/Icône_Type_Glace_LPA.png",
+      "sha256": "3cb02e3bc5c8c3d8c18754b39baa259b8d759d54bdd42b70823a986fecefaec2"
+    },
+    {
+      "file": "legends-arceus-small/bug.png",
+      "original": "legendes-pokemon-arceus/insecte/Icône_Type_Insecte_LPA.png",
+      "sha256": "19105e8e9be232ca5b8633ae78faa9e4582752e122a76bbd948c9780f23025cc"
+    },
+    {
+      "file": "legends-arceus-small/normal.png",
+      "original": "legendes-pokemon-arceus/normal/Icône_Type_Normal_LPA.png",
+      "sha256": "5fd3337e586b289331caf85b792fca8857a5b055c2f48fa83057a34c35dc24e4"
+    },
+    {
+      "file": "legends-arceus-small/grass.png",
+      "original": "legendes-pokemon-arceus/plante/Icône_Type_Plante_LPA.png",
+      "sha256": "595e8a5d79ca1b58692d460f0b4d9e835aa9644a555d9a8b19ee2693dc47f825"
+    },
+    {
+      "file": "legends-arceus-small/poison.png",
+      "original": "legendes-pokemon-arceus/poison/Icône_Type_Poison_LPA.png",
+      "sha256": "e42c596dd08c393008a60a1e5c18b007ad6233ff1b35ee34166c77b27c854f09"
+    },
+    {
+      "file": "legends-arceus-small/psychic.png",
+      "original": "legendes-pokemon-arceus/psy/Icône_Type_Psy_LPA.png",
+      "sha256": "45fc2a858864b29a853f2ef09bf1e9ad48531934113a90d3fd015998e3ccfed0"
+    },
+    {
+      "file": "legends-arceus-small/rock.png",
+      "original": "legendes-pokemon-arceus/roche/Icône_Type_Roche_LPA.png",
+      "sha256": "97017a55ff5550587f823d1bbb837e9b4f07b0e3cce1cf292256a03fe2465781"
+    },
+    {
+      "file": "legends-arceus-small/ground.png",
+      "original": "legendes-pokemon-arceus/sol/Icône_Type_Sol_LPA.png",
+      "sha256": "28909fdaaff25337c3c2ecf4897913f0db748d1feccaa7573379bba6607ead45"
+    },
+    {
+      "file": "legends-arceus-small/ghost.png",
+      "original": "legendes-pokemon-arceus/spectre/Icône_Type_Spectre_LPA.png",
+      "sha256": "1199a300f32088d3911db772fbab89dd175b35ba4b6ea6633a33d1d1bb4ef5cc"
+    },
+    {
+      "file": "legends-arceus-small/dark.png",
+      "original": "legendes-pokemon-arceus/tenebres/Icône_Type_Ténèbres_LPA.png",
+      "sha256": "3cf6603379d3e1423225784a594c0ed17f8a5892aae485be84bdc89f23b45661"
+    },
+    {
+      "file": "legends-arceus-small/flying.png",
+      "original": "legendes-pokemon-arceus/vol/Icône_Type_Vol_LPA.png",
+      "sha256": "9c89911186819613b585db4a27fd62a880bf3ac40b81a1b338d0614e28f50227"
+    },
+    {
+      "file": "legends-za/steel.png",
+      "original": "legendes-pokemon-z-a/acier/Miniature_Type_Acier_LPZA.png",
+      "sha256": "6c7a9971f41bffe5666bbe0773bc25923a32878d26aacff4c74bf0063ce1486c"
+    },
+    {
+      "file": "legends-za/fighting.png",
+      "original": "legendes-pokemon-z-a/combat/Miniature_Type_Combat_LPZA.png",
+      "sha256": "e2084bc22f2485bc43d1856527f2d44441d9943a6e69f997d7cd40fd863405d3"
+    },
+    {
+      "file": "legends-za/dragon.png",
+      "original": "legendes-pokemon-z-a/dragon/Miniature_Type_Dragon_LPZA.png",
+      "sha256": "8198bbde74b3893d1377b8454296a150ae5f868ebeaae085e151eff6e7a7ba08"
+    },
+    {
+      "file": "legends-za/water.png",
+      "original": "legendes-pokemon-z-a/eau/Miniature_Type_Eau_LPZA.png",
+      "sha256": "13707dde07a4f8aef7d5af102fb1989d41e658eb18fad9cbb7008dc2f4f41423"
+    },
+    {
+      "file": "legends-za/electric.png",
+      "original": "legendes-pokemon-z-a/electrik/Miniature_Type_Électrik_LPZA.png",
+      "sha256": "28b6087d137f246b55880840aeb752cd3de37c756673417c3bafa6d131e322cb"
+    },
+    {
+      "file": "legends-za/fairy.png",
+      "original": "legendes-pokemon-z-a/fee/Miniature_Type_Fée_LPZA.png",
+      "sha256": "d4d47dd797a17ce625d60039c2c018c24525ee62348d984651dc1e3c7ac6c558"
+    },
+    {
+      "file": "legends-za/fire.png",
+      "original": "legendes-pokemon-z-a/feu/Miniature_Type_Feu_LPZA.png",
+      "sha256": "e46f7d123199309b1f7f848c814e6325506d25bcc5792af872d72a3f8970ef8d"
+    },
+    {
+      "file": "legends-za/ice.png",
+      "original": "legendes-pokemon-z-a/glace/Miniature_Type_Glace_LPZA.png",
+      "sha256": "ccf62fafb0754b8d8e2fa97b9a991550322edfeea6985f0dab09dcca090a4f9d"
+    },
+    {
+      "file": "legends-za/bug.png",
+      "original": "legendes-pokemon-z-a/insecte/Miniature_Type_Insecte_LPZA.png",
+      "sha256": "ff789d1c6e0260fda5110bc8c002cf15555553bdce504cdbab9a731c76c71c79"
+    },
+    {
+      "file": "legends-za/normal.png",
+      "original": "legendes-pokemon-z-a/normal/Miniature_Type_Normal_LPZA.png",
+      "sha256": "0eb65510ae8a178903118e27b97723fd5d0d2d616388b85e7e9c910e39cda3e4"
+    },
+    {
+      "file": "legends-za/grass.png",
+      "original": "legendes-pokemon-z-a/plante/Miniature_Type_Plante_LPZA.png",
+      "sha256": "f0436adde5a3c95b3a4924cffd096e32d9cdf189a54536515657635095600c9c"
+    },
+    {
+      "file": "legends-za/poison.png",
+      "original": "legendes-pokemon-z-a/poison/Miniature_Type_Poison_LPZA.png",
+      "sha256": "059dabcfe6c65824683ee35c1b25f16fb6e503e4426bd50ecbac66dfd1fc2973"
+    },
+    {
+      "file": "legends-za/psychic.png",
+      "original": "legendes-pokemon-z-a/psy/Miniature_Type_Psy_LPZA.png",
+      "sha256": "b91e6b144c9ab894507dab786d906405d3b1ee99a50ddc0a40c029c48bdb830e"
+    },
+    {
+      "file": "legends-za/rock.png",
+      "original": "legendes-pokemon-z-a/roche/Miniature_Type_Roche_LPZA.png",
+      "sha256": "adb1439c43cc566bf33e00b9ecd249c94c732b34cb5bf952cb095ad1601abdf8"
+    },
+    {
+      "file": "legends-za/ground.png",
+      "original": "legendes-pokemon-z-a/sol/Miniature_Type_Sol_LPZA.png",
+      "sha256": "5a5334a7c1ebc77723c81391f5ce9868106c6f02fb0f0642bb96730718ad9171"
+    },
+    {
+      "file": "legends-za/ghost.png",
+      "original": "legendes-pokemon-z-a/spectre/Miniature_Type_Spectre_LPZA.png",
+      "sha256": "389b7ba4772296f53e88f0e1ff5ed8132b81e7674017a1e0bedaa4c7f920149d"
+    },
+    {
+      "file": "legends-za/dark.png",
+      "original": "legendes-pokemon-z-a/tenebres/Miniature_Type_Ténèbres_LPZA.png",
+      "sha256": "3b7804110ac80d95b74cb494343e467e4e16d3249521250d570e7673dff782af"
+    },
+    {
+      "file": "legends-za/flying.png",
+      "original": "legendes-pokemon-z-a/vol/Miniature_Type_Vol_LPZA.png",
+      "sha256": "1cc47af78a3940d22cc409ac8013cf4a0dee31186d44c3214727aa2a506ffce7"
+    },
+    {
+      "file": "legends-za-small/steel.png",
+      "original": "legendes-pokemon-z-a/acier/Icône_Type_Acier_LPZA.png",
+      "sha256": "8d2d5ce388f26ed4cb0498c5a92f7418a7e6b3d1d9a2cc73faa1ea60400ddfcb"
+    },
+    {
+      "file": "legends-za-small/fighting.png",
+      "original": "legendes-pokemon-z-a/combat/Icône_Type_Combat_LPZA.png",
+      "sha256": "6039f18b97279289a4739895c1ecd5ddba3d8e94aa81575a1e9a4f71127cbdc6"
+    },
+    {
+      "file": "legends-za-small/dragon.png",
+      "original": "legendes-pokemon-z-a/dragon/Icône_Type_Dragon_LPZA.png",
+      "sha256": "d9b9d72d74cfa77aab04d7c0d548afd19f84326b7ac6d923b6946e65e24e3d7a"
+    },
+    {
+      "file": "legends-za-small/water.png",
+      "original": "legendes-pokemon-z-a/eau/Icône_Type_Eau_LPZA.png",
+      "sha256": "ecde1ec1b05814581023669ca593a88af18a1de8965a4a5e071b8a85cbf91af7"
+    },
+    {
+      "file": "legends-za-small/electric.png",
+      "original": "legendes-pokemon-z-a/electrik/Icône_Type_Électrik_LPZA.png",
+      "sha256": "b7ad877017028dba3457c1703080c8a483fddaad265cebc013b8171908dff11e"
+    },
+    {
+      "file": "legends-za-small/fairy.png",
+      "original": "legendes-pokemon-z-a/fee/Icône_Type_Fée_LPZA.png",
+      "sha256": "f42448dff7bda3bf850356f4acd90b56c0cf72a1f4d82329c3fa360df6fa5114"
+    },
+    {
+      "file": "legends-za-small/fire.png",
+      "original": "legendes-pokemon-z-a/feu/Icône_Type_Feu_LPZA.png",
+      "sha256": "a3f5d67fad31203fc5c7778b5a5e6b0c89a41c27f5dae11c3da4838acf1683c8"
+    },
+    {
+      "file": "legends-za-small/ice.png",
+      "original": "legendes-pokemon-z-a/glace/Icône_Type_Glace_LPZA.png",
+      "sha256": "c234d4b76d9b01cac95a9d5df749041d1a1180f10599911e593e53dc30c885f2"
+    },
+    {
+      "file": "legends-za-small/bug.png",
+      "original": "legendes-pokemon-z-a/insecte/Icône_Type_Insecte_LPZA.png",
+      "sha256": "e27c44291b607283c5c6d37ca3c58a9141de524569baf3bd2e782b9617e53a10"
+    },
+    {
+      "file": "legends-za-small/normal.png",
+      "original": "legendes-pokemon-z-a/normal/Icône_Type_Normal_LPZA.png",
+      "sha256": "9b8f9d1ad2a04b02d64c510c0524ad7bc80df9da7d16d7ee3ddcf087374ad2b1"
+    },
+    {
+      "file": "legends-za-small/grass.png",
+      "original": "legendes-pokemon-z-a/plante/Icône_Type_Plante_LPZA.png",
+      "sha256": "e96ed33703c54762a796fbb7503d6357805f51237796b1dc9ed2cec43e205bca"
+    },
+    {
+      "file": "legends-za-small/poison.png",
+      "original": "legendes-pokemon-z-a/poison/Icône_Type_Poison_LPZA.png",
+      "sha256": "6101d79de89652c59ec6adbb07d391af59b4303361e416acb978316dad4509dd"
+    },
+    {
+      "file": "legends-za-small/psychic.png",
+      "original": "legendes-pokemon-z-a/psy/Icône_Type_Psy_LPZA.png",
+      "sha256": "b3f55d45865414bcb3515eccca594d350c65919721f5747aec65c0ad14f02199"
+    },
+    {
+      "file": "legends-za-small/rock.png",
+      "original": "legendes-pokemon-z-a/roche/Icône_Type_Roche_LPZA.png",
+      "sha256": "aab9989128bf7d9a7cdf6a70d066a2e9c1fe12f9d77567b1a340bd1b556690a1"
+    },
+    {
+      "file": "legends-za-small/ground.png",
+      "original": "legendes-pokemon-z-a/sol/Icône_Type_Sol_LPZA.png",
+      "sha256": "dcb3068416da10c89aab48ad05a5ebf180a530522ce655d27903d085ce759907"
+    },
+    {
+      "file": "legends-za-small/ghost.png",
+      "original": "legendes-pokemon-z-a/spectre/Icône_Type_Spectre_LPZA.png",
+      "sha256": "e3a91746e6f6dbea07c41a33ff3f360e57e821d1d1dce55f48721b27b4a67a64"
+    },
+    {
+      "file": "legends-za-small/dark.png",
+      "original": "legendes-pokemon-z-a/tenebres/Icône_Type_Ténèbres_LPZA.png",
+      "sha256": "e3bf55248a0493b3d7e79cf0e85cbdda7e686cd77e724763e9c3f1da95fcbbbd"
+    },
+    {
+      "file": "legends-za-small/flying.png",
+      "original": "legendes-pokemon-z-a/vol/Icône_Type_Vol_LPZA.png",
+      "sha256": "ce78bb4780fec5e08ee0f78d7f7ffbb95042d0fcc1324468f104b69fbbc923d1"
+    },
+    {
+      "file": "pokedex/steel.png",
+      "original": "pokedex/acier/Miniature_Type_Acier_Pokédex_DP.png",
+      "sha256": "083ee08b5ec72b2faf08db1955e22ffc12f281eac689c4b5b98085221ae55ad1"
+    },
+    {
+      "file": "pokedex/fighting.png",
+      "original": "pokedex/combat/Miniature_Type_Combat_Pokédex_DP.png",
+      "sha256": "8125527336929cc73bfc2c2e40d37ca3a130a6fbb8463acb4174281c570b760a"
+    },
+    {
+      "file": "pokedex/dragon.png",
+      "original": "pokedex/dragon/Miniature_Type_Dragon_Pokédex_DP.png",
+      "sha256": "398116b14f8c30f410861d30f05eba764c71935773cdea24c691d8cbe44b67c8"
+    },
+    {
+      "file": "pokedex/water.png",
+      "original": "pokedex/eau/Miniature_Type_Eau_Pokédex_DP.png",
+      "sha256": "69ecdc2ac670187dc6d6672a7a9a50ac8797b6ca564798700b6095dcab5bdc0d"
+    },
+    {
+      "file": "pokedex/electric.png",
+      "original": "pokedex/electrik/Miniature_Type_Électrik_Pokédex_DP.png",
+      "sha256": "f8177d247742780ef093005aa48198216b8a569bca3e84e6fdbe1fb04590fd66"
+    },
+    {
+      "file": "pokedex/fire.png",
+      "original": "pokedex/feu/Miniature_Type_Feu_Pokédex_DP.png",
+      "sha256": "f0c151562213362059087e72ed93aab585ebf35b7f7de22e066b6b8587c096dc"
+    },
+    {
+      "file": "pokedex/ice.png",
+      "original": "pokedex/glace/Miniature_Type_Glace_Pokédex_DP.png",
+      "sha256": "4e5c7f6dc11218867e312ee1b0537606545bcb6de8415691942ac83f1c232055"
+    },
+    {
+      "file": "pokedex/bug.png",
+      "original": "pokedex/insecte/Miniature_Type_Insecte_Pokédex_DP.png",
+      "sha256": "13c4f9bfa5346e00cebd2dd14433be0baa27540c502fe32172ab00be23e3216c"
+    },
+    {
+      "file": "pokedex/normal.png",
+      "original": "pokedex/normal/Miniature_Type_Normal_Pokédex_DP.png",
+      "sha256": "ee16c175c98062537fb3d7f3661f6be188c7f8952332354ebcb48006fffd6486"
+    },
+    {
+      "file": "pokedex/grass.png",
+      "original": "pokedex/plante/Miniature_Type_Plante_Pokédex_DP.png",
+      "sha256": "3397867009d2d9f0190df365fd333ed1e20011ffe8c43fa71ebf99f0a296e72a"
+    },
+    {
+      "file": "pokedex/poison.png",
+      "original": "pokedex/poison/Miniature_Type_Poison_Pokédex_DP.png",
+      "sha256": "d65cb9cc5b6072d01fce6e40388ee02274898bb17cdaf4ae0eb87ac8b42d474e"
+    },
+    {
+      "file": "pokedex/psychic.png",
+      "original": "pokedex/psy/Miniature_Type_Psy_Pokédex_DP.png",
+      "sha256": "89c164e5eef30c9de1a25e7f729f65e03c449a0156b06cdc616a461cb1f538d8"
+    },
+    {
+      "file": "pokedex/rock.png",
+      "original": "pokedex/roche/Miniature_Type_Roche_Pokédex_DP.png",
+      "sha256": "f6ce14bd8da10f34d9512bebe8bfc45e56d4f0aa03271ff7382dfdb049c84bbd"
+    },
+    {
+      "file": "pokedex/ground.png",
+      "original": "pokedex/sol/Miniature_Type_Sol_Pokédex_DP.png",
+      "sha256": "1ee867342e68141150dcd477efe58c0963128ad9311fd7910a9868d8a81316fe"
+    },
+    {
+      "file": "pokedex/ghost.png",
+      "original": "pokedex/spectre/Miniature_Type_Spectre_Pokédex_DP.png",
+      "sha256": "d00bb439f6392cef6a943c8c5fa5257c4b8664445e07275841dfa43ca888ccfc"
+    },
+    {
+      "file": "pokedex/dark.png",
+      "original": "pokedex/tenebres/Miniature_Type_Ténèbres_Pokédex_DP.png",
+      "sha256": "b82e27d2101b4905a80e7ce17510900be5c0ad21f54e23cb85c5971c917b4d67"
+    },
+    {
+      "file": "pokedex/flying.png",
+      "original": "pokedex/vol/Miniature_Type_Vol_Pokédex_DP.png",
+      "sha256": "75a5c9f19ebcdee7088f070169b84c3099873288f99947427b8bf012a59fe76b"
+    },
+    {
+      "file": "brilliant-diamond-shining-pearl/steel.png",
+      "original": "pokemon-diamant-etincelant-et-perle-scintillante/acier/Miniature_Type_Acier_DEPS.png",
+      "sha256": "f1e214cbff1aacf03eb4a8d7d0bc398b56428a8a5cf36ba2201ea714e15715aa"
+    },
+    {
+      "file": "brilliant-diamond-shining-pearl/fighting.png",
+      "original": "pokemon-diamant-etincelant-et-perle-scintillante/combat/Miniature_Type_Combat_DEPS.png",
+      "sha256": "b5cbd7723bac4993a7aaa3315e5bf101694e94c51e4fb8d303ac41a537fc72ca"
+    },
+    {
+      "file": "brilliant-diamond-shining-pearl/dragon.png",
+      "original": "pokemon-diamant-etincelant-et-perle-scintillante/dragon/Miniature_Type_Dragon_DEPS.png",
+      "sha256": "ec3307e7cf44134aea70c1f6c4f4d7bde761532e68040b11fdea7b9bf0dd1769"
+    },
+    {
+      "file": "brilliant-diamond-shining-pearl/water.png",
+      "original": "pokemon-diamant-etincelant-et-perle-scintillante/eau/Miniature_Type_Eau_DEPS.png",
+      "sha256": "bc3b5176aa1273568d26a4f770f1bb58996249c19914cac3afb3011d1e5d454a"
+    },
+    {
+      "file": "brilliant-diamond-shining-pearl/electric.png",
+      "original": "pokemon-diamant-etincelant-et-perle-scintillante/electrik/Miniature_Type_Électrik_DEPS.png",
+      "sha256": "6c68e4550e271bd380793033976f9e62dc2b56d81dc3efaf83e6396a70578355"
+    },
+    {
+      "file": "brilliant-diamond-shining-pearl/fairy.png",
+      "original": "pokemon-diamant-etincelant-et-perle-scintillante/fee/Miniature_Type_Fée_DEPS.png",
+      "sha256": "83522f592b7fd80cdf89953015d7d8fb72e1d566617b4fc9b9a03fe54d96ab83"
+    },
+    {
+      "file": "brilliant-diamond-shining-pearl/fire.png",
+      "original": "pokemon-diamant-etincelant-et-perle-scintillante/feu/Miniature_Type_Feu_DEPS.png",
+      "sha256": "c742d86f24c069641093fb4555ff6dc468d03ad47ccb6ea8883daddb06f77946"
+    },
+    {
+      "file": "brilliant-diamond-shining-pearl/ice.png",
+      "original": "pokemon-diamant-etincelant-et-perle-scintillante/glace/Miniature_Type_Glace_DEPS.png",
+      "sha256": "66fadbab9be1abf5b8606bd3c6878bd3219840e1d84f9da4eefc2f9edfad5304"
+    },
+    {
+      "file": "brilliant-diamond-shining-pearl/bug.png",
+      "original": "pokemon-diamant-etincelant-et-perle-scintillante/insecte/Miniature_Type_Insecte_DEPS.png",
+      "sha256": "5d6a7d9195193eda61b9ac34533727fadc2f22224ae8a89a0522340408c3a945"
+    },
+    {
+      "file": "brilliant-diamond-shining-pearl/normal.png",
+      "original": "pokemon-diamant-etincelant-et-perle-scintillante/normal/Miniature_Type_Normal_DEPS.png",
+      "sha256": "e17de1fffc13b69fb092bbf8a612b1469961be35e13e5a47c8eda3875d652be9"
+    },
+    {
+      "file": "brilliant-diamond-shining-pearl/grass.png",
+      "original": "pokemon-diamant-etincelant-et-perle-scintillante/plante/Miniature_Type_Plante_DEPS.png",
+      "sha256": "83dd6b0699beeb4c96cc6d6c48f88ff23b0cc0e3f4ab2b6538a9455f2ca0e5d0"
+    },
+    {
+      "file": "brilliant-diamond-shining-pearl/poison.png",
+      "original": "pokemon-diamant-etincelant-et-perle-scintillante/poison/Miniature_Type_Poison_DEPS.png",
+      "sha256": "dc76b14e9b3eeb69748fc9883698aa9ec9c366dfa46b2bd2ac11851d3a54b565"
+    },
+    {
+      "file": "brilliant-diamond-shining-pearl/psychic.png",
+      "original": "pokemon-diamant-etincelant-et-perle-scintillante/psy/Miniature_Type_Psy_DEPS.png",
+      "sha256": "4f2840fcad29cb0cd0bbc9353ff154654d069d0ece27dd02fe42f964c60b4424"
+    },
+    {
+      "file": "brilliant-diamond-shining-pearl/rock.png",
+      "original": "pokemon-diamant-etincelant-et-perle-scintillante/roche/Miniature_Type_Roche_DEPS.png",
+      "sha256": "bc351db08ee2970208ec3bb32468624ce2856aff80ed77213ff834077e06f60e"
+    },
+    {
+      "file": "brilliant-diamond-shining-pearl/ground.png",
+      "original": "pokemon-diamant-etincelant-et-perle-scintillante/sol/Miniature_Type_Sol_DEPS.png",
+      "sha256": "211f16d215c431faeca6299d38184ca20bd5e40a599ab3eb2314f2fd8a2b88e3"
+    },
+    {
+      "file": "brilliant-diamond-shining-pearl/ghost.png",
+      "original": "pokemon-diamant-etincelant-et-perle-scintillante/spectre/Miniature_Type_Spectre_DEPS.png",
+      "sha256": "8774a6a341037763a9c45eca1eb5dbb1ec72149cc1fe7a52440852ca31779506"
+    },
+    {
+      "file": "brilliant-diamond-shining-pearl/dark.png",
+      "original": "pokemon-diamant-etincelant-et-perle-scintillante/tenebres/Miniature_Type_Ténèbres_DEPS.png",
+      "sha256": "8fd6bf0d40088ac37aa42d30e89648d33de8b1011165e7311dd87e1ccf3d4158"
+    },
+    {
+      "file": "brilliant-diamond-shining-pearl/flying.png",
+      "original": "pokemon-diamant-etincelant-et-perle-scintillante/vol/Miniature_Type_Vol_DEPS.png",
+      "sha256": "8f77838189dc9bc4dbf5106c79435040ae3ae46320cfa2a8f8fb2fbe0526d1d8"
+    },
+    {
+      "file": "scarlet-violet/steel.png",
+      "original": "pokemon-ecarlate-et-violet/acier/Miniature_Type_Acier_EV.png",
+      "sha256": "31474c309ee8ef5f1ac146458e258a75c10e1ac7496fbad9edd1787794dc2739"
+    },
+    {
+      "file": "scarlet-violet/fighting.png",
+      "original": "pokemon-ecarlate-et-violet/combat/Miniature_Type_Combat_EV.png",
+      "sha256": "ca94c001b9d06686dd6f88c3bc275e1d21ab49c405fb8780239efe80b1a5642a"
+    },
+    {
+      "file": "scarlet-violet/dragon.png",
+      "original": "pokemon-ecarlate-et-violet/dragon/Miniature_Type_Dragon_EV.png",
+      "sha256": "07d803cfc1862513a1236c6701684ff49cedca17d68bee8259966e115f53b1e7"
+    },
+    {
+      "file": "scarlet-violet/water.png",
+      "original": "pokemon-ecarlate-et-violet/eau/Miniature_Type_Eau_EV.png",
+      "sha256": "db4051255e9d7e81ed4a57d08ebc622dd01b8b6e472dd7d2a594432630bd295c"
+    },
+    {
+      "file": "scarlet-violet/electric.png",
+      "original": "pokemon-ecarlate-et-violet/electrik/Miniature_Type_Électrik_EV.png",
+      "sha256": "f5d4ecc7933d830814b32d50c1d518268c427e280aefbd66f67f9993c900aa32"
+    },
+    {
+      "file": "scarlet-violet/fairy.png",
+      "original": "pokemon-ecarlate-et-violet/fee/Miniature_Type_Fée_EV.png",
+      "sha256": "876569316970bd67412790f6be465378e3a335671b1f4efe43f4e6ac2c1ab218"
+    },
+    {
+      "file": "scarlet-violet/fire.png",
+      "original": "pokemon-ecarlate-et-violet/feu/Miniature_Type_Feu_EV.png",
+      "sha256": "e2ba189f0888ccb91dbecb504a97b4a521066c94966a67fbbe731c1d304b49aa"
+    },
+    {
+      "file": "scarlet-violet/ice.png",
+      "original": "pokemon-ecarlate-et-violet/glace/Miniature_Type_Glace_EV.png",
+      "sha256": "233754ed5beb1f9228fc4d70a6ac3688ecb9208f72237f14220a2b6e531866a2"
+    },
+    {
+      "file": "scarlet-violet/bug.png",
+      "original": "pokemon-ecarlate-et-violet/insecte/Miniature_Type_Insecte_EV.png",
+      "sha256": "b612410a4e776b1bf0825d39b25a3c712f4f0c0cef0b6c4dbac079641e8ae5da"
+    },
+    {
+      "file": "scarlet-violet/normal.png",
+      "original": "pokemon-ecarlate-et-violet/normal/Miniature_Type_Normal_EV.png",
+      "sha256": "0b7b4fac29d162506ecf3a8eac65697f4a71d4bfa7a673e9433126b23a8c8f03"
+    },
+    {
+      "file": "scarlet-violet/grass.png",
+      "original": "pokemon-ecarlate-et-violet/plante/Miniature_Type_Plante_EV.png",
+      "sha256": "eb5435d8daea6781693846065b81d1c275864538704fd90f1c64bd30541b3384"
+    },
+    {
+      "file": "scarlet-violet/poison.png",
+      "original": "pokemon-ecarlate-et-violet/poison/Miniature_Type_Poison_EV.png",
+      "sha256": "4258b0462e71fed4afe0945e9d64abe36e5acdf10048662edc8ab31e3d34cfa5"
+    },
+    {
+      "file": "scarlet-violet/psychic.png",
+      "original": "pokemon-ecarlate-et-violet/psy/Miniature_Type_Psy_EV.png",
+      "sha256": "55cb8733508317c4435cdcf7b56fe372b2443e53202bc3f1dabc2c1c93c1bd4f"
+    },
+    {
+      "file": "scarlet-violet/rock.png",
+      "original": "pokemon-ecarlate-et-violet/roche/Miniature_Type_Roche_EV.png",
+      "sha256": "1b09a27cfd2b54974656815f6a06b2b6ca42dfed8b4651f0df889e07acdee8cd"
+    },
+    {
+      "file": "scarlet-violet/ground.png",
+      "original": "pokemon-ecarlate-et-violet/sol/Miniature_Type_Sol_EV.png",
+      "sha256": "d567e2d71d0614fc20bd6e8cf2f31eb4e6523e7022acdb59de86fc6e9fd8602c"
+    },
+    {
+      "file": "scarlet-violet/ghost.png",
+      "original": "pokemon-ecarlate-et-violet/spectre/Miniature_Type_Spectre_EV.png",
+      "sha256": "4a191a22c2e7a6e7d1b89f64898827cddfb93c06100f51cc6520acb10c1b76ef"
+    },
+    {
+      "file": "scarlet-violet/dark.png",
+      "original": "pokemon-ecarlate-et-violet/tenebres/Miniature_Type_Ténèbres_EV.png",
+      "sha256": "77bd1f4fbee0a9114e7911781cfbfcc938af9eee74d2cd9c9a9a4d53e14c2702"
+    },
+    {
+      "file": "scarlet-violet/flying.png",
+      "original": "pokemon-ecarlate-et-violet/vol/Miniature_Type_Vol_EV.png",
+      "sha256": "01ed7c9af8ffa9cb05db790da1a5d439089da026b4d05c6457ea7dfb191fa84a"
+    },
+    {
+      "file": "scarlet-violet-small/steel.png",
+      "original": "pokemon-ecarlate-et-violet/acier/Icône_Type_Acier_EV.png",
+      "sha256": "5fb2e67ea1c0dac92704a2224e2b70852ab98d00db7be338bf62392d7ef88344"
+    },
+    {
+      "file": "scarlet-violet-small/fighting.png",
+      "original": "pokemon-ecarlate-et-violet/combat/Icône_Type_Combat_EV.png",
+      "sha256": "4911e187efb68e0911452e980a4000e4a9c741743871ad1725109faca0a36e41"
+    },
+    {
+      "file": "scarlet-violet-small/dragon.png",
+      "original": "pokemon-ecarlate-et-violet/dragon/Icône_Type_Dragon_EV.png",
+      "sha256": "a7645253555ffe895a1d542feba46e3faef190ec208c1dc89060ab42b907a429"
+    },
+    {
+      "file": "scarlet-violet-small/water.png",
+      "original": "pokemon-ecarlate-et-violet/eau/Icône_Type_Eau_EV.png",
+      "sha256": "c90739e7fce5346842d8f0f756e9a912049e05ed0223b4b152ad5204e4d8d139"
+    },
+    {
+      "file": "scarlet-violet-small/electric.png",
+      "original": "pokemon-ecarlate-et-violet/electrik/Icône_Type_Électrik_EV.png",
+      "sha256": "492f22ffb9a90209a9bd858c099c5ebd4a896e85a1f8626a7592e0ab4a42094f"
+    },
+    {
+      "file": "scarlet-violet-small/fairy.png",
+      "original": "pokemon-ecarlate-et-violet/fee/Icône_Type_Fée_EV.png",
+      "sha256": "ac519d6e595368281926d5703a624eb194b84693962e8c960de97b93bd3130dc"
+    },
+    {
+      "file": "scarlet-violet-small/fire.png",
+      "original": "pokemon-ecarlate-et-violet/feu/Icône_Type_Feu_EV.png",
+      "sha256": "86c57329c4e5db5fcbe296fdecc664a5315502b974375ebdf40ac549a94f87d0"
+    },
+    {
+      "file": "scarlet-violet-small/ice.png",
+      "original": "pokemon-ecarlate-et-violet/glace/Icône_Type_Glace_EV.png",
+      "sha256": "dcfdfaa020572d8c143ac9a98349a9761bee7451ece095a15eaf840a0f72f3f7"
+    },
+    {
+      "file": "scarlet-violet-small/bug.png",
+      "original": "pokemon-ecarlate-et-violet/insecte/Icône_Type_Insecte_EV.png",
+      "sha256": "5528ddd062465b1bd51ba389db1321e9f8063967e52aa6ec3a13fd9c0457945b"
+    },
+    {
+      "file": "scarlet-violet-small/normal.png",
+      "original": "pokemon-ecarlate-et-violet/normal/Icône_Type_Normal_EV.png",
+      "sha256": "5eba7a08574bd720063a912328234910698c6bde0bf13e107769fc94a06d5bde"
+    },
+    {
+      "file": "scarlet-violet-small/grass.png",
+      "original": "pokemon-ecarlate-et-violet/plante/Icône_Type_Plante_EV.png",
+      "sha256": "3502df49202f14270323a25c71e01bccfdd01ae6abd43e3ee8eb2fcf34f6f376"
+    },
+    {
+      "file": "scarlet-violet-small/poison.png",
+      "original": "pokemon-ecarlate-et-violet/poison/Icône_Type_Poison_EV.png",
+      "sha256": "c556760939a1dd2ea9f7e261718e400ffee6981ad9f9554e7d12c8b418f8919e"
+    },
+    {
+      "file": "scarlet-violet-small/psychic.png",
+      "original": "pokemon-ecarlate-et-violet/psy/Icône_Type_Psy_EV.png",
+      "sha256": "19869b7929fdf6333a6b1b3d92a6bccf168a8959c59e0b05c59ae81f8dad0493"
+    },
+    {
+      "file": "scarlet-violet-small/rock.png",
+      "original": "pokemon-ecarlate-et-violet/roche/Icône_Type_Roche_EV.png",
+      "sha256": "fc8c55b70cfda17e9589cfd7937e5b88ea1c0155958b133034b9d9c841d002df"
+    },
+    {
+      "file": "scarlet-violet-small/ground.png",
+      "original": "pokemon-ecarlate-et-violet/sol/Icône_Type_Sol_EV.png",
+      "sha256": "765930b1d39736d1d3d404d8c9744e2fc050bd66bd42f18f24c9e175141558af"
+    },
+    {
+      "file": "scarlet-violet-small/ghost.png",
+      "original": "pokemon-ecarlate-et-violet/spectre/Icône_Type_Spectre_EV.png",
+      "sha256": "1bf9bc98b9d2de6cbb39147f896a0f29dec87ba832aab5821aaa85428095e135"
+    },
+    {
+      "file": "scarlet-violet-small/dark.png",
+      "original": "pokemon-ecarlate-et-violet/tenebres/Icône_Type_Ténèbres_EV.png",
+      "sha256": "6d01cd3c260f7d1085d41e9711bf3e3ba6eb674662666d98b33d5d070ccea90c"
+    },
+    {
+      "file": "scarlet-violet-small/flying.png",
+      "original": "pokemon-ecarlate-et-violet/vol/Icône_Type_Vol_EV.png",
+      "sha256": "78053cd75fbba06ba575eeb28f1ff66ebf096dcdcca8cc41ab13219e8db27323"
+    },
+    {
+      "file": "sword-shield/steel.png",
+      "original": "pokemon-epee-et-bouclier/acier/Miniature_Type_Acier_EB.png",
+      "sha256": "28ae8df35a32eed6b98930f0ced8ebb885d45e997b9ced65c9e9e1b2eee0725d"
+    },
+    {
+      "file": "sword-shield/fighting.png",
+      "original": "pokemon-epee-et-bouclier/combat/Miniature_Type_Combat_EB.png",
+      "sha256": "115015490f77b065061a19393ba48d0d324497c050236c11a36b03a6afe3d36b"
+    },
+    {
+      "file": "sword-shield/dragon.png",
+      "original": "pokemon-epee-et-bouclier/dragon/Miniature_Type_Dragon_EB.png",
+      "sha256": "cf6e1a8006cb9d58218b35039a21b470b13c0132d9f8d4921302fa37aa4d6aca"
+    },
+    {
+      "file": "sword-shield/water.png",
+      "original": "pokemon-epee-et-bouclier/eau/Miniature_Type_Eau_EB.png",
+      "sha256": "8b86aee257f3fbbbc490905b3875a496c73eda6db50ea993944fe71e916f5591"
+    },
+    {
+      "file": "sword-shield/electric.png",
+      "original": "pokemon-epee-et-bouclier/electrik/Miniature_Type_Électrik_EB.png",
+      "sha256": "36b74650793d9fcf5749d5af53c48e3279c0b25dc14ad229ce1ef2ffc1ecc587"
+    },
+    {
+      "file": "sword-shield/fairy.png",
+      "original": "pokemon-epee-et-bouclier/fee/Miniature_Type_Fée_EB.png",
+      "sha256": "05649eda97ec009bb96ee908563c603a1b5091b1c958ca73f26eae90070bce80"
+    },
+    {
+      "file": "sword-shield/fire.png",
+      "original": "pokemon-epee-et-bouclier/feu/Miniature_Type_Feu_EB.png",
+      "sha256": "c8ee23c565d225896e6ae67a0e3bb7bbaf53d54ee44c7131d2c079661f53e6b9"
+    },
+    {
+      "file": "sword-shield/ice.png",
+      "original": "pokemon-epee-et-bouclier/glace/Miniature_Type_Glace_EB.png",
+      "sha256": "8b1377b1e135ff08054322a4a22b4876e7c8518f9c35b1c1661d474f390360e0"
+    },
+    {
+      "file": "sword-shield/bug.png",
+      "original": "pokemon-epee-et-bouclier/insecte/Miniature_Type_Insecte_EB.png",
+      "sha256": "6929bf1cb9424ca256fb4b40c4fa4eb11898a3b76c22ffcec195300c50b28d20"
+    },
+    {
+      "file": "sword-shield/normal.png",
+      "original": "pokemon-epee-et-bouclier/normal/Miniature_Type_Normal_EB.png",
+      "sha256": "1cf3c547478243bf8b55f79605f9276d113506591bd49400f5812f47b514cef8"
+    },
+    {
+      "file": "sword-shield/grass.png",
+      "original": "pokemon-epee-et-bouclier/plante/Miniature_Type_Plante_EB.png",
+      "sha256": "970f32239dad72bf7d8778209430baca6c36e1992af2712fe215fbf1d4006f72"
+    },
+    {
+      "file": "sword-shield/poison.png",
+      "original": "pokemon-epee-et-bouclier/poison/Miniature_Type_Poison_EB.png",
+      "sha256": "e57b428f3142e5d49c183b989ef79ee5fafc01552fea17dda4f0ae80643f0ee6"
+    },
+    {
+      "file": "sword-shield/psychic.png",
+      "original": "pokemon-epee-et-bouclier/psy/Miniature_Type_Psy_EB.png",
+      "sha256": "7975b529954942c70f65305cc69c2acba1cf45d82e9cb14feb280ca3d7c85d4f"
+    },
+    {
+      "file": "sword-shield/rock.png",
+      "original": "pokemon-epee-et-bouclier/roche/Miniature_Type_Roche_EB.png",
+      "sha256": "f67a9b4c3c19c88e79998335222bc810ee7bb3054436803332da60c23fac34fd"
+    },
+    {
+      "file": "sword-shield/ground.png",
+      "original": "pokemon-epee-et-bouclier/sol/Miniature_Type_Sol_EB.png",
+      "sha256": "c6104e2ced46bbc11c7f49ff7d359c1340e409f8f7912c75dde280eaf80f9692"
+    },
+    {
+      "file": "sword-shield/ghost.png",
+      "original": "pokemon-epee-et-bouclier/spectre/Miniature_Type_Spectre_EB.png",
+      "sha256": "52824b10e6adf5ad860a82b9b2f398f7ec61aebb23b63a25aa84f3b5bddc1d6b"
+    },
+    {
+      "file": "sword-shield/dark.png",
+      "original": "pokemon-epee-et-bouclier/tenebres/Miniature_Type_Ténèbres_EB.png",
+      "sha256": "5a874545c1fdeb80eca38161638d19eb13834fee0d486e3409dd35c5c45581ba"
+    },
+    {
+      "file": "sword-shield/flying.png",
+      "original": "pokemon-epee-et-bouclier/vol/Miniature_Type_Vol_EB.png",
+      "sha256": "e5851aa8ae60ca0a1cee241b44ce437f7dbe6b7e0bcc603843e53e044bc8e85c"
+    },
+    {
+      "file": "sword-shield-small/steel.png",
+      "original": "pokemon-epee-et-bouclier/acier/Icône_Type_Acier_EB.png",
+      "sha256": "18664e2dfd3257717c59c67d598a98e624e88c6470ddec11e65631a98fccf607"
+    },
+    {
+      "file": "sword-shield-small/fighting.png",
+      "original": "pokemon-epee-et-bouclier/combat/Icône_Type_Combat_EB.png",
+      "sha256": "80b98edfd009c6136d8faa08d49e3d22da68b57ff590c0cc6cda0c5ff461a9f6"
+    },
+    {
+      "file": "sword-shield-small/dragon.png",
+      "original": "pokemon-epee-et-bouclier/dragon/Icône_Type_Dragon_EB.png",
+      "sha256": "c4e005cf895d7e4cdecfd74bda9293e0135916ce184892b855bc20167952e581"
+    },
+    {
+      "file": "sword-shield-small/water.png",
+      "original": "pokemon-epee-et-bouclier/eau/Icône_Type_Eau_EB.png",
+      "sha256": "ac017bccefdbef011bfb78dd85b574e1243fe95fa5b7e4b7ef19c32e20d1b1b1"
+    },
+    {
+      "file": "sword-shield-small/electric.png",
+      "original": "pokemon-epee-et-bouclier/electrik/Icône_Type_Électrik_EB.png",
+      "sha256": "f9ddbe3f26a943921ce6ecea50ddfdb25e4ce938de2476b2624dc642c428e326"
+    },
+    {
+      "file": "sword-shield-small/fairy.png",
+      "original": "pokemon-epee-et-bouclier/fee/Icône_Type_Fée_EB.png",
+      "sha256": "da670d762807781b193753bf50a4120d00e7333cefc3bb12449733aaf3fc6748"
+    },
+    {
+      "file": "sword-shield-small/fire.png",
+      "original": "pokemon-epee-et-bouclier/feu/Icône_Type_Feu_EB.png",
+      "sha256": "ad3f89584f2b21663f5291210eed1573fb8d1de1261aa250a0a43249764e1b93"
+    },
+    {
+      "file": "sword-shield-small/ice.png",
+      "original": "pokemon-epee-et-bouclier/glace/Icône_Type_Glace_EB.png",
+      "sha256": "1cdb056e9463bce711cfcdc3b04d1258ef119f99576ad6802501b9c647407386"
+    },
+    {
+      "file": "sword-shield-small/bug.png",
+      "original": "pokemon-epee-et-bouclier/insecte/Icône_Type_Insecte_EB.png",
+      "sha256": "2d329723edcc25d8b038cd414c47b787af0eadb4e4e94d0423419de96a1aa7e1"
+    },
+    {
+      "file": "sword-shield-small/normal.png",
+      "original": "pokemon-epee-et-bouclier/normal/Icône_Type_Normal_EB.png",
+      "sha256": "ce65c25b6169dce047896629182c26a3fa2f16d07261141367522c4704feae7d"
+    },
+    {
+      "file": "sword-shield-small/grass.png",
+      "original": "pokemon-epee-et-bouclier/plante/Icône_Type_Plante_EB.png",
+      "sha256": "910e38752d30eae149ed03985dbe1d92adf4d713d89d70c0352d3e2887af0ee5"
+    },
+    {
+      "file": "sword-shield-small/poison.png",
+      "original": "pokemon-epee-et-bouclier/poison/Icône_Type_Poison_EB.png",
+      "sha256": "dcca19518c72648e9324f5e15bf264fd6577c2d1c6ac02740fd70b9315b08e01"
+    },
+    {
+      "file": "sword-shield-small/psychic.png",
+      "original": "pokemon-epee-et-bouclier/psy/Icône_Type_Psy_EB.png",
+      "sha256": "089286ae5fce74a2b49d4034c7c677ed501bd19a13e2e9bdc723c2cf6f1edcf0"
+    },
+    {
+      "file": "sword-shield-small/rock.png",
+      "original": "pokemon-epee-et-bouclier/roche/Icône_Type_Roche_EB.png",
+      "sha256": "3a8e4ff70cbebc9f7cfc08f6cc890fa2d5e82dbfaeaccde14696ac6a14a714f3"
+    },
+    {
+      "file": "sword-shield-small/ground.png",
+      "original": "pokemon-epee-et-bouclier/sol/Icône_Type_Sol_EB.png",
+      "sha256": "8eb776ac3648a38c84a4f9dc0053e8f450295860540c547911fcf0f4250aa6f1"
+    },
+    {
+      "file": "sword-shield-small/ghost.png",
+      "original": "pokemon-epee-et-bouclier/spectre/Icône_Type_Spectre_EB.png",
+      "sha256": "39ffe7f74361a90784b4f4a630732a2844a3b887640ec4e027f4fe5c7799602c"
+    },
+    {
+      "file": "sword-shield-small/dark.png",
+      "original": "pokemon-epee-et-bouclier/tenebres/Icône_Type_Ténèbres_EB.png",
+      "sha256": "0ea49774d081664a3960fb9435340b768676fbb3499edf600d48ebc6f64c1e35"
+    },
+    {
+      "file": "sword-shield-small/flying.png",
+      "original": "pokemon-epee-et-bouclier/vol/Icône_Type_Vol_EB.png",
+      "sha256": "5481336eaceec0931f7c2c345565e6ba6d8e8218b30f7dc8f0e225e5c41485c6"
+    },
+    {
+      "file": "lets-go/steel.png",
+      "original": "pokemon-let-s-go-pikachu-et-let-s-go-evoli/acier/Miniature_Type_Acier_LGPE.png",
+      "sha256": "dfabfdae09aa0318332a73ab5ea08e1195830058909f0592f44d8b66b2b4eb9e"
+    },
+    {
+      "file": "lets-go/fighting.png",
+      "original": "pokemon-let-s-go-pikachu-et-let-s-go-evoli/combat/Miniature_Type_Combat_LGPE.png",
+      "sha256": "413fb01637cb8b45e88e7cf33556c6bb8a875700e1fc36eb20646b49586cff70"
+    },
+    {
+      "file": "lets-go/dragon.png",
+      "original": "pokemon-let-s-go-pikachu-et-let-s-go-evoli/dragon/Miniature_Type_Dragon_LGPE.png",
+      "sha256": "f954577b9afb615b07464c61db5012c302a5294d4ced2b7c2c7ea93897c1f228"
+    },
+    {
+      "file": "lets-go/water.png",
+      "original": "pokemon-let-s-go-pikachu-et-let-s-go-evoli/eau/Miniature_Type_Eau_LGPE.png",
+      "sha256": "cbb7139540ebe42e9b8cc08b460a87ed1489f04260646309868a34e583f9c157"
+    },
+    {
+      "file": "lets-go/electric.png",
+      "original": "pokemon-let-s-go-pikachu-et-let-s-go-evoli/electrik/Miniature_Type_Électrik_LGPE.png",
+      "sha256": "a721542960d27c01741ab4f6d16bc79792b451a436f819ef94217d6ad948539f"
+    },
+    {
+      "file": "lets-go/fairy.png",
+      "original": "pokemon-let-s-go-pikachu-et-let-s-go-evoli/fee/Miniature_Type_Fée_LGPE.png",
+      "sha256": "55f6eeae343a15aac7ff58b95ba01ddb94df3df74841f45fb53c79dae9e0daa1"
+    },
+    {
+      "file": "lets-go/fire.png",
+      "original": "pokemon-let-s-go-pikachu-et-let-s-go-evoli/feu/Miniature_Type_Feu_LGPE.png",
+      "sha256": "67050c3975230ac479efbfa6c7c34f724ea1a205bdf1db48e66e5e9d79fe8d5b"
+    },
+    {
+      "file": "lets-go/ice.png",
+      "original": "pokemon-let-s-go-pikachu-et-let-s-go-evoli/glace/Miniature_Type_Glace_LGPE.png",
+      "sha256": "c7bf1ee0bfffecbe1f0427e180c4046726dd445f672eeec87d3a9767c0577d6a"
+    },
+    {
+      "file": "lets-go/bug.png",
+      "original": "pokemon-let-s-go-pikachu-et-let-s-go-evoli/insecte/Miniature_Type_Insecte_LGPE.png",
+      "sha256": "2e561865c97447df776b04ff1ccee052202d41e47a325f1714a64add710b678d"
+    },
+    {
+      "file": "lets-go/normal.png",
+      "original": "pokemon-let-s-go-pikachu-et-let-s-go-evoli/normal/Miniature_Type_Normal_LGPE.png",
+      "sha256": "33783db6ab54fa5747e748c89e71bbd5e8ea7b738d0d1d77c0c1551adfcc0731"
+    },
+    {
+      "file": "lets-go/grass.png",
+      "original": "pokemon-let-s-go-pikachu-et-let-s-go-evoli/plante/Miniature_Type_Plante_LGPE.png",
+      "sha256": "67c96c6dd809914a83459fa083c43b058163c93146e481ce930a167911a9e8a2"
+    },
+    {
+      "file": "lets-go/poison.png",
+      "original": "pokemon-let-s-go-pikachu-et-let-s-go-evoli/poison/Miniature_Type_Poison_LGPE.png",
+      "sha256": "53aafd45a61ce9a685731aec82a1f72a6f26516e3cdceb8f8d35e63758e66c02"
+    },
+    {
+      "file": "lets-go/psychic.png",
+      "original": "pokemon-let-s-go-pikachu-et-let-s-go-evoli/psy/Miniature_Type_Psy_LGPE.png",
+      "sha256": "91440eb9849a9ecd2554d9a10fdd884d4e6577f084e2745352b8727e2ae9f88e"
+    },
+    {
+      "file": "lets-go/rock.png",
+      "original": "pokemon-let-s-go-pikachu-et-let-s-go-evoli/roche/Miniature_Type_Roche_LGPE.png",
+      "sha256": "f6a5327eea97743a265596777c785d2adde23ab46302c05505b770a2aef7a9ed"
+    },
+    {
+      "file": "lets-go/ground.png",
+      "original": "pokemon-let-s-go-pikachu-et-let-s-go-evoli/sol/Miniature_Type_Sol_LGPE.png",
+      "sha256": "2f607e19901bbecbd0d90a8487f78733899f3a5e6257b66cef2a748712af83a4"
+    },
+    {
+      "file": "lets-go/ghost.png",
+      "original": "pokemon-let-s-go-pikachu-et-let-s-go-evoli/spectre/Miniature_Type_Spectre_LGPE.png",
+      "sha256": "aad87217518d797c9bda6eebff865cbea7b1ab2a0e7c7881328e1b90c21d971f"
+    },
+    {
+      "file": "lets-go/dark.png",
+      "original": "pokemon-let-s-go-pikachu-et-let-s-go-evoli/tenebres/Miniature_Type_Ténèbres_LGPE.png",
+      "sha256": "70c5e48c133c7137d57a86c5101c1d495ed45d1c4724a0ce2c87015bb76fd6aa"
+    },
+    {
+      "file": "lets-go/flying.png",
+      "original": "pokemon-let-s-go-pikachu-et-let-s-go-evoli/vol/Miniature_Type_Vol_LGPE.png",
+      "sha256": "6b7ff26cf88a96dc3d3aa7e470003bdedf5f3e6e7f8894e34977defeab93b18f"
+    },
+    {
+      "file": "black-white/steel.png",
+      "original": "pokemon-noir-et-blanc-pokemon-noir-2-et-blanc-2/acier/Miniature_Type_Acier_NB.png",
+      "sha256": "a4eead00d46773e8cb1a8961ad2ab93d356fbbd31bbc1e93383292b3bad890ec"
+    },
+    {
+      "file": "black-white/fighting.png",
+      "original": "pokemon-noir-et-blanc-pokemon-noir-2-et-blanc-2/combat/Miniature_Type_Combat_NB.png",
+      "sha256": "0fdf92f1155264aeb1743c9a988de666c97d884922643c5b014a28354d4af026"
+    },
+    {
+      "file": "black-white/dragon.png",
+      "original": "pokemon-noir-et-blanc-pokemon-noir-2-et-blanc-2/dragon/Miniature_Type_Dragon_NB.png",
+      "sha256": "ddc48c3c5b937fcf52e02b07e402d31530cd7d236047bf986748e3764a397fd8"
+    },
+    {
+      "file": "black-white/water.png",
+      "original": "pokemon-noir-et-blanc-pokemon-noir-2-et-blanc-2/eau/Miniature_Type_Eau_NB.png",
+      "sha256": "c9ef3c105c9972452a61d8f9ca80b5c31ea9e275201a00dbfdd4e6849fdddcb4"
+    },
+    {
+      "file": "black-white/electric.png",
+      "original": "pokemon-noir-et-blanc-pokemon-noir-2-et-blanc-2/electrik/Miniature_Type_Électrik_NB.png",
+      "sha256": "1b99d07fd706d0a3ca4ddb30a93d757d2058977926c7c1396db881db8f4f09d3"
+    },
+    {
+      "file": "black-white/fire.png",
+      "original": "pokemon-noir-et-blanc-pokemon-noir-2-et-blanc-2/feu/Miniature_Type_Feu_NB.png",
+      "sha256": "cf0ecd2887e1aa49fc76ff10b531e48c6ade34b43aff508d553c1cdfca426779"
+    },
+    {
+      "file": "black-white/ice.png",
+      "original": "pokemon-noir-et-blanc-pokemon-noir-2-et-blanc-2/glace/Miniature_Type_Glace_NB.png",
+      "sha256": "832adc7a159c7d30622ff3d5a6d4f5e81823d40442199aa8ae1ed7fd6a6eebed"
+    },
+    {
+      "file": "black-white/bug.png",
+      "original": "pokemon-noir-et-blanc-pokemon-noir-2-et-blanc-2/insecte/Miniature_Type_Insecte_NB.png",
+      "sha256": "6b603daf111a1e938e1854e77ad44e3a3bf9ffcce2e909f3f847ec0f9164a533"
+    },
+    {
+      "file": "black-white/normal.png",
+      "original": "pokemon-noir-et-blanc-pokemon-noir-2-et-blanc-2/normal/Miniature_Type_Normal_NB.png",
+      "sha256": "c404523ea7814371dd0c9c66fb6cdfdaa8fee19e80f018c74e7863bda75b1079"
+    },
+    {
+      "file": "black-white/grass.png",
+      "original": "pokemon-noir-et-blanc-pokemon-noir-2-et-blanc-2/plante/Miniature_Type_Plante_NB.png",
+      "sha256": "857a18720b9cebaaaae47a81ef5cd0c6bcb8dfd0e0a6d6e5ec38ae0202ae18cb"
+    },
+    {
+      "file": "black-white/poison.png",
+      "original": "pokemon-noir-et-blanc-pokemon-noir-2-et-blanc-2/poison/Miniature_Type_Poison_NB.png",
+      "sha256": "ae684cb8156a64f456932844c34427b33780159d347604c8758e088e92506a92"
+    },
+    {
+      "file": "black-white/psychic.png",
+      "original": "pokemon-noir-et-blanc-pokemon-noir-2-et-blanc-2/psy/Miniature_Type_Psy_NB.png",
+      "sha256": "2b9398a21e2817503ae319642f7084f43badd7388a930f9bc8d8ed625afb0057"
+    },
+    {
+      "file": "black-white/rock.png",
+      "original": "pokemon-noir-et-blanc-pokemon-noir-2-et-blanc-2/roche/Miniature_Type_Roche_NB.png",
+      "sha256": "4ff867c2d17801390d7df4fdc859c2e4c7e7ea2414555da73becb445638697ff"
+    },
+    {
+      "file": "black-white/ground.png",
+      "original": "pokemon-noir-et-blanc-pokemon-noir-2-et-blanc-2/sol/Miniature_Type_Sol_NB.png",
+      "sha256": "85795a4176c1a8575e3e647241ecc3b598c8b39d0bc51bbd998cb0c1425b1ca1"
+    },
+    {
+      "file": "black-white/ghost.png",
+      "original": "pokemon-noir-et-blanc-pokemon-noir-2-et-blanc-2/spectre/Miniature_Type_Spectre_NB.png",
+      "sha256": "e9423278e264962db69cc3ccf7547200969a76f5de030cca735084d3387bab8b"
+    },
+    {
+      "file": "black-white/dark.png",
+      "original": "pokemon-noir-et-blanc-pokemon-noir-2-et-blanc-2/tenebres/Miniature_Type_Ténèbres_NB.png",
+      "sha256": "2a9a5e288a77a28f42211d89c2e1ee72fd5279243e00c79fe4e7b834bf5e2540"
+    },
+    {
+      "file": "black-white/flying.png",
+      "original": "pokemon-noir-et-blanc-pokemon-noir-2-et-blanc-2/vol/Miniature_Type_Vol_NB.png",
+      "sha256": "ea43d419d89ebb5cabb89e4a37cfb7222d4de38e9c9f1c4478aa8bce50df7315"
+    },
+    {
+      "file": "firered-leafgreen/steel.png",
+      "original": "pokemon-rouge-feu-et-vert-feuille/acier/Miniature_Type_Acier_RFVF.png",
+      "sha256": "07d8e629b433feab760aca510536b7364f9ad21819b55dbf8198d611e6dbf146"
+    },
+    {
+      "file": "firered-leafgreen/fighting.png",
+      "original": "pokemon-rouge-feu-et-vert-feuille/combat/Miniature_Type_Combat_RFVF.png",
+      "sha256": "8c27662702cce4706682c0cf04ce34a70629f0824987ad57466c2aac6c4cb2da"
+    },
+    {
+      "file": "firered-leafgreen/dragon.png",
+      "original": "pokemon-rouge-feu-et-vert-feuille/dragon/Miniature_Type_Dragon_RFVF.png",
+      "sha256": "b270211dfa4b1653d28672eb83529cb21cde6269b9361b1c2926a464c8183723"
+    },
+    {
+      "file": "firered-leafgreen/water.png",
+      "original": "pokemon-rouge-feu-et-vert-feuille/eau/Miniature_Type_Eau_RFVF.png",
+      "sha256": "a1e3e0317bfe0b2896401064284a4643d79e2d3615d19f2b02c2f089f81f2248"
+    },
+    {
+      "file": "firered-leafgreen/electric.png",
+      "original": "pokemon-rouge-feu-et-vert-feuille/electrik/Miniature_Type_Électrik_RFVF.png",
+      "sha256": "9b085411be1afc0a93301ea272cd9c166f19d395fcb5f200d9e6fd57500fb2cf"
+    },
+    {
+      "file": "firered-leafgreen/fire.png",
+      "original": "pokemon-rouge-feu-et-vert-feuille/feu/Miniature_Type_Feu_RFVF.png",
+      "sha256": "5403643096a2a10744fa0d7168ff21cc4a1f35205b732961640c6f6c5335353b"
+    },
+    {
+      "file": "firered-leafgreen/ice.png",
+      "original": "pokemon-rouge-feu-et-vert-feuille/glace/Miniature_Type_Glace_RFVF.png",
+      "sha256": "7aba98ec9572d6ec788abc6c566c2f92bcb197106fa4b1e264f8fa11329f8bec"
+    },
+    {
+      "file": "firered-leafgreen/bug.png",
+      "original": "pokemon-rouge-feu-et-vert-feuille/insecte/Miniature_Type_Insecte_RFVF.png",
+      "sha256": "c6a302c69f6b1a4fc73ed8edb4b6228adab097e20d867627d9f43a47428d54ee"
+    },
+    {
+      "file": "firered-leafgreen/normal.png",
+      "original": "pokemon-rouge-feu-et-vert-feuille/normal/Miniature_Type_Normal_RFVF.png",
+      "sha256": "7192bd06fe392d1d6f34af07559560fff3e7507ddccb9ff9a8aa1cbe2f9390b2"
+    },
+    {
+      "file": "firered-leafgreen/grass.png",
+      "original": "pokemon-rouge-feu-et-vert-feuille/plante/Miniature_Type_Plante_RFVF.png",
+      "sha256": "aa70a0a79c5817c56be89f09f8e30956fa509cd7d822528cd4a1d9d24962fa29"
+    },
+    {
+      "file": "firered-leafgreen/poison.png",
+      "original": "pokemon-rouge-feu-et-vert-feuille/poison/Miniature_Type_Poison_RFVF.png",
+      "sha256": "b56d98a9e10315a2495d3bb5f2895fe6764af161eb1caa9600e8b5d22e61e618"
+    },
+    {
+      "file": "firered-leafgreen/psychic.png",
+      "original": "pokemon-rouge-feu-et-vert-feuille/psy/Miniature_Type_Psy_RFVF.png",
+      "sha256": "6ceb436831a4c9d7c7fbfba012dbb92c14ca98ba9e2224b2be0fd7124cc676ac"
+    },
+    {
+      "file": "firered-leafgreen/rock.png",
+      "original": "pokemon-rouge-feu-et-vert-feuille/roche/Miniature_Type_Roche_RFVF.png",
+      "sha256": "8a103cf9752b41652023f93f2c78f6716f446a4d504b67de8b28880b27cc082a"
+    },
+    {
+      "file": "firered-leafgreen/ground.png",
+      "original": "pokemon-rouge-feu-et-vert-feuille/sol/Miniature_Type_Sol_RFVF.png",
+      "sha256": "2ec7eb092d1de43009fad197154910cfe9feb47aec1d2e75d99efebd00ba4886"
+    },
+    {
+      "file": "firered-leafgreen/ghost.png",
+      "original": "pokemon-rouge-feu-et-vert-feuille/spectre/Miniature_Type_Spectre_RFVF.png",
+      "sha256": "4fcd0111d80f4bd99772d47218848fe484b83649c220b93d815eb89b0bff83f8"
+    },
+    {
+      "file": "firered-leafgreen/dark.png",
+      "original": "pokemon-rouge-feu-et-vert-feuille/tenebres/Miniature_Type_Ténèbres_RFVF.png",
+      "sha256": "e76e930309b28a7dfadff7116c8edbb9f2d57f86e83c3b68e798cf5bba725d2f"
+    },
+    {
+      "file": "firered-leafgreen/flying.png",
+      "original": "pokemon-rouge-feu-et-vert-feuille/vol/Miniature_Type_Vol_RFVF.png",
+      "sha256": "52831adfc81c465b8b5daacb56eed606e95506ae72fc3c1caf9f97a349ade225"
+    },
+    {
+      "file": "ruby-sapphire-emerald/steel.png",
+      "original": "pokemon-rubis-saphir-et-emeraude/acier/Miniature_Type_Acier_RS.png",
+      "sha256": "992b22fd01664b4ae3d65a1cdef5fefcdbaa454418c783a2402ee498d9630f09"
+    },
+    {
+      "file": "ruby-sapphire-emerald/fighting.png",
+      "original": "pokemon-rubis-saphir-et-emeraude/combat/Miniature_Type_Combat_RS.png",
+      "sha256": "49d61935828de58ce10f2f37cd12460eef99cf1a15b5930d784e8c1a9993d6ee"
+    },
+    {
+      "file": "ruby-sapphire-emerald/dragon.png",
+      "original": "pokemon-rubis-saphir-et-emeraude/dragon/Miniature_Type_Dragon_RS.png",
+      "sha256": "170deed3806dc58e09aef630310c13740164b0651ec8dc1c4215262df779a65d"
+    },
+    {
+      "file": "ruby-sapphire-emerald/water.png",
+      "original": "pokemon-rubis-saphir-et-emeraude/eau/Miniature_Type_Eau_RS.png",
+      "sha256": "8af9bd16c1ea44b94c954a322670c93cb6af4f576bbd9514ac1c4829d31d8741"
+    },
+    {
+      "file": "ruby-sapphire-emerald/electric.png",
+      "original": "pokemon-rubis-saphir-et-emeraude/electrik/Miniature_Type_Électrik_RS.png",
+      "sha256": "6a88d2ae11dfee5e62edc4083f90bda7960110c614a90676861ac063a1dcd1d2"
+    },
+    {
+      "file": "ruby-sapphire-emerald/fire.png",
+      "original": "pokemon-rubis-saphir-et-emeraude/feu/Miniature_Type_Feu_RS.png",
+      "sha256": "55772328a27994270267aca08eaeb216b3e6ffa15c9fa1d091b40b037ab98685"
+    },
+    {
+      "file": "ruby-sapphire-emerald/ice.png",
+      "original": "pokemon-rubis-saphir-et-emeraude/glace/Miniature_Type_Glace_RS.png",
+      "sha256": "5c11829eea3905182dc0d3b2758da2a8ebaeddda736ee90821044a41f93a6b55"
+    },
+    {
+      "file": "ruby-sapphire-emerald/bug.png",
+      "original": "pokemon-rubis-saphir-et-emeraude/insecte/Miniature_Type_Insecte_RS.png",
+      "sha256": "e40344df5e0d087568cf11d67e9389b9811b02b23acdb23fc624935cc8efb732"
+    },
+    {
+      "file": "ruby-sapphire-emerald/normal.png",
+      "original": "pokemon-rubis-saphir-et-emeraude/normal/Miniature_Type_Normal_RS.png",
+      "sha256": "50e29b36c2946c08a65f1d004ded30d6d76897ad5d8b86af40a100f1e1df76a6"
+    },
+    {
+      "file": "ruby-sapphire-emerald/grass.png",
+      "original": "pokemon-rubis-saphir-et-emeraude/plante/Miniature_Type_Plante_RS.png",
+      "sha256": "fd33bf5f052ad8e5a7569fd4a5a885ddb2b009a7f116dd4256470d6283148445"
+    },
+    {
+      "file": "ruby-sapphire-emerald/poison.png",
+      "original": "pokemon-rubis-saphir-et-emeraude/poison/Miniature_Type_Poison_RS.png",
+      "sha256": "327e45b833bf9c2164016aad6609fa56b0bd56bd5805acf24bd09109ae811fe8"
+    },
+    {
+      "file": "ruby-sapphire-emerald/psychic.png",
+      "original": "pokemon-rubis-saphir-et-emeraude/psy/Miniature_Type_Psy_RS.png",
+      "sha256": "2e19bb7b4dcb1816e91746b9a0ca8b5800d23bc917effd3878c1c9ede1b3b88d"
+    },
+    {
+      "file": "ruby-sapphire-emerald/rock.png",
+      "original": "pokemon-rubis-saphir-et-emeraude/roche/Miniature_Type_Roche_RS.png",
+      "sha256": "9f3d6b3dd29a9d242a19b593871ffa811a67de65a72c783286e166947a1228bf"
+    },
+    {
+      "file": "ruby-sapphire-emerald/ground.png",
+      "original": "pokemon-rubis-saphir-et-emeraude/sol/Miniature_Type_Sol_RS.png",
+      "sha256": "a8335b982261ead24550f8daa2f540f018f044576ef31827c6694add0b9cef60"
+    },
+    {
+      "file": "ruby-sapphire-emerald/ghost.png",
+      "original": "pokemon-rubis-saphir-et-emeraude/spectre/Miniature_Type_Spectre_RS.png",
+      "sha256": "78d05ef2018dceb1b506dce413477e0dd56a9cc5b17cb08a39c2438f74e3b94c"
+    },
+    {
+      "file": "ruby-sapphire-emerald/dark.png",
+      "original": "pokemon-rubis-saphir-et-emeraude/tenebres/Miniature_Type_Ténèbres_RS.png",
+      "sha256": "d6531ac3bbcd837bfa4e6263fe942f6321e87e3b164ac53dddef0b2f160f3562"
+    },
+    {
+      "file": "ruby-sapphire-emerald/flying.png",
+      "original": "pokemon-rubis-saphir-et-emeraude/vol/Miniature_Type_Vol_RS.png",
+      "sha256": "6e368701ecf3be953a3e2c6a140525f48c1cae82561a63ebc74a48db05309b4f"
+    },
+    {
+      "file": "sun-moon/steel.png",
+      "original": "pokemon-soleil-et-lune-pokemon-ultra-soleil-et-ultra-lune/acier/Miniature_Type_Acier_SL.png",
+      "sha256": "a7e5a4861c3e4718a2c66c46f586279f3ae21d529931bdfc8e2de7eaca842cda"
+    },
+    {
+      "file": "sun-moon/fighting.png",
+      "original": "pokemon-soleil-et-lune-pokemon-ultra-soleil-et-ultra-lune/combat/Miniature_Type_Combat_SL.png",
+      "sha256": "8fe560c524d29c0a451153f8e23cc3e88cedff0e99018815d81fa7fb0f7982bd"
+    },
+    {
+      "file": "sun-moon/dragon.png",
+      "original": "pokemon-soleil-et-lune-pokemon-ultra-soleil-et-ultra-lune/dragon/Miniature_Type_Dragon_SL.png",
+      "sha256": "3e536f35e2a55f772436d4e105182d7f20389eb9f640cefce901c7e608b84518"
+    },
+    {
+      "file": "sun-moon/water.png",
+      "original": "pokemon-soleil-et-lune-pokemon-ultra-soleil-et-ultra-lune/eau/Miniature_Type_Eau_SL.png",
+      "sha256": "88d34975aac4beb0bd992b009418323450fbf9eba82647985395b33332afa4a1"
+    },
+    {
+      "file": "sun-moon/electric.png",
+      "original": "pokemon-soleil-et-lune-pokemon-ultra-soleil-et-ultra-lune/electrik/Miniature_Type_Électrik_SL.png",
+      "sha256": "6cb0ed53ae918c80a62baae61d1f5cb08729abdc42d3cb14cc19eff8266ac94b"
+    },
+    {
+      "file": "sun-moon/fairy.png",
+      "original": "pokemon-soleil-et-lune-pokemon-ultra-soleil-et-ultra-lune/fee/Miniature_Type_Fée_SL.png",
+      "sha256": "9fd9176a5e12a78030bbcbc1fe6c34d0a84520362117acbfd7ad8024096a4e17"
+    },
+    {
+      "file": "sun-moon/fire.png",
+      "original": "pokemon-soleil-et-lune-pokemon-ultra-soleil-et-ultra-lune/feu/Miniature_Type_Feu_SL.png",
+      "sha256": "59e3e887067c316839c47b9dbb6ba84a59efc5a38462bb587f0f86eba06eb264"
+    },
+    {
+      "file": "sun-moon/ice.png",
+      "original": "pokemon-soleil-et-lune-pokemon-ultra-soleil-et-ultra-lune/glace/Miniature_Type_Glace_SL.png",
+      "sha256": "05c794aa701fe02485c111ba31fd1b6c0924fc2a6e3ab8b32fc8c17f70875646"
+    },
+    {
+      "file": "sun-moon/bug.png",
+      "original": "pokemon-soleil-et-lune-pokemon-ultra-soleil-et-ultra-lune/insecte/Miniature_Type_Insecte_SL.png",
+      "sha256": "a7b23fde4044dc9ff7fa642d25bad9614ced1ba7c67f04a58d3ba49b181dcb4e"
+    },
+    {
+      "file": "sun-moon/normal.png",
+      "original": "pokemon-soleil-et-lune-pokemon-ultra-soleil-et-ultra-lune/normal/Miniature_Type_Normal_SL.png",
+      "sha256": "4b4c62966d6b6c2442faefa96ce49f71192c0445872b1f325b2496988f26c113"
+    },
+    {
+      "file": "sun-moon/grass.png",
+      "original": "pokemon-soleil-et-lune-pokemon-ultra-soleil-et-ultra-lune/plante/Miniature_Type_Plante_SL.png",
+      "sha256": "67bd94fb069641a02567bb71c7fa58382f0455e01065fc9ff7ee6c832a04159f"
+    },
+    {
+      "file": "sun-moon/poison.png",
+      "original": "pokemon-soleil-et-lune-pokemon-ultra-soleil-et-ultra-lune/poison/Miniature_Type_Poison_SL.png",
+      "sha256": "e3ae04d7f67c0c6788afb980cad96f680ec0571cd25c1cb9d4cdbea298e10dd3"
+    },
+    {
+      "file": "sun-moon/psychic.png",
+      "original": "pokemon-soleil-et-lune-pokemon-ultra-soleil-et-ultra-lune/psy/Miniature_Type_Psy_SL.png",
+      "sha256": "128d85a3e7ec3227e07202c1db20eb6f5b3141a2007d1c77632dc65e6ec709c3"
+    },
+    {
+      "file": "sun-moon/rock.png",
+      "original": "pokemon-soleil-et-lune-pokemon-ultra-soleil-et-ultra-lune/roche/Miniature_Type_Roche_SL.png",
+      "sha256": "5f0b3d177adb2d5353a9fb3c734df6c10753893de5d7f31d22503f0f2867c21c"
+    },
+    {
+      "file": "sun-moon/ground.png",
+      "original": "pokemon-soleil-et-lune-pokemon-ultra-soleil-et-ultra-lune/sol/Miniature_Type_Sol_SL.png",
+      "sha256": "82e25c4376f8de1fbee97d45fed41d5949491af0a4696acd029771b5b688f199"
+    },
+    {
+      "file": "sun-moon/ghost.png",
+      "original": "pokemon-soleil-et-lune-pokemon-ultra-soleil-et-ultra-lune/spectre/Miniature_Type_Spectre_SL.png",
+      "sha256": "04b13cec6ce1be600ca83e4f350d57592f23572f5645b220d7c2752be30f3c46"
+    },
+    {
+      "file": "sun-moon/dark.png",
+      "original": "pokemon-soleil-et-lune-pokemon-ultra-soleil-et-ultra-lune/tenebres/Miniature_Type_Ténèbres_SL.png",
+      "sha256": "6ae3e81addc4fb13fd955e9900d9837b126aa25cd6010edbd2008ebb17d63992"
+    },
+    {
+      "file": "sun-moon/flying.png",
+      "original": "pokemon-soleil-et-lune-pokemon-ultra-soleil-et-ultra-lune/vol/Miniature_Type_Vol_SL.png",
+      "sha256": "b7ffbb9d68f68e6a56f170a06d524bee39e83a891de48daf04641c33fd9f7591"
+    },
+    {
+      "file": "x-y/steel.png",
+      "original": "pokemon-x-et-y-pokemon-rubis-omega-et-saphir-alpha/acier/Miniature_Type_Acier_XY.png",
+      "sha256": "7047e0af1fdfb717cc55d5ee2535b8f89401c1545573c04ba436c3e65d69042a"
+    },
+    {
+      "file": "x-y/fighting.png",
+      "original": "pokemon-x-et-y-pokemon-rubis-omega-et-saphir-alpha/combat/Miniature_Type_Combat_XY.png",
+      "sha256": "d092177a0ac9dddb27717b6ce1c74b0a551b0d4da1749305b30968b2836f3412"
+    },
+    {
+      "file": "x-y/dragon.png",
+      "original": "pokemon-x-et-y-pokemon-rubis-omega-et-saphir-alpha/dragon/Miniature_Type_Dragon_XY.png",
+      "sha256": "8cbb1bf997bd0187c3b6268a457a5ff9820c7a954ccb81d5de8e20d86e2e2b28"
+    },
+    {
+      "file": "x-y/water.png",
+      "original": "pokemon-x-et-y-pokemon-rubis-omega-et-saphir-alpha/eau/Miniature_Type_Eau_XY.png",
+      "sha256": "015613fcbb21d4bd8138adb196efc4f230001b7657104231ea0c13e0a55ec0e6"
+    },
+    {
+      "file": "x-y/electric.png",
+      "original": "pokemon-x-et-y-pokemon-rubis-omega-et-saphir-alpha/electrik/Miniature_Type_Électrik_XY.png",
+      "sha256": "e0c3c7a99934840e6834e66e1dbff9981d6de2fd14c2242d3abf1b7a64bc1504"
+    },
+    {
+      "file": "x-y/fairy.png",
+      "original": "pokemon-x-et-y-pokemon-rubis-omega-et-saphir-alpha/fee/Miniature_Type_Fée_XY.png",
+      "sha256": "b68060c2a0ba5337e6539d76d6847aa079ce4caee6350faf2de97b3b3c0c01bf"
+    },
+    {
+      "file": "x-y/fire.png",
+      "original": "pokemon-x-et-y-pokemon-rubis-omega-et-saphir-alpha/feu/Miniature_Type_Feu_XY.png",
+      "sha256": "c1814f99322b7c190e57ee4212b80ff3ef2eef7362e3065703ade918ff02a60d"
+    },
+    {
+      "file": "x-y/ice.png",
+      "original": "pokemon-x-et-y-pokemon-rubis-omega-et-saphir-alpha/glace/Miniature_Type_Glace_XY.png",
+      "sha256": "bacf18907ed637db5d386d363ad4f818749f9628b325334648ee8be292e342cf"
+    },
+    {
+      "file": "x-y/bug.png",
+      "original": "pokemon-x-et-y-pokemon-rubis-omega-et-saphir-alpha/insecte/Miniature_Type_Insecte_XY.png",
+      "sha256": "7f108afda33cde05d9f46c867f45fabb9ba32e95ba0316988313ed535bc84e87"
+    },
+    {
+      "file": "x-y/normal.png",
+      "original": "pokemon-x-et-y-pokemon-rubis-omega-et-saphir-alpha/normal/Miniature_Type_Normal_XY.png",
+      "sha256": "f5285bf4414d4d020c5bd28966d541336b7b45d7759a4a11353544d49f178107"
+    },
+    {
+      "file": "x-y/grass.png",
+      "original": "pokemon-x-et-y-pokemon-rubis-omega-et-saphir-alpha/plante/Miniature_Type_Plante_XY.png",
+      "sha256": "092b7ade09c7623b4596deb504f3bec604bbdf8e56492d8b175ff2f42561807e"
+    },
+    {
+      "file": "x-y/poison.png",
+      "original": "pokemon-x-et-y-pokemon-rubis-omega-et-saphir-alpha/poison/Miniature_Type_Poison_XY.png",
+      "sha256": "6583c4c18b74ae20b3ed5e9d9fdd1f77e63071575d904416a6fb842279679ddd"
+    },
+    {
+      "file": "x-y/psychic.png",
+      "original": "pokemon-x-et-y-pokemon-rubis-omega-et-saphir-alpha/psy/Miniature_Type_Psy_XY.png",
+      "sha256": "6892454302d27bb14a91c7d47fa42ca310722ea222ed7984df76fe3cae29400e"
+    },
+    {
+      "file": "x-y/rock.png",
+      "original": "pokemon-x-et-y-pokemon-rubis-omega-et-saphir-alpha/roche/Miniature_Type_Roche_XY.png",
+      "sha256": "3768c725452ae640b3134e56559773b1a57cb95e96ad2215382dcd38c419ff05"
+    },
+    {
+      "file": "x-y/ground.png",
+      "original": "pokemon-x-et-y-pokemon-rubis-omega-et-saphir-alpha/sol/Miniature_Type_Sol_XY.png",
+      "sha256": "79f84da840ddfd67707224ea7b9087848c99f68203fac9f32cd4692ec2dd211e"
+    },
+    {
+      "file": "x-y/ghost.png",
+      "original": "pokemon-x-et-y-pokemon-rubis-omega-et-saphir-alpha/spectre/Miniature_Type_Spectre_XY.png",
+      "sha256": "a6f37d49e928c9e944ca188f167b7877baa9528f46d29e3c3e0b19bb64d8475e"
+    },
+    {
+      "file": "x-y/dark.png",
+      "original": "pokemon-x-et-y-pokemon-rubis-omega-et-saphir-alpha/tenebres/Miniature_Type_Ténèbres_XY.png",
+      "sha256": "dad0d00433bf1c44ac0da212821a30a8a4912718448694207c639ee0a442b9f8"
+    },
+    {
+      "file": "x-y/flying.png",
+      "original": "pokemon-x-et-y-pokemon-rubis-omega-et-saphir-alpha/vol/Miniature_Type_Vol_XY.png",
+      "sha256": "0e9b8ff5bde14d40145c1f292273c1b384237e5a7c47010f75bcbeac13b8cb3b"
+    },
+    {
+      "file": "scarlet-violet-tera/steel.png",
+      "original": "type-teracristal/acier/Miniature_Type_Téracristal_Acier_EV.png",
+      "sha256": "f3562071fb79f0b6e9e47e3f9d9e3ddb8e91067f68efc230db1c07c771a98035"
+    },
+    {
+      "file": "scarlet-violet-tera/fighting.png",
+      "original": "type-teracristal/combat/Miniature_Type_Téracristal_Combat_EV.png",
+      "sha256": "bab4f01657487e2d5330d3199589806d319cfad42faaedd4b1170e836c302f52"
+    },
+    {
+      "file": "scarlet-violet-tera/dragon.png",
+      "original": "type-teracristal/dragon/Miniature_Type_Téracristal_Dragon_EV.png",
+      "sha256": "b88e29e67b4cfa344482f9d36f1ecf2a0421a0005d15a40ec20b26ad454a5e9a"
+    },
+    {
+      "file": "scarlet-violet-tera/water.png",
+      "original": "type-teracristal/eau/Miniature_Type_Téracristal_Eau_EV.png",
+      "sha256": "8c578a61bb256acb463fff98c9ffcb12f13dfd8fde6ca9b643f440f333cab3ce"
+    },
+    {
+      "file": "scarlet-violet-tera/electric.png",
+      "original": "type-teracristal/electrik/Miniature_Type_Téracristal_Électrik_EV.png",
+      "sha256": "cc5430722bb566dc77e4787e61ab402cd61994d8af818b2d4f2eda974dc3ca3d"
+    },
+    {
+      "file": "scarlet-violet-tera/fairy.png",
+      "original": "type-teracristal/fee/Miniature_Type_Téracristal_Fée_EV.png",
+      "sha256": "3c117c6917e5d5663957007dcef0231e87874aa3a0d8777154c42a2d99cb0d7d"
+    },
+    {
+      "file": "scarlet-violet-tera/fire.png",
+      "original": "type-teracristal/feu/Miniature_Type_Téracristal_Feu_EV.png",
+      "sha256": "c64fe0b1d2e0a06b7dacda2447bac1783d5efc20cc9e725d7d9f428db9d0177d"
+    },
+    {
+      "file": "scarlet-violet-tera/ice.png",
+      "original": "type-teracristal/glace/Miniature_Type_Téracristal_Glace_EV.png",
+      "sha256": "feea32d40cc49f335ea2be64f023c96f7fce8740d819b1177bd59d3a7f81ddfc"
+    },
+    {
+      "file": "scarlet-violet-tera/bug.png",
+      "original": "type-teracristal/insecte/Miniature_Type_Téracristal_Insecte_EV.png",
+      "sha256": "e888a40da087826eee2d41942e4099429b18186b727f3b68ede71f0692a55083"
+    },
+    {
+      "file": "scarlet-violet-tera/normal.png",
+      "original": "type-teracristal/normal/Miniature_Type_Téracristal_Normal_EV.png",
+      "sha256": "5a406379d7fc20971af2508aaa7dad404d80063633bc7062794d41194bbb2a95"
+    },
+    {
+      "file": "scarlet-violet-tera/grass.png",
+      "original": "type-teracristal/plante/Miniature_Type_Téracristal_Plante_EV.png",
+      "sha256": "15db943c98d8b2946ced67735c78ccaa537bd956b742cf7e396c02e5779bc8e8"
+    },
+    {
+      "file": "scarlet-violet-tera/poison.png",
+      "original": "type-teracristal/poison/Miniature_Type_Téracristal_Poison_EV.png",
+      "sha256": "39b2cad2db48c065ccd04ebf148c7d4ad8acbe56526dae9717d01d34ad2a4b45"
+    },
+    {
+      "file": "scarlet-violet-tera/psychic.png",
+      "original": "type-teracristal/psy/Miniature_Type_Téracristal_Psy_EV.png",
+      "sha256": "194edf986ddffb806718fcd70073b5732c19a36c454b3a95198fcc985d3d297a"
+    },
+    {
+      "file": "scarlet-violet-tera/rock.png",
+      "original": "type-teracristal/roche/Miniature_Type_Téracristal_Roche_EV.png",
+      "sha256": "041a8f66215752ca15e25b135a928bfb2364cb33f80bbb33274a44b55d4f4afb"
+    },
+    {
+      "file": "scarlet-violet-tera/ground.png",
+      "original": "type-teracristal/sol/Miniature_Type_Téracristal_Sol_EV.png",
+      "sha256": "c5d37b41712baf6949a1f7ef38ec5152dadf24f53ad49f187d2a2f51d6f55659"
+    },
+    {
+      "file": "scarlet-violet-tera/ghost.png",
+      "original": "type-teracristal/spectre/Miniature_Type_Téracristal_Spectre_EV.png",
+      "sha256": "6d6ae8008d97ed34c5e687b387c3e15e6029bb49944d081b8898d4244da13dee"
+    },
+    {
+      "file": "scarlet-violet-tera/dark.png",
+      "original": "type-teracristal/tenebres/Miniature_Type_Téracristal_Ténèbres_EV.png",
+      "sha256": "50dad1180d8f190b7c45378db4900bb9011b95f19b747ff2eac760d0284a95c1"
+    },
+    {
+      "file": "scarlet-violet-tera/flying.png",
+      "original": "type-teracristal/vol/Miniature_Type_Téracristal_Vol_EV.png",
+      "sha256": "6c5bb315d79e37590c307054ae45d3ac19fc094e812d2e6815deaf3130e41f75"
+    },
+    {
+      "file": "scarlet-violet-tera-small/steel.png",
+      "original": "type-teracristal/acier/Icône_Type_Téracristal_Acier_EV.png",
+      "sha256": "ef1e18e7b03bb51cbcd3c1691d9a1f75aa1f1e5f6d9a9857562e088aadc43c0c"
+    },
+    {
+      "file": "scarlet-violet-tera-small/fighting.png",
+      "original": "type-teracristal/combat/Icône_Type_Téracristal_Combat_EV.png",
+      "sha256": "2d128920655aaf5ec2e271e056afbcdc07cf3d883d5816bc3b8f8173c87119f5"
+    },
+    {
+      "file": "scarlet-violet-tera-small/dragon.png",
+      "original": "type-teracristal/dragon/Icône_Type_Téracristal_Dragon_EV.png",
+      "sha256": "09dd746389baeda3d097a2c0cd6b5a26d072010f12238df3b4289b827c66f42d"
+    },
+    {
+      "file": "scarlet-violet-tera-small/water.png",
+      "original": "type-teracristal/eau/Icône_Type_Téracristal_Eau_EV.png",
+      "sha256": "d16c97a682f56bec4cb0ebecf0d5b6466b6c170397f5b00a5413ddb2f12a1365"
+    },
+    {
+      "file": "scarlet-violet-tera-small/electric.png",
+      "original": "type-teracristal/electrik/Icône_Type_Téracristal_Électrik_EV.png",
+      "sha256": "aea198c8b24582e162e82fa0a7b388c0c7fefb355a733ee90f207cb9cbfffd04"
+    },
+    {
+      "file": "scarlet-violet-tera-small/fairy.png",
+      "original": "type-teracristal/fee/Icône_Type_Téracristal_Fée_EV.png",
+      "sha256": "3927466043b78b149797719c5338e0c2573e6fc6200cfbe8734fb2e2dbf60a30"
+    },
+    {
+      "file": "scarlet-violet-tera-small/fire.png",
+      "original": "type-teracristal/feu/Icône_Type_Téracristal_Feu_EV.png",
+      "sha256": "09dbabdd6613736b93cb73ea629b9446154f941276c09f8783e415162188f34d"
+    },
+    {
+      "file": "scarlet-violet-tera-small/ice.png",
+      "original": "type-teracristal/glace/Icône_Type_Téracristal_Glace_EV.png",
+      "sha256": "d85d1070b5e2866cf9cbc80ad4b992ed3525813205d6d93e4596f2d14e22ec29"
+    },
+    {
+      "file": "scarlet-violet-tera-small/bug.png",
+      "original": "type-teracristal/insecte/Icône_Type_Téracristal_Insecte_EV.png",
+      "sha256": "2bf95a76526c8418251208e0c74c96d4fd8f1430bf6d53a00b3748a8fb8c8c00"
+    },
+    {
+      "file": "scarlet-violet-tera-small/normal.png",
+      "original": "type-teracristal/normal/Icône_Type_Téracristal_Normal_EV.png",
+      "sha256": "cfaad3de143542dd9a6cc125eb86a36d37ab064aa0a5d456d0e24bc2d836978d"
+    },
+    {
+      "file": "scarlet-violet-tera-small/grass.png",
+      "original": "type-teracristal/plante/Icône_Type_Téracristal_Plante_EV.png",
+      "sha256": "b84b53c7f339423de880d3354305207f0b571c3d7389703c34f6fe9defb73d2f"
+    },
+    {
+      "file": "scarlet-violet-tera-small/poison.png",
+      "original": "type-teracristal/poison/Icône_Type_Téracristal_Poison_EV.png",
+      "sha256": "c2eaa458bad007661317c5e5a7f101ebbd35d32074b5de573fd2288b6b2e84b5"
+    },
+    {
+      "file": "scarlet-violet-tera-small/psychic.png",
+      "original": "type-teracristal/psy/Icône_Type_Téracristal_Psy_EV.png",
+      "sha256": "fca33f1b7639eed07c86bb6b82204b5b5219af2b11a55fd36ff48d717db34a05"
+    },
+    {
+      "file": "scarlet-violet-tera-small/rock.png",
+      "original": "type-teracristal/roche/Icône_Type_Téracristal_Roche_EV.png",
+      "sha256": "edf9c6b26425aa7136c0bca5f77273ec739c34debef9c1e25d23c69d41eeed2a"
+    },
+    {
+      "file": "scarlet-violet-tera-small/ground.png",
+      "original": "type-teracristal/sol/Icône_Type_Téracristal_Sol_EV.png",
+      "sha256": "580c36d7d9eb061b2547f333e58249bdeb49e12cf52d99d55f09aa87bf67421f"
+    },
+    {
+      "file": "scarlet-violet-tera-small/ghost.png",
+      "original": "type-teracristal/spectre/Icône_Type_Téracristal_Spectre_EV.png",
+      "sha256": "1187bd75ab56fba496492dc026d02a2d9efa8d00b5b1696ef9b87b240eca6e3a"
+    },
+    {
+      "file": "scarlet-violet-tera-small/dark.png",
+      "original": "type-teracristal/tenebres/Icône_Type_Téracristal_Ténèbres_EV.png",
+      "sha256": "30672762d879a82c1520d558ec912370a3e5cb5a0f0ac1f4d9b7889e83a2f07a"
+    },
+    {
+      "file": "scarlet-violet-tera-small/flying.png",
+      "original": "type-teracristal/vol/Icône_Type_Téracristal_Vol_EV.png",
+      "sha256": "d9f83de989b2fa71b4c8f4ab19c7c9ee6828b441c4f156c6d73dd673c66d1c21"
+    }
+  ]
+}

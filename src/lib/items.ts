@@ -6,9 +6,10 @@ export const ITEMS = catalog;
 const index = new Map<string, (typeof catalog)[number]>();
 for (const item of catalog)
   for (const key of [item.name, item.en, item.slug, ...Object.values(names.items).map((catalog) => (catalog as Record<string, string>)[item.slug]).filter(Boolean)])
-    index.set(normalizeSearch(key), item);
+    if (normalizeSearch(key)) index.set(normalizeSearch(key), item);
 export function findItem(value: string) {
-  return index.get(normalizeSearch(value));
+  const key=normalizeSearch(value);
+  return key ? index.get(key) : undefined;
 }
 export function itemSpriteUrl(value: string) {
   const item = findItem(value);

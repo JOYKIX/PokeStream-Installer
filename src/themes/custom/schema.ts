@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { TYPE_BADGE_IDS } from "@/lib/type-badges";
 import { SPRITE_IDS, SPRITE_VARIANTS } from "@/lib/sprite-options";
 export const CUSTOM_THEME_LIMIT = 5;
 const color = z.string().regex(/^#[0-9a-fA-F]{6}$/);
@@ -33,7 +34,7 @@ export const customThemeConfigSchema = z.object({
   shadow: z.enum(["none", "soft", "crisp"]), spacing: z.number().int().min(4).max(28),
   spritePanel: surfaceSchema, spritePanelVisible: z.boolean(),
   name: textSchema, level: textSchema,
-  types: z.object({ natural: z.boolean(), color, background: color, radius, size: z.number().int().min(50).max(160),
+  types: z.object({ badgeStyle: z.enum(TYPE_BADGE_IDS).default("text"), natural: z.boolean(), color, background: color, radius, size: z.number().int().min(50).max(160),
     mode: z.enum(["tonal","solid","outline"]).default("tonal"), intensity: z.number().int().min(0).max(100).default(18),
     palette: typePalette.default(() => ({ ...TYPE_COLORS })),
   }).strict(),

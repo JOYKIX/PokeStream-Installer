@@ -108,6 +108,9 @@ export function PokemonPicker({
             <span>#{String(entry.id).padStart(3, "0")}</span>
             <PokemonImage
               pokemon={{ pokemonId: entry.id, name: entry.name, shiny: false }}
+              style={spriteStyle}
+              variant={spriteVariant}
+              fallbackStyle="home"
               size={100}
             />
             <strong>{speciesName(entry.id, locale, entry.en)}</strong>

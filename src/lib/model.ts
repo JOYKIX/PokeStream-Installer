@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { TYPE_BADGE_IDS } from "./type-badges";
 import { customThemeConfigSchema } from "@/themes/custom/schema";
 import { THEME_IDS } from "@/themes/catalog";
 import { SPRITE_IDS, SPRITE_VARIANTS } from "./sprite-options";
@@ -141,6 +142,7 @@ export const sceneSchema = z.object({
     showNames: z.boolean(),
     showLevels: z.boolean(),
     showTypes: z.boolean(),
+    typeBadgeStyle: z.enum(TYPE_BADGE_IDS).optional(),
     showGender: z.boolean().optional(),
     showHealth: z.boolean().optional(),
     showHealthValues: z.boolean().optional(),

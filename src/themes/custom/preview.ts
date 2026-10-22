@@ -26,6 +26,7 @@ export function themePreview(
    return {...p,maxHp,hp:state==="ko"?0:state==="low"?Math.max(1,Math.floor(maxHp*.12)):maxHp,fainted:state==="ko"};
   }),
   style:{...scene.style,theme:"custom",customTheme:config,customThemeId:undefined,customAccent:undefined,
+   typeBadgeStyle:config.types.badgeStyle,
    accent:config.accent,sprite:config.sprite,spriteVariant:config.spriteVariant,teamLayout:layout,
    ...(!profile?{showHealth:true,showHealthValues:true,showGender:true,showItems:true,badgeBackground:true,badgeColumns:4}:{}),
   },

@@ -16,6 +16,7 @@ export function PokemonImage({
   size = 160,
   priority = false,
   fallback = true,
+  fallbackStyle,
 }: {
   pokemon: Pick<Pokemon, "pokemonId" | "shiny" | "name" | "isEgg"> &
     Partial<Pick<Pokemon, "speciesId" | "gender" | "formSprite">>;
@@ -24,10 +25,11 @@ export function PokemonImage({
   size?: number;
   priority?: boolean;
   fallback?: boolean;
+  fallbackStyle?: SceneData["style"]["sprite"];
 }) {
   const { t: tr, locale } = useI18n();
   const name = pokemonName({ ...pokemon, speciesId: pokemon.speciesId ?? pokemon.pokemonId, nickname: "" }, locale);
-  const choices = spriteCandidates(pokemon, style, variant, fallback);
+  const choices = spriteCandidates(pokemon, style, variant, fallback, fallbackStyle);
   const revision=useSpriteRevision();
   const [failure,setFailure]=useState({revision,urls:[] as string[]});
   const failed=failure.revision===revision?failure.urls:[];

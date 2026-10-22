@@ -86,11 +86,13 @@ export function spriteCandidates(
   style: SpriteStyle = "artwork",
   variant: SpriteVariant = "default",
   fallback = true,
+  fallbackStyle?: SpriteStyle,
 ): SpriteCandidate[] {
   if (p.isEgg) return eggSpriteCandidates(style, variant);
   if (!fallback) return candidates(p, style, variant);
   const list = [
     ...candidates(p, style, variant),
+    ...(fallbackStyle ? candidates(p, fallbackStyle, "default") : []),
     ...candidates(p, "pixel", variant),
     ...candidates(p, "artwork", "default"),
   ];
@@ -98,6 +100,7 @@ export function spriteCandidates(
     const base = { ...p, formSprite: undefined, pokemonId: p.speciesId ?? p.pokemonId };
     list.push(
       ...candidates(base, style, variant),
+      ...(fallbackStyle ? candidates(base, fallbackStyle, "default") : []),
       ...candidates(base, "pixel", variant),
     );
   }

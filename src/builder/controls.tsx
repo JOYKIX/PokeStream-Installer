@@ -6,6 +6,7 @@ import { ColorPicker } from "@/components/color-picker";
 import { useI18n } from "@/i18n/client";
 import dynamic from "next/dynamic";
 import { Modal } from "@/components/ui";
+import Link from "next/link";
 import { useThemeFavorites } from "@/themes/use-theme-favorites";
 const ThemeLibrary=dynamic(()=>import("@/themes/theme-library").then(m=>m.ThemeLibrary),{ssr:false,loading:()=> <div className="theme-picker-loading"><LoaderCircle className="spin" size={23}/></div>});
 import {
@@ -113,7 +114,7 @@ export function ThemeSelect({
   function choose(next:ThemeRef|null){onChange(next);setOpen(false);}
   return <>
    <button type="button" className="theme-picker-trigger" aria-haspopup="dialog" aria-expanded={open} onClick={()=>{setMessage("");setOpen(true);}}><Palette size={16}/><span>{label}</span><ChevronDown size={15}/></button>
-   <Modal open={open} onOpenChange={setOpen} title={t("Choisir un thème")} wide>
+   <Modal open={open} onOpenChange={setOpen} title={t("Choisir un thème")} className="theme-browser-modal" wide>
     <div className="theme-picker-dialog">
      {(inherit||studio)&&<div className="theme-picker-inheritance">
       {inherit&&<button type="button" aria-pressed={!value&&!studio?.selected} onClick={()=>choose(null)}>{t(inheritLabel)}</button>}
@@ -122,6 +123,7 @@ export function ThemeSelect({
      {message&&<p role="status" className="builder-note">{message}</p>}
      {open&&<ThemeLibrary selected={studio?.selected||!value?null:value.id} selectedCustomId={value?.id==="custom"?value.customId:undefined} customThemes={themes} onSelectCustom={theme=>choose({id:"custom",customId:theme.id})} starter={starter} premium={active} demo={false} favorites={favorites} onSelect={(id:ThemeId)=>choose({id})} onMessage={setMessage}/>}
     </div>
+    <div className="theme-browser-footer"><Link href="/theme-creator" className="button secondary"><Palette size={16}/>{t("Créer un thème")}</Link><button type="button" className="button secondary" onClick={()=>setOpen(false)}>{t("Fermer")}</button></div>
    </Modal>
   </>;
 }

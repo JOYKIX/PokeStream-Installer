@@ -166,9 +166,10 @@ export function ElementContent({
   const columns = e.type === "badges" ? e.properties.columns : null;
   const sprite = e.type === "team" ? e.properties.sprite : null;
   const spriteVariant = e.type === "team" ? e.properties.spriteVariant : null;
+  const typeBadgeStyle = e.type === "team" ? e.properties.typeBadgeStyle : null;
   const themedScene = useMemo(
     () =>
-      styledScene && (layout || columns != null || sprite || spriteVariant)
+      styledScene && (layout || columns != null || sprite || spriteVariant || typeBadgeStyle)
         ? {
             ...styledScene,
             style: {
@@ -177,10 +178,11 @@ export function ElementContent({
               ...(columns != null ? { badgeColumns: columns } : {}),
               ...(sprite ? { sprite } : {}),
               ...(spriteVariant ? { spriteVariant } : {}),
+              ...(typeBadgeStyle ? { typeBadgeStyle } : {}),
             },
           }
         : styledScene,
-    [styledScene, layout, columns, sprite, spriteVariant],
+    [styledScene, layout, columns, sprite, spriteVariant, typeBadgeStyle],
   );
   if (external(e))
     return (

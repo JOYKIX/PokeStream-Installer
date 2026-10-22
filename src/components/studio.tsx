@@ -10,6 +10,8 @@ import { useCustomThemes } from "@/themes/custom/use-custom-themes";
 import { resolveCustomTheme } from "@/themes/custom/resolve";
 import type { CustomTheme } from "@/themes/custom/schema";
 import { ThemeLibrary } from "@/themes/theme-library";
+import { ThemeSample } from "@/themes/theme-sample";
+import { CustomThemeSample } from "@/themes/custom/sample";
 import { useThemeFavorites } from "@/themes/use-theme-favorites";
 import { OverlaySizeSettings } from "./overlay-size-settings";
 import {spriteCopy} from "@/local/sprites/copy";
@@ -92,6 +94,7 @@ export function Studio({
 }) {
   const { t: tr, locale } = useI18n();
   useEditorViewport("studio");
+  const [themeBrowserOpen, setThemeBrowserOpen] = useState(false);
   const [styleSection,setStyleSection]=useState<"theme"|"team"|"badges"|"deaths">("theme");
   const starter = initialStarter;
   const {
@@ -443,10 +446,9 @@ export function Studio({
                             <PokemonImage
                               pokemon={p}
                               size={150}
-                              style={p.isEgg ? data.style.sprite : undefined}
-                              variant={
-                                p.isEgg ? data.style.spriteVariant : undefined
-                              }
+                              style={data.style.sprite}
+                              fallbackStyle="home"
+                              variant={data.style.spriteVariant}
                             />
                             <strong>{pokemonName(p, locale)}</strong>
                             {!p.isEgg && (
@@ -687,20 +689,28 @@ export function Studio({
                           {tr("Starter :")} {tr(THEMES[starter].label)}
                         </p>
                       )}
-                      <ThemeLibrary
+                      <button type="button" className="theme-current-trigger" aria-haspopup="dialog" aria-expanded={themeBrowserOpen} onClick={()=>setThemeBrowserOpen(true)}>
+                        <span className="theme-current-preview">{data.style.theme==="custom"&&data.style.customTheme?<CustomThemeSample config={data.style.customTheme}/>:<ThemeSample theme={data.style.theme}/>}</span>
+                        <span className="theme-current-label"><small>{tr("Thème actuel")}</small><strong>{data.style.theme==="custom"?customLibrary.themes.find(theme=>theme.id===data.style.customThemeId)?.name||tr("Mes thèmes"):tr(THEMES[data.style.theme].label)}</strong><span>{tr("Changer de thème")}</span></span><ChevronRight size={18}/>
+                      </button>
+                      {customLibrary.error&&<p role="alert" className="theme-library-error">{tr(customLibrary.error)}</p>}
+                      <Link href="/theme-creator" className="theme-create-action"><span className="theme-create-icon"><Plus size={19}/></span><span><strong>{tr("Créer un thème")}</strong><small>{tr("Couleurs, cartes et détails à ton image.")}</small></span><ChevronRight size={16}/></Link>
+                      <Modal open={themeBrowserOpen} onOpenChange={setThemeBrowserOpen} title={tr("Choisir un thème")} className="theme-browser-modal" wide>
+                        {themeBrowserOpen&&<>
+<ThemeLibrary
                         selected={data.style.theme}
                         spriteLocked={data.style.spriteLocked}
                         customThemes={customLibrary.themes}
                         selectedCustomId={data.style.customThemeId}
                         onSelectCustom={(theme) =>
-                          setStyle({
+                          {setThemeBrowserOpen(false);setStyle({
                             theme: "custom",
                             customThemeId: theme.id,
                             customTheme: undefined,
                             customAccent: undefined,
                             accent: theme.config.accent,
                             ...(!data.style.spriteLocked?{sprite: theme.config.sprite,spriteVariant: theme.config.spriteVariant}:{}),
-                          })
+                          });}
                         }
                         starter={starter}
                         premium={premium}
@@ -708,6 +718,7 @@ export function Studio({
                         favorites={themeFavorites}
                         onMessage={notify}
                         onSelect={(theme) => {
+                          setThemeBrowserOpen(false);
                           const definition = THEMES[theme];
                           setStyle({
                             theme,
@@ -724,16 +735,9 @@ export function Studio({
                           });
                         }}
                       />
-                      {customLibrary.error && (
-                        <p role="alert" className="theme-library-error">
-                          {tr(customLibrary.error)}
-                        </p>
-                      )}
-                      <Link href="/theme-creator" className="theme-upgrade">
-                        <Palette size={13} />
-                        {tr("Créer un thème")}
-                      </Link>
-                      
+                        <div className="theme-browser-footer"><Link href="/theme-creator" className="button secondary"><Plus size={16}/>{tr("Créer un thème")}</Link><button type="button" className="button secondary" onClick={()=>setThemeBrowserOpen(false)}>{tr("Fermer")}</button></div>
+                        </>}
+                      </Modal>
                     </div>
                     <div className="inspector-section">
                       <h3>{tr("Couleur d’accent")}</h3>
