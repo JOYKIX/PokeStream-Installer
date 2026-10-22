@@ -22,9 +22,9 @@ const resources=app.isPackaged?process.resourcesPath:path.resolve(__dirname,'../
 let window,server,engine,updater,control,quitting=false,busy=false,running=false,serverReady=false,servicesPromise=null,serviceEpoch=0,refreshTimer;
 const pageArgument=process.argv.find(arg=>arg.startsWith('--page='));
 let lastPage=pageArgument?.slice(7)==='/settings#sprite-library'?'/settings#sprite-library':'/users',pendingPage=lastPage.startsWith('/settings')?lastPage:null;
-const preferenceFile=path.join(dataDir,'desktop-preferences.json'),languages=['en','fr','es','de','ja'];let language='auto';
+const preferenceFile=path.join(dataDir,'desktop-preferences.json'),languages=['en','fr','es','de','ja','pt-BR','it','ko','zh-CN','zh-TW'];let language='auto';
 try{const value=JSON.parse(fs.readFileSync(preferenceFile,'utf8')).language;if(languages.includes(value))language=value;}catch{}
-function languageState(){const system=(app.getPreferredSystemLanguages()[0]||'en').toLowerCase().split('-')[0];return {preference:language,locale:language==='auto'?(languages.includes(system)?system:'en'):language};}
+function languageState(){const tag=(app.getPreferredSystemLanguages()[0]||'en').toLowerCase();const system=tag.startsWith('pt')?'pt-BR':tag.startsWith('zh')?(/zh-(tw|hk|mo|hant)/.test(tag)?'zh-TW':'zh-CN'):tag.split('-')[0];return {preference:language,locale:language==='auto'?(languages.includes(system)?system:'en'):language};}
 let languageSave=Promise.resolve();
 function saveLanguage(value){
  if(value!=='auto'&&!languages.includes(value))throw Error('Unsupported language.');

@@ -1,32 +1,16 @@
 {
-  "version": "3.0.2",
-  "launcherVersion": "1.1.1",
+  "version": "3.0.3",
+  "launcherVersion": "1.1.2",
   "date": "2026-10-22",
   "locales": {
     "fr": {
       "sections": [
         {
-          "title": "Installation et mises à jour",
+          "title": "Langues et interface",
           "items": [
-            "Correction du bouton de mise à jour après une installation terminée.",
-            "Reprise de la préparation si les fichiers temporaires ne sont plus disponibles.",
-            "Installation, nettoyage et désinstallation protégés contre les opérations simultanées.",
-            "Launcher 1.1.1. Profils, créations et packs conservés lors des mises à jour."
-          ]
-        },
-        {
-          "title": "Sprites",
-          "items": [
-            "Choix En ligne / Hors ligne dans Réglages → Sprites.",
-            "En ligne : sprites PokéAPI chargés à la demande, sans installer de packs.",
-            "Hors ligne : utilisation des sprites inclus ou téléchargés sur le PC.",
-            "Le changement de mode conserve les packs et actualise les illustrations."
-          ]
-        },
-        {
-          "title": "Profils",
-          "items": [
-            "Suppression du fond rectangulaire derrière le profil actif et correction du libellé de gestion des profils."
+            "Préparation de dix langues dans le launcher et l’application.",
+            "Sélecteur de langue défilant dans le launcher.",
+            "Launcher 1.1.2 et application 3.0.3."
           ]
         }
       ]
@@ -34,27 +18,11 @@
     "en": {
       "sections": [
         {
-          "title": "Installation and updates",
+          "title": "Languages and interface",
           "items": [
-            "Fix the update button remaining active after a completed installation.",
-            "Prepare the update again when temporary files are no longer available.",
-            "Prevent installation, cleanup and uninstallation from running at the same time.",
-            "Launcher 1.1.1. Updates keep profiles, creations and downloaded packs."
-          ]
-        },
-        {
-          "title": "Sprites",
-          "items": [
-            "Choose Online / Offline in Settings → Sprites.",
-            "Online: load PokéAPI sprites as needed, without installing packs.",
-            "Offline: use sprites included with the app or downloaded to this PC.",
-            "Switch modes without removing packs; displayed illustrations refresh."
-          ]
-        },
-        {
-          "title": "Profiles",
-          "items": [
-            "Remove the rectangular background behind the selected profile and fix the French profile management label."
+            "Ten language options in the launcher and app.",
+            "Compact scrollable launcher language menu.",
+            "Launcher 1.1.2 and application 3.0.3."
           ]
         }
       ]
@@ -62,27 +30,11 @@
     "es": {
       "sections": [
         {
-          "title": "Instalación y actualizaciones",
+          "title": "Languages and interface",
           "items": [
-            "Corregido el botón de actualización tras completar una instalación.",
-            "Nueva preparación si los archivos temporales ya no están disponibles.",
-            "Instalación, limpieza y desinstalación protegidas contra operaciones simultáneas.",
-            "Launcher 1.1.1. Las actualizaciones conservan perfiles, creaciones y packs."
-          ]
-        },
-        {
-          "title": "Sprites",
-          "items": [
-            "Selección En línea / Sin conexión en Ajustes → Sprites.",
-            "En línea: carga de sprites de PokéAPI sin instalar packs.",
-            "Sin conexión: uso de sprites incluidos o descargados en este PC.",
-            "Cambiar de modo conserva los packs y actualiza las ilustraciones."
-          ]
-        },
-        {
-          "title": "Profiles",
-          "items": [
-            "Eliminado el fondo rectangular del perfil seleccionado y corregida la etiqueta de gestión en francés."
+            "Ten language options in the launcher and app.",
+            "Compact scrollable launcher language menu.",
+            "Launcher 1.1.2 and application 3.0.3."
           ]
         }
       ]
@@ -90,27 +42,11 @@
     "de": {
       "sections": [
         {
-          "title": "Installation und Updates",
+          "title": "Languages and interface",
           "items": [
-            "Update-Schaltfläche nach abgeschlossener Installation korrigiert.",
-            "Erneute Vorbereitung, wenn temporäre Update-Dateien fehlen.",
-            "Installation, Bereinigung und Deinstallation gegen gleichzeitige Vorgänge geschützt.",
-            "Launcher 1.1.1. Updates behalten Profile, Kreationen und Pakete."
-          ]
-        },
-        {
-          "title": "Sprites",
-          "items": [
-            "Online / Offline unter Einstellungen → Sprites wählen.",
-            "Online: PokéAPI-Sprites bei Bedarf ohne Paketinstallation laden.",
-            "Offline: enthaltene oder auf diesem PC gespeicherte Sprites nutzen.",
-            "Moduswechsel behalten Pakete und aktualisieren Illustrationen."
-          ]
-        },
-        {
-          "title": "Profile",
-          "items": [
-            "Rechteckigen Hintergrund des gewählten Profils entfernt und französische Profilverwaltung korrigiert."
+            "Ten language options in the launcher and app.",
+            "Compact scrollable launcher language menu.",
+            "Launcher 1.1.2 and application 3.0.3."
           ]
         }
       ]
@@ -118,27 +54,71 @@
     "ja": {
       "sections": [
         {
-          "title": "インストールと更新",
+          "title": "Languages and interface",
           "items": [
-            "インストール完了後に更新ボタンが残る問題を修正。",
-            "一時ファイルがない場合は更新を再準備。",
-            "インストール、整理、アンインストールの同時実行を防止。",
-            "ランチャー1.1.1。更新時もプロフィール、作品、パックを保持。"
+            "Ten language options in the launcher and app.",
+            "Compact scrollable launcher language menu.",
+            "Launcher 1.1.2 and application 3.0.3."
           ]
-        },
+        }
+      ]
+    },
+    "pt-BR": {
+      "sections": [
         {
-          "title": "スプライト",
+          "title": "Languages and interface",
           "items": [
-            "設定 → スプライトにオンライン／オフラインの選択を追加。",
-            "オンライン：パック不要で必要な画像をPokéAPIから読み込み。",
-            "オフライン：同梱またはこのPCに保存した画像のみ使用。",
-            "モード変更後もパックを保持し、表示中の画像を更新。"
+            "Ten language options in the launcher and app.",
+            "Compact scrollable launcher language menu.",
+            "Launcher 1.1.2 and application 3.0.3."
           ]
-        },
+        }
+      ]
+    },
+    "it": {
+      "sections": [
         {
-          "title": "プロフィール",
+          "title": "Languages and interface",
           "items": [
-            "選択中のプロフィールの四角い背景と、フランス語の管理ラベルを修正。"
+            "Ten language options in the launcher and app.",
+            "Compact scrollable launcher language menu.",
+            "Launcher 1.1.2 and application 3.0.3."
+          ]
+        }
+      ]
+    },
+    "ko": {
+      "sections": [
+        {
+          "title": "Languages and interface",
+          "items": [
+            "Ten language options in the launcher and app.",
+            "Compact scrollable launcher language menu.",
+            "Launcher 1.1.2 and application 3.0.3."
+          ]
+        }
+      ]
+    },
+    "zh-CN": {
+      "sections": [
+        {
+          "title": "Languages and interface",
+          "items": [
+            "Ten language options in the launcher and app.",
+            "Compact scrollable launcher language menu.",
+            "Launcher 1.1.2 and application 3.0.3."
+          ]
+        }
+      ]
+    },
+    "zh-TW": {
+      "sections": [
+        {
+          "title": "Languages and interface",
+          "items": [
+            "Ten language options in the launcher and app.",
+            "Compact scrollable launcher language menu.",
+            "Launcher 1.1.2 and application 3.0.3."
           ]
         }
       ]
