@@ -13,7 +13,9 @@ internal static class L {
     private static readonly Dictionary<string, Dictionary<string, string>> Catalogs = new() {
         ["en"] = Read("en"),
         ["fr"] = Read("fr"),
-        ["ja"] = Read("ja")
+        ["ja"] = Read("ja"),
+        ["es"] = Read("en"), ["de"] = Read("en"), ["pt-BR"] = Read("en"),
+        ["it"] = Read("en"), ["ko"] = Read("en"), ["zh-CN"] = Read("en"), ["zh-TW"] = Read("en")
     };
 
     private static readonly Dictionary<string, string> Originals = Catalogs["en"]
@@ -21,7 +23,7 @@ internal static class L {
         .ToDictionary(g => g.Key, g => g.First().Key, StringComparer.Ordinal);
 
     private static readonly string SystemLanguage =
-        CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+        CultureInfo.CurrentUICulture.Name;
 
     public static string Language { get; private set; } = "en";
     public static string Preference { get; private set; } = "auto";
@@ -61,6 +63,12 @@ internal static class L {
             : string.Format(CultureInfo.CurrentCulture, text, args);
     }
 
+    private static string Normalize(string tag) {
+        var code=tag.ToLowerInvariant();
+        if(code.StartsWith("pt"))return "pt-BR";
+        if(code.StartsWith("zh"))return code.Contains("tw")||code.Contains("hk")||code.Contains("hant")?"zh-TW":"zh-CN";
+        return code.Split('-')[0];
+    }
     public static void Set(string? preference) {
         Preference =
             preference != null && Catalogs.ContainsKey(preference)
@@ -69,7 +77,7 @@ internal static class L {
 
         string detected =
             Preference == "auto"
-                ? SystemLanguage
+                ? Normalize(SystemLanguage)
                 : Preference;
 
         Language =
@@ -80,6 +88,8 @@ internal static class L {
         var culture = CultureInfo.GetCultureInfo(Language switch {
             "fr" => "fr-FR",
             "ja" => "ja-JP",
+            "es" => "es-ES", "de" => "de-DE", "pt-BR" => "pt-BR", "it" => "it-IT",
+            "ko" => "ko-KR", "zh-CN" => "zh-CN", "zh-TW" => "zh-TW",
             _ => "en-US"
         });
 

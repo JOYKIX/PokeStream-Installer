@@ -51,7 +51,7 @@ public partial class MainWindow {
         if(latestDetected==null){GameLabel.Text=L.T("Aucun jeu détecté");GameStatus.Text=L.T("Lance une partie dans ton émulateur.");}
     }
     private void UpdateLanguageHint() {
-        string label=L.Language=="fr"?"Français":"English";
+        string label=L.Language switch {"fr"=>"Français", "ja"=>"日本語", "es"=>"Español", "de"=>"Deutsch", "pt-BR"=>"Português (Brasil)", "it"=>"Italiano", "ko"=>"한국어", "zh-CN"=>"简体中文", "zh-TW"=>"繁體中文", _=>"English"};
         LanguageChoice.ToolTip=L.Preference=="auto"?L.T("Automatique (système)")+" · "+label:label;
     }
     private bool SavePreferences() {
