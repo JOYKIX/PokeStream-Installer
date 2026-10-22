@@ -45,3 +45,5 @@ The private publishing key is protected with Windows DPAPI outside the repositor
 ## Operation coordination (3.0.2)
 
 The updater coordinator publishes ready only after retaining its prepared package, and clears that state after commit. A stale install action rechecks the signed package and prepares missing content again. Preparation, commit, cleanup and uninstall acquire the same PID/token lock; interrupted owners can be recovered, and active owners are never removed. The launcher restarts only when its own component changes.
+
+The shared installation lock lives beside Updates/, so uninstall cannot remove its own lock. Maintenance transfers ownership to the independent worker before commit; a closed or timed-out launcher cannot unlock a still-running worker. Old bootstraps reuse an already installed newer launcher.

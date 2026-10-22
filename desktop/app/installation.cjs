@@ -6,7 +6,7 @@ function createInstallation({directory,version,notify,prefix='desktop',manifest=
  const manifestPath=path.join(directory,manifest);
  function current(){try{
   const record=JSON.parse(fs.readFileSync(manifestPath,'utf8'));
-  if(record.version!==version||!new RegExp('^'+prefix+'-[a-zA-Z0-9.-]+$').test(record.directory))return null;
+  if((record.version!==version&&!(prefix==='launcher'&&/^\d+\.\d+\.\d+$/.test(record.version)&&record.version.localeCompare(version,'en',{numeric:true})>0))||!new RegExp('^'+prefix+'-[a-zA-Z0-9.-]+$').test(record.directory))return null;
   const root=path.join(directory,record.directory);
   for(const file of [executableName,'resources/app.asar','resources/launcher/launcher.html'])if(!fs.existsSync(path.join(root,file)))return null;
   return path.join(root,executableName);

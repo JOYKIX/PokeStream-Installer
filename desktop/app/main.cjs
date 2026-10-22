@@ -158,10 +158,12 @@ async function maintenance(scriptName,args=[],{resume=false,updateLauncher=false
  publish({phase:scriptName==='uninstall.ps1'?'uninstalling':'updating',progress:null,error:''});
  await stopWorkspace(dataDir);await refreshInstallation();
  const release=await acquireOperation(path.join(home,'Updates'),{purpose:'maintenance'});
+ let worker=null,finished=false;
  try{
  const operation=await launchMaintenance({scriptName,args,launcherAssets,parentPid:process.pid,dataDir});
+ worker=operation;try{await release.transfer(operation.pid);}catch(error){await operation.abort();worker=null;throw error;}
  log('Independent maintenance ready; worker PID '+operation.pid);
- try{await operation.commit();await operation.wait({onProgress:value=>publish({phase:value.phase==='ready'?'updating':value.phase,progress:value.progress})});}catch(error){await operation.abort();throw error;}
+ try{await operation.commit();await operation.wait({onProgress:value=>publish({phase:value.phase==='ready'?'updating':value.phase,progress:value.progress})});finished=true;}catch(error){await operation.abort();throw error;}
  await refreshInstallation();publish({phase:'ready',progress:null,error:''});
  if(updateLauncher){const next=launcher.current(); // current() refers to THIS version; resolve the new manifest separately.
   let target=next;try{const r=JSON.parse(await fsp.readFile(path.join(launcherDir,'launcher.json'),'utf8'));if(/^launcher-[\w.-]+$/.test(r.directory))target=path.join(launcherDir,r.directory,'PokeStream Launcher.exe');}catch{}
@@ -170,7 +172,7 @@ async function maintenance(scriptName,args=[],{resume=false,updateLauncher=false
  if(resume)await launchWorkspace();
  updater.reset();void updater.check().catch(error=>log(error.message));
  return {status:'completed'};
- }finally{await release();}
+ }finally{let alive=false;if(worker)try{process.kill(worker.pid,0);alive=true;}catch{}if(finished||!alive)await release();}
 }
 async function applyPreparedUpdate({resume=false,notifyCheck=true}={}){
  await updater.verify();publish({phase:'updating',progress:null,error:''});
