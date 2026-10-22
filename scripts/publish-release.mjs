@@ -27,6 +27,7 @@ function request(url,{method='GET',body,file}={}){
   if(file)fs.createReadStream(file).on('error',e=>req.destroy(e)).pipe(req);else req.end(data);
  });
 }
+async function listAssets(id){const all=[];for(let page=1;page<=50;page++){const batch=await request(api+'/releases/'+id+'/assets?per_page=100&page='+page);all.push(...batch);if(batch.length<100)return all;}throw Error('Distribution asset limit exceeded.');}
 async function digest(file){const hash=createHash('sha256');for await(const chunk of fs.createReadStream(file))hash.update(chunk);return hash.digest('hex');}
 async function upload(release,file,name=path.basename(file)){
  const url=release.upload_url.split('{')[0]+'?name='+encodeURIComponent(name);console.log('Uploading '+name+' ('+fs.statSync(file).size.toLocaleString('en')+' bytes)');
@@ -39,7 +40,7 @@ try{
  let distribution;
  try{distribution=await request(api+'/releases/tags/components-v1');}
  catch(e){if(e.status!==404)throw e;distribution=await request(api+'/releases',{method:'POST',body:{tag_name:'components-v1',target_commitish:commit,name:'PokeStream component storage',body:'Verified content blocks used by the PokeStream launcher. Assets still referenced by supported installers are retained.',draft:false,prerelease:true,make_latest:'false'}});}
- const assets=await request(api+'/releases/'+distribution.id+'/assets?per_page=100');
+ const assets=await listAssets(distribution.id);
  for(const name of build.bundles){
   const expected=manifest.bundles[name],existing=assets.find(a=>a.name===name);
   if(existing){if(existing.size!==expected.size||existing.digest&&existing.digest!=='sha256:'+expected.sha256)throw Error('Immutable component asset mismatch.');continue;}
@@ -47,7 +48,8 @@ try{
   assets.push(await upload(distribution,file));
  }
  // Store the exact corresponding native reader source once; every release links it.
- const legalRoot=path.join(root,'.artifacts/connect-sources'),sourceName=JSON.parse(fs.readFileSync(path.join(legalRoot,'SOURCE.json'),'utf8')).file;
+ const legalRoot=path.join(root,'.artifacts/connect-sources'),sourceMeta=JSON.parse(fs.readFileSync(path.join(legalRoot,'SOURCE.json'),'utf8')),sourceName=sourceMeta.file;
+ if(sourceMeta.revision!==info.components?.engine?.revision)throw Error('Reader source archive does not match the compiled engine.');
  if(!sourceName)throw Error('Corresponding SaveReader source archive is missing.');
  const source=path.join(legalRoot,sourceName),sourceHash=await digest(source),legalName='SaveReader-source-'+sourceHash+'.zip';
  if(!assets.some(a=>a.name===legalName))assets.push(await upload(distribution,source,legalName));
@@ -74,6 +76,24 @@ try{
    await request(api+'/releases/'+old.id,{method:'DELETE'});
    try{await request(api+'/git/refs/tags/'+encodeURIComponent(old.tag_name),{method:'DELETE'});}catch(e){if(e.status!==404)throw e;}
    console.log('Removed obsolete release '+old.tag_name);
+  }
+  // Preserve in-flight downloads and every block required by a retained bootstrap.
+  // Immutable bundles are deleted only when unreferenced and at least a week old.
+  const retained=(await request(api+'/releases?per_page=100')).filter(r=>!r.draft&&!r.prerelease&&/^v\d+\.\d+\.\d+$/.test(r.tag_name));
+  const referenced=new Set();let readable=true;
+  const publicBytes=(await import('../desktop/app/update-network.cjs')).default.bytes;
+  for(const item of retained){
+   const find=name=>item.assets?.find(a=>a.name===name)?.browser_download_url;
+   if(!find('update.json.gz'))continue;
+   try{
+    const [m,s]=await Promise.all([publicBytes(find('update.json.gz'),16*1024*1024),publicBytes(find('update.sig'),512)]);
+    const current=decode(m.data,s.data.toString());for(const name of Object.keys(current.bundles))referenced.add(name);
+    if(find('SOURCE.json')){const source=JSON.parse((await publicBytes(find('SOURCE.json'),65536)).data);if(/^SaveReader-source-[a-f0-9]{64}\.zip$/.test(source.name))referenced.add(source.name);}
+   }catch{readable=false;break;}
+  }
+  if(readable)for(const asset of await listAssets(distribution.id)){
+   if(!/^(content-[a-f0-9]{64}\.bin|SaveReader-source-[a-f0-9]{64}\.zip)$/.test(asset.name)||referenced.has(asset.name)||Date.now()-Date.parse(asset.created_at)<7*86400000)continue;
+   await request(api+'/releases/assets/'+asset.id,{method:'DELETE'});console.log('Removed unused distribution content '+asset.name);
   }
  }
 }catch(error){if(release&&!published)try{await request(api+'/releases/'+release.id,{method:'DELETE'});}catch{}throw error;}
