@@ -57,3 +57,12 @@ const compressed=gzipSync(Buffer.from(JSON.stringify(manifest)),{level:9});
 fs.writeFileSync(path.join(release,'update.json.gz'),compressed);fs.writeFileSync(path.join(release,'update.sig'),signRelease(compressed)+'\n');
 fs.writeFileSync(path.join(release,'update-build.json'),JSON.stringify({version:pkg.version,commit,created,bundles:Object.keys(bundles),baseline:base?.version??null,newBytes:offset},null,2));
 console.log('[PokeStream] Modular payload: '+offset.toLocaleString('en')+' new compressed bytes; '+(base?.version??'initial')+' baseline.');
+
+const installer=path.join(release,'PokeStream-'+pkg.version+'-win-x64.exe'),bootstrapFile=path.join(release,'bootstrap.json');
+if(fs.existsSync(installer)){
+ const hash=createHash('sha256');for await(const chunk of fs.createReadStream(installer))hash.update(chunk);
+ const digest=hash.digest('hex'),info=JSON.parse(fs.readFileSync(path.join(release,'build-info.json'),'utf8'));let previous;
+ try{previous=JSON.parse(fs.readFileSync(bootstrapFile,'utf8'));}catch{}
+ if(fs.statSync(installer).mtimeMs>=Date.parse(info.builtAt)||previous?.desktopRevision===components.desktop.revision&&previous.sha256===digest)
+  fs.writeFileSync(bootstrapFile,JSON.stringify({version:pkg.version,launcherVersion:pkg.launcherVersion,desktopRevision:components.desktop.revision,size:fs.statSync(installer).size,sha256:digest}));
+}

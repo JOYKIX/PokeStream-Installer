@@ -27,6 +27,10 @@ export async function buildSpriteCatalog({signal,progress=(_prefix)=>{}}={}){
  const lines=csv.trim().split(/\r?\n/).map(line=>line.split(",")),columns=lines.shift(),idColumn=columns.indexOf("id"),speciesColumn=columns.indexOf("species_id"),nameColumn=columns.indexOf("identifier");
  if(idColumn<0||speciesColumn<0||nameColumn<0)throw Error("sprite_catalog_invalid");
  const species=new Map(lines.map(row=>[Number(row[idColumn]),{id:Number(row[speciesColumn]),name:row[nameColumn]}]));
+ const speciesCSV=await (await request("https://raw.githubusercontent.com/PokeAPI/pokeapi/master/data/v2/csv/pokemon_species.csv",signal)).text();
+ const speciesRows=speciesCSV.trim().split(/\r?\n/).map(row=>row.split(",")),speciesColumns=speciesRows.shift(),slugColumn=speciesColumns.indexOf("identifier"),baseColumn=speciesColumns.indexOf("id");
+ if(slugColumn<0||baseColumn<0)throw Error("sprite_catalog_invalid");
+ const slugs=new Map(speciesRows.map(row=>[Number(row[baseColumn]),row[slugColumn]]));
  const packs=[...roman.map((_,i)=>({id:"gen-"+(i+1),label:(i+1)+"G",kind:"generation",generation:i+1})),
   ...[["artwork","Illustrations officielles"],["home","HOME"],["showdown","Showdown"],["dream-world","Dream World"],["default","Sprites par défaut"],["items","Objets"],["types","Types"],["badges","Badges"],["other","Autres ressources"]].map(([id,label])=>({id,label,kind:id==="items"||id==="types"||id==="badges"?"resources":"style"}))];
  const files=found.sort((a,b)=>a.path.localeCompare(b.path)).map(file=>{
@@ -43,7 +47,7 @@ export async function buildSpriteCatalog({signal,progress=(_prefix)=>{}}={}){
   if(!members.length)members.push("other");
   const stem=file.path.split("/").pop().replace(/\.[^.]+$/,"");
   const number=/^(\d+)(?:-|$)/.exec(stem);let speciesId=0,form="",formName="";
-  if(file.path.startsWith("pokemon/")&&number){const numeric=Number(number[1]),info=species.get(numeric);speciesId=info?.id??(numeric<=2000?numeric:0);formName=stem.includes("-")?(species.get(speciesId)?.name??String(speciesId))+"-"+stem.slice(stem.indexOf("-")+1):(info?.name??stem);form=formName;}
+  if(file.path.startsWith("pokemon/")&&number){const numeric=Number(number[1]),info=species.get(numeric);speciesId=info?.id??(numeric<=2000?numeric:0);formName=stem.includes("-")?(slugs.get(speciesId)??species.get(speciesId)?.name??String(speciesId))+"-"+stem.slice(stem.indexOf("-")+1):(info?.name??stem);form=formName;}
   return [file.path,file.size,file.sha,speciesId,form,formName,[...new Set(members)]];
  });
  const populated=packs.filter(pack=>files.some(file=>file[6].includes(pack.id))).map(pack=>{

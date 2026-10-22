@@ -3,7 +3,9 @@ import {spawnSync} from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import {createRequire} from 'node:module';
-import {componentCache,fingerprint,sourceFiles} from './component-cache.mjs';
+import {gunzipSync} from 'node:zlib';
+import {createHash} from 'node:crypto';
+import {componentCache,fingerprint,sourceFiles,filesAt} from './component-cache.mjs';
 import {prepareLauncher} from './prepare-launcher.mjs';
 const root=process.cwd(),webOnly=process.argv.includes('--web-only'),updateOnly=process.argv.includes('--update-only'),launcherOnly=process.argv.includes('--launcher-only'),force=process.argv.includes('--force');
 const artifacts=path.join(root,'.artifacts'),output=path.join(artifacts,'runtime'),cached=componentCache(root);
@@ -50,6 +52,10 @@ if(!launcherOnly){
   if(!webOnly)run('powershell.exe',['-NoProfile','-NonInteractive','-ExecutionPolicy','Bypass','-File','desktop/app/runtime-install.ps1','-ArchivePath',path.join(root,'desktop/connect/data/sprites.zip'),'-TargetDirectory',sprites]);
   for(const name of ['manifest.json.gz','catalog-v2.json.gz','LICENCE.txt'])fs.copyFileSync(path.join(artifacts,'sprite-catalog',name),path.join(sprites,name));
   fs.cpSync(path.join(artifacts,'sprite-catalog/previews'),sprites,{recursive:true});
+  const catalog=JSON.parse(gunzipSync(fs.readFileSync(path.join(sprites,'catalog-v2.json.gz')))),indexed=new Map(catalog.files.map(f=>[f[0],f])),bundled={};
+  for(const file of filesAt(sprites)){const relative=path.relative(sprites,file).split(path.sep).join('/'),entry=indexed.get(relative);if(!entry)continue;const data=fs.readFileSync(file),hash=createHash('sha1').update('blob '+data.length+'\0').update(data).digest('hex');if(hash===entry[2]&&data.length===entry[1])bundled[hash]=relative;}
+  fs.writeFileSync(path.join(sprites,'bundled-index.json'),JSON.stringify(bundled));
+
   const load=createRequire(path.join(stage,'server.js'));for(const name of ['next','react','react-dom'])if(!load.resolve(name).startsWith(stage+path.sep))throw Error('Staged dependency missing: '+name);
  },{force});
  for(const name of ['web',...(!webOnly?['engine']:[])]){

@@ -9,13 +9,14 @@ const referenceIds=new Set(dex.map(p=>p.id));
 const unique=(files:SpriteFile[])=>[...new Map(files.map(f=>[f[2],f])).values()];
 class SpriteService{
  storage=new SpriteStorage();catalog:Index|null=null;initializing:Promise<void>|null=null;scanning:Promise<void>|null=null;running:Promise<void>|null=null;controller:AbortController|null=null;pending=new Map<string,Promise<Buffer|null>>();epoch=0;maintenance=false;message="";catalogProgress="";
- async init(){if(!this.initializing)this.initializing=spriteCatalog().then(c=>{this.catalog=c;});await this.initializing;return this;}
+ async init(){if(!this.initializing)this.initializing=spriteCatalog().then(c=>{this.catalog=c;return this.loadBundledIndex();});await this.initializing;return this;}
+ async loadBundledIndex(){try{const entries=JSON.parse(await fs.readFile(path.join(process.cwd(),"public/sprites/bundled-index.json"),"utf8"));for(const [hash,key] of Object.entries(entries)){const entry=this.catalog!.byPath.get(String(key));if(entry&&entry[2]===hash)this.storage.bundled.set(hash,bundledPath(entry));}}catch{}}
  startScan(){if(this.scanning)return this.scanning;const c=this.catalog!;this.scanning=this.storage.scanFiles(c).catch(e=>{this.message=String(e.message);}).finally(()=>{this.scanning=null;});return this.scanning;}
  async ready(){await this.init();if(this.storage.scan.state==="idle")void this.startScan();return this;}
  async disk(){try{const s=await fs.statfs(spriteRoot());return Number(s.bavail)*Number(s.bsize);}catch{return null;}}
  async getFile(file:SpriteFile,localOnly=false,signal?:AbortSignal){
   const epoch=this.epoch;if(this.storage.objects.get(file[2])===file[1])try{const data=await fs.readFile(objectPath(file[2]));if(data.length===file[1]&&blobHash(data)===file[2])return data;this.storage.objects.delete(file[2]);}catch{this.storage.objects.delete(file[2]);}
-  for(const candidate of [legacyPath(file[0]),bundledPath(file)])try{const data=await fs.readFile(candidate);if(data.length===file[1]&&blobHash(data)===file[2]&&imageValid(data,file[0]))return data;}catch{}
+  for(const candidate of [legacyPath(file[0]),this.storage.bundled.get(file[2])??bundledPath(file)])try{const data=await fs.readFile(candidate);if(data.length===file[1]&&blobHash(data)===file[2]&&imageValid(data,file[0]))return data;}catch{}
   if(localOnly||this.maintenance||signal?.aborted)return null;
   const previous=this.pending.get(file[2]);if(previous)return previous;
   const task=this.fetch(file,signal,epoch).finally(()=>this.pending.delete(file[2]));this.pending.set(file[2],task);return task;

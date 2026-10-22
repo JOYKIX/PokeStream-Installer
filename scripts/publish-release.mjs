@@ -56,6 +56,8 @@ try{
  const files=['update.json.gz','update.sig','build-info.json','SOURCE.json'].map(n=>path.join(dir,n));
  if(!updateOnly){
   const binary=path.join(dir,'PokeStream-'+version+'-win-x64.exe');if(!fs.existsSync(binary))throw Error('Build the launcher installer first.');
+  const bootstrap=JSON.parse(fs.readFileSync(path.join(dir,'bootstrap.json'),'utf8'));
+  if(bootstrap.version!==version||bootstrap.launcherVersion!==pkg.launcherVersion||bootstrap.desktopRevision!==manifest.components.desktop.revision||bootstrap.size!==fs.statSync(binary).size||bootstrap.sha256!==await digest(binary))throw Error('The bootstrap installer does not match the current launcher. Repackage it first.');
   const setup=path.join(dir,'PokeStream-Setup.exe');fs.copyFileSync(binary,setup);files.push(binary,setup);
  }
  const sums=path.join(dir,'SHA256SUMS.txt'),lines=[];for(const file of files)lines.push(await digest(file)+'  '+path.basename(file));fs.writeFileSync(sums,lines.join('\n')+'\n');files.push(sums);
