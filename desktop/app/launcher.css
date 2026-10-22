@@ -45,4 +45,16 @@ dialog{background:#1b1b24;border:0;box-shadow:0 18px 70px #0006}
 dialog .delete-warning,.error-box{border-color:transparent;background:#3c1d29}
 .languages button[aria-pressed=true]{background:#45232f}
 
-.languages{position:relative;z-index:20}.languages #language-trigger{display:flex;align-items:center;gap:9px;padding:7px 11px;border:1px solid #34343d;background:#19191f;border-radius:8px;color:#ccc}.languages #language-trigger svg,.language-menu svg{width:27px;height:18px;stroke:none;border-radius:2px}.language-menu{position:absolute;right:0;top:calc(100% + 8px);width:235px;max-height:min(430px,65vh);overflow-y:auto;background:#1a1a20;padding:6px;border:1px solid #41414c;border-radius:9px;box-shadow:0 15px 35px #0009;scrollbar-width:thin}.languages .language-menu-item{width:100%;display:flex;align-items:center;gap:12px;text-align:left;padding:10px 12px;color:#eee}.languages .language-menu-item:hover,.languages .language-menu-item[aria-pressed=true]{background:#44222d}
+/* Dropdown scalable to ten locales and long native language names. */
+.languages{position:relative;flex-shrink:0;z-index:20}
+.languages .language-trigger{display:flex;align-items:center;justify-content:center;gap:9px;min-width:64px;padding:8px 10px;border:1px solid #31313c;background:#202027;border-radius:9px}
+.languages .language-trigger:hover{background:#2b2b35}
+.languages .language-chevron{font-size:15px;line-height:1;color:#b6b4c0}
+.languages .language-menu{position:absolute;right:0;top:calc(100% + 9px);width:253px;max-width:min(320px,calc(100vw - 28px));max-height:min(420px,calc(100vh - 96px));overflow-y:auto;overscroll-behavior:contain;scrollbar-color:#55515f #191920;background:#1b1b22;border:1px solid #32313a;border-radius:12px;box-shadow:0 18px 36px #0007;padding:7px;display:flex;flex-direction:column;gap:2px}
+.languages .language-menu-option{width:100%;min-height:40px;display:flex;align-items:center;justify-content:flex-start;gap:12px;padding:7px 11px;text-align:left;border:0;border-radius:7px;color:#f2f2f4}
+.languages .language-menu-option:hover{background:#302a34}
+.languages .language-menu-option[aria-pressed=true]{background:#482630;border:0}
+.languages .language-menu-option svg{width:28px;height:19px;flex:none}
+.language-menu .language-auto{width:28px;text-align:center;font-size:19px;color:#bdacb8}
+.language-menu .language-name{flex:1;white-space:nowrap;font-size:12.5px;font-weight:550}
+@media(max-width:760px){.languages .language-trigger{min-width:57px}.languages .language-menu{right:0}}
