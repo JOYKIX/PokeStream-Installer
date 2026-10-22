@@ -33,12 +33,12 @@ export function LanguageSwitcher({ compact = false }: { compact?: boolean }) {
         <SelectOption value="auto" textValue={automatic}>
           <span className="language-option" title={automatic}>
             <Monitor size={24} aria-hidden="true" />
-            <span className="sr-only">{automatic}</span>
+            <span>{automatic}</span>
           </span>
         </SelectOption>
 
         {locales.map((code) => <SelectOption key={code} value={code} textValue={localeNames[code]}>
-          <span className="language-option" title={localeNames[code]}><LanguageFlag locale={code} /><span className="sr-only">{localeNames[code]}</span></span>
+          <span className="language-option" title={localeNames[code]}><LanguageFlag locale={code} /><span>{localeNames[code]}</span></span>
         </SelectOption>)}
       </Select>
     </div>
