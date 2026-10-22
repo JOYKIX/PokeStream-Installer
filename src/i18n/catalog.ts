@@ -7,7 +7,7 @@ import engineEn from "../../desktop/connect/src/Connect.Desktop/Localization/en.
 import engineFr from "../../desktop/connect/src/Connect.Desktop/Localization/fr.json";
 import engineJa from "../../desktop/connect/src/Connect.Desktop/Localization/ja.json";
 import type { Locale } from "./config";
-const catalogs: Record<Locale, Record<string, string>> = { en: { ...engineEn, ...en }, fr: { ...engineFr, ...fr }, ja: { ...engineJa, ...ja }, es, de };
+const catalogs: Record<Locale, Record<string, string>> = { en: { ...engineEn, ...en }, fr: { ...engineFr, ...fr }, ja: { ...engineJa, ...ja }, es, de, "pt-BR": en, it: en, ko: en, "zh-CN": en, "zh-TW": en };
 const sourceByEnglish = new Map(Object.entries(catalogs.en).map(([source, english]) => [english, source]));
 export type Translator = (key: string, values?: Record<string, string | number>) => string;
 export function translator(locale: Locale): Translator {

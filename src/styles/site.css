@@ -961,3 +961,10 @@ html:lang(ja) body{font-family:"Inter Variable","Noto Sans JP","Yu Gothic UI","M
 /* Supplied PokeStream mark keeps its original proportions at every breakpoint. */
 .brand .brand-symbol, .site-header .brand .brand-symbol, .rail .brand .brand-symbol { width:46px; height:30px; flex:0 0 46px; background:none; box-shadow:none; border-radius:0; }
 .brand-symbol img { display:block; width:100%; height:100%; object-fit:contain; }
+
+/* Ten language options with names and scroll containment. */
+.language-select-menu{min-width:235px!important;max-width:min(300px,calc(100vw - 24px));}
+.language-select-menu .site-select-viewport{max-height:min(455px,65dvh);overflow-y:auto;scrollbar-width:thin;scrollbar-color:#754452 #17171c;}
+.language-select-menu .site-select-option{min-height:40px;}
+.language-select-menu .language-option{width:auto;min-width:165px;justify-content:flex-start;gap:10px;}
+.language-option-name{font-size:12px;font-weight:550;white-space:nowrap;}
