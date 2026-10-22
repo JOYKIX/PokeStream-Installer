@@ -12,6 +12,7 @@ import type { CustomTheme } from "@/themes/custom/schema";
 import { ThemeLibrary } from "@/themes/theme-library";
 import { useThemeFavorites } from "@/themes/use-theme-favorites";
 import { OverlaySizeSettings } from "./overlay-size-settings";
+import {spriteCopy} from "@/local/sprites/copy";
 import { SpriteSelector } from "./sprite-selector";
 import { premiumGrade, availableTheme } from "@/lib/premium";
 import type { Grade } from "@/lib/access";
@@ -688,6 +689,7 @@ export function Studio({
                       )}
                       <ThemeLibrary
                         selected={data.style.theme}
+                        spriteLocked={data.style.spriteLocked}
                         customThemes={customLibrary.themes}
                         selectedCustomId={data.style.customThemeId}
                         onSelectCustom={(theme) =>
@@ -697,8 +699,7 @@ export function Studio({
                             customTheme: undefined,
                             customAccent: undefined,
                             accent: theme.config.accent,
-                            sprite: theme.config.sprite,
-                            spriteVariant: theme.config.spriteVariant,
+                            ...(!data.style.spriteLocked?{sprite: theme.config.sprite,spriteVariant: theme.config.spriteVariant}:{}),
                           })
                         }
                         starter={starter}
@@ -713,7 +714,7 @@ export function Studio({
                             ...(definition.defaultAccent
                               ? { accent: definition.defaultAccent }
                               : {}),
-                            ...(definition.defaultSprite
+                            ...(!data.style.spriteLocked && definition.defaultSprite
                               ? {
                                   sprite: definition.defaultSprite,
                                   spriteVariant:
@@ -776,10 +777,12 @@ export function Studio({
                     </div>
                     <div className="inspector-section">
                       {data.style.showSprites !== false && (
-                        <SpriteSelector
+                        <><SpriteSelector
                           style={data.style}
                           onChange={setStyle}
                         />
+                        <Toggle label={spriteCopy[locale].locked} checked={!!data.style.spriteLocked} onChange={value=>setStyle({spriteLocked:value})}/>
+                        <p className="sprite-lock-note">{spriteCopy[locale].lockNote}</p></>
                       )}
                     </div>
                     </>}

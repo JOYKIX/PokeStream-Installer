@@ -18,3 +18,29 @@ dialog{color:var(--text);background:var(--card);border:1px solid #41323a;border-
 .status-note[hidden]~.primary-actions{margin-top:24px}
 
 @media(max-height:850px) and (min-width:761px){.launcher{padding-top:24px;padding-bottom:18px}.product-top{padding-top:18px}.product-content{padding-top:18px;padding-bottom:22px}.sprites{padding-top:19px;padding-bottom:19px}.sprite-intro{margin-top:12px;margin-bottom:14px}.release-scroll{max-height:250px}.release-group{margin-bottom:20px}.release-group ul{gap:8px}.maintenance{margin-top:18px}footer{padding-top:15px}}
+
+/* Flat surfaces: spacing and background contrast replace decorative outlines. */
+:root{--card:#15151b;--border:transparent}
+.window-bar{border:0;background:#101014}
+.panel{border-color:transparent;border-radius:16px;box-shadow:none}
+.product{background:linear-gradient(130deg,#2c1a22,#18151d 55%,#15151b)}
+.product::before{display:none}
+.product-footer{border-color:transparent;background:#11111790}
+.version,.tag,.feature-icon,.release-symbol,.release-switch,.languages button[aria-pressed=true]{border-color:transparent}
+.feature-icon{background:#33212b}.version{background:#3b2230;color:#f5c7d3}
+.primary,.secondary{border-color:transparent;box-shadow:none}
+.primary{background:#ea2741}.primary:hover:not(:disabled){background:#fb3d55}
+.secondary{background:#292933}.secondary:hover:not(:disabled){background:#353542;border-color:transparent}
+.release{background:#18181f}.release-meta,.release-footer{border-color:transparent}
+.release-meta{background:#202029;padding:13px 14px;margin-top:18px;border-radius:8px}
+.release-symbol{background:#27232e;color:#b292a4}
+.release-scroll{scrollbar-color:#504151 transparent}
+.release-group li{color:#c0becb}.release-group h3{color:#f395a8}
+.sprites{background:#18181f}.maintenance{background:#15151b}
+.maintenance-row{border-color:transparent;padding:18px 0}.maintenance-content{padding-bottom:7px}
+.secondary.danger{border-color:transparent;background:#3c202b}
+dialog{background:#1b1b24;border:0;box-shadow:0 18px 70px #0006}
+.keep-data{border-color:transparent;background:#292934}
+.keep-data input{border-color:transparent;background:#3a3a48}
+dialog .delete-warning,.error-box{border-color:transparent;background:#3c1d29}
+.languages button[aria-pressed=true]{background:#45232f}

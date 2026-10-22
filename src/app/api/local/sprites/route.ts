@@ -1,22 +1,10 @@
 import {isLocal} from "@/local/runtime";
 import {localRequestAllowed} from "@/local/request-origin";
 import {getUser} from "@/local/session";
-import {pauseSpriteDownload,spriteStatus,startSpriteDownload} from "@/local/sprite-library";
+import {spriteService} from "@/local/sprites/service";
 export const runtime="nodejs";
 export const dynamic="force-dynamic";
 const headers={"Cache-Control":"private, no-store"};
-export async function GET(request:Request){
- if(!isLocal())return new Response(null,{status:410});
- if(!localRequestAllowed(request))return new Response(null,{status:403});
- if(!await getUser())return new Response(null,{status:401});
- return Response.json(spriteStatus(),{headers});
-}
-export async function POST(request:Request){
- if(!isLocal())return new Response(null,{status:410});
- if(!localRequestAllowed(request,true))return new Response(null,{status:403});
- if(!await getUser())return new Response(null,{status:401});
- const input=await request.json().catch(()=>null);
- if(input?.action==="start")return Response.json(startSpriteDownload(),{headers});
- if(input?.action==="pause")return Response.json(pauseSpriteDownload(),{headers});
- return new Response(null,{status:400});
-}
+async function allowed(request:Request,write=false){return isLocal()&&localRequestAllowed(request,write)&&!!await getUser();}
+export async function GET(request:Request){if(!await allowed(request))return new Response(null,{status:403});try{const query=new URL(request.url).searchParams,service=spriteService(),pack=query.get("pack")||"all";if(query.get("view")==="species")return Response.json({species:await service.species(pack)},{headers});if(query.get("view")==="variants"){const id=Number(query.get("species"));if(!Number.isInteger(id)||id<0||id>2000)return new Response(null,{status:400});return Response.json({variants:await service.variants(pack,id)},{headers});}return Response.json(await service.snapshot(),{headers});}catch(e){return Response.json({error:(e as Error).message},{status:503,headers});}}
+export async function POST(request:Request){if(!await allowed(request,true))return new Response(null,{status:403});const text=await request.text();if(text.length>2048)return new Response(null,{status:413});try{const input=JSON.parse(text);if(typeof input.action!=="string"||input.pack!==undefined&&(typeof input.pack!=="string"||!/^[a-z0-9-]{1,60}$/.test(input.pack)))return new Response(null,{status:400});return Response.json(await spriteService().command(input.action,input.pack||"all",input.confirm===true),{headers});}catch(e){return Response.json({error:(e as Error).message},{status:400,headers});}}

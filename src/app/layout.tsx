@@ -12,6 +12,7 @@ import "@/styles/site.css";
 import "@/styles/controls.css";
 import "@/styles/navigation.css";
 import "@/styles/application.css";
+import "@/styles/flat.css";
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations();
   return {

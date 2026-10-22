@@ -1180,7 +1180,7 @@
   "Active le serveur GDB dans l’émulateur, puis indique le même port ici.": "エミュレーターのGDBサーバーを有効にし、同じポートを入力してください。",
   "Activité": "アクティビティ",
   "Gérer les profils locaux": "ローカルプロフィールを管理",
-  "Qui utilise PokeStream ?": "PokeStreamを使うのは誰ですか？",
+  "Qui utilise PokeStream ?": "PokeStreamを使うのは？",
   "Chaque profil conserve ses créations sur ce PC.": "各プロフィールの作品はこのPCに保存されます。",
   "Terminer": "完了",
   "Modifier le profil local": "ローカルプロフィールを編集",
@@ -1206,7 +1206,7 @@
   "Les thèmes associés et les images de composition sont intégrés automatiquement.": "関連するテーマと画像も含まれます。",
   "Copier vers un autre profil": "別のプロフィールにコピー",
   "Une copie indépendante, sans modifier l'original.": "元の作品を変更せずにコピーします。",
-  "Profil destinataire": "送信先プロフィール",
+  "Profil destinataire": "コピー先のプロフィール",
   "Choisir un profil…": "プロフィールを選択…",
   "Copier dans ce profil": "このプロフィールにコピー",
   "Importer un fichier": "ファイルをインポート",
@@ -1304,5 +1304,8 @@
   "Retirer l’image": "画像を削除",
   "Couleur": "色",
   "Choisir un jeu": "ゲームを選択",
-  "Rechercher un jeu…": "ゲームを検索…"
+  "Rechercher un jeu…": "ゲームを検索…",
+  "Choisis comment partager cette création.": "作品の共有方法を選択してください。",
+  "Ajoute un autre profil local pour y copier une création.": "別のローカルプロフィールを追加すると作品をコピーできます。",
+  "Gérer les profils": "プロフィールを管理"
 }

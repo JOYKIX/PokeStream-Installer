@@ -129,6 +129,7 @@ export const sceneSchema = z.object({
     badgeColumns: z.union([z.literal("auto"), z.number().int().min(1).max(100)]).optional(),
     sprite: z.enum(SPRITE_IDS),
     spriteVariant: z.enum(SPRITE_VARIANTS).optional(),
+    spriteLocked: z.boolean().optional(),
     elementOrder: z.preprocess((value) => Array.isArray(value) ? value.filter((element) => element !== "gender") : value,
       z.array(z.enum(TEAM_ELEMENTS))
       .min(4).max(TEAM_ELEMENTS.length)

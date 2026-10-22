@@ -1180,7 +1180,7 @@
   "Gérer les profils locaux": "Gestionar perfiles locales",
   "Qui utilise PokeStream ?": "¿Quién usa PokeStream?",
   "Chaque profil conserve ses créations sur ce PC.": "Cada perfil guarda sus creaciones en este PC.",
-  "Terminer": "Terminar",
+  "Terminer": "Listo",
   "Modifier le profil local": "Editar perfil local",
   "Nouveau profil local": "Nuevo perfil local",
   "Choisir une image": "Elegir una imagen",
@@ -1204,7 +1204,7 @@
   "Les thèmes associés et les images de composition sont intégrés automatiquement.": "Incluye los temas vinculados y las imágenes.",
   "Copier vers un autre profil": "Copiar a otro perfil",
   "Une copie indépendante, sans modifier l'original.": "Una copia independiente sin modificar el original.",
-  "Profil destinataire": "Perfil destinatario",
+  "Profil destinataire": "Perfil de destino",
   "Choisir un profil…": "Elegir un perfil…",
   "Copier dans ce profil": "Copiar en este perfil",
   "Importer un fichier": "Importar un archivo",
@@ -1357,5 +1357,8 @@
   "Retirer l’image": "Quitar imagen",
   "Couleur": "Color",
   "Choisir un jeu": "Elegir un juego",
-  "Rechercher un jeu…": "Buscar juegos…"
+  "Rechercher un jeu…": "Buscar juegos…",
+  "Choisis comment partager cette création.": "Elige cómo compartir esta creación.",
+  "Ajoute un autre profil local pour y copier une création.": "Añade otro perfil local para copiar una creación.",
+  "Gérer les profils": "Gestionar perfiles"
 }

@@ -1,32 +1,35 @@
 {
-  "version": "3.0.0",
-  "launcherVersion": "1.0.0",
+  "version": "3.0.1",
+  "launcherVersion": "1.1.0",
   "date": "2026-10-22",
   "locales": {
     "fr": {
       "sections": [
         {
-          "title": "Interface 3.0",
+          "title": "Interface",
           "items": [
-            "Nouvelle gestion des profils locaux : avatars, modification du nom, image et couleur.",
-            "Bibliothèque de profils de jeu avec aperçu de l’équipe, recherche et tri.",
-            "Navigation et avatar identiques sur toutes les pages."
+            "Interface flat dans l’app et le launcher, avec des fonds contrastés et des sélections visibles.",
+            "Choix des profils par avatars et fenêtre de partage réorganisée.",
+            "Ouverture de l’app en un clic depuis le launcher."
           ]
         },
         {
-          "title": "Éditeurs et réglages",
+          "title": "Sprites",
           "items": [
-            "Correction du défilement qui agrandissait la page à l’ouverture d’un menu.",
-            "Style du Studio réparti entre Thème, Équipe, Badges et Compteur.",
-            "Choix courts accessibles par boutons ; sélection visuelle des jeux et des thèmes avec recherche.",
-            "Connect organisé en Session, Réglages de lecture et Activité. Réglages regroupés en Application, Sprites et Partage."
+            "Packs par génération, style et ressource, installables séparément.",
+            "Tailles réelles, compatibilité par Pokémon, formes, variantes, recherche et pagination.",
+            "Pause, reprise, suppression et réparation. Fichiers partagés et aperçus inclus conservés.",
+            "Proposition d’installer les sprites du thème, avec option « Ne plus demander ».",
+            "Verrouillage des illustrations lors des changements de thème."
           ]
         },
         {
-          "title": "Installation",
+          "title": "Installation et mises à jour",
           "items": [
-            "Application 3.0.0 ; launcher 1.0.0 conservé. La mise à jour de l’app garde le launcher ouvert.",
-            "Profils, créations et sprites téléchargés conservés."
+            "Launcher 1.1.0 séparé des fichiers de l’app. Installation des composants depuis GitHub.",
+            "Téléchargement des blocs modifiés et réutilisation des fichiers installés.",
+            "Vérification des signatures et des fichiers avant installation. Restauration de l’ancienne version si le démarrage échoue.",
+            "Nettoyage des anciennes versions après un démarrage réussi. Profils, créations et sprites conservés."
           ]
         }
       ]
@@ -34,27 +37,30 @@
     "en": {
       "sections": [
         {
-          "title": "Interface 3.0",
+          "title": "Interface",
           "items": [
-            "New local profile management: avatars, names, pictures and colors.",
-            "Game profile library with team previews, search and sorting.",
-            "Consistent navigation and account avatar across all pages."
+            "Flat app and launcher interface with contrasting surfaces and clear selections.",
+            "Avatar-based profile selection and reorganized sharing dialog.",
+            "Open the app from the launcher with one click."
           ]
         },
         {
-          "title": "Editors and settings",
+          "title": "Sprites",
           "items": [
-            "Fixed page overflow when opening a menu.",
-            "Studio style settings grouped into Theme, Team, Badges and Counter.",
-            "Direct buttons for short choices; searchable visual game and theme pickers.",
-            "Connect organized into Session, Reading settings and Activity. Settings grouped into Application, Sprites and Sharing."
+            "Install individual generation, style and resource packs.",
+            "Actual sizes, species compatibility, forms, variants, search and pagination.",
+            "Pause, resume, remove and repair. Shared files and included previews are kept.",
+            "Offer to install a theme’s sprites, with a “Don’t ask again” option.",
+            "Lock illustrations when switching themes."
           ]
         },
         {
-          "title": "Installation",
+          "title": "Installation and updates",
           "items": [
-            "Application 3.0.0; launcher stays on 1.0.0. App updates keep the launcher open.",
-            "Local profiles, creations and downloaded sprites are preserved."
+            "Launcher 1.1.0 contains no app files. Components are installed from GitHub.",
+            "Download changed blocks and reuse installed content.",
+            "Verify signatures and files before installation. Restore the previous app if startup fails.",
+            "Clean up obsolete versions after successful startup. Keep profiles, creations and sprites."
           ]
         }
       ]
@@ -62,27 +68,30 @@
     "es": {
       "sections": [
         {
-          "title": "Interfaz 3.0",
+          "title": "Interfaz",
           "items": [
-            "Nueva gestión de perfiles locales: avatares, nombres, imágenes y colores.",
-            "Biblioteca de perfiles de juego con vista previa del equipo, búsqueda y ordenación.",
-            "Navegación y avatar coherentes en todas las páginas."
+            "Diseño flat en app y launcher con superficies contrastadas y selecciones claras.",
+            "Selección de perfiles por avatares y diálogo de compartir reorganizado.",
+            "Abre la app desde el launcher con un clic."
           ]
         },
         {
-          "title": "Editores y ajustes",
+          "title": "Sprites",
           "items": [
-            "Corregido el desbordamiento de la página al abrir un menú.",
-            "Ajustes de estilo del Studio divididos en Tema, Equipo, Medallas y Contador.",
-            "Botones para opciones cortas; selectores visuales de juegos y temas con búsqueda.",
-            "Connect organizado en Sesión, Ajustes de lectura y Actividad. Ajustes divididos en Aplicación, Sprites y Compartir."
+            "Packs por generación, estilo y recurso instalables por separado.",
+            "Tamaños reales, compatibilidad, formas, variantes, búsqueda y paginación.",
+            "Pausa, reanudación, eliminación y reparación. Archivos compartidos y vistas previas conservados.",
+            "Propuesta para instalar los sprites del tema con opción de no volver a preguntar.",
+            "Bloqueo de ilustraciones al cambiar de tema."
           ]
         },
         {
-          "title": "Instalación",
+          "title": "Instalación y actualizaciones",
           "items": [
-            "Aplicación 3.0.0; launcher 1.0.0. Las actualizaciones de la app mantienen el launcher abierto.",
-            "Se conservan los perfiles, creaciones y sprites descargados."
+            "Launcher 1.1.0 sin archivos de la app. Instalación de componentes desde GitHub.",
+            "Descarga de bloques modificados y reutilización del contenido instalado.",
+            "Verificación de firmas y archivos. Restauración de la versión anterior si el inicio falla.",
+            "Limpieza de versiones antiguas tras un inicio correcto. Se conservan perfiles, creaciones y sprites."
           ]
         }
       ]
@@ -90,27 +99,30 @@
     "de": {
       "sections": [
         {
-          "title": "Oberfläche 3.0",
+          "title": "Oberfläche",
           "items": [
-            "Neue Verwaltung lokaler Profile: Avatare, Namen, Bilder und Farben.",
-            "Spielprofilbibliothek mit Teamvorschau, Suche und Sortierung.",
-            "Einheitliche Navigation und Profilavatare auf allen Seiten."
+            "Flat-Oberfläche für App und Launcher mit kontrastreichen Flächen und klaren Auswahlzuständen.",
+            "Profile über Avatare auswählen; überarbeiteter Teilen-Dialog.",
+            "App mit einem Klick vom Launcher öffnen."
           ]
         },
         {
-          "title": "Editoren und Einstellungen",
+          "title": "Sprites",
           "items": [
-            "Seitenüberlauf beim Öffnen von Menüs behoben.",
-            "Studio-Stileinstellungen in Theme, Team, Orden und Zähler gegliedert.",
-            "Direkte Schaltflächen für kurze Auswahlen; visuelle Spiel- und Theme-Auswahl mit Suche.",
-            "Connect mit Sitzung, Leseeinstellungen und Aktivität. Einstellungen in Anwendung, Sprites und Teilen gegliedert."
+            "Pakete nach Generation, Stil und Ressourcen einzeln installieren.",
+            "Tatsächliche Größen, Kompatibilität, Formen, Varianten, Suche und Seitenaufteilung.",
+            "Pausieren, fortsetzen, entfernen und reparieren. Gemeinsame Dateien und Vorschauen bleiben erhalten.",
+            "Installation der Theme-Sprites anbieten; Nachfrage optional deaktivieren.",
+            "Illustrationen beim Theme-Wechsel sperren."
           ]
         },
         {
-          "title": "Installation",
+          "title": "Installation und Updates",
           "items": [
-            "Anwendung 3.0.0; Launcher bleibt bei 1.0.0. App-Updates lassen den Launcher geöffnet.",
-            "Lokale Profile, Kreationen und heruntergeladene Sprites bleiben erhalten."
+            "Launcher 1.1.0 ohne App-Dateien. Komponenten von GitHub installieren.",
+            "Geänderte Blöcke laden und installierte Inhalte wiederverwenden.",
+            "Signaturen und Dateien prüfen; bei Startfehlern die vorige Version wiederherstellen.",
+            "Veraltete Versionen nach erfolgreichem Start entfernen. Profile, Kreationen und Sprites bleiben erhalten."
           ]
         }
       ]
@@ -118,27 +130,30 @@
     "ja": {
       "sections": [
         {
-          "title": "インターフェース3.0",
+          "title": "インターフェース",
           "items": [
-            "ローカルプロフィール管理を刷新。アバター、名前、画像、色を編集できます。",
-            "ゲームプロフィール一覧にチームプレビュー、検索、並べ替えを追加。",
-            "全ページでナビゲーションとアバターの表示を統一。"
+            "アプリとランチャーをフラットデザインに変更。背景と選択状態を明確化。",
+            "アバターによるプロフィール選択と共有画面の整理。",
+            "ランチャーからワンクリックでアプリを表示。"
           ]
         },
         {
-          "title": "エディターと設定",
+          "title": "スプライト",
           "items": [
-            "メニューを開くとページが余分にスクロールする問題を修正。",
-            "Studioのスタイル設定をテーマ、チーム、バッジ、カウンターに整理。",
-            "少数の選択肢はボタンで操作。ゲームとテーマはプレビューと検索で選択できます。",
-            "Connectをセッション、読み取り設定、履歴に整理。設定をアプリ、スプライト、共有に分類。"
+            "世代・スタイル・素材ごとにパックを個別インストール。",
+            "実際の容量、対応状況、フォルム、バリエーション、検索とページ分割。",
+            "一時停止・再開・削除・修復。共有ファイルと同梱プレビューは保持。",
+            "テーマの画像パックを案内。次回から確認しない設定を追加。",
+            "テーマ変更時にイラストを固定。"
           ]
         },
         {
-          "title": "インストール",
+          "title": "インストールと更新",
           "items": [
-            "アプリは3.0.0、ランチャーは1.0.0のまま。アプリ更新中もランチャーは開いたままです。",
-            "ローカルプロフィール、作品、ダウンロード済みスプライトを保持します。"
+            "ランチャー1.1.0からアプリを分離。GitHubから構成をインストール。",
+            "変更ブロックだけ取得し、保存済みの内容を再利用。",
+            "署名とファイルを確認。起動に失敗した場合は前のバージョンに復元。",
+            "正常起動後に古いバージョンを削除。プロフィール・作品・画像は保持。"
           ]
         }
       ]

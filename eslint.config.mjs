@@ -6,5 +6,5 @@ export default defineConfig([
   ...nextTs,
   // Electron's entry points are intentionally CommonJS (.cjs).
   { files: ["desktop/**/*.cjs"], rules: { "@typescript-eslint/no-require-imports": "off" } },
-  globalIgnores([".next/**", "next-env.d.ts", ".artifacts/**"]),
+  globalIgnores([".next/**", ".next-local/**", "**/.artifacts/**", "**/bin/**", "**/obj/**", "**/publish/**", "**/dist/**", "next-env.d.ts", ".artifacts/**"]),
 ]);

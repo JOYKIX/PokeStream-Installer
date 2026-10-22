@@ -2,9 +2,10 @@ const {app,BrowserWindow,shell,ipcMain,dialog}=require('electron');
 const {spawn}=require('node:child_process');
 const {randomBytes,randomUUID}=require('node:crypto');
 const fs=require('node:fs'),fsp=require('node:fs/promises'),path=require('node:path'),os=require('node:os'),net=require('node:net');
-const {createRuntime,digest}=require('./runtime.cjs');
+const {createRuntime}=require('./runtime.cjs');
 const {createInstallation,samePath}=require('./installation.cjs');
 const {createUpdater}=require('./updater.cjs');
+const {recover,rollbackUpdate,cleanVersions}=require('./modular-update.cjs');
 const {launchMaintenance}=require('./maintenance.cjs');
 const {createWorkspaceControl,workspaceRecord,workspaceCommand,stopWorkspace}=require('./workspace-control.cjs');
 const ORIGIN='http://127.0.0.1:47653',DEV=process.env.POKESTREAM_DEV_DESKTOP==='1',startedAt=Date.now();
@@ -60,12 +61,11 @@ function failed(error){log(error.stack||String(error));publish({phase:'error',er
 async function guarded(task){if(busy)return;busy=true;publish({busy:true,error:''});try{return await task();}catch(error){failed(error);return {error:error.message};}finally{busy=false;publish({busy:false});}}
 async function refreshInstallation(){const info=installedApplication();running=!!await workspaceRecord(dataDir);publish({installed:DEV||!!info,version:info?.version||VERSION,releaseNotes:notes(),running});}
 const runtime=createRuntime({resources,installDirectory:installDir,version:VERSION,notify:publish});
-const desktop=createInstallation({directory:installDir,version:VERSION,notify:publish});
 const launcher=createInstallation({directory:launcherDir,version:LAUNCHER_VERSION,prefix:'launcher',manifest:'launcher.json',executableName:'PokeStream Launcher.exe',notify:publish});
 async function handoff(target,args=[]){
  const env={...process.env};for(const key of Object.keys(env))if(key.startsWith('PORTABLE_'))delete env[key];
  app.releaseSingleInstanceLock();
- try{const child=spawn(target,args,{cwd:path.dirname(target),env,detached:true,windowsHide:true,stdio:'ignore'});await new Promise((resolve,reject)=>{child.once('spawn',resolve);child.once('error',reject);});child.unref();app.quit();}
+ try{const child=spawn(target,args,{cwd:path.dirname(target),env,detached:true,windowsHide:false,stdio:'ignore'});await new Promise((resolve,reject)=>{child.once('spawn',resolve);child.once('error',reject);});child.unref();app.quit();}
  catch(error){app.requestSingleInstanceLock();throw error;}
 }
 async function writeShortcuts(appTarget,launcherTarget){
@@ -76,20 +76,13 @@ async function writeShortcuts(appTarget,launcherTarget){
  }
 }
 async function installPackages({repair=false,includeLauncher=false}={}){
- const entries=[[installDir,'runtime.json'],[installDir,'desktop.json'],[launcherDir,'launcher.json']];
- const backups=await Promise.all(entries.map(async([directory,name])=>{try{return [directory,name,await fsp.readFile(path.join(directory,name))];}catch{return [directory,name,null];}}));
- try{
-  if(repair||!runtime.current())await runtime.install();
-  const target=await desktop.install(path.dirname(process.execPath),{force:repair,sourceExecutable:path.basename(process.execPath)});
-  let launcherTarget=launcher.current();
-  if(includeLauncher)launcherTarget=await launcher.install(path.dirname(process.execPath),{sourceExecutable:path.basename(process.execPath)});
-  // Keep a stable setup entry for earlier shortcuts. New shortcuts target real native executables.
-  const source=process.env.PORTABLE_EXECUTABLE_FILE,setup=path.join(installDir,'PokeStream.exe');
-  if(source&&fs.existsSync(source)&&!samePath(source,setup)){const temp=setup+'.new';await fsp.copyFile(source,temp);await fsp.rename(temp,setup);}
-  await writeShortcuts(target,launcherTarget);publish({installed:true,version:VERSION,phase:'ready',progress:100});return {target,launcherTarget};
- }catch(error){
-  for(const [directory,name,contents] of backups){const file=path.join(directory,name);if(contents){const temp=file+'.rollback';await fsp.writeFile(temp,contents);await fsp.rename(temp,file);}else await fsp.rm(file,{force:true});}throw error;
- }
+ publish({phase:'installing',progress:null,error:''});
+ if(includeLauncher&&!launcher.current())await launcher.install(path.dirname(process.execPath),{sourceExecutable:path.basename(process.execPath)});
+ await updater.check({repair:true,...(installerMode?{version:VERSION}:{})});
+ await updater.download();
+ const result=await applyPreparedUpdate({resume:false,notifyCheck:false});
+ await writeShortcuts(result.target,installedLauncher());
+ publish({installed:true,version:result.version,phase:'ready',progress:100});return {...result,launcherTarget:installedLauncher()};
 }
 async function install(){
  if(DEV){publish({installed:true,phase:'ready'});return;}
@@ -141,7 +134,7 @@ async function startEngine(){
 }
 async function spawnNative(target,args=[]){
  const clean={...process.env};for(const key of Object.keys(clean))if(key.startsWith('PORTABLE_')||key==='ELECTRON_RUN_AS_NODE')delete clean[key];
- const child=spawn(target,args,{cwd:path.dirname(target),env:clean,detached:true,windowsHide:true,stdio:'ignore'});
+ const child=spawn(target,args,{cwd:path.dirname(target),env:clean,detached:true,windowsHide:false,stdio:'ignore'});
  await new Promise((resolve,reject)=>{child.once('spawn',resolve);child.once('error',reject);});child.unref();return child;
 }
 async function openLauncher(){
@@ -149,15 +142,16 @@ async function openLauncher(){
  const target=installedLauncher();if(!target)throw Error('Launcher is missing. Run PokeStream-Setup.exe to reinstall it.');
  await spawnNative(target,['--launcher']);
 }
-async function launchWorkspace(page){
+async function launchWorkspace(page,allowRollback=true){
  const record=await workspaceRecord(dataDir);
  if(record){await workspaceCommand(dataDir,'focus',page);await refreshInstallation();return;}
  const info=installedApplication();if(!info&&!DEV)throw Error('Install PokeStream before opening it.');
  publish({phase:'starting',progress:null,error:''});
- await spawnNative(DEV?process.execPath:info.executable,DEV?[app.getAppPath(),'--workspace',...(page?['--page='+page]:[])]:['--workspace',...(page?['--page='+page]:[])]);
+ try{await spawnNative(DEV?process.execPath:info.executable,DEV?[app.getAppPath(),'--workspace',...(page?['--page='+page]:[])]:['--workspace',...(page?['--page='+page]:[])]);
  const deadline=Date.now()+45000;
- while(Date.now()<deadline){if(await workspaceRecord(dataDir)){await refreshInstallation();publish({phase:'ready',progress:null});return;}await new Promise(resolve=>setTimeout(resolve,150));}
+ while(Date.now()<deadline){if(await workspaceRecord(dataDir)){await workspaceCommand(dataDir,'focus',page);await refreshInstallation();publish({phase:'ready',progress:null});return;}await new Promise(resolve=>setTimeout(resolve,150));}
  throw Error('PokeStream could not open. Open the logs or repair the application.');
+ }catch(error){if(allowRollback&&info&&await rollbackUpdate({installDir,expectedVersion:info.version})){log('Restored previous app after failed startup: '+info.version);await refreshInstallation();await launchWorkspace(page,false);return;}throw error;}
 }
 async function maintenance(scriptName,args=[],{resume=false,updateLauncher=false}={}){
  publish({phase:scriptName==='uninstall.ps1'?'uninstalling':'updating',progress:null,error:''});
@@ -171,18 +165,27 @@ async function maintenance(scriptName,args=[],{resume=false,updateLauncher=false
   if(target&&!samePath(target,process.execPath))return handoff(target,['--launcher',...(resume?['--resume-app']:[])]);
  }
  if(resume)await launchWorkspace();
- updater.reset();void updater.check();
+ updater.reset();void updater.check().catch(error=>log(error.message));
  return {status:'completed'};
 }
+async function applyPreparedUpdate({resume=false,notifyCheck=true}={}){
+ await updater.verify();publish({phase:'updating',progress:null,error:''});
+ await stopWorkspace(dataDir);
+ const result=await updater.install();await writeShortcuts(result.target,result.launcherTarget||installedLauncher());
+ await refreshInstallation();publish({phase:'ready',progress:null,error:''});
+ if(result.launcherTarget&&!samePath(result.launcherTarget,process.execPath)&&!installerMode){
+  await handoff(result.launcherTarget,['--launcher',...(resume?['--resume-app']:[])]);
+ }else if(resume)await launchWorkspace();
+ if(notifyCheck){updater.reset();void updater.check().catch(error=>log(error.message));}
+ return result;
+}
 async function installUpdate(){
- const resume=!!await workspaceRecord(dataDir),item=await updater.verify();
- const updateLauncher=!!item.updateLauncher;
- return maintenance('update-install.ps1',['-Source',item.path,'-ExpectedHash',item.sha256,'-ExpectedVersion',item.version,...(updateLauncher?['-UpdateLauncher']:[])],{resume,updateLauncher});
+ return applyPreparedUpdate({resume:!!await workspaceRecord(dataDir)});
 }
 async function repair(){
- const info=installedApplication();if(!info)throw Error('PokeStream is not installed.');
- const hash=await digest(info.executable),resume=!!await workspaceRecord(dataDir);
- return maintenance('update-install.ps1',['-Source',info.executable,'-ExpectedHash',hash,'-ExpectedVersion',info.version,'-Repair'],{resume});
+ if(!installedApplication())throw Error('PokeStream is not installed.');
+ const resume=!!await workspaceRecord(dataDir);
+ await updater.check({repair:true});await updater.download();return applyPreparedUpdate({resume});
 }
 async function uninstall(options){
  if(DEV||!state.installed)throw Error('PokeStream is not installed.');
@@ -205,7 +208,7 @@ handle('pokestream:launcher:action',action=>{
  throw Error('Unknown launcher action.');
 });
 function createWindow(){
- window=new BrowserWindow({title:workspaceMode?'PokeStream':'PokeStream Launcher',width:1180,height:800,minWidth:980,minHeight:680,backgroundColor:'#09090b',show:false,autoHideMenuBar:true,titleBarStyle:'hidden',titleBarOverlay:{color:'#0d0d10',symbolColor:'#f4f4f5',height:workspaceMode?38:59},webPreferences:{preload:path.join(__dirname,'preload.cjs'),nodeIntegration:false,contextIsolation:true,sandbox:true}});
+ window=new BrowserWindow({title:workspaceMode?'PokeStream':'PokeStream Launcher',width:1180,height:800,minWidth:980,minHeight:680,backgroundColor:'#09090b',show:false,autoHideMenuBar:true,titleBarStyle:'hidden',titleBarOverlay:{color:'#0d0d10',symbolColor:'#f4f4f5',height:workspaceMode?38:59},webPreferences:{preload:path.join(__dirname,'preload.cjs'),nodeIntegration:false,contextIsolation:true,sandbox:true,backgroundThrottling:false}});
  window.webContents.setWindowOpenHandler(({url})=>{external(url);return {action:'deny'};});
  window.webContents.on('will-navigate',(event,url)=>{if(!url.startsWith(ORIGIN+'/')){event.preventDefault();external(url);}});
  window.webContents.on('render-process-gone',(_event,details)=>{log('Renderer: '+details.reason);if(!quitting){if(workspaceMode)void openLauncher().finally(()=>app.quit());else void window.loadFile(path.join(launcherAssets,'launcher.html')).then(()=>failed(Error('The interface stopped. Reopen PokeStream.')));}});
@@ -225,8 +228,10 @@ async function startWorkspace(){
   if(action==='focus'){if(value==='/settings#sprite-library'){pendingPage=value;await window.loadURL(ORIGIN+value);}if(window.isMinimized())window.restore();window.show();window.focus();return true;}
  }});
  await control.start();running=true;
+ if(window&&!window.isDestroyed()){if(window.isMinimized())window.restore();window.show();window.focus();}
  const marker=path.join(home,'launcher-ready.json');await fsp.writeFile(marker,JSON.stringify({version:VERSION,pid:process.pid,startedAt:new Date().toISOString()}));
  log('Workspace ready in '+(Date.now()-startedAt)+' ms');
+ void cleanVersions({installDir,launcherDir,updatesDir:path.join(home,'Updates'),currentExecutable:process.execPath}).catch(error=>log('Cleanup: '+error.message));
 }
 async function startLauncher(){
  let target=launcher.current();
@@ -238,7 +243,7 @@ async function startLauncher(){
  if(app.isPackaged&&target&&!samePath(process.execPath,target))return handoff(target,['--launcher',...(process.argv.includes('--resume-app')?['--resume-app']:[])]);
  createWindow();await refreshInstallation();
  try{const file=path.join(home,'maintenance.json'),last=JSON.parse(await fsp.readFile(file,'utf8'));if(last.success===false){state.error=last.message;state.phase='error';}await fsp.rm(file,{force:true});}catch{}
- await window.loadFile(path.join(launcherAssets,'launcher.html'));publish(state);log('Launcher '+LAUNCHER_VERSION+' ready in '+(Date.now()-startedAt)+' ms');void updater.check();
+ await window.loadFile(path.join(launcherAssets,'launcher.html'));publish(state);log('Launcher '+LAUNCHER_VERSION+' ready in '+(Date.now()-startedAt)+' ms');void updater.check().catch(error=>log(error.message));
  refreshTimer=setInterval(()=>void refreshInstallation().catch(error=>log(error.message)),2500);
  if(process.argv.includes('--resume-app'))await guarded(()=>launchWorkspace());
 }
@@ -249,11 +254,16 @@ function installerResultPath(){
 }
 function installerResult(value){const file=installerResultPath();if(!file)return;const temp=file+'.tmp';fs.writeFileSync(temp,JSON.stringify(value));fs.renameSync(temp,file);}
 async function start(){
+ await recover(installDir,launcherDir);
+ updater=createUpdater({app:{isPackaged:app.isPackaged,getVersion:()=>installedApplication()?.version||'0.0.0'},launcherVersion:LAUNCHER_VERSION,directory:path.join(home,'Updates'),installDir,launcherDir,
+  roots:async()=>{
+   const info=installedApplication();let runtimeRoot=null;try{const record=JSON.parse(await fsp.readFile(path.join(installDir,'runtime.json'),'utf8'));if(/^runtime-[\w.-]+$/.test(record.directory))runtimeRoot=path.join(installDir,record.directory);}catch{}
+   return {desktop:info?.directory,web:runtimeRoot?path.join(runtimeRoot,'web'):null,engine:runtimeRoot?path.join(runtimeRoot,'engine'):null,bootstrap:path.dirname(process.execPath)};
+  },notify:update=>publish({update:{...state.update,...update}})});
  if(installerMode){
   try{await installPackages({repair:process.argv.includes('--repair'),includeLauncher:process.argv.includes('--include-launcher')});installerResult({success:true,version:VERSION,launcherVersion:LAUNCHER_VERSION});app.exit(0);}
   catch(error){log(error.stack||String(error));installerResult({success:false,message:error.message});app.exit(1);}return;
  }
- updater=createUpdater({app:{isPackaged:app.isPackaged,getVersion:()=>installedApplication()?.version||'0.0.0'},launcherVersion:LAUNCHER_VERSION,directory:path.join(home,'Updates'),notify:update=>publish({update:{...state.update,...update}})});
  if(workspaceMode)await startWorkspace();else await startLauncher();
 }
 if(installerMode||app.requestSingleInstanceLock()){

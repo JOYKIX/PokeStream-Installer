@@ -1,93 +1,30 @@
-name: PokeStream — Windows Release
+name: PokeStream — Windows build
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/release-windows.yml'
-      - 'src/**'
-      - 'scripts/**'
-      - 'desktop/**'
-      - 'package.json'
-      - 'package-lock.json'
-      - 'RELEASE-NOTES.md'
 permissions:
-  contents: write
-concurrency:
-  group: pokestream-release
-  cancel-in-progress: true
+  contents: read
 jobs:
-  publish:
-    if: github.ref == 'refs/heads/main'
+  build:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version: 26
           cache: npm
       - uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 8.0.x
+          dotnet-version: 9.0.x
       - run: npm ci
-      - uses: actions/cache@v4
-        with:
-          path: desktop/connect/data/sprites.zip
-          key: connect-sprites-${{ hashFiles('desktop/connect/data/sprite-manifest.json') }}
-      - name: Validate TypeScript and launcher syntax
-        shell: pwsh
-        run: |
-          npm run typecheck
-          if ($LASTEXITCODE -ne 0) { throw 'TypeScript failed' }
-          Get-ChildItem desktop/app -Filter '*.cjs' | ForEach-Object { node --check $_.FullName; if ($LASTEXITCODE -ne 0) { throw 'Launcher syntax failed' } }
-          node --check desktop/app/launcher.js
-          node --check scripts/build-desktop.mjs
-      - name: Validate PowerShell script syntax (Windows PowerShell 5.1)
-        shell: powershell
-        run: |
-          foreach ($file in @('desktop/app/uninstall.ps1','desktop/app/update-install.ps1','desktop/app/runtime-install.ps1','desktop/app/maintenance-common.ps1')) {
-            $tokens=$null; $issues=$null
-            [void][System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path $file).Path,[ref]$tokens,[ref]$issues)
-            if ($issues.Count -gt 0) { $issues | Format-List | Out-String | Write-Host; throw "PowerShell parse failed: $file" }
-          }
-      - name: Windows maintenance integration smoke tests
-        run: node --test scripts/maintenance.test.cjs
-      - name: Build local application and custom launcher
-        run: npm run desktop:pack
-      - name: Prepare stable download and SHA256 checksums
-        shell: pwsh
-        run: |
-          $version = node -p "require('./package.json').version"
-          $dir = '.artifacts/release'
-          $launcher = Join-Path $dir "PokeStream-$version-win-x64.exe"
-          if (!(Test-Path -LiteralPath $launcher)) { throw 'Custom launcher missing' }
-          Copy-Item -LiteralPath $launcher -Destination (Join-Path $dir 'PokeStream-Setup.exe')
-          Copy-Item desktop/connect/dist/*-source.zip -Destination $dir
-          $files = @(Get-ChildItem $dir -File | Where-Object { $_.Extension -in '.exe','.zip' -or $_.Name -eq 'build-info.json' })
-          $lines = foreach ($file in $files) {
-            $algorithm = [Security.Cryptography.SHA256]::Create()
-            $stream = [IO.File]::OpenRead($file.FullName)
-            try { $hash = [BitConverter]::ToString($algorithm.ComputeHash($stream)).Replace('-', '').ToLowerInvariant() }
-            finally { $stream.Dispose(); $algorithm.Dispose() }
-            "$hash  $($file.Name)"
-          }
-          $lines | Set-Content (Join-Path $dir 'SHA256SUMS.txt') -Encoding ascii
-      - name: Publish public release
-        if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[release]')
-        shell: pwsh
+      - name: Build authenticated distribution
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          POKESTREAM_SIGNING_KEY: ${{ secrets.POKESTREAM_SIGNING_KEY }}
+        shell: pwsh
         run: |
-          $version = node -p "require('./package.json').version"
-          $tag = "v$version"
-          gh release view $tag 2>$null
-          if ($LASTEXITCODE -eq 0) { throw "Release $tag exists. Bump package version." }
-          $assets = @(Get-ChildItem -File '.artifacts/release' | Where-Object { $_.Extension -in '.exe','.zip' -or $_.Name -in @('SHA256SUMS.txt','build-info.json') } | ForEach-Object { $_.FullName })
-          gh release create $tag @assets --title "PokeStream $version" --notes-file RELEASE-NOTES.md --target "$env:GITHUB_SHA" --latest
-          if ($LASTEXITCODE -ne 0) { throw 'Release publication failed' }
+          if (!$env:POKESTREAM_SIGNING_KEY) { throw 'Configure the publisher signing secret first.' }
+          npm run desktop:pack
       - uses: actions/upload-artifact@v4
-        if: failure()
         with:
-          name: PokeStream-Release-Diagnostics
+          name: PokeStream-Windows
           path: .artifacts/release/*
-          if-no-files-found: ignore
+          if-no-files-found: error

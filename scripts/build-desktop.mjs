@@ -1,88 +1,76 @@
 #!/usr/bin/env node
-// Windows production build: Next standalone + local Connect engine + Electron resources.
-import { spawnSync } from "node:child_process";
-import fs from "node:fs";
-import path from "node:path";
-import {createHash} from "node:crypto";
-import {createRequire} from "node:module";
-import {prepareLauncher} from "./prepare-launcher.mjs";
-const root=process.cwd();
-const webOnly=process.argv.includes("--web-only");
-const output=path.join(root,".artifacts","runtime");
-const fail=message=>{console.error("\n[PokeStream] "+message);process.exit(1);};
-const run=(program,args,options={})=>{
- console.log("\n> "+program+" "+args.join(" "));
- const r=spawnSync(program,args,{cwd:root,stdio:"inherit",shell:process.platform==="win32"&&program==="npm",...options});
- if(r.error || r.status!==0)fail(r.error?.message||`${program} a échoué (code ${r.status}).`);
-};
-if(process.platform!=="win32"&&!webOnly)fail("La compilation du moteur Connect WPF nécessite Windows. Utilise Windows, ou --web-only pour préparer uniquement le frontend.");
-if(!fs.existsSync(path.join(root,"node_modules","next")))fail("Dépendances absentes : exécute npm ci d'abord.");
-if(!webOnly){
- const sprites=path.join(root,"desktop","connect","data","sprites.zip");
- if(!fs.existsSync(sprites)){
-  console.log("[PokeStream] Le pack de sprites Connect est absent des archives sources : préparation nécessaire.");
-  run("node",["scripts/prepare-connect-sprites.mjs"]);
+import {spawnSync} from 'node:child_process';
+import fs from 'node:fs';
+import path from 'node:path';
+import {createRequire} from 'node:module';
+import {componentCache,fingerprint,sourceFiles} from './component-cache.mjs';
+import {prepareLauncher} from './prepare-launcher.mjs';
+const root=process.cwd(),webOnly=process.argv.includes('--web-only'),updateOnly=process.argv.includes('--update-only'),launcherOnly=process.argv.includes('--launcher-only'),force=process.argv.includes('--force');
+const artifacts=path.join(root,'.artifacts'),output=path.join(artifacts,'runtime'),cached=componentCache(root);
+const manifest=JSON.parse(fs.readFileSync('package.json','utf8'));
+function run(program,args,options={}){
+ console.log('\n> '+program+' '+args.join(' '));
+ const result=spawnSync(program,args,{cwd:root,stdio:'inherit',windowsHide:true,shell:process.platform==='win32'&&program==='npm',...options});
+ if(result.error||result.status!==0)throw Error(result.error?.message||program+' failed ('+result.status+').');
+}
+if(process.platform!=='win32'&&!webOnly)throw Error('The Connect engine requires Windows.');
+if(!fs.existsSync('node_modules/next'))throw Error('Run npm ci first.');
+fs.mkdirSync(output,{recursive:true});
+const lock=JSON.parse(fs.readFileSync('package-lock.json','utf8'));delete lock.version;if(lock.packages?.[''])delete lock.packages[''].version;
+const toolchain=JSON.stringify({node:process.versions.node,lock});
+const reports={};
+if(!launcherOnly){
+ if(!webOnly){
+  if(!fs.existsSync('desktop/connect/data/sprites.zip'))run('node',['scripts/prepare-connect-sprites.mjs']);
+  const engineInput=fingerprint(root,[...sourceFiles(root,'desktop/connect'),'desktop/connect/data/sprites.zip'],process.platform+'-'+process.arch+'-'+spawnSync('dotnet',['--version'],{encoding:'utf8'}).stdout.trim());
+  reports.engine=await cached('engine',engineInput,async stage=>{
+   run('powershell.exe',['-NoProfile','-ExecutionPolicy','Bypass','-File','desktop/connect/publish.ps1','-SkipTests']);
+   const source='desktop/connect/dist/win-x64';
+   if(!fs.existsSync(path.join(source,'PokeStream Connect.exe')))throw Error('Connect publish is incomplete.');
+   fs.cpSync(source,stage,{recursive:true});
+   fs.copyFileSync('desktop/connect/THIRD-PARTY-NOTICES.md',path.join(stage,'CONNECT-NOTICES.md'));
+   fs.cpSync('desktop/connect/licenses',path.join(stage,'licenses'),{recursive:true});
+   fs.copyFileSync('desktop/connect/tools/SaveReader/LICENSE',path.join(stage,'SaveReader-LICENSE.txt'));
+   const legal=path.join(artifacts,'connect-sources');fs.mkdirSync(legal,{recursive:true});
+   const publishSource=fs.readFileSync('desktop/connect/publish.ps1','utf8'),nativeVersion=/\$version\s*=\s*'([^']+)'/.exec(publishSource)?.[1];if(!nativeVersion)throw Error('Reader version missing.');
+   const name='PokeStream-SaveReader-'+nativeVersion+'-source.zip';fs.copyFileSync(path.join('desktop/connect/dist',name),path.join(legal,name));
+   fs.writeFileSync(path.join(legal,'SOURCE.json'),JSON.stringify({file:name,revision:engineInput}));
+  },{force:force||!fs.existsSync(path.join(artifacts,'connect-sources/SOURCE.json'))});
  }
- if(!fs.existsSync(sprites))fail("Le pack de sprites n'a pas été généré.");
- run("powershell.exe",["-NoProfile","-ExecutionPolicy","Bypass","-File","desktop/connect/publish.ps1","-SkipTests"]);
- const exe=path.join(root,"desktop","connect","dist","win-x64","PokeStream Connect.exe");
- if(!fs.existsSync(exe))fail("Le moteur PokeStream Connect.exe est introuvable après compilation.");
+ run('node',['scripts/prepare-sprite-catalog.mjs',...(process.argv.includes('--refresh-catalog')?['--refresh']:[])]);
+ const webInput=fingerprint(root,[...sourceFiles(root,'src'),...sourceFiles(root,'public'),'next.config.ts','tsconfig.json','.artifacts/sprite-catalog/catalog-v2.json.gz','.artifacts/sprite-catalog/previews','desktop/connect/data/sprites.zip'],toolchain);
+ reports.web=await cached('web',webInput,async stage=>{
+  run('npm',['run','build'],{env:{...process.env,POKESTREAM_LOCAL:'1',POKESTREAM_BUILD_ID:webInput.slice(0,32),NODE_ENV:'production'}});
+  const standalone=path.join(root,'.next/standalone');
+  if(!fs.existsSync(path.join(standalone,'server.js')))throw Error('Next standalone build missing.');
+  fs.cpSync(standalone,stage,{recursive:true});
+  fs.cpSync(path.join(root,'.next/static'),path.join(stage,'.next/static'),{recursive:true});
+  if(fs.existsSync('public'))fs.cpSync('public',path.join(stage,'public'),{recursive:true,filter:p=>!p.split(path.sep).includes('downloads')});
+  const sprites=path.join(stage,'public/sprites');fs.mkdirSync(sprites,{recursive:true});
+  if(!webOnly)run('powershell.exe',['-NoProfile','-NonInteractive','-ExecutionPolicy','Bypass','-File','desktop/app/runtime-install.ps1','-ArchivePath',path.join(root,'desktop/connect/data/sprites.zip'),'-TargetDirectory',sprites]);
+  for(const name of ['manifest.json.gz','catalog-v2.json.gz','LICENCE.txt'])fs.copyFileSync(path.join(artifacts,'sprite-catalog',name),path.join(sprites,name));
+  fs.cpSync(path.join(artifacts,'sprite-catalog/previews'),sprites,{recursive:true});
+  const load=createRequire(path.join(stage,'server.js'));for(const name of ['next','react','react-dom'])if(!load.resolve(name).startsWith(stage+path.sep))throw Error('Staged dependency missing: '+name);
+ },{force});
+ for(const name of ['web',...(!webOnly?['engine']:[])]){
+  const target=path.join(output,name);
+  if(path.dirname(target)!==output)throw Error('Invalid component staging path.');
+  fs.rmSync(target,{recursive:true,force:true});fs.cpSync(reports[name].directory,target,{recursive:true});
+ }
+ for(const name of ['LICENSE','OPEN-SOURCE-NOTICES.md'])fs.copyFileSync(name,path.join(output,name));
+ fs.copyFileSync('desktop/connect/THIRD-PARTY-NOTICES.md',path.join(output,'CONNECT-NOTICES.md'));
 }
-run("node",["scripts/prepare-sprite-catalog.mjs"]);
-run("npm",["run","build"],{env:{...process.env,POKESTREAM_LOCAL:"1",NODE_ENV:"production"}});
-const standalone=path.join(root,".next","standalone");
-if(!fs.existsSync(path.join(standalone,"server.js")))fail("Next.js n'a pas créé .next/standalone/server.js.");
-const workspace=path.resolve(root,'.artifacts');
-if(path.dirname(output)!==workspace)fail('Invalid build output directory.');
-fs.rmSync(output,{recursive:true,force:true});fs.mkdirSync(output,{recursive:true});
-const dest=path.join(output,"web");fs.cpSync(standalone,dest,{recursive:true});
-fs.mkdirSync(path.join(dest,".next"),{recursive:true});
-fs.cpSync(path.join(root,".next","static"),path.join(dest,".next","static"),{recursive:true});
-if(fs.existsSync(path.join(root,"public")))fs.cpSync(path.join(root,"public"),path.join(dest,"public"),{recursive:true,filter:p=>!p.split(path.sep).includes("downloads")});
-// Ship Connect\x27s proven base sprites to keep standard teams visible when fully offline.
-if(!webOnly){
- const pack=path.join(root,"desktop/connect/data/sprites.zip");
- const spriteDir=path.join(dest,"public","sprites");fs.mkdirSync(spriteDir,{recursive:true});
- // Use the module-free extractor: Windows PowerShell's Archive module may be unavailable.
- run("powershell.exe",["-NoProfile","-NonInteractive","-ExecutionPolicy","Bypass","-File","desktop/app/runtime-install.ps1","-ArchivePath",pack,"-TargetDirectory",spriteDir]);
- if(!fs.existsSync(path.join(spriteDir,"pokemon","25.png")))fail("Base sprite pack missing from staged offline runtime.");
-}
-const catalog=path.join(root,".artifacts/sprite-catalog/manifest.json.gz");
-if(!fs.existsSync(catalog))fail("Complete PokéAPI sprite catalog index missing.");
-fs.mkdirSync(path.join(dest,"public","sprites"),{recursive:true});
-fs.copyFileSync(catalog,path.join(dest,"public","sprites","manifest.json.gz"));
-fs.cpSync(path.join(root,".artifacts/sprite-catalog/previews"),path.join(dest,"public","sprites"),{recursive:true});
-// Badge artwork is required by the editor and OBS, including offline installations.
-function badgeFiles(directory){return fs.readdirSync(directory,{withFileTypes:true}).flatMap(entry=>entry.isDirectory()?badgeFiles(path.join(directory,entry.name)):[path.join(directory,entry.name)]);}
-const badgeRoot=path.join(root,'public','Badges'),badges=badgeFiles(badgeRoot).filter(file=>file.endsWith('.png'));
-if(!badges.length)fail('Badge artwork missing from public/Badges.');
-for(const source of badges){const target=path.join(dest,'public','Badges',path.relative(badgeRoot,source));if(!fs.existsSync(target)||fs.statSync(target).size!==fs.statSync(source).size)fail('Badge missing from runtime: '+path.relative(badgeRoot,source));}
-console.log('[PokeStream] '+badges.length+' badge images included.');
-// The source ZIP intentionally does not contain compiled .NET binaries.
-if(!webOnly)fs.cpSync(path.join(root,"desktop","connect","dist","win-x64"),path.join(output,"engine"),{recursive:true});
-// Verify the actual staged payload, not the source checkout's node_modules.
-const load=createRequire(path.join(dest,'server.js'));
-for(const dependency of ['next','react','react-dom'])if(!load.resolve(dependency).startsWith(dest+path.sep))fail('Staged dependency missing: '+dependency);
-prepareLauncher(root);
-const shell=path.join(root,'.artifacts/shell');fs.mkdirSync(shell,{recursive:true});
-for(const name of ['main.cjs','preload.cjs','runtime.cjs','installation.cjs','updater.cjs','maintenance.cjs','workspace-control.cjs'])fs.copyFileSync(path.join(root,'desktop/app',name),path.join(shell,name));
-const manifest=JSON.parse(fs.readFileSync(path.join(root,'package.json'),'utf8'));
+const launcherInput=fingerprint(root,[...sourceFiles(root,'desktop/app'),'public/logo/pokestream-logo-no-stand.svg','.artifacts/sprite-catalog/previews/pokemon/25.png','.artifacts/sprite-catalog/previews/pokemon/other/home/25.png'],toolchain);
+reports.launcher=await cached('launcher',launcherInput,async stage=>prepareLauncher(root,stage),{force});
+const launcherTarget=path.join(output,'launcher');fs.rmSync(launcherTarget,{recursive:true,force:true});fs.cpSync(reports.launcher.directory,launcherTarget,{recursive:true});
+const shell=path.join(artifacts,'shell');fs.mkdirSync(shell,{recursive:true});
+for(const name of fs.readdirSync('desktop/app').filter(n=>n.endsWith('.cjs')||n==='update-key.json'))fs.copyFileSync(path.join('desktop/app',name),path.join(shell,name));
 fs.writeFileSync(path.join(shell,'package.json'),JSON.stringify({name:manifest.name,version:manifest.version,launcherVersion:manifest.launcherVersion,description:manifest.description,author:manifest.author,license:manifest.license,main:'main.cjs'}));
-if(!webOnly){
- for(const file of ['LICENSE','OPEN-SOURCE-NOTICES.md'])fs.copyFileSync(path.join(root,file),path.join(output,file));
- fs.copyFileSync(path.join(root,'desktop/connect/THIRD-PARTY-NOTICES.md'),path.join(output,'CONNECT-NOTICES.md'));
- const archive=path.join(root,'.artifacts/runtime.zip');fs.rmSync(archive,{force:true});
- const source=output.replace(/'/g,"''"),target=archive.replace(/'/g,"''");
- run('powershell.exe',['-NoProfile','-NonInteractive','-Command',"Add-Type -AssemblyName System.IO.Compression.FileSystem; [System.IO.Compression.ZipFile]::CreateFromDirectory('"+source+"','"+target+"',[System.IO.Compression.CompressionLevel]::Optimal,$false)"]);
- const hash=createHash('sha256');
- for await(const chunk of fs.createReadStream(archive))hash.update(chunk);
- fs.writeFileSync(path.join(root,'.artifacts/runtime.json'),JSON.stringify({version:manifest.version,size:fs.statSync(archive).size,sha256:hash.digest('hex')}));
-}
-console.log('\n[PokeStream] Runtime prepared: '+output);
-if(webOnly)console.log("[PokeStream] Frontend seulement : impossible de distribuer l'application complète sans Connect.");
-else {
- const git=spawnSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'});if(git.status!==0)fail('Unable to record source commit.');
- fs.mkdirSync(path.join(root,'.artifacts/release'),{recursive:true});
- fs.writeFileSync(path.join(root,'.artifacts/release/build-info.json'),JSON.stringify({version:manifest.version,launcherVersion:manifest.launcherVersion,commit:git.stdout.trim(),builtAt:new Date().toISOString()},null,2));
- console.log('[PokeStream] Build metadata recorded; launcher ready for packaging.');
+const git=spawnSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'});if(git.status!==0)throw Error('Cannot record source commit.');
+fs.mkdirSync(path.join(artifacts,'release'),{recursive:true});
+fs.writeFileSync(path.join(artifacts,'release/build-info.json'),JSON.stringify({version:manifest.version,launcherVersion:manifest.launcherVersion,commit:git.stdout.trim(),builtAt:new Date().toISOString(),bootstrap:true,components:Object.fromEntries(Object.entries(reports).map(([k,v])=>[k,{revision:v.revision,reused:v.reused}]))},null,2));
+console.log('[PokeStream] Launcher contains no web build, Connect engine, sprite packs or runtime archive.');
+if(updateOnly){
+ run('node',['node_modules/electron-builder/out/cli/cli.js','--config','desktop/app/electron-builder.yml','--win','--dir','--publish','never']);
+ run('node',['scripts/prepare-updates.mjs']);
 }

@@ -1,96 +1,52 @@
 #!/usr/bin/env node
-// Index every Pokémon asset listed in the upstream PokéAPI sprites manifest.
-// The complete graphics repository is >10 GB: files are cached on each user's PC,
-// not committed to PokeStream or shipped wholesale inside its installer.
-import {readFile,writeFile,mkdir,stat} from "node:fs/promises";
-import {gunzipSync} from "node:zlib";
-import path from "node:path";
-
-const manifestURL="https://pokeapi.github.io/sprites/manifest.json.gz";
-const response=await fetch(manifestURL,{signal:AbortSignal.timeout(90000)});
-if(!response.ok)throw new Error("PokéAPI sprite manifest unavailable: HTTP "+response.status);
-const compressed=Buffer.from(await response.arrayBuffer());
-if(compressed.length>32*1024*1024)throw new Error("PokéAPI manifest too large");
-const raw=gunzipSync(compressed,{maxOutputLength:100*1024*1024});
-const index=JSON.parse(raw.toString("utf8"));
-if(!Array.isArray(index)||index.length<15000||!index.every(s=>typeof s==="string"))throw new Error("Invalid/incomplete PokéAPI sprite index");
-const sources=JSON.parse(await readFile("src/data/sprite-sources.json","utf8"));
-const priorAvailability=JSON.parse(await readFile("src/data/sprite-availability.json","utf8"));
-const entries=index.filter(p=>p.startsWith("pokemon/")&&/\.(png|gif|svg|webp)$/i.test(p));
-if(entries.length<15000)throw new Error("PokéAPI Pokémon sprite index unexpectedly incomplete");
-const available={},forms={};
-const validDir=new Set(["","back","female","shiny","transparent","gray","gbc"]);
-for(const source of sources){
-  const prefix="pokemon/"+(source.path?source.path+"/":"");
-  const directories=new Map();
-  for(const file of entries){
-    if(!file.startsWith(prefix)||!file.endsWith("."+source.extension))continue;
-    const relative=file.slice(prefix.length);
-    const cut=relative.lastIndexOf("/");
-    const dir=cut<0?"":relative.slice(0,cut);
-    if(dir.split("/").some(part=>!validDir.has(part)))continue;
-    const name=relative.slice(cut+1,-(source.extension.length+1));
-    if(/^\d+$/.test(name)){
-      if(!directories.has(dir))directories.set(dir,[]);
-      directories.get(dir).push(Number(name));
-    }else if(/^\d+-[a-z0-9-]+$/.test(name)){
-      const spriteForm=forms[name]??={};
-      const dirs=spriteForm[source.id]??=[];
-      if(!dirs.includes(dir))dirs.push(dir);
-    }
-  }
-  const map={};
-  for(const [dir,list] of directories){
-    const unique=[...new Set(list)].sort((a,b)=>a-b),ranges=[];
-    for(const n of unique){const last=ranges.at(-1);if(last&&n===last[1]+1)last[1]=n;else ranges.push([n,n]);}
-    map[dir]=ranges;
-  }
-  if(!Object.keys(map).length){
-    if(!priorAvailability[source.id])throw new Error("No fallback availability for "+source.id);
-    console.warn("[PokeStream] Source missing in current PokéAPI manifest: "+source.id+"; keeping previous mapping.");
-    available[source.id]=priorAvailability[source.id];
-  }else available[source.id]=map;
+// Reuse pinned metadata for ordinary builds. Refresh it explicitly, not on every patch.
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import {spawnSync} from 'node:child_process';
+import {gzipSync,gunzipSync} from 'node:zlib';
+import {createHash} from 'node:crypto';
+const stage=path.resolve('.artifacts/sprite-catalog'),file=path.join(stage,'catalog-v2.json.gz');
+await fs.mkdir(stage,{recursive:true});
+if(process.argv.includes('--refresh')||!await fs.stat(file).catch(()=>null)){
+ const result=spawnSync(process.execPath,['scripts/prepare-sprite-packs.mjs'],{stdio:'inherit',env:process.env});if(result.status!==0)throw Error('Sprite metadata generation failed.');
 }
-// Retain known historical form-to-sprite mappings for collections omitted from the upstream index.
-const previousForms=JSON.parse(await readFile("src/data/connect-form-sprites.json","utf8"));
-for(const [form,styles] of Object.entries(previousForms)){
- const target=forms[form]??={};
- for(const [style,dirs] of Object.entries(styles))if(!target[style])target[style]=dirs;
-}
-await writeFile("src/data/sprite-availability.json",JSON.stringify(available)+"\n");
-await writeFile("src/data/connect-form-sprites.json",JSON.stringify(forms)+"\n");
-const stage=path.resolve(".artifacts/sprite-catalog");await mkdir(stage,{recursive:true});
-await writeFile(path.join(stage,"manifest.json.gz"),compressed);
-await writeFile(path.join(stage,"README.txt"),"PokéAPI sprite manifest (https://pokeapi.github.io/sprites/manifest.json.gz)\nDownloaded for local offline sprite catalog; images are cached by the PokeStream application.\n");
-console.log("[PokeStream] Indexed "+entries.length+" Pokémon graphics, "+Object.keys(forms).length+" named forms across "+sources.length+" sprite families.");
-
-// Bundle Pikachu previews from every collection; full libraries remain in the existing user cache.
-const previewFiles=new Set();
+const catalog=JSON.parse(gunzipSync(await fs.readFile(file)));
+const sources=JSON.parse(await fs.readFile('src/data/sprite-sources.json','utf8')),entries=catalog.files.map(f=>f[0]),available={},forms={};
+const dirs=new Set(['','back','female','shiny','transparent','gray','gbc']);
 for(const source of sources){
- const prefix="pokemon/"+(source.path?source.path+"/":"");
+ const prefix='pokemon/'+(source.path?source.path+'/':''),variants=new Map();
  for(const file of entries){
-  if(!file.startsWith(prefix)||!file.endsWith("/25."+source.extension))continue;
-  const relative=file.slice(prefix.length),parts=relative.split("/");parts.pop();
-  if(parts.some(part=>!validDir.has(part)))continue;
-  previewFiles.add(file);
+  if(!file.startsWith(prefix)||!file.endsWith('.'+source.extension))continue;
+  const relative=file.slice(prefix.length),last=relative.lastIndexOf('/'),directory=last<0?'':relative.slice(0,last),stem=relative.slice(last+1,-(source.extension.length+1));
+  if(directory.split('/').some(part=>!dirs.has(part)))continue;
+  if(/^\d+$/.test(stem)){if(!variants.has(directory))variants.set(directory,[]);variants.get(directory).push(Number(stem));}
+  else if(/^\d+-[a-z0-9-]+$/.test(stem)){const map=forms[stem]??={},list=map[source.id]??=[];if(!list.includes(directory))list.push(directory);}
  }
+ const map={};for(const [directory,values] of variants){const ranges=[];for(const number of [...new Set(values)].sort((a,b)=>a-b)){const previous=ranges.at(-1);if(previous&&number===previous[1]+1)previous[1]=number;else ranges.push([number,number]);}map[directory]=ranges;}available[source.id]=map;
 }
-const previewRoot=path.join(stage,"previews"),previews=[...previewFiles];let previewNext=0;
-async function previewWorker(){
- while(previewNext<previews.length){
-  const file=previews[previewNext++],target=path.join(previewRoot,...file.split("/"));
-  try{if((await stat(target)).size>0)continue;}catch{}
-  let failure;
-  for(let attempt=0;attempt<3;attempt++){
-   try{
-    const response=await fetch("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/"+file,{signal:AbortSignal.timeout(20000)});
-    if(!response.ok)throw Error("Preview HTTP "+response.status+": "+file);
-    const buffer=Buffer.from(await response.arrayBuffer());if(!buffer.length||buffer.length>20*1024*1024)throw Error("Invalid preview: "+file);
-    await mkdir(path.dirname(target),{recursive:true});await writeFile(target,buffer);failure=null;break;
-   }catch(error){failure=error;}
-  }
-  if(failure)throw failure;
- }
+for(const [name,value] of [['sprite-availability.json',available],['connect-form-sprites.json',forms]]){
+ const data=JSON.stringify(value)+'\n',target=path.join('src/data',name);
+ if(await fs.readFile(target,'utf8')!==data)await fs.writeFile(target,data);
 }
-await Promise.all(Array.from({length:8},previewWorker));
-console.log("[PokeStream] "+previewFiles.size+" Pikachu previews ready for offline use.");
+await fs.writeFile(path.join(stage,'manifest.json.gz'),gzipSync(JSON.stringify(entries),{level:9}));
+const previews=catalog.files.filter(f=>/^pokemon\/(?:[^/]+\/)*25(?:-[a-z0-9-]+)?\.(png|gif|svg|webp)$/.test(f[0]));
+let next=0;
+const blob=data=>createHash('sha1').update('blob '+data.length+'\0').update(data).digest('hex');
+async function worker(){while(next<previews.length){
+ const [relative,size,hash]=previews[next++],target=path.join(stage,'previews',...relative.split('/'));
+ try{const data=await fs.readFile(target);if(data.length===size&&blob(data)===hash)continue;}catch{}
+ const response=await fetch('https://raw.githubusercontent.com/PokeAPI/sprites/'+catalog.commit+'/sprites/'+relative,{signal:AbortSignal.timeout(45000)});
+ if(!response.ok)throw Error('Pikachu preview unavailable: '+relative);
+ const data=Buffer.from(await response.arrayBuffer());if(data.length!==size||blob(data)!==hash)throw Error('Pikachu preview integrity error.');
+ await fs.mkdir(path.dirname(target),{recursive:true});await fs.writeFile(target,data);
+}}
+await Promise.all(Array.from({length:6},worker));
+const previewRoot=path.join(stage,'previews'),keep=new Set(previews.map(f=>f[0]));
+async function prune(dir,relative=''){for(const entry of await fs.readdir(dir,{withFileTypes:true})){if(entry.isSymbolicLink())continue;const rel=relative?relative+'/'+entry.name:entry.name,target=path.join(dir,entry.name);if(entry.isDirectory())await prune(target,rel);else if(entry.isFile()&&!keep.has(rel))await fs.unlink(target);}}
+await prune(previewRoot);
+const license=path.join(stage,'LICENCE.txt');
+if(!await fs.stat(license).catch(()=>null)){
+ const response=await fetch('https://raw.githubusercontent.com/PokeAPI/sprites/'+catalog.commit+'/LICENCE.txt',{signal:AbortSignal.timeout(30000)});
+ if(!response.ok)throw Error('Upstream image notices unavailable.');await fs.writeFile(license,await response.text());
+}
+console.log('[PokeStream] '+catalog.files.length+' indexed assets; '+previews.length+' verified, protected Pikachu previews. Catalog '+catalog.commit.slice(0,8)+'.');

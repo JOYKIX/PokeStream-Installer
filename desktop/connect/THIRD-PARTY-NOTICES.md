@@ -2,7 +2,7 @@
 
 ## PokeStream SaveReader / PKHeX.Core
 
-PokeStream SaveReader is GPL-3.0-or-later. PKHeX.Core 24.11.11: copyright Kaphotics and contributors, GPL-3.0-or-later. Full license: tools/SaveReader/LICENSE. Complete corresponding source and build script: PokeStream-SaveReader-1.0.0-source.zip, distributed beside the application.
+PokeStream SaveReader is GPL-3.0-or-later. PKHeX.Core 24.11.11: copyright Kaphotics and contributors, GPL-3.0-or-later. Full license: tools/SaveReader/LICENSE. Complete corresponding source and rebuild script: the archive linked by SOURCE.json on the PokeStream GitHub release. The content-addressed archive remains available in the components-v1 distribution release.
 
 ## CLR Memory Diagnostics
 

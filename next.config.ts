@@ -3,6 +3,7 @@ import type { NextConfig } from "next";
 // The same frontend is used by the Vercel download site and by the local Electron app.
 const config: NextConfig = {
   poweredByHeader: false,
+  generateBuildId: async () => process.env.POKESTREAM_BUILD_ID || null,
   // Separate dev caches when the Vercel preview and desktop run together.
   distDir: process.env.POKESTREAM_LOCAL === "1" && process.env.NODE_ENV !== "production"
     ? ".next-local"

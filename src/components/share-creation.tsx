@@ -1,7 +1,8 @@
 "use client";
 import {useI18n} from "@/i18n/client";
 import {useEffect,useState} from "react";
-import {Check,Copy,Download,LoaderCircle,Share2} from "lucide-react";
+import {Check,Copy,Download,LoaderCircle,Share2,Monitor,Users} from "lucide-react";
+import {Select,SelectOption} from "./select";
 import {Modal} from "./ui";
 
 type LocalProfile={id:string;name:string;color:string};
@@ -23,12 +24,12 @@ export function ShareCreation({kind,sourceId,name,disabled=false,compact=false}:
   const p=await r.json();if(!r.ok)throw Error(p.error||"Copie impossible.");setMessage("Copie indépendante ajoutée au profil destinataire.");
  }catch(e){setError(e instanceof Error?e.message:"Copie impossible.");}finally{setBusy(false);}}
  return <><button type="button" className={compact?"icon-button":undefined} disabled={disabled} title={t("Partager")} aria-label={t("Partager {name}",{name})} onClick={()=>{setOpen(true);setMessage("");setError("");}}><Share2 size={16}/>{!compact&&t("Partager")}</button>
- <Modal open={open} onOpenChange={setOpen} title={t("Partager {name}",{name})} description={t("Sans compte, sans serveur : copie locale ou fichier partageable.")}>
-  <div className="share-form"><strong>{t("Partager avec un autre PC")}</strong><p>{t("Exporte un fichier .pokestream contenant la création et ses ressources associées.")}</p>
+ <Modal open={open} onOpenChange={setOpen} title={t("Partager {name}",{name})} description={t("Choisis comment partager cette création.")}>
+  <div className="share-form"><section className="share-method"><h3><Monitor size={17}/>{t("Partager avec un autre PC")}</h3><p>{t("Exporte un fichier .pokestream contenant la création et ses ressources associées.")}</p>
    <button className="button primary" type="button" disabled={busy} onClick={()=>void download()}>{busy?<LoaderCircle size={16}/>:<Download size={16}/>}{t("Exporter le fichier")}</button>
-   <strong style={{marginTop:14}}>{t("Copier dans un autre profil local")}</strong><select value={recipient} onChange={e=>setRecipient(e.target.value)} disabled={busy}><option value="">{t("Sélectionner un profil…")}</option>{users.map(u=><option value={u.id} key={u.id}>{u.name}</option>)}</select>
-   <button className="button secondary" type="button" disabled={busy||!recipient} onClick={()=>void copy()}><Copy size={16}/>{t("Copier vers ce profil")}</button>
-   {error&&<p className="form-error" role="alert">{t(error)}</p>}{message&&<p role="status"><Check size={16}/> {t(message)}</p>}
+  </section><section className="share-method"><h3><Users size={17}/>{t("Copier dans un autre profil local")}</h3><Select aria-label={t("Profil destinataire")} value={recipient||"none"} onValueChange={value=>setRecipient(value==="none"?"":value)} disabled={busy}><SelectOption value="none">{t("Sélectionner un profil…")}</SelectOption>{users.map(u=><SelectOption value={u.id} key={u.id}>{u.name}</SelectOption>)}</Select>{!users.length&&<p>{t("Ajoute un autre profil local pour y copier une création.")}</p>}
+   <button className="button secondary" type="button" disabled={busy||!recipient} onClick={()=>void copy()}><Copy size={16}/>{t("Copier vers ce profil")}</button></section>
+   {error&&<p className="form-error" role="alert">{t(error)}</p>}{message&&<p className="share-success" role="status"><Check size={16}/> {t(message)}</p>}
    <div className="modal-actions"><button className="button secondary" type="button" onClick={()=>setOpen(false)}>{t("Fermer")}</button></div>
   </div>
  </Modal></>;

@@ -6,13 +6,10 @@ directories:
 files:
   - '*.cjs'
   - package.json
+  - update-key.json
   - '!**/node_modules/**/*'
 npmRebuild: false
 extraResources:
-  - from: .artifacts/runtime.zip
-    to: runtime.zip
-  - from: .artifacts/runtime.json
-    to: runtime.json
   - from: .artifacts/runtime/launcher
     to: launcher
 win:

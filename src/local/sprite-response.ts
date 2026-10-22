@@ -10,7 +10,7 @@ export async function spriteResponse(request:Request,collection:string,parts:str
  const file=spritePath(parts);
  if(!file)return new Response(null,{status:400});
  try{
-  const buffer=await sprite(file,collection);
+  const buffer=await sprite(file,collection,new URL(request.url).searchParams.get("local")==="1");
   if(!buffer)return new Response(null,{status:404,headers:{"Cache-Control":"no-store"}});
   return new Response(new Uint8Array(buffer),{headers:{
    "Content-Type":mime[file.split(".").pop()!.toLowerCase()],"Content-Length":String(buffer.length),

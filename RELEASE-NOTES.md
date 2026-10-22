@@ -1,22 +1,22 @@
-PokeStream 3.0.0 · Launcher 1.0.0
+# PokeStream 3.0.1
 
 ## Interface
-- Redesigned local profile chooser with stable account avatars, profile pictures, names and colors.
-- Game profile library with six-slot team previews, search and recent/name sorting.
-- Consistent navigation, headings, cards and controls throughout the app.
 
-## Editors and settings
-- Fixed editor page overflow and header offsets when opening dropdown menus. Each editor pane scrolls within the window.
-- Studio style settings are separated into Theme, Team, Badges and Counter. Team layouts and OBS source choices are directly accessible.
-- Short settings use keyboard-accessible choice buttons. Games and builder themes use searchable visual pickers.
-- Theme Creator shares these controls and keeps preview and settings in their own panes.
-- Connect has Session, Reading settings and Activity sections. GDB ports use the shared number controls.
-- Application settings now separate general preferences, the sprite library and sharing/backups.
-- Updated English, French, Spanish, German and Japanese labels.
+- Interface flat dans l’app et le launcher, avec des fonds contrastés et des sélections visibles.
+- Choix des profils par avatars et fenêtre de partage réorganisée.
+- Ouverture de l’app en un clic depuis le launcher.
 
-## Update
-- App version: **3.0.0**. Launcher version: **1.0.0**, independently versioned.
-- Update from the launcher or run **PokeStream-Setup.exe**. Local profiles, creations and downloaded sprites are preserved.
-- App-only updates keep the launcher open.
+## Sprites
 
-Switch live reading remains experimental.
+- Packs par génération, style et ressource, installables séparément.
+- Tailles réelles, compatibilité par Pokémon, formes, variantes, recherche et pagination.
+- Pause, reprise, suppression et réparation. Fichiers partagés et aperçus inclus conservés.
+- Proposition d’installer les sprites du thème, avec option « Ne plus demander ».
+- Verrouillage des illustrations lors des changements de thème.
+
+## Installation et mises à jour
+
+- Launcher 1.1.0 séparé des fichiers de l’app. Installation des composants depuis GitHub.
+- Téléchargement des blocs modifiés et réutilisation des fichiers installés.
+- Vérification des signatures et des fichiers avant installation. Restauration de l’ancienne version si le démarrage échoue.
+- Nettoyage des anciennes versions après un démarrage réussi. Profils, créations et sprites conservés.

@@ -1,4 +1,5 @@
 "use client";
+import {useSpritePackPrompt} from "@/local/sprite-pack-prompt";
 import { customFavoriteId } from "./favorite-id";
 import { CustomThemeSample } from "./custom/sample";
 import type { CustomTheme } from "./custom/schema";
@@ -17,6 +18,7 @@ const searchNames = new Map(THEME_IDS.map((theme) => [theme, searchable([THEMES[
 
 type Props = {
   selected: ThemeId | null;
+  spriteLocked?:boolean;
   customThemes: CustomTheme[];
   selectedCustomId?: string;
   onSelectCustom: (theme: CustomTheme) => void;
@@ -28,8 +30,9 @@ type Props = {
   onMessage: (message: string) => void;
 };
 
-export function ThemeLibrary({ selected, customThemes, selectedCustomId, onSelectCustom, starter, premium, demo, favorites, onSelect, onMessage }: Props) {
+export function ThemeLibrary({ spriteLocked=false, selected, customThemes, selectedCustomId, onSelectCustom, starter, premium, demo, favorites, onSelect, onMessage }: Props) {
   const { t: tr } = useI18n();
+  const spritePrompt=useSpritePackPrompt(!demo&&!spriteLocked);
   const [filter, setFilter] = useState<"all" | "favorites">("all");
   const [query, setQuery] = useState("");
   const [collection, setCollection] = useState<ThemeCollection | "all" | "custom">("all");
@@ -85,7 +88,7 @@ export function ThemeLibrary({ selected, customThemes, selectedCustomId, onSelec
                 return <div className="theme-library-card" role="listitem" key={theme.id}>
                   <button type="button" className={"theme-choice " + (selected === "custom" && selectedCustomId === theme.id ? "selected" : "")}
                     aria-pressed={selected === "custom" && selectedCustomId === theme.id} 
-                    onClick={() => onSelectCustom(theme)}>
+                    onClick={() => void spritePrompt.choose(theme.config.sprite,()=>onSelectCustom(theme))}>
                     <CustomThemeSample config={theme.config}/><span>{theme.name}</span>
                   </button>
                   <button type="button" className={"theme-favorite " + (favorite ? "is-favorite" : "")} aria-pressed={favorite}
@@ -109,7 +112,7 @@ export function ThemeLibrary({ selected, customThemes, selectedCustomId, onSelec
                       <div className="theme-library-card" role="listitem" key={theme}>
                         <button type="button" className={"theme-choice " + (selected === theme ? "selected" : "")}
                           aria-label={label + (locked ? " · Pro" : "")} aria-disabled={locked} aria-pressed={selected === theme}
-                          onClick={() => locked ? onMessage(tr("Le thème {name} nécessite Pro.", { name: label })) : onSelect(theme)}>
+                          onClick={() => locked ? onMessage(tr("Le thème {name} nécessite Pro.", { name: label })) : void spritePrompt.choose(THEMES[theme].defaultSprite,()=>onSelect(theme))}>
                           <ThemeSample theme={theme} />
                           <span>{tr(label)}
                             {theme === starter && <span className="starter-label">{tr("GRATUIT")}</span>}
@@ -136,6 +139,7 @@ export function ThemeLibrary({ selected, customThemes, selectedCustomId, onSelec
           </p>
         )}
       </div>
+      {spritePrompt.dialog}
     </div>
   );
 }
