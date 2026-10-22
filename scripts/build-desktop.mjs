@@ -21,6 +21,9 @@ fs.mkdirSync(output,{recursive:true});
 const lock=JSON.parse(fs.readFileSync('package-lock.json','utf8'));delete lock.version;if(lock.packages?.[''])delete lock.packages[''].version;
 const toolchain=JSON.stringify({node:process.versions.node,lock});
 const reports={};
+const sourceCommit=spawnSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).stdout.trim();
+const sourceState=()=>fingerprint(root,[...sourceFiles(root,'src'),...sourceFiles(root,'desktop'),...sourceFiles(root,'scripts'),...sourceFiles(root,'public'),'package.json','package-lock.json','next.config.ts','tsconfig.json']);
+const sourceBefore=sourceState();
 if(!launcherOnly){
  if(!webOnly){
   if(!fs.existsSync('desktop/connect/data/sprites.zip'))run('node',['scripts/prepare-connect-sprites.mjs']);
@@ -73,6 +76,10 @@ const shell=path.join(artifacts,'shell');fs.mkdirSync(shell,{recursive:true});
 for(const name of fs.readdirSync('desktop/app').filter(n=>n.endsWith('.cjs')||n==='update-key.json'))fs.copyFileSync(path.join('desktop/app',name),path.join(shell,name));
 fs.writeFileSync(path.join(shell,'package.json'),JSON.stringify({name:manifest.name,version:manifest.version,launcherVersion:manifest.launcherVersion,description:manifest.description,author:manifest.author,license:manifest.license,main:'main.cjs'}));
 const git=spawnSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'});if(git.status!==0)throw Error('Cannot record source commit.');
+if(git.stdout.trim()!==sourceCommit||sourceState()!==sourceBefore){
+ for(const [name,value] of Object.entries(reports))if(!value.reused)fs.rmSync(path.join(artifacts,'components',name+'.json'),{force:true});
+ throw Error('Source files changed during the build. Commit generated data or finish editing, then build again.');
+}
 fs.mkdirSync(path.join(artifacts,'release'),{recursive:true});
 fs.writeFileSync(path.join(artifacts,'release/build-info.json'),JSON.stringify({version:manifest.version,launcherVersion:manifest.launcherVersion,commit:git.stdout.trim(),builtAt:new Date().toISOString(),bootstrap:true,components:Object.fromEntries(Object.entries(reports).map(([k,v])=>[k,{revision:v.revision,reused:v.reused}]))},null,2));
 console.log('[PokeStream] Launcher contains no web build, Connect engine, sprite packs or runtime archive.');
