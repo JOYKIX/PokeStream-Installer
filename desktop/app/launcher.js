@@ -17,6 +17,7 @@ const extra={"en":{"localStorage":"Stored on this PC","sprites":"Sprite library"
 for(const code of Object.keys(extra))Object.assign(copy[code],extra[code]);
 for(const [code,translations] of Object.entries(window.pokeStreamLauncherLocales||{}))copy[code]={...copy.en,...translations};
 for(const [code,[language,auto]] of Object.entries({"en":["Language","Automatic (system)"],"fr":["Langue","Automatique (système)"],"es":["Idioma","Automático (sistema)"],"de":["Sprache","Automatisch (System)"],"ja":["言語","自動（システム）"],"pt-BR":["Idioma","Automático (sistema)"],"it":["Lingua","Automatico (sistema)"],"ko":["언어","자동 (시스템)"],"zh-CN":["语言","自动（系统）"],"zh-TW":["語言","自動（系統）"]}))Object.assign(copy[code],{language,auto});
+for(const [code,label] of Object.entries({"en":"Updates unavailable","fr":"Mises à jour indisponibles","es":"Actualizaciones no disponibles","de":"Updates nicht verfügbar","ja":"更新を確認できません","pt-BR":"Atualizações indisponíveis","it":"Aggiornamenti non disponibili","ko":"업데이트를 확인할 수 없습니다","zh-CN":"暂时无法获取更新","zh-TW":"暫時無法取得更新"}))copy[code].updatesUnavailable=label;
 let locale='en',localePreference='auto',state=null,action='install',notesChoice='installed',notesSignature='';
 function guessLanguage(tag){
  const value=(tag||'en').toLowerCase().replace(/_/g,'-');
@@ -42,7 +43,7 @@ function renderNotes(){
  text('notes-source',online?t['notes-online']:t['notes-source']);
  const signature=JSON.stringify([record,locale,online]);if(signature===notesSignature)return;notesSignature=signature;
  const body=byId('notes-body');body.replaceChildren();body.scrollTop=0;
- if(!online&&record?.locales){
+ if(record?.locales){
   const sections=(record.locales[locale]||record.locales.en)?.sections||[];
   for(const section of sections){const group=document.createElement('section');group.className='release-group';const title=document.createElement('h3');title.textContent=section.title;group.append(title);
    const list=document.createElement('ul');for(const item of section.items){const li=document.createElement('li');li.textContent=item;list.append(li);}group.append(list);body.append(group);}
@@ -68,7 +69,7 @@ function render(){
  if(state.phase==='error')label=t.errorStatus;
  else if(u.status==='downloading')label=u.step==='comparing'?t.comparing:u.step==='verifying'?t.verifying:t.downloading;
  else if(state.busy)label=t[state.phase]||t.starting;
- else if(u.status==='offline')label=t.offline;
+ else if(u.status==='offline')label=t.updatesUnavailable;
  else if(state.installed&&['checking','available','current','development'].includes(u.status))label=t[u.status];
  else if(u.status==='ready')label=t.updateReady;
  if(['available','ready','downloading'].includes(u.status)&&u.version&&!state.busy)label+=' · '+u.version;
@@ -85,7 +86,7 @@ function render(){
  byId('primary').disabled=isBusy;byId('check').disabled=isBusy||u.status==='checking';
  byId('repair').disabled=isBusy||!state.installed;byId('uninstall').disabled=isBusy||!state.installed;
  byId('sprites').disabled=isBusy||!state.installed;byId('confirm-uninstall').disabled=isBusy;byId('cancel-uninstall').disabled=isBusy;byId('keep-data').disabled=isBusy;
- byId('error-box').hidden=!state.error&&!u.error;text('error-detail',state.error||u.error||'');if(u.status==='offline'&&!state.error&&state.installed)byId('error-box').hidden=true;
+ byId('error-box').hidden=!state.error&&!u.error;text('error-detail',state.error||u.error||'');
  renderNotes();
 }
 // A compact trigger with a scrollable language menu instead of ten title-bar buttons.

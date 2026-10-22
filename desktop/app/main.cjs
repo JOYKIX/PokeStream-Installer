@@ -270,7 +270,7 @@ async function start(){
   roots:async()=>{
    const info=installedApplication();let runtimeRoot=null;try{const record=JSON.parse(await fsp.readFile(path.join(installDir,'runtime.json'),'utf8'));if(/^runtime-[\w.-]+$/.test(record.directory))runtimeRoot=path.join(installDir,record.directory);}catch{}
    return {desktop:info?.directory,web:runtimeRoot?path.join(runtimeRoot,'web'):null,engine:runtimeRoot?path.join(runtimeRoot,'engine'):null,bootstrap:path.dirname(process.execPath)};
-  },notify:update=>publish({update:{...state.update,...update}})});
+  },notify:update=>{if(update.error)log('Update: '+update.error);publish({update:{...state.update,...update}});}});
  if(installerMode){
   try{await installPackages({repair:process.argv.includes('--repair'),includeLauncher:process.argv.includes('--include-launcher')});installerResult({success:true,version:VERSION,launcherVersion:LAUNCHER_VERSION});app.exit(0);}
   catch(error){log(error.stack||String(error));installerResult({success:false,message:error.message});app.exit(1);}return;

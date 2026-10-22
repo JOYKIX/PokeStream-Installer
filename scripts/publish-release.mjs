@@ -5,7 +5,7 @@ import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import {createRequire} from 'node:module';
 const require=createRequire(import.meta.url),{decode,BASE,REPOSITORY}=require('../desktop/app/update-format.cjs');
-const root=process.cwd(),dir=path.join(root,'.artifacts/release'),pkg=JSON.parse(fs.readFileSync('package.json','utf8')),version=pkg.version,tag='v'+version,updateOnly=process.argv.includes('--update-only');
+const root=process.cwd(),dir=path.join(root,'.artifacts/release'),pkg=JSON.parse(fs.readFileSync('package.json','utf8')),version=pkg.version,tag='v'+version,updateOnly=process.argv.includes('--update-only'),replace=process.argv.includes('--replace');
 const git=(...args)=>execFileSync('git',args,{cwd:root,encoding:'utf8'}).trim();
 if(git('remote','get-url','origin')!=='https://github.com/'+REPOSITORY+'.git')throw Error('Unexpected Git remote.');
 if(git('status','--porcelain'))throw Error('Commit all source changes before publishing.');
@@ -34,9 +34,11 @@ async function upload(release,file,name=path.basename(file)){
  const result=await request(url,{method:'POST',file});
  if(result.size!==fs.statSync(file).size||result.digest&&result.digest!=='sha256:'+await digest(file))throw Error('Uploaded asset verification failed: '+name);return result;
 }
-let release=null,published=false;
+let release=null,published=false,createdRelease=false,existingRelease=null;
 try{
- try{await request(api+'/releases/tags/'+tag);throw Error('Release already exists. Increment the version.');}catch(e){if(e.status!==404)throw e;}
+ try{existingRelease=await request(api+'/releases/tags/'+tag);}catch(e){if(e.status!==404)throw e;}
+ if(existingRelease&&!replace)throw Error('Release already exists. Increment the version or explicitly republish with --replace.');
+ if(replace&&(!existingRelease||existingRelease.draft||existingRelease.prerelease||updateOnly))throw Error('Republishing requires an existing public release and a complete installer.');
  let distribution;
  try{distribution=await request(api+'/releases/tags/components-v1');}
  catch(e){if(e.status!==404)throw e;distribution=await request(api+'/releases',{method:'POST',body:{tag_name:'components-v1',target_commitish:commit,name:'PokeStream component storage',body:'Verified content blocks used by the PokeStream launcher. Assets still referenced by supported installers are retained.',draft:false,prerelease:true,make_latest:'false'}});}
@@ -55,7 +57,8 @@ try{
  if(!assets.some(a=>a.name===legalName))assets.push(await upload(distribution,source,legalName));
  const sourceRecord={name:legalName,sha256:sourceHash,size:fs.statSync(source).size,url:BASE+legalName};
  fs.writeFileSync(path.join(dir,'SOURCE.json'),JSON.stringify(sourceRecord,null,2)+'\n');
- const files=['update.json.gz','update.sig','build-info.json','SOURCE.json'].map(n=>path.join(dir,n));
+ fs.copyFileSync('desktop/app/release-notes.json',path.join(dir,'release-notes.json'));
+ const files=['update.json.gz','update.sig','build-info.json','SOURCE.json','release-notes.json'].map(n=>path.join(dir,n));
  if(!updateOnly){
   const binary=path.join(dir,'PokeStream-'+version+'-win-x64.exe');if(!fs.existsSync(binary))throw Error('Build the launcher installer first.');
   const bootstrap=JSON.parse(fs.readFileSync(path.join(dir,'bootstrap.json'),'utf8'));
@@ -64,9 +67,37 @@ try{
  }
  const sums=path.join(dir,'SHA256SUMS.txt'),lines=[];for(const file of files)lines.push(await digest(file)+'  '+path.basename(file));fs.writeFileSync(sums,lines.join('\n')+'\n');files.push(sums);
  const notes=fs.readFileSync('RELEASE-NOTES.md','utf8')+'\n\n[SaveReader corresponding source]('+sourceRecord.url+')';
- release=await request(api+'/releases',{method:'POST',body:{tag_name:tag,target_commitish:commit,name:'PokeStream '+version,body:notes,draft:true,prerelease:false}});
- for(const file of files)await upload(release,file);
- release=await request(api+'/releases/'+release.id,{method:'PATCH',body:{draft:false,make_latest:updateOnly?'false':'true'}});published=true;
+ if(existingRelease){
+  // Upload and verify everything before switching any public filename. Keep the
+  // previous assets until the complete replacement and source tag are committed.
+  release=existingRelease;
+  const previousAssets=await listAssets(release.id),staged=[],swaps=[],suffix='.replacing-'+commit.slice(0,12)+'-'+Date.now();
+  const previousRef=await request(api+'/git/ref/tags/'+encodeURIComponent(tag));let tagChanged=false;
+  if(previousRef.object.type!=='commit')throw Error('Cannot republish an annotated source tag.');
+  try{
+   for(const file of files)staged.push({name:path.basename(file),asset:await upload(release,file,path.basename(file)+suffix)});
+   for(const pending of staged){
+    const old=previousAssets.find(a=>a.name===pending.name),swap={...pending,old,oldRenamed:false,promoted:false};swaps.push(swap);
+    if(old){await request(api+'/releases/assets/'+old.id,{method:'PATCH',body:{name:old.name+suffix+'.previous'}});swap.oldRenamed=true;}
+    await request(api+'/releases/assets/'+pending.asset.id,{method:'PATCH',body:{name:pending.name}});swap.promoted=true;
+   }
+   await request(api+'/git/refs/tags/'+encodeURIComponent(tag),{method:'PATCH',body:{sha:commit,force:true}});tagChanged=true;
+   release=await request(api+'/releases/'+release.id,{method:'PATCH',body:{name:'PokeStream '+version,body:notes,draft:false,make_latest:'true'}});published=true;
+  }catch(error){
+   for(const swap of [...swaps].reverse()){
+    if(swap.promoted)await request(api+'/releases/assets/'+swap.asset.id,{method:'PATCH',body:{name:swap.name+suffix}}).catch(()=>{});
+    if(swap.oldRenamed)await request(api+'/releases/assets/'+swap.old.id,{method:'PATCH',body:{name:swap.old.name}}).catch(()=>{});
+   }
+   if(tagChanged)await request(api+'/git/refs/tags/'+encodeURIComponent(tag),{method:'PATCH',body:{sha:previousRef.object.sha,force:true}}).catch(()=>{});
+   for(const pending of staged)await request(api+'/releases/assets/'+pending.asset.id,{method:'DELETE'}).catch(()=>{});
+   throw error;
+  }
+  for(const swap of swaps)if(swap.old)await request(api+'/releases/assets/'+swap.old.id,{method:'DELETE'});
+ }else{
+  release=await request(api+'/releases',{method:'POST',body:{tag_name:tag,target_commitish:commit,name:'PokeStream '+version,body:notes,draft:true,prerelease:false}});createdRelease=true;
+  for(const file of files)await upload(release,file);
+  release=await request(api+'/releases/'+release.id,{method:'PATCH',body:{draft:false,make_latest:updateOnly?'false':'true'}});published=true;
+ }
  console.log('Published '+release.html_url+(updateOnly?' (component update; existing bootstrap retained)':''));
  if(!process.argv.includes('--keep-old-releases')){
   const releases=await request(api+'/releases?per_page=100');
@@ -96,5 +127,5 @@ try{
    await request(api+'/releases/assets/'+asset.id,{method:'DELETE'});console.log('Removed unused distribution content '+asset.name);
   }
  }
-}catch(error){if(release&&!published)try{await request(api+'/releases/'+release.id,{method:'DELETE'});}catch{}throw error;}
+}catch(error){if(release&&createdRelease&&!published)try{await request(api+'/releases/'+release.id,{method:'DELETE'});}catch{}throw error;}
 finally{delete credential.password;delete headers.Authorization;}

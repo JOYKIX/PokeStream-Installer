@@ -6,7 +6,7 @@ Free, local, open source Windows application: Adventure, Connect, Theme Creator 
 
 Download [PokeStream-Setup.exe](https://github.com/JOYKIX/PokeStream-Installer/releases/latest/download/PokeStream-Setup.exe), run it and install PokeStream. Node.js and .NET are included; no account or administrator privileges are required.
 
-**PokeStream Launcher 1.1.2** and **PokeStream 3.0.5** are separate installed programs with separate windows, native executables and shortcuts. The launcher handles installation, app updates, release notes, launch, repair and uninstallation. The app hosts the workspace and local game reader. Closing the launcher does not close a running app.
+**PokeStream Launcher 1.1.3** and **PokeStream 3.0.5** are separate installed programs with separate windows, native executables and shortcuts. The launcher handles installation, app updates, release notes, launch, repair and uninstallation. The app hosts the workspace and local game reader. Closing the launcher does not close a running app.
 
 App updates keep the launcher open. If the app is running, it closes gracefully before replacement and reopens after completion. The launcher shows progress, validates SHA256 and waits for the installer result. Its own version is checked separately; it restarts only when its own files need updating.
 

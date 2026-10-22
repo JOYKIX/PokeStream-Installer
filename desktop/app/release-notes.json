@@ -1,6 +1,6 @@
 {
   "version": "3.0.5",
-  "launcherVersion": "1.1.2",
+  "launcherVersion": "1.1.3",
   "date": "2026-10-22",
   "locales": {
     "fr": {
@@ -10,6 +10,12 @@
           "items": [
             "Nouvelle icône chromatique devant le nom, avec une option pour la masquer.",
             "Copie des liens OBS corrigée."
+          ]
+        },
+        {
+          "title": "Launcher 1.1.3",
+          "items": [
+            "Téléchargement des mises à jour fiabilisé."
           ]
         }
       ]
@@ -22,6 +28,12 @@
             "New shiny icon before the name, with an option to hide it.",
             "Fixed copying OBS links."
           ]
+        },
+        {
+          "title": "Launcher 1.1.3",
+          "items": [
+            "More reliable update downloads."
+          ]
         }
       ]
     },
@@ -32,6 +44,12 @@
           "items": [
             "名前の前に新しい色違いマークを表示。設定で非表示にできます。",
             "OBSリンクのコピーを修正。"
+          ]
+        },
+        {
+          "title": "Launcher 1.1.3",
+          "items": [
+            "更新のダウンロードを改善。"
           ]
         }
       ]
@@ -44,6 +62,12 @@
             "Nuevo icono variocolor delante del nombre, con opción para ocultarlo.",
             "Corregida la copia de enlaces OBS."
           ]
+        },
+        {
+          "title": "Launcher 1.1.3",
+          "items": [
+            "Descarga de actualizaciones más fiable."
+          ]
         }
       ]
     },
@@ -54,6 +78,12 @@
           "items": [
             "Neues Schillernd-Symbol vor dem Namen, das sich ausblenden lässt.",
             "Kopieren von OBS-Links korrigiert."
+          ]
+        },
+        {
+          "title": "Launcher 1.1.3",
+          "items": [
+            "Zuverlässigere Update-Downloads."
           ]
         }
       ]
@@ -66,6 +96,12 @@
             "Novo ícone shiny antes do nome, com opção para ocultar.",
             "Cópia de links do OBS corrigida."
           ]
+        },
+        {
+          "title": "Launcher 1.1.3",
+          "items": [
+            "Downloads de atualizações mais confiáveis."
+          ]
         }
       ]
     },
@@ -76,6 +112,12 @@
           "items": [
             "Nuova icona cromatica prima del nome, con opzione per nasconderla.",
             "Corretta la copia dei link OBS."
+          ]
+        },
+        {
+          "title": "Launcher 1.1.3",
+          "items": [
+            "Download degli aggiornamenti più affidabile."
           ]
         }
       ]
@@ -88,6 +130,12 @@
             "이름 앞에 새로운 색이 다른 포켓몬 아이콘을 표시하며, 설정에서 숨길 수 있습니다.",
             "OBS 링크 복사 오류를 수정했습니다."
           ]
+        },
+        {
+          "title": "Launcher 1.1.3",
+          "items": [
+            "업데이트 다운로드의 안정성을 개선했습니다."
+          ]
         }
       ]
     },
@@ -99,6 +147,12 @@
             "名字前显示新的异色图标，可在设置中隐藏。",
             "修复 OBS 链接复制问题。"
           ]
+        },
+        {
+          "title": "Launcher 1.1.3",
+          "items": [
+            "提升更新下载的可靠性。"
+          ]
         }
       ]
     },
@@ -109,6 +163,12 @@
           "items": [
             "名字前顯示新的異色圖示，可在設定中隱藏。",
             "修正 OBS 連結複製問題。"
+          ]
+        },
+        {
+          "title": "Launcher 1.1.3",
+          "items": [
+            "改善更新下載的穩定性。"
           ]
         }
       ]
