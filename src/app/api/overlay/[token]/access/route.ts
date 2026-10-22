@@ -1,2 +1,0 @@
-import { readStore } from "@/local/store";
-export async function GET(_r:Request,c:{params:Promise<{token:string}>}){const {token}=await c.params,state=readStore();const s=state.tables.scenes.find(s=>s.view_token===token&&s.enabled);if(!s)return Response.json({active:false});const theme=state.tables.custom_themes.find(t=>t.id===s.data.style.customThemeId&&t.owner_id===s.owner_id);return Response.json({active:true,theme:s.data.style.theme,customTheme:theme?.config,customThemeId:theme?.id,expiresAt:Date.now()+15000},{headers:{"Cache-Control":"no-store"}});}
