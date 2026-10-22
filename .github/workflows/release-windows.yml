@@ -1,5 +1,7 @@
 name: PokeStream — Windows build
 on:
+  push:
+    branches: [prepare-app-3.0.3-launcher-1.1.2-i18n]
   workflow_dispatch:
 permissions:
   contents: read
