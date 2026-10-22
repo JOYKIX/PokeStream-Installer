@@ -14,7 +14,7 @@ export async function spriteResponse(request:Request,collection:string,parts:str
   if(!buffer)return new Response(null,{status:404,headers:{"Cache-Control":"no-store"}});
   return new Response(new Uint8Array(buffer),{headers:{
    "Content-Type":mime[file.split(".").pop()!.toLowerCase()],"Content-Length":String(buffer.length),
-   "Cache-Control":"private, max-age=86400","X-Content-Type-Options":"nosniff",
+   "Cache-Control":"private, no-store","X-Content-Type-Options":"nosniff",
    "Content-Security-Policy":"default-src 'none'; style-src 'unsafe-inline'; sandbox"
   }});
  }catch{return new Response(null,{status:503,headers:{"Cache-Control":"no-store"}});}

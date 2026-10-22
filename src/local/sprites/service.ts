@@ -14,6 +14,31 @@ class SpriteService{
  startScan(){if(this.scanning)return this.scanning;const c=this.catalog!;this.scanning=this.storage.scanFiles(c).catch(e=>{this.message=String(e.message);}).finally(()=>{this.scanning=null;});return this.scanning;}
  async ready(){await this.init();if(this.storage.scan.state==="idle")void this.startScan();return this;}
  async disk(){try{const s=await fs.statfs(spriteRoot());return Number(s.bavail)*Number(s.bsize);}catch{return null;}}
+ mode(): "online"|"offline"{return this.storage.db.prepare("SELECT value FROM metadata WHERE key='sprite-mode'").get()?.value==="offline"?"offline":"online";}
+ renderEpoch=Date.now().toString(36);
+ renderState(){return {mode:this.mode(),revision:this.renderEpoch+":"+this.storage.revision};}
+ async setMode(value:unknown){if(value!=="online"&&value!=="offline")throw Error("sprite_mode_invalid");this.storage.db.prepare("INSERT OR REPLACE INTO metadata VALUES('sprite-mode',?)").run(value);this.storage.revision++;return this.snapshot();}
+ onlinePending=new Map<string,Promise<Buffer>>();onlineCache=new Map<string,Buffer>();onlineBytes=0;onlineActive=0;onlineQueue:(()=>void)[]=[];
+ async resolveFile(file:SpriteFile,localOnly=false){
+  const local=await this.getFile(file,true);if(local||localOnly||this.mode()==="offline")return local;
+  const cached=this.onlineCache.get(file[2]);if(cached){this.onlineCache.delete(file[2]);this.onlineCache.set(file[2],cached);return cached;}
+  const pending=this.onlinePending.get(file[2]);if(pending)return pending;
+  const task=(async()=>{
+   if(this.onlineActive>=6)await new Promise<void>(resolve=>this.onlineQueue.push(resolve));else this.onlineActive++;
+   try{
+    const response=await fetch("https://raw.githubusercontent.com/PokeAPI/sprites/"+this.catalog!.commit+"/sprites/"+file[0],{signal:AbortSignal.timeout(20000),cache:"no-store"});
+    if(!response.ok)throw Error("sprite_network_error");
+    const chunks:Buffer[]=[];let size=0;
+    for await(const chunk of response.body!){size+=chunk.length;if(size>file[1]){await response.body?.cancel().catch(()=>{});throw Error("sprite_integrity_error");}chunks.push(Buffer.from(chunk));}
+    const data=Buffer.concat(chunks);
+    if(data.length!==file[1]||blobHash(data)!==file[2]||!imageValid(data,file[0]))throw Error("sprite_integrity_error");
+    // A bounded RAM cache avoids writing online sprites into the persistent library.
+    while(this.onlineCache.size&&(this.onlineBytes+data.length>64*1024*1024||this.onlineCache.size>=128)){const key=this.onlineCache.keys().next().value!;this.onlineBytes-=this.onlineCache.get(key)!.length;this.onlineCache.delete(key);}
+    this.onlineCache.set(file[2],data);this.onlineBytes+=data.length;return data;
+   }finally{const next=this.onlineQueue.shift();if(next)next();else this.onlineActive--;}
+  })().finally(()=>this.onlinePending.delete(file[2]));
+  this.onlinePending.set(file[2],task);return task;
+ }
  async getFile(file:SpriteFile,localOnly=false,signal?:AbortSignal){
   const epoch=this.epoch;if(this.storage.objects.get(file[2])===file[1])try{const data=await fs.readFile(objectPath(file[2]));if(data.length===file[1]&&blobHash(data)===file[2])return data;this.storage.objects.delete(file[2]);}catch{this.storage.objects.delete(file[2]);}
   for(const candidate of [legacyPath(file[0]),this.storage.bundled.get(file[2])??bundledPath(file)])try{const data=await fs.readFile(candidate);if(data.length===file[1]&&blobHash(data)===file[2]&&imageValid(data,file[0]))return data;}catch{}
@@ -46,7 +71,7 @@ class SpriteService{
    if(selection&&selection.revision!==pack.revision&&selection.origin!=="cache"&&state==="installed")state="update";
    return {...pack,state,localFiles:local.length,localSpecies:new Set(local.map(f=>f[3]).filter(Boolean)).size,speciesTotal:dex.length,incompatible:dex.length-new Set(files.map(f=>f[3]).filter(id=>referenceIds.has(id))).size,downloadBytes:missing.reduce((n,f)=>n+f[1],0),occupiedBytes:occupied+partialBytes+looseSize,partialBytes,reclaimableBytes:reclaimable,job:job??null};});
   const blobs=unique(c.files),downloadBytes=blobs.filter(f=>!s.present(f)).reduce((n,f)=>n+f[1],0),occupiedBytes=[...s.objects.values()].reduce((n,b)=>n+b,0),looseBytes=s.loose().reduce((n,f)=>n+f.bytes,0);
-  return {schema:2,commit:c.commit,updatedAt:c.generatedAt,packs,totalBytes:blobs.reduce((n,f)=>n+f[1],0),downloadBytes,occupiedBytes,looseBytes,partialBytes:[...s.parts.values()].reduce((n,b)=>n+b,0),freeBytes:await this.disk(),scan:{...s.scan},maintenance:this.maintenance,catalogProgress:this.catalogProgress,message:this.message,jobs:[...s.jobs.values()].filter(j=>["queued","downloading","paused","error"].includes(j.state))};
+  return {...this.renderState(),schema:2,commit:c.commit,updatedAt:c.generatedAt,packs,totalBytes:blobs.reduce((n,f)=>n+f[1],0),downloadBytes,occupiedBytes,looseBytes,partialBytes:[...s.parts.values()].reduce((n,b)=>n+b,0),freeBytes:await this.disk(),scan:{...s.scan},maintenance:this.maintenance,catalogProgress:this.catalogProgress,message:this.message,jobs:[...s.jobs.values()].filter(j=>["queued","downloading","paused","error"].includes(j.state))};
  }
  async command(action:string,pack="all",confirm=false){await this.ready();const c=this.catalog!;if(pack!=="all"&&!c.byPack.has(pack))throw Error("sprite_pack_missing");
   if(action==="pause"||action==="cancel"){for(const job of this.storage.jobs.values())if((pack==="all"||job.pack===pack)&&["queued","downloading","paused","error"].includes(job.state)){this.storage.setJob({...job,state:action==="cancel"?"cancelled":"paused",updated:Date.now()});if(this.controller&&job.pack===this.activePack)this.controller.abort();}if(pack==="all"&&this.running)await this.running;return this.snapshot();}

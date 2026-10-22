@@ -7,7 +7,7 @@ function request(value,{headers={},status=200}={},redirects=5){
   let url;try{url=approved(value);}catch(e){return reject(e);}
   const req=https.get(url,{headers:{'User-Agent':'PokeStream-Launcher','Accept':'application/vnd.github+json',...headers}},response=>{
    if([301,302,303,307,308].includes(response.statusCode)){response.resume();try{resolve(request(new URL(response.headers.location,url).href,{headers,status},redirects-1));}catch(e){reject(e);}return;}
-   if(response.statusCode!==status){response.resume();return reject(Error('Update HTTP '+response.statusCode));}resolve(response);
+   if(response.statusCode!==status){response.destroy();return reject(Error('Update HTTP '+response.statusCode));}resolve(response);
   });req.setTimeout(45000,()=>req.destroy(Error('Update server unavailable.')));req.on('error',reject);
  });
 }

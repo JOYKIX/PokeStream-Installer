@@ -29,13 +29,14 @@ export function useSpritePackPrompt(enabled:boolean){
   const pack=style&&packForStyle(style);if(!enabled||!pack){apply();return;}
   const token=++generation.current;
   try{
+   const mode=await fetch("/api/local/sprites?view=mode",{cache:"no-store"});if(mode.ok&&(await mode.json()).mode==="online"){if(token===generation.current)apply();return;}
    const response=await fetch("/api/local/users",{cache:"no-store"});if(!response.ok)throw Error();
    const user=await response.json(),storageKey="pokestream:hide-sprite-pack-prompt:"+user.active;
    if(localStorage.getItem(storageKey)==="1"){if(token===generation.current)apply();return;}
    const request=await fetch("/api/local/sprites",{cache:"no-store"});if(!request.ok)throw Error();
    const data:LibrarySnapshot=await request.json(),item=data.packs.find(p=>p.id===pack);
    if(token!==generation.current)return;
-   if(!item||item.downloadBytes===0||item.job&&["queued","downloading"].includes(item.job.state)){apply();return;}
+   if(data.mode==="online"||!item||item.downloadBytes===0||item.job&&["queued","downloading"].includes(item.job.state)){apply();return;}
    setStatus(data);setDontAsk(false);setError("");setPending({pack,apply,storageKey});
   }catch{if(token===generation.current)apply();}
  }

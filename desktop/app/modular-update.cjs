@@ -2,6 +2,7 @@
 let fs;try{fs=require('original-fs');}catch{fs=require('node:fs');}
 const fsp=fs.promises,path=require('node:path'),{randomUUID,createHash}=require('node:crypto'),{gunzipSync}=require('node:zlib');
 const {decode,sha,BASE}=require('./update-format.cjs'),{bytes}=require('./update-network.cjs');
+const {acquireOperation}=require('./operation-lock.cjs');
 const BLOCK=1024*1024;
 async function hashFile(file){const hash=createHash('sha256');for await(const chunk of fs.createReadStream(file))hash.update(chunk);return hash.digest('hex');}
 async function safeRoot(root){if((await fsp.lstat(root)).isSymbolicLink())throw Error('Installation contains an unexpected link.');return path.resolve(root);}
@@ -19,7 +20,7 @@ async function atomic(file,data){await fsp.mkdir(path.dirname(file),{recursive:t
 function child(root,name,pattern){const target=path.resolve(root,name);if(!pattern.test(name)||path.dirname(target)!==path.resolve(root))throw Error('Invalid installation destination.');return target;}
 async function removeTree(root,name,pattern){const target=child(root,name,pattern);try{await safeRoot(target);}catch(e){if(e.code==='ENOENT')return;throw e;}await fsp.rm(target,{recursive:true,force:true});}
 function createModular({directory,installDir,launcherDir,roots,notify}){
- const cache=path.join(directory,'blocks'),record=path.join(directory,'modular.json'),operation=path.join(directory,'operation.json');let working=null,downloaded=null;
+ const cache=path.join(directory,'blocks'),record=path.join(directory,'modular.json');let working=null,downloaded=null;
  async function manifestFrom(item){const buffer=await fsp.readFile(item.manifest),signature=await fsp.readFile(item.signature,'utf8');const manifest=decode(buffer,signature);if(manifest.version!==item.version)throw Error('Update version mismatch.');return manifest;}
  async function plan(manifest){
   await fsp.mkdir(cache,{recursive:true});const local=new Map(),whole=new Map();let scanned=0;
@@ -117,9 +118,8 @@ function createModular({directory,installDir,launcherDir,roots,notify}){
  async function download(item,manifestBytes,signature){
   if(working)return working;
   working=(async()=>{
-   await fsp.mkdir(directory,{recursive:true});
-   try{const owner=JSON.parse(await fsp.readFile(operation,'utf8'));if(owner.pid!==process.pid){let alive=false;try{process.kill(owner.pid,0);alive=true;}catch{}if(alive)throw Error('Another PokeStream update is running.');}await fsp.unlink(operation);}catch(e){if(e.code!=='ENOENT')throw e;}
-   await fsp.writeFile(operation,JSON.stringify({pid:process.pid}),{flag:'wx'});
+   const release=await acquireOperation(directory,{purpose:'prepare'});
+   try{
    const manifestFile=path.join(directory,'update.json.gz'),signatureFile=path.join(directory,'update.sig');
    await atomic(manifestFile,manifestBytes);await atomic(signatureFile,signature);
    const manifest=decode(manifestBytes,signature),planned=await plan(manifest);
@@ -136,7 +136,8 @@ function createModular({directory,installDir,launcherDir,roots,notify}){
    downloaded={...item,kind:'modular',manifest:manifestFile,signature:signatureFile,...prepared};
    await atomic(record,JSON.stringify(downloaded));notify({status:'ready',step:'ready',version:item.version,progress:100,error:'',notes:item.notes||null});
    return downloaded;
-  })().finally(async()=>{working=null;try{const value=JSON.parse(await fsp.readFile(operation,'utf8'));if(value.pid===process.pid)await fsp.unlink(operation);}catch{}});return working;
+   }finally{await release();}
+  })().finally(()=>{working=null;});return working;
  }
  async function restore(){try{const value=JSON.parse(await fsp.readFile(record,'utf8'));await verifyPrepared(value);downloaded=value;return value;}catch{return null;}}
  async function verifyPrepared(item=downloaded){
@@ -152,6 +153,8 @@ function createModular({directory,installDir,launcherDir,roots,notify}){
   }return {item,manifest};
  }
  async function commit(item=downloaded){
+  const release=await acquireOperation(directory,{purpose:'commit'});
+  try{
   const verified=await verifyPrepared(item),manifest=verified.manifest;
   const entries=[[installDir,'desktop.json',{version:manifest.version,directory:item.desktop}],[installDir,'runtime.json',{version:manifest.version,directory:item.runtime}]];
   if(item.launcher)entries.push([launcherDir,'launcher.json',{version:manifest.launcherVersion,directory:item.launcher}]);
@@ -166,6 +169,7 @@ function createModular({directory,installDir,launcherDir,roots,notify}){
    await fsp.rm(record,{force:true});await fsp.rm(journal,{force:true});downloaded=null;
    return {version:manifest.version,target:path.join(installDir,item.desktop,'PokeStream.exe'),launcherTarget:item.launcher?path.join(launcherDir,item.launcher,'PokeStream Launcher.exe'):null};
   }catch(error){await recover(installDir,launcherDir);throw error;}
+  }finally{await release();}
  }
  return {download,restore,verify:verifyPrepared,commit,manifestFrom};
 }
@@ -180,8 +184,9 @@ async function recover(installDir,launcherDir){
  await fsp.rm(file,{force:true});
 }
 async function cleanVersions({installDir,launcherDir,updatesDir,currentExecutable}){
- if(updatesDir){try{await fsp.access(path.join(updatesDir,'modular.json'));return;}catch{}try{const owner=JSON.parse(await fsp.readFile(path.join(updatesDir,'operation.json'),'utf8'));process.kill(owner.pid,0);return;}catch{}}
-
+ const release=updatesDir?await acquireOperation(updatesDir,{purpose:'cleanup'}):async()=>{};
+ try{
+ if(updatesDir){try{await fsp.access(path.join(updatesDir,'modular.json'));return;}catch{}}
  const live=new Set([path.dirname(currentExecutable)]);
  for(const [root,names] of [[installDir,['desktop.json','runtime.json']],[launcherDir,['launcher.json']]])for(const name of names)try{
   const item=JSON.parse(await fsp.readFile(path.join(root,name),'utf8'));
@@ -203,6 +208,7 @@ async function cleanVersions({installDir,launcherDir,updatesDir,currentExecutabl
   if(entry.isFile()&&/^(PokeStream-\d+\.\d+\.\d+\.exe(?:\.partial)?|download\.json|modular\.json|update\.json\.gz|update\.sig)$/.test(entry.name))await fsp.unlink(path.join(updatesDir,entry.name)).catch(()=>{});
   else if(entry.isDirectory()&&entry.name==='blocks')await removeTree(updatesDir,'blocks',/^blocks$/).catch(()=>{});
  }
+ }finally{await release();}
 }
 async function rollbackUpdate({installDir,expectedVersion}){
  const file=path.join(installDir,'rollback.json');let data;try{data=JSON.parse(await fsp.readFile(file,'utf8'));}catch{return false;}

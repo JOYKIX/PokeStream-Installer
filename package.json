@@ -1,6 +1,6 @@
 {
   "name": "pokestream",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -56,5 +56,5 @@
   "description": "PokeStream Windows — Adventure, Connect, Theme Creator & Overlay Builder",
   "author": "JOYKIX",
   "license": "MIT",
-  "launcherVersion": "1.1.0"
+  "launcherVersion": "1.1.1"
 }

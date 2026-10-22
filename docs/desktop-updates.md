@@ -41,3 +41,7 @@ Assemble and verify files in new version directories while the installed app rem
 After successful startup, delete obsolete managed directories and update caches. Skip active/prepared updates, validate managed paths and never touch Studio/, including downloaded sprites. Uninstallation retains user data unless removal is explicitly chosen.
 
 The private publishing key is protected with Windows DPAPI outside the repository. The committed public key must match it. Other publishers can supply POKESTREAM_SIGNING_KEY as a protected secret. Never silently regenerate the trusted key or commit a private key.
+
+## Operation coordination (3.0.2)
+
+The updater coordinator publishes ready only after retaining its prepared package, and clears that state after commit. A stale install action rechecks the signed package and prepares missing content again. Preparation, commit, cleanup and uninstall acquire the same PID/token lock; interrupted owners can be recovered, and active owners are never removed. The launcher restarts only when its own component changes.

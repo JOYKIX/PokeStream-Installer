@@ -1,35 +1,26 @@
 {
-  "version": "3.0.1",
-  "launcherVersion": "1.1.0",
+  "version": "3.0.2",
+  "launcherVersion": "1.1.1",
   "date": "2026-10-22",
   "locales": {
     "fr": {
       "sections": [
         {
-          "title": "Interface",
+          "title": "Installation et mises à jour",
           "items": [
-            "Interface flat dans l’app et le launcher, avec des fonds contrastés et des sélections visibles.",
-            "Choix des profils par avatars et fenêtre de partage réorganisée.",
-            "Ouverture de l’app en un clic depuis le launcher."
+            "Correction du bouton de mise à jour après une installation terminée.",
+            "Reprise de la préparation si les fichiers temporaires ne sont plus disponibles.",
+            "Installation, nettoyage et désinstallation protégés contre les opérations simultanées.",
+            "Launcher 1.1.1. Profils, créations et packs conservés lors des mises à jour."
           ]
         },
         {
           "title": "Sprites",
           "items": [
-            "Packs par génération, style et ressource, installables séparément.",
-            "Tailles réelles, compatibilité par Pokémon, formes, variantes, recherche et pagination.",
-            "Pause, reprise, suppression et réparation. Fichiers partagés et aperçus inclus conservés.",
-            "Proposition d’installer les sprites du thème, avec option « Ne plus demander ».",
-            "Verrouillage des illustrations lors des changements de thème."
-          ]
-        },
-        {
-          "title": "Installation et mises à jour",
-          "items": [
-            "Launcher 1.1.0 séparé des fichiers de l’app. Installation des composants depuis GitHub.",
-            "Téléchargement des blocs modifiés et réutilisation des fichiers installés.",
-            "Vérification des signatures et des fichiers avant installation. Restauration de l’ancienne version si le démarrage échoue.",
-            "Nettoyage des anciennes versions après un démarrage réussi. Profils, créations et sprites conservés."
+            "Choix En ligne / Hors ligne dans Réglages → Sprites.",
+            "En ligne : sprites PokéAPI chargés à la demande, sans installer de packs.",
+            "Hors ligne : utilisation des sprites inclus ou téléchargés sur le PC.",
+            "Le changement de mode conserve les packs et actualise les illustrations."
           ]
         }
       ]
@@ -37,30 +28,21 @@
     "en": {
       "sections": [
         {
-          "title": "Interface",
+          "title": "Installation and updates",
           "items": [
-            "Flat app and launcher interface with contrasting surfaces and clear selections.",
-            "Avatar-based profile selection and reorganized sharing dialog.",
-            "Open the app from the launcher with one click."
+            "Fix the update button remaining active after a completed installation.",
+            "Prepare the update again when temporary files are no longer available.",
+            "Prevent installation, cleanup and uninstallation from running at the same time.",
+            "Launcher 1.1.1. Updates keep profiles, creations and downloaded packs."
           ]
         },
         {
           "title": "Sprites",
           "items": [
-            "Install individual generation, style and resource packs.",
-            "Actual sizes, species compatibility, forms, variants, search and pagination.",
-            "Pause, resume, remove and repair. Shared files and included previews are kept.",
-            "Offer to install a theme’s sprites, with a “Don’t ask again” option.",
-            "Lock illustrations when switching themes."
-          ]
-        },
-        {
-          "title": "Installation and updates",
-          "items": [
-            "Launcher 1.1.0 contains no app files. Components are installed from GitHub.",
-            "Download changed blocks and reuse installed content.",
-            "Verify signatures and files before installation. Restore the previous app if startup fails.",
-            "Clean up obsolete versions after successful startup. Keep profiles, creations and sprites."
+            "Choose Online / Offline in Settings → Sprites.",
+            "Online: load PokéAPI sprites as needed, without installing packs.",
+            "Offline: use sprites included with the app or downloaded to this PC.",
+            "Switch modes without removing packs; displayed illustrations refresh."
           ]
         }
       ]
@@ -68,30 +50,21 @@
     "es": {
       "sections": [
         {
-          "title": "Interfaz",
+          "title": "Instalación y actualizaciones",
           "items": [
-            "Diseño flat en app y launcher con superficies contrastadas y selecciones claras.",
-            "Selección de perfiles por avatares y diálogo de compartir reorganizado.",
-            "Abre la app desde el launcher con un clic."
+            "Corregido el botón de actualización tras completar una instalación.",
+            "Nueva preparación si los archivos temporales ya no están disponibles.",
+            "Instalación, limpieza y desinstalación protegidas contra operaciones simultáneas.",
+            "Launcher 1.1.1. Las actualizaciones conservan perfiles, creaciones y packs."
           ]
         },
         {
           "title": "Sprites",
           "items": [
-            "Packs por generación, estilo y recurso instalables por separado.",
-            "Tamaños reales, compatibilidad, formas, variantes, búsqueda y paginación.",
-            "Pausa, reanudación, eliminación y reparación. Archivos compartidos y vistas previas conservados.",
-            "Propuesta para instalar los sprites del tema con opción de no volver a preguntar.",
-            "Bloqueo de ilustraciones al cambiar de tema."
-          ]
-        },
-        {
-          "title": "Instalación y actualizaciones",
-          "items": [
-            "Launcher 1.1.0 sin archivos de la app. Instalación de componentes desde GitHub.",
-            "Descarga de bloques modificados y reutilización del contenido instalado.",
-            "Verificación de firmas y archivos. Restauración de la versión anterior si el inicio falla.",
-            "Limpieza de versiones antiguas tras un inicio correcto. Se conservan perfiles, creaciones y sprites."
+            "Selección En línea / Sin conexión en Ajustes → Sprites.",
+            "En línea: carga de sprites de PokéAPI sin instalar packs.",
+            "Sin conexión: uso de sprites incluidos o descargados en este PC.",
+            "Cambiar de modo conserva los packs y actualiza las ilustraciones."
           ]
         }
       ]
@@ -99,30 +72,21 @@
     "de": {
       "sections": [
         {
-          "title": "Oberfläche",
+          "title": "Installation und Updates",
           "items": [
-            "Flat-Oberfläche für App und Launcher mit kontrastreichen Flächen und klaren Auswahlzuständen.",
-            "Profile über Avatare auswählen; überarbeiteter Teilen-Dialog.",
-            "App mit einem Klick vom Launcher öffnen."
+            "Update-Schaltfläche nach abgeschlossener Installation korrigiert.",
+            "Erneute Vorbereitung, wenn temporäre Update-Dateien fehlen.",
+            "Installation, Bereinigung und Deinstallation gegen gleichzeitige Vorgänge geschützt.",
+            "Launcher 1.1.1. Updates behalten Profile, Kreationen und Pakete."
           ]
         },
         {
           "title": "Sprites",
           "items": [
-            "Pakete nach Generation, Stil und Ressourcen einzeln installieren.",
-            "Tatsächliche Größen, Kompatibilität, Formen, Varianten, Suche und Seitenaufteilung.",
-            "Pausieren, fortsetzen, entfernen und reparieren. Gemeinsame Dateien und Vorschauen bleiben erhalten.",
-            "Installation der Theme-Sprites anbieten; Nachfrage optional deaktivieren.",
-            "Illustrationen beim Theme-Wechsel sperren."
-          ]
-        },
-        {
-          "title": "Installation und Updates",
-          "items": [
-            "Launcher 1.1.0 ohne App-Dateien. Komponenten von GitHub installieren.",
-            "Geänderte Blöcke laden und installierte Inhalte wiederverwenden.",
-            "Signaturen und Dateien prüfen; bei Startfehlern die vorige Version wiederherstellen.",
-            "Veraltete Versionen nach erfolgreichem Start entfernen. Profile, Kreationen und Sprites bleiben erhalten."
+            "Online / Offline unter Einstellungen → Sprites wählen.",
+            "Online: PokéAPI-Sprites bei Bedarf ohne Paketinstallation laden.",
+            "Offline: enthaltene oder auf diesem PC gespeicherte Sprites nutzen.",
+            "Moduswechsel behalten Pakete und aktualisieren Illustrationen."
           ]
         }
       ]
@@ -130,30 +94,21 @@
     "ja": {
       "sections": [
         {
-          "title": "インターフェース",
+          "title": "インストールと更新",
           "items": [
-            "アプリとランチャーをフラットデザインに変更。背景と選択状態を明確化。",
-            "アバターによるプロフィール選択と共有画面の整理。",
-            "ランチャーからワンクリックでアプリを表示。"
+            "インストール完了後に更新ボタンが残る問題を修正。",
+            "一時ファイルがない場合は更新を再準備。",
+            "インストール、整理、アンインストールの同時実行を防止。",
+            "ランチャー1.1.1。更新時もプロフィール、作品、パックを保持。"
           ]
         },
         {
           "title": "スプライト",
           "items": [
-            "世代・スタイル・素材ごとにパックを個別インストール。",
-            "実際の容量、対応状況、フォルム、バリエーション、検索とページ分割。",
-            "一時停止・再開・削除・修復。共有ファイルと同梱プレビューは保持。",
-            "テーマの画像パックを案内。次回から確認しない設定を追加。",
-            "テーマ変更時にイラストを固定。"
-          ]
-        },
-        {
-          "title": "インストールと更新",
-          "items": [
-            "ランチャー1.1.0からアプリを分離。GitHubから構成をインストール。",
-            "変更ブロックだけ取得し、保存済みの内容を再利用。",
-            "署名とファイルを確認。起動に失敗した場合は前のバージョンに復元。",
-            "正常起動後に古いバージョンを削除。プロフィール・作品・画像は保持。"
+            "設定 → スプライトにオンライン／オフラインの選択を追加。",
+            "オンライン：パック不要で必要な画像をPokéAPIから読み込み。",
+            "オフライン：同梱またはこのPCに保存した画像のみ使用。",
+            "モード変更後もパックを保持し、表示中の画像を更新。"
           ]
         }
       ]

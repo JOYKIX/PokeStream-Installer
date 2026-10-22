@@ -6,7 +6,7 @@ Free, local, open source Windows application: Adventure, Connect, Theme Creator 
 
 Download [PokeStream-Setup.exe](https://github.com/JOYKIX/PokeStream-Installer/releases/latest/download/PokeStream-Setup.exe), run it and install PokeStream. Node.js and .NET are included; no account or administrator privileges are required.
 
-**PokeStream Launcher 1.1.0** and **PokeStream 3.0.1** are separate installed programs with separate windows, native executables and shortcuts. The launcher handles installation, app updates, release notes, launch, repair and uninstallation. The app hosts the workspace and local game reader. Closing the launcher does not close a running app.
+**PokeStream Launcher 1.1.1** and **PokeStream 3.0.2** are separate installed programs with separate windows, native executables and shortcuts. The launcher handles installation, app updates, release notes, launch, repair and uninstallation. The app hosts the workspace and local game reader. Closing the launcher does not close a running app.
 
 App updates keep the launcher open. If the app is running, it closes gracefully before replacement and reopens after completion. The launcher shows progress, validates SHA256 and waits for the installer result. Its own version is checked separately; it restarts only when its own files need updating.
 
@@ -28,7 +28,7 @@ Repair uses the installed app's bundled files, preserving its version and user d
 
 ## Pokémon sprite library
 
-The full [PokéAPI sprites](https://github.com/PokeAPI/sprites) catalog exceeds 10 GB. Used sprites are downloaded once and cached under Studio/Sprites. Downloads take priority over bundled images, and remain available after updates and repairs.
+The [PokéAPI sprites](https://github.com/PokeAPI/sprites) catalog is available in two modes under Settings → Sprites. Online mode is the default: missing sprites are loaded from the pinned PokéAPI repository into a bounded memory cache, without installing packs or persisting downloaded images. Offline mode serves only included images and previously downloaded packs, with an included replacement when available. Install the packs you need before going offline. Packs remain in Studio/Sprites across app updates, repairs and mode changes.
 
 Open the launcher's **Sprite library** button, select a local profile if needed, then use **Settings → Pokémon sprite library → Download all sprites**. The operation supports pause and resume. The launcher displays disk-space information and opens the download section directly.
 
@@ -43,7 +43,7 @@ npm ci
 npm run desktop:pack
 ~~~
 
-Output: .artifacts/release/PokeStream-3.0.1-win-x64.exe. The setup installs both programs; app updates do not replace an unchanged launcher. Regular shortcuts start installed native executables without unpacking a portable archive again.
+Output: .artifacts/release/PokeStream-3.0.2-win-x64.exe. The setup installs both programs; app updates do not replace an unchanged launcher. Regular shortcuts start installed native executables without unpacking a portable archive again.
 
 Versions are declared in package.json: version for the app, launcherVersion for the launcher. Bundled release notes are in desktop/app/release-notes.json and must match both versions.
 
@@ -65,7 +65,7 @@ The workspace exposes an authenticated local named pipe for focus, language chan
 
 Original PokeStream code is MIT. See LICENSE, OPEN-SOURCE-NOTICES.md and desktop/connect/THIRD-PARTY-NOTICES.md. Pokémon artwork and sprites are not covered by this project's MIT license. Releases include corresponding source for the separate GPL SaveReader tool.
 
-## Modular updates (3.0.1)
+## Modular updates (3.0.2)
 
 The launcher is separate from the app. It installs signed interface and Connect components from GitHub. Downloaded sprites and profiles survive app updates.
 

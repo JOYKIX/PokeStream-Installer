@@ -3,6 +3,7 @@ import { pokemonName } from "@/i18n/pokemon";
 import { useI18n } from "@/i18n/client";
 import Image from "next/image";
 import { useState } from "react";
+import {useSpriteRevision} from "@/local/sprites/client-mode";
 import { CircleHelp } from "lucide-react";
 import type { Pokemon, SceneData } from "@/lib/model";
 import { spriteCandidates } from "@/lib/sprites";
@@ -27,7 +28,9 @@ export function PokemonImage({
   const { t: tr, locale } = useI18n();
   const name = pokemonName({ ...pokemon, speciesId: pokemon.speciesId ?? pokemon.pokemonId, nickname: "" }, locale);
   const choices = spriteCandidates(pokemon, style, variant, fallback);
-  const [failed, setFailed] = useState<string[]>([]);
+  const revision=useSpriteRevision();
+  const [failure,setFailure]=useState({revision,urls:[] as string[]});
+  const failed=failure.revision===revision?failure.urls:[];
   const selected = choices.find((candidate) => !failed.includes(candidate.url));
   if (!selected)
     return (
@@ -39,7 +42,7 @@ export function PokemonImage({
     );
   return (
     <Image
-      src={selected.url}
+      src={selected.url+(selected.url.includes("?")?"&":"?")+"render="+encodeURIComponent(revision)}
       alt={name}
       width={size}
       height={size}
@@ -52,7 +55,7 @@ export function PokemonImage({
       }
       className={"pokemon-image" + (selected.pixelated ? " pixel-sprite" : "") +
         (pokemon.isEgg && variant.includes("gray") ? " egg-grayscale" : "")}
-      onError={() => setFailed((old) => [...old, selected.url])}
+      onError={() => setFailure(old=>({revision,urls:[...(old.revision===revision?old.urls:[]),selected.url]}))}
       draggable={false}
     />
   );

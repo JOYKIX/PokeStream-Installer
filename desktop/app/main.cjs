@@ -7,6 +7,7 @@ const {createInstallation,samePath}=require('./installation.cjs');
 const {createUpdater}=require('./updater.cjs');
 const {recover,rollbackUpdate,cleanVersions}=require('./modular-update.cjs');
 const {launchMaintenance}=require('./maintenance.cjs');
+const {acquireOperation}=require('./operation-lock.cjs');
 const {createWorkspaceControl,workspaceRecord,workspaceCommand,stopWorkspace}=require('./workspace-control.cjs');
 const ORIGIN='http://127.0.0.1:47653',DEV=process.env.POKESTREAM_DEV_DESKTOP==='1',startedAt=Date.now();
 const VERSION=app.getVersion(),LAUNCHER_VERSION=require(path.join(app.getAppPath(),'package.json')).launcherVersion||'1.0.0';
@@ -156,6 +157,8 @@ async function launchWorkspace(page,allowRollback=true){
 async function maintenance(scriptName,args=[],{resume=false,updateLauncher=false}={}){
  publish({phase:scriptName==='uninstall.ps1'?'uninstalling':'updating',progress:null,error:''});
  await stopWorkspace(dataDir);await refreshInstallation();
+ const release=await acquireOperation(path.join(home,'Updates'),{purpose:'maintenance'});
+ try{
  const operation=await launchMaintenance({scriptName,args,launcherAssets,parentPid:process.pid,dataDir});
  log('Independent maintenance ready; worker PID '+operation.pid);
  try{await operation.commit();await operation.wait({onProgress:value=>publish({phase:value.phase==='ready'?'updating':value.phase,progress:value.progress})});}catch(error){await operation.abort();throw error;}
@@ -167,6 +170,7 @@ async function maintenance(scriptName,args=[],{resume=false,updateLauncher=false
  if(resume)await launchWorkspace();
  updater.reset();void updater.check().catch(error=>log(error.message));
  return {status:'completed'};
+ }finally{await release();}
 }
 async function applyPreparedUpdate({resume=false,notifyCheck=true}={}){
  await updater.verify();publish({phase:'updating',progress:null,error:''});
@@ -180,6 +184,7 @@ async function applyPreparedUpdate({resume=false,notifyCheck=true}={}){
  return result;
 }
 async function installUpdate(){
+ await updater.ensurePrepared();
  return applyPreparedUpdate({resume:!!await workspaceRecord(dataDir)});
 }
 async function repair(){
@@ -196,14 +201,14 @@ function trusted(event){if(!window||event.sender!==window.webContents)throw Erro
 function handle(channel,task){ipcMain.handle(channel,async(event,...args)=>{trusted(event);return task(...args);});}
 handle('pokestream:launcher:state',()=>state);handle('pokestream:open-data',async()=>{await fsp.mkdir(dataDir,{recursive:true});return shell.openPath(dataDir);});handle('pokestream:launcher:open',openLauncher);
 handle('pokestream:language:get',languageState);handle('pokestream:language:set',saveLanguage);
-handle('pokestream:updates:check',()=>updater.check());handle('pokestream:updates:download',()=>updater.download());
+handle('pokestream:updates:check',()=>busy?state.update:updater.check());handle('pokestream:updates:download',()=>workspaceMode?openLauncher():guarded(()=>updater.download()));
 handle('pokestream:updates:install',()=>workspaceMode?openLauncher():guarded(installUpdate));
 handle('pokestream:launcher:uninstall',options=>workspaceMode?openLauncher():guarded(()=>uninstall(options)));
 handle('pokestream:launcher:action',action=>{
  if(action==='minimize')return window.minimize();if(action==='close')return app.quit();if(action==='logs')return openLogs();if(action==='data'){fs.mkdirSync(dataDir,{recursive:true});return shell.openPath(dataDir);}
  if(action==='releases')return external('https://github.com/JOYKIX/PokeStream-Installer/releases/latest');
  if(workspaceMode)return openLauncher();
- if(action==='check')return updater.check();if(action==='download')return updater.download();if(action==='update')return guarded(installUpdate);
+ if(action==='check')return busy?state.update:updater.check();if(action==='download')return guarded(()=>updater.download());if(action==='update')return guarded(installUpdate);
  if(action==='install')return guarded(install);if(action==='repair')return guarded(repair);if(action==='launch')return guarded(()=>launchWorkspace());if(action==='sprites')return guarded(()=>launchWorkspace('/settings#sprite-library'));
  throw Error('Unknown launcher action.');
 });

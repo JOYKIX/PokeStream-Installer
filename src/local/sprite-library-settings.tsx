@@ -1,26 +1,29 @@
 "use client";
 import {useEffect,useMemo,useState} from "react";
-import {Download,HardDrive,Pause,Search,Trash2,RefreshCw,Check,ChevronLeft,ChevronRight,Package,ArrowLeft} from "lucide-react";
+import {Download,HardDrive,Pause,Search,Trash2,RefreshCw,Check,ChevronLeft,ChevronRight,Package,ArrowLeft,Globe} from "lucide-react";
 import {useI18n} from "@/i18n/client";
 import {speciesName} from "@/i18n/pokemon";
 import {Modal} from "@/components/ui";
 import {ChoiceGroup} from "@/components/choice-group";
 import {spriteCopy,formatBytes,packLabel,spriteError} from "./sprites/copy";
+import {modeCopy} from "./sprites/mode-copy";
+import {refreshSpriteImages} from "./sprites/client-mode";
 import type {LibrarySnapshot,SpeciesRow,VariantRow} from "./sprites/service";
 type Pack=LibrarySnapshot["packs"][number];
 const normalize=(s:string)=>s.normalize("NFD").replace(/\p{Diacritic}/gu,"").toLowerCase();
 async function request(url:string,signal?:AbortSignal){const response=await fetch(url,{cache:"no-store",signal});const data=await response.json();if(!response.ok)throw Error(data.error||"request_failed");return data;}
 export function SpriteLibrarySettings(){
- const {locale}=useI18n(),t=spriteCopy[locale];
+ const {locale}=useI18n(),t=spriteCopy[locale],m=modeCopy[locale];
  const [status,setStatus]=useState<LibrarySnapshot|null>(null),[error,setError]=useState(""),[busy,setBusy]=useState(false),[filter,setFilter]=useState("all"),[query,setQuery]=useState(""),[view,setView]=useState<string|null>(null);
  const [confirm,setConfirm]=useState<{action:string;pack:string}|null>(null);
  useEffect(()=>{const controller=new AbortController();let timer:ReturnType<typeof setTimeout>;let active=true;
-  const refresh=async()=>{try{const value=await request("/api/local/sprites",controller.signal);if(active){setStatus(value);}}catch(e){if(active&&!controller.signal.aborted)setError((e as Error).message);}finally{if(active)timer=setTimeout(()=>void refresh(),2500);}};
+  const refresh=async()=>{try{const value=await request("/api/local/sprites",controller.signal);if(active){setStatus(value);void refreshSpriteImages();}}catch(e){if(active&&!controller.signal.aborted)setError((e as Error).message);}finally{if(active)timer=setTimeout(()=>void refresh(),2500);}};
   void refresh();return()=>{active=false;controller.abort();clearTimeout(timer);};
  },[]);
  async function action(action:string,pack="all",confirmed=false){setBusy(true);setError("");try{
-  const response=await fetch("/api/local/sprites",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action,pack,confirm:confirmed})}),data=await response.json();if(!response.ok)throw Error(data.error||"request_failed");setStatus(data);setConfirm(null);
+  const response=await fetch("/api/local/sprites",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action,pack,confirm:confirmed})}),data=await response.json();if(!response.ok)throw Error(data.error||"request_failed");setStatus(data);setConfirm(null);void refreshSpriteImages();
  }catch(e){setError((e as Error).message);}finally{setBusy(false);}}
+ async function changeMode(mode:"online"|"offline"){setBusy(true);setError("");try{const r=await fetch("/api/local/sprites",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"mode",mode})}),data=await r.json();if(!r.ok)throw Error(data.error||"request_failed");setStatus(data);await refreshSpriteImages();}catch(e){setError((e as Error).message);}finally{setBusy(false);}}
  const blocked=busy||!status||status.maintenance||status.scan.state==="scanning";
  const packs=(status?.packs??[]).filter(p=>(filter==="all"||p.kind===filter)&&normalize(packLabel(p.id,p.label,locale)).includes(normalize(query)));
  const target=status?.packs.find(p=>p.id===confirm?.pack),label=(pack:Pack)=>packLabel(pack.id,pack.label,locale);
@@ -28,6 +31,11 @@ export function SpriteLibrarySettings(){
  return <section className="local-settings-panel sprite-manager" id="sprite-library">
   <div className="local-settings-panel-head"><HardDrive size={20}/><div><h2>{t.title}</h2><p>{t.intro}</p></div></div>
   <div className="sprite-manager-body">
+   <div className="sprite-mode-options" role="group" aria-label={m.label}>
+    {(["online","offline"]as const).map(mode=><button type="button" key={mode} className="sprite-mode-option" aria-pressed={status?.mode===mode} disabled={busy||!status} onClick={()=>void changeMode(mode)}>{mode==="online"?<Globe size={22}/>:<HardDrive size={22}/>}<span><strong>{m[mode]}</strong><small>{mode==="online"?m.onlineNote:m.offlineNote}</small></span>{status?.mode===mode&&<Check size={18}/>}</button>)}
+   </div>
+   <p className="sprite-mode-kept">{m.kept}</p>
+   <div className="sprite-mode-pack-heading"><h3>{m.packs}</h3><p>{status?.mode==="offline"?m.activeOffline:m.activeOnline}</p></div>
    <div className="sprite-storage-stats"><div><small>{t.occupied}</small><strong>{formatBytes(status?status.occupiedBytes+status.looseBytes+status.partialBytes:null,locale)}</strong></div><div><small>{t.free}</small><strong>{formatBytes(status?.freeBytes??null,locale)}</strong></div><div><small>{t.download}</small><strong>{formatBytes(status?.downloadBytes??null,locale)}</strong></div></div>
    {status&&status.scan.state!=="done"&&<p className="sprite-status" role="status">{t.scanning} {status.scan.done.toLocaleString(locale)} / {status.scan.total.toLocaleString(locale)}</p>}
    {error&&<p className="form-error" role="alert">{spriteError(error,t)}</p>}
