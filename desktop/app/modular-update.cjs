@@ -139,7 +139,7 @@ function createModular({directory,installDir,launcherDir,roots,notify}){
    }finally{await release();}
   })().finally(()=>{working=null;});return working;
  }
- async function restore(){try{const value=JSON.parse(await fsp.readFile(record,'utf8'));await verifyPrepared(value);downloaded=value;return value;}catch{return null;}}
+ async function restore(){const release=await acquireOperation(directory,{purpose:'restore'});try{try{const value=JSON.parse(await fsp.readFile(record,'utf8'));await verifyPrepared(value);downloaded=value;return value;}catch{downloaded=null;await fsp.rm(record,{force:true});return null;}}finally{await release();}}
  async function verifyPrepared(item=downloaded){
   if(!item||item.kind!=='modular')throw Error('No prepared update.');const manifest=await manifestFrom(item);
   const locations={desktop:child(installDir,item.desktop,/^desktop-[\w.-]+$/),web:path.join(child(installDir,item.runtime,/^runtime-[\w.-]+$/),'web'),engine:path.join(installDir,item.runtime,'engine')};

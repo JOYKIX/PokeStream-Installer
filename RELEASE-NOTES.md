@@ -13,3 +13,7 @@
 - En ligne : sprites PokéAPI chargés à la demande, sans installer de packs.
 - Hors ligne : utilisation des sprites inclus ou téléchargés sur le PC.
 - Le changement de mode conserve les packs et actualise les illustrations.
+
+## Profils
+
+- Suppression du fond rectangulaire derrière le profil actif et correction du libellé de gestion des profils.

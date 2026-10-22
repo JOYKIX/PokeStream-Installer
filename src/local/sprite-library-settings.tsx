@@ -29,7 +29,7 @@ export function SpriteLibrarySettings(){
  const target=status?.packs.find(p=>p.id===confirm?.pack),label=(pack:Pack)=>packLabel(pack.id,pack.label,locale);
  const running=status?.jobs.some(j=>j.state==="downloading"||j.state==="queued");
  return <section className="local-settings-panel sprite-manager" id="sprite-library">
-  <div className="local-settings-panel-head"><HardDrive size={20}/><div><h2>{t.title}</h2><p>{t.intro}</p></div></div>
+  <div className="local-settings-panel-head"><HardDrive size={20}/><div><h2>{t.title}</h2><p>{m.intro}</p></div></div>
   <div className="sprite-manager-body">
    <div className="sprite-mode-options" role="group" aria-label={m.label}>
     {(["online","offline"]as const).map(mode=><button type="button" key={mode} className="sprite-mode-option" aria-pressed={status?.mode===mode} disabled={busy||!status} onClick={()=>void changeMode(mode)}>{mode==="online"?<Globe size={22}/>:<HardDrive size={22}/>}<span><strong>{m[mode]}</strong><small>{mode==="online"?m.onlineNote:m.offlineNote}</small></span>{status?.mode===mode&&<Check size={18}/>}</button>)}
