@@ -1411,5 +1411,6 @@
   "Ce nom de scène existe déjà dans OBS. Choisis un autre nom.": "This scene name already exists in OBS. Choose another name.",
   "La source navigateur n’est pas disponible dans OBS.": "The browser source is not available in OBS.",
   "Une scène créée a été modifiée dans OBS. Vérifie-la avant de réessayer.": "A created scene was modified in OBS. Check it before trying again.",
-  "Écran": "Screen"
+  "Écran": "Screen",
+  "Enregistre d’abord la composition pour l’utiliser dans OBS.": "Save the composition first to use it in OBS."
 }

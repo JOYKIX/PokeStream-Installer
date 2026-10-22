@@ -1413,5 +1413,6 @@
   "Ce nom de scène existe déjà dans OBS. Choisis un autre nom.": "このシーン名はOBSですでに使用されています。別の名前にしてください。",
   "La source navigateur n’est pas disponible dans OBS.": "OBSでブラウザソースを利用できません。",
   "Une scène créée a été modifiée dans OBS. Vérifie-la avant de réessayer.": "作成されたシーンがOBSで変更されています。確認してから再試行してください。",
-  "Écran": "画面"
+  "Écran": "画面",
+  "Enregistre d’abord la composition pour l’utiliser dans OBS.": "OBSで使用する前に構成を保存してください。"
 }

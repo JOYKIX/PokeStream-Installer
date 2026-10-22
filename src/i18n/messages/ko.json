@@ -862,5 +862,6 @@
   "Ce nom de scène existe déjà dans OBS. Choisis un autre nom.": "OBS에 같은 장면 이름이 있습니다. 다른 이름을 선택하세요.",
   "La source navigateur n’est pas disponible dans OBS.": "OBS에서 브라우저 소스를 사용할 수 없습니다.",
   "Une scène créée a été modifiée dans OBS. Vérifie-la avant de réessayer.": "생성된 장면이 OBS에서 수정되었습니다. 확인 후 다시 시도하세요.",
-  "Écran": "화면"
+  "Écran": "화면",
+  "Enregistre d’abord la composition pour l’utiliser dans OBS.": "OBS에서 사용하기 전에 구성을 저장하세요."
 }

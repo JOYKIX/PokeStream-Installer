@@ -1466,5 +1466,6 @@
   "Ce nom de scène existe déjà dans OBS. Choisis un autre nom.": "Este nombre de escena ya existe en OBS. Elige otro.",
   "La source navigateur n’est pas disponible dans OBS.": "La fuente de navegador no está disponible en OBS.",
   "Une scène créée a été modifiée dans OBS. Vérifie-la avant de réessayer.": "Una escena creada se ha modificado en OBS. Revísala antes de reintentar.",
-  "Écran": "Pantalla"
+  "Écran": "Pantalla",
+  "Enregistre d’abord la composition pour l’utiliser dans OBS.": "Guarda primero la composición para usarla en OBS."
 }

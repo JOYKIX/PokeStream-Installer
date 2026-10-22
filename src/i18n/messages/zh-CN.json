@@ -862,5 +862,6 @@
   "Ce nom de scène existe déjà dans OBS. Choisis un autre nom.": "OBS 中已存在此场景名称，请选择其他名称。",
   "La source navigateur n’est pas disponible dans OBS.": "OBS 中无法使用浏览器来源。",
   "Une scène créée a été modifiée dans OBS. Vérifie-la avant de réessayer.": "已创建的场景在 OBS 中被修改，请检查后重试。",
-  "Écran": "屏幕"
+  "Écran": "屏幕",
+  "Enregistre d’abord la composition pour l’utiliser dans OBS.": "在 OBS 中使用前，请先保存布局。"
 }

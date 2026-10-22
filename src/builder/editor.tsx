@@ -134,8 +134,9 @@ export function BuilderEditor({
     canvas = useRef<HTMLDivElement>(null);
   const element = data.elements.find((e) => e.id === selected);
   const obs=useOBSIntegration(initial.id,data.elements,doc.record.version);
-  const applyOBS=obs.applySaved;
-  const save=useCallback(async()=>{update(data,false);const saved=await saveDocument();if(saved)await applyOBS();return saved;},[update,data,saveDocument,applyOBS]);
+  const applyOBS=obs.applySaved,setOBSError=obs.setError;
+  const requireSaved=useCallback(async()=>{if(doc.dirty){setOBSError("Enregistre d’abord la composition pour l’utiliser dans OBS.");return false;}return true;},[doc.dirty,setOBSError]);
+  const save=useCallback(async()=>{update(data,false);const saved=await saveDocument();if(saved){setOBSError("");await applyOBS();}return saved;},[update,data,saveDocument,applyOBS,setOBSError]);
   useEffect(() => {
     const library = doc.assetLibrary;
     if (!library) return;
@@ -509,7 +510,7 @@ export function BuilderEditor({
             className="button primary compact"
             disabled={doc.saving}
             onClick={async () => {
-              if (await save()) router.push("/builder/" + initial.id + "/obs");
+              if (await requireSaved()) router.push("/builder/" + initial.id + "/obs");
             }}
           >
             <Monitor size={16} />
@@ -577,12 +578,12 @@ export function BuilderEditor({
         )}
         <TeamPreviewToggle checked={demo} onChange={setDemo} />
         <CompositionGenerator data={data} scene={scene} themes={context.themes} onApply={next=>{update(next);setSelected(null);}}/>
-        <CreateOBSScene obs={obs} data={data} onPrepare={save}/>
+        <CreateOBSScene obs={obs} data={data} onPrepare={requireSaved}/>
       </div>
-      {(doc.error || liveError) && (
+      {(doc.error || liveError || obs.error) && (
         <div className="builder-alert" role="alert">
-          {doc.error
-            ? t(doc.error)
+          {(doc.error||obs.error)
+            ? t(doc.error||obs.error)
             : t(
                 "Données en direct indisponibles. Nouvelle tentative automatique.",
               )}
@@ -816,7 +817,7 @@ export function BuilderEditor({
                 setAssets((old) => [a, ...old]);
               }}
               onError={doc.setError}
-              obsPanel={(!element||["game-screen","camera","chat"].includes(element.type))?<OBSIntegrationPanel obs={obs} element={element} onBeforeLink={save}/>:null}
+              obsPanel={(!element||["game-screen","camera","chat"].includes(element.type))?<OBSIntegrationPanel obs={obs} element={element} onBeforeLink={requireSaved}/>:null}
             />
           </aside>
         )}
