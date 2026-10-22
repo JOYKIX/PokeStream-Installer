@@ -1,6 +1,5 @@
-# PokeStream 3.1.1
+# PokeStream 3.1.2
 
-- Disposition OBS appliquée à l’enregistrement, avec une option temps réel.
-- Calques réorganisables par glisser-déposer.
-- Composition et création de scènes OBS automatiques (expérimental).
-- Choix des écrans DS et 3DS simplifié.
+- Composition automatique améliorée, avec plusieurs propositions.
+- Choix des grilles de Pokémon et de badges.
+- Formats de caméra 16:9 et 4:3.

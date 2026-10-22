@@ -1,17 +1,16 @@
 {
-  "version": "3.1.1",
+  "version": "3.1.2",
   "launcherVersion": "1.1.3",
   "date": "2026-10-22",
   "locales": {
     "fr": {
       "sections": [
         {
-          "title": "OBS",
+          "title": "Composition automatique",
           "items": [
-            "Disposition OBS appliquée à l’enregistrement, avec une option temps réel.",
-            "Calques réorganisables par glisser-déposer.",
-            "Composition et création de scènes OBS automatiques (expérimental).",
-            "Choix des écrans DS et 3DS simplifié."
+            "Composition automatique améliorée, avec plusieurs propositions.",
+            "Choix des grilles de Pokémon et de badges.",
+            "Formats de caméra 16:9 et 4:3."
           ]
         }
       ]
@@ -19,38 +18,11 @@
     "en": {
       "sections": [
         {
-          "title": "OBS",
+          "title": "Automatic layouts",
           "items": [
-            "OBS layout updates when saved, with an optional real-time mode.",
-            "Drag and drop to reorder layers.",
-            "Automatic layouts and OBS scene creation (experimental).",
-            "Simpler DS and 3DS screen selection."
-          ]
-        }
-      ]
-    },
-    "ja": {
-      "sections": [
-        {
-          "title": "OBS",
-          "items": [
-            "OBSの配置は保存時に更新。リアルタイム同期も選択可能。",
-            "ドラッグ＆ドロップでレイヤーの順序を変更。",
-            "レイアウトとOBSシーンの自動作成（試験的機能）。",
-            "DSと3DSの画面選択を改善。"
-          ]
-        }
-      ]
-    },
-    "es": {
-      "sections": [
-        {
-          "title": "OBS",
-          "items": [
-            "La disposición de OBS se aplica al guardar, con modo en tiempo real opcional.",
-            "Reordena capas arrastrando y soltando.",
-            "Composición y creación automática de escenas de OBS (experimental).",
-            "Selección de pantallas DS y 3DS simplificada."
+            "Improved automatic layouts with multiple suggestions.",
+            "Choose Pokémon and badge grids.",
+            "16:9 and 4:3 camera formats."
           ]
         }
       ]
@@ -58,25 +30,23 @@
     "de": {
       "sections": [
         {
-          "title": "OBS",
+          "title": "Automatische Layouts",
           "items": [
-            "OBS-Layout wird beim Speichern übernommen, Echtzeitmodus optional.",
-            "Ebenen per Drag-and-drop neu anordnen.",
-            "Automatische Layouts und OBS-Szenenerstellung (experimentell).",
-            "Einfachere Auswahl der DS- und 3DS-Bildschirme."
+            "Verbesserte automatische Layouts mit mehreren Vorschlägen.",
+            "Raster für Pokémon und Orden auswählen.",
+            "Kameraformate 16:9 und 4:3."
           ]
         }
       ]
     },
-    "pt-BR": {
+    "es": {
       "sections": [
         {
-          "title": "OBS",
+          "title": "Composición automática",
           "items": [
-            "Layout do OBS aplicado ao salvar, com modo em tempo real opcional.",
-            "Reordene camadas arrastando e soltando.",
-            "Composição e criação de cenas do OBS automáticas (experimental).",
-            "Seleção das telas DS e 3DS simplificada."
+            "Composición automática mejorada, con varias propuestas.",
+            "Elección de cuadrículas para Pokémon y medallas.",
+            "Formatos de cámara 16:9 y 4:3."
           ]
         }
       ]
@@ -84,12 +54,35 @@
     "it": {
       "sections": [
         {
-          "title": "OBS",
+          "title": "Composizione automatica",
           "items": [
-            "Disposizione OBS applicata al salvataggio, con modalità in tempo reale facoltativa.",
-            "Riordina i livelli trascinandoli.",
-            "Composizione e creazione di scene OBS automatiche (sperimentale).",
-            "Selezione degli schermi DS e 3DS semplificata."
+            "Composizione automatica migliorata, con più proposte.",
+            "Scelta delle griglie per Pokémon e medaglie.",
+            "Formati videocamera 16:9 e 4:3."
+          ]
+        }
+      ]
+    },
+    "pt-BR": {
+      "sections": [
+        {
+          "title": "Composição automática",
+          "items": [
+            "Composição automática melhorada, com várias sugestões.",
+            "Escolha das grades de Pokémon e insígnias.",
+            "Formatos de câmera 16:9 e 4:3."
+          ]
+        }
+      ]
+    },
+    "ja": {
+      "sections": [
+        {
+          "title": "自動レイアウト",
+          "items": [
+            "自動レイアウトを改善し、複数の候補を追加。",
+            "ポケモンとバッジのグリッドを選択可能に。",
+            "カメラの縦横比16:9と4:3に対応。"
           ]
         }
       ]
@@ -97,12 +90,11 @@
     "ko": {
       "sections": [
         {
-          "title": "OBS",
+          "title": "자동 배치",
           "items": [
-            "OBS 배치는 저장 시 적용되며 실시간 모드를 선택할 수 있습니다.",
-            "드래그 앤 드롭으로 레이어 순서를 변경합니다.",
-            "자동 구성 및 OBS 장면 생성 기능을 추가했습니다(실험적 기능).",
-            "DS와 3DS 화면 선택을 개선했습니다."
+            "자동 배치 개선 및 여러 제안 추가.",
+            "포켓몬과 배지의 그리드 선택 지원.",
+            "카메라 화면 비율 16:9 및 4:3 지원."
           ]
         }
       ]
@@ -110,12 +102,11 @@
     "zh-CN": {
       "sections": [
         {
-          "title": "OBS",
+          "title": "自动布局",
           "items": [
-            "OBS 布局在保存时应用，也可选择实时模式。",
-            "支持拖放调整图层顺序。",
-            "自动布局与 OBS 场景创建（实验性功能）。",
-            "简化 DS 和 3DS 屏幕选择。"
+            "改进自动布局，提供多个方案。",
+            "可选择宝可梦与徽章的网格布局。",
+            "支持 16:9 和 4:3 摄像头画面比例。"
           ]
         }
       ]
@@ -123,12 +114,11 @@
     "zh-TW": {
       "sections": [
         {
-          "title": "OBS",
+          "title": "自動配置",
           "items": [
-            "OBS 配置在儲存時套用，也可選擇即時模式。",
-            "支援拖放調整圖層順序。",
-            "自動配置與 OBS 場景建立（實驗性功能）。",
-            "簡化 DS 和 3DS 螢幕選擇。"
+            "改善自動配置，提供多個方案。",
+            "可選擇寶可夢與徽章的網格配置。",
+            "支援 16:9 和 4:3 攝影機畫面比例。"
           ]
         }
       ]

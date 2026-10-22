@@ -85,8 +85,10 @@ PokeStream duplicates the scene item into a dedicated nested scene, preserving i
 
 Bindings stay on this PC, under Studio/OBS, scoped to the local profile, overlay and OBS scene collection. Passwords are encrypted with Windows protection; links and credentials are excluded from shared/exported overlays. The implementation uses the official [OBS WebSocket 5 protocol](https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md). No OBS plugin is required.
 
-## Layout tools (3.1.1)
+## Layout tools
 
 Drag the grip next to a layer name to reorder it; keyboard arrows and the existing up/down controls are also available. DS and 3DS both expose separate top/bottom screen buttons.
 
 **Automatic layout** is experimental: choose a console, screen arrangement, camera, chat and Pokémon data, review the proposal, then apply it to the editor. Existing layouts can be replaced with undo support. Save the composition explicitly before opening **Create an OBS scene**, which associates each visible capture area with an existing OBS scene item. It creates a new scene, fitted copies of those items, their links and a browser overlay with transparent cutouts. The source items in existing scenes and their crop settings remain untouched. The currently live scene is not switched. Camera/game capture inputs must already exist in OBS.
+
+The experimental layout generator measures the current theme’s full team footprint and badge grids before searching floorplans. Choose a 6×1, 3×2, 2×3 or 1×6 team grid, badge columns (or automatic), camera aspect ratio and gameplay/balanced priorities. A bounded beam search compares non-overlapping placements using readable target sizes, screen ratios, frame outsets and available space. Up to three distinct proposals can be reviewed before applying a draft; chosen grids and scales are retained. Calculation runs in a local Web Worker and requires no external AI service.
