@@ -18,6 +18,21 @@ jobs:
         with:
           dotnet-version: 9.0.x
       - run: npm ci
+      - name: Validate native Connect compilation
+        shell: pwsh
+        run: |
+          # The runtime sprite archive is generated separately during publication.
+          # An empty embedded resource validates XAML/C# compilation without downloading game artwork.
+          $resource = 'desktop/connect/data/sprites.zip'
+          if (Test-Path $resource) { throw 'Unexpected pre-existing sprite archive.' }
+          [System.IO.File]::WriteAllBytes((Join-Path $PWD $resource), [byte[]]@())
+          try {
+            dotnet build desktop/connect/src/Connect.Desktop/Connect.Desktop.csproj --configuration Release
+            if ($LASTEXITCODE -ne 0) { throw 'Native Connect compilation failed.' }
+          }
+          finally {
+            Remove-Item -LiteralPath $resource -Force -ErrorAction SilentlyContinue
+          }
       - name: Build authenticated distribution
         env:
           POKESTREAM_SIGNING_KEY: ${{ secrets.POKESTREAM_SIGNING_KEY }}
