@@ -39,7 +39,7 @@ import {
   Download,
 } from "lucide-react";
 import { useI18n } from "@/i18n/client";
-import { authFetch } from "@/local/client";
+import { subscribeJSON } from "@/lib/event-source";
 import { demoScene, withDemoTeam } from "@/lib/demo";
 import type { SceneData } from "@/lib/model";
 import { TeamPreviewToggle } from "@/components/team-preview-toggle";
@@ -59,6 +59,7 @@ import { snapResize, snapTargets } from "./snapping";
 import { BuilderCanvas, elementStyle } from "./render";
 import { Inspector, type BuilderContext } from "./inspector";
 import { useBuilderDocument } from "./use-document";
+import { OBSIntegrationPanel,useOBSIntegration } from "./obs-integration";
 import { exportBuilderPNG } from "./export";
 const icons = {
   "game-screen": Monitor,
@@ -99,7 +100,7 @@ export function BuilderEditor({
   const router = useRouter();
   const { t } = useI18n(),
     doc = useBuilderDocument(initial),
-    { update } = doc;
+    { update,save:saveDocument } = doc;
   useEditorViewport("builder");
   const geometry = useBuilderGeometry();
   const data = useMemo(
@@ -127,6 +128,10 @@ export function BuilderEditor({
     gesture = useRef<Gesture | null>(null),
     canvas = useRef<HTMLDivElement>(null);
   const element = data.elements.find((e) => e.id === selected);
+  const obs=useOBSIntegration(initial.id,data.elements,doc.record.version);
+  const linked=!!obs.state?.bindings.length;
+  const save=useCallback(async()=>{update(data,false);return saveDocument();},[update,data,saveDocument]);
+  useEffect(()=>{if(!linked||!doc.dirty||doc.saving)return;const timer=setTimeout(()=>void save(),400);return()=>clearTimeout(timer);},[linked,doc.dirty,doc.saving,save]);
   useEffect(() => {
     const library = doc.assetLibrary;
     if (!library) return;
@@ -151,46 +156,7 @@ export function BuilderEditor({
       ),
     [update],
   );
-  useEffect(() => {
-    let stopped = false,
-      timer: ReturnType<typeof setTimeout>;
-    const controller = new AbortController();
-    async function poll() {
-      try {
-        const r = await authFetch(
-          "/api/builder/" +
-            initial.id +
-            "/preview?scene=" +
-            (data.sceneId ?? "none"),
-          {
-            signal: AbortSignal.any([
-              controller.signal,
-              AbortSignal.timeout(8000),
-            ]),
-          },
-        );
-        if (!r.ok) throw new Error();
-        const p = await r.json();
-        if (!stopped) {
-          setScene((old) =>
-            JSON.stringify(old) === JSON.stringify(p.scene) ? old : p.scene,
-          );
-          setLiveError(false);
-        }
-      } catch {
-        if (!stopped) setLiveError(true);
-      } finally {
-        if (!stopped) timer = setTimeout(poll, 3000);
-      }
-    }
-    queueMicrotask(() => { if (!stopped) setScene(null); });
-    void poll();
-    return () => {
-      stopped = true;
-      controller.abort();
-      clearTimeout(timer);
-    };
-  }, [initial.id, data.sceneId]);
+  useEffect(() => subscribeJSON<{scene:SceneData|null}|null>("/api/builder/"+initial.id+"/preview/events?scene="+(data.sceneId??"none"),payload=>{setScene(payload?.scene??null);setLiveError(false);},()=>setLiveError(true)),[initial.id,data.sceneId]);
   useEffect(() => {
     const node = viewport.current;
     if (!node) return;
@@ -483,11 +449,6 @@ export function BuilderEditor({
     () => (demo ? withDemoTeam(scene ?? demoScene()) : scene),
     [demo, scene],
   );
-  async function save() {
-    // Save the measured scale without creating an extra undo step.
-    update(data, false);
-    return doc.save();
-  }
   return (
     <main className={"builder-editor" + (preview ? " is-preview" : "")}>
       <header className="builder-toolbar">
@@ -845,6 +806,7 @@ export function BuilderEditor({
                 setAssets((old) => [a, ...old]);
               }}
               onError={doc.setError}
+              obsPanel={(!element||["game-screen","camera","chat"].includes(element.type))?<OBSIntegrationPanel obs={obs} element={element} onBeforeLink={save}/>:null}
             />
           </aside>
         )}

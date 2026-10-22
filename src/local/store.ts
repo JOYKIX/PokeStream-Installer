@@ -5,6 +5,7 @@ import path from "node:path";
 import os from "node:os";
 import { isLocal } from "./runtime";
 import type { Scene } from "@/lib/model";
+import { publishLocalChange } from "./events";
 import type { CustomTheme } from "@/themes/custom/schema";
 import type { BuilderRecord } from "@/builder/schema";
 export type LocalDevice = { id:string; name:string; owner_id:string; scene_id:string|null; snapshot:unknown; updated_at:string|null; last_seen_at:string|null; revision:number; selection_revision:number; secret_hash:string; created_at:string };
@@ -43,7 +44,7 @@ function load(db:DatabaseSync):Store {
 export function readStore():Store { return load(database()); }
 export function transact<T>(change:(state:Store)=>T):T {
  const db=database();db.exec("BEGIN IMMEDIATE");
- try { const state=load(db);const result=change(state);
- db.prepare("UPDATE workspace SET data=? WHERE id=1").run(JSON.stringify(state));db.exec("COMMIT");return result;
+ try { const state=load(db),before=JSON.stringify(state),themes=state.settings.activeUser+":"+state.tables.custom_themes.map(t=>t.id+":"+t.version).join(",");const result=change(state),after=JSON.stringify(state);
+ if(after!==before)db.prepare("UPDATE workspace SET data=? WHERE id=1").run(after);db.exec("COMMIT");if(after!==before){publishLocalChange();if(themes!==state.settings.activeUser+":"+state.tables.custom_themes.map(t=>t.id+":"+t.version).join(","))publishLocalChange("themes");}return result;
  }catch(error){db.exec("ROLLBACK");throw error;}
 }

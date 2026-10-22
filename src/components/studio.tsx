@@ -879,7 +879,7 @@ export function Studio({
                             disabled={status === "saving"}
                           />
                           <span className="muted small">
-                            {tr("Actualisation toutes les 2 secondes.")}
+                            {tr("Actualisation dès qu’un changement est détecté.")}
                           </span>
                         </>
                       )}

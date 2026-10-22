@@ -1,8 +1,9 @@
-const {app,BrowserWindow,shell,ipcMain,dialog,clipboard}=require('electron');
+const {app,BrowserWindow,shell,ipcMain,dialog,clipboard,safeStorage}=require('electron');
 const {spawn}=require('node:child_process');
 const {randomBytes,randomUUID}=require('node:crypto');
 const fs=require('node:fs'),fsp=require('node:fs/promises'),path=require('node:path'),os=require('node:os'),net=require('node:net');
 const {createRuntime}=require('./runtime.cjs');
+const {createOBS}=require('./obs.cjs');
 const {createInstallation,samePath}=require('./installation.cjs');
 const {createUpdater}=require('./updater.cjs');
 const {recover,rollbackUpdate,cleanVersions}=require('./modular-update.cjs');
@@ -19,7 +20,7 @@ const userData=installerMode?path.join(os.tmpdir(),'PokeStream-setup-'+process.p
 fs.mkdirSync(userData,{recursive:true});fs.mkdirSync(path.join(dataDir,'logs'),{recursive:true});
 app.setName(workspaceMode?'PokeStream':'PokeStream Launcher');app.setAppUserModelId(workspaceMode?'app.pokestream.desktop':'app.pokestream.launcher');app.setPath('userData',userData);
 const resources=app.isPackaged?process.resourcesPath:path.resolve(__dirname,'../../.artifacts/runtime'),launcherAssets=path.join(resources,'launcher');
-let window,server,engine,updater,control,quitting=false,busy=false,running=false,serverReady=false,servicesPromise=null,serviceEpoch=0,refreshTimer;
+let window,server,engine,updater,control,obs,quitting=false,busy=false,running=false,serverReady=false,servicesPromise=null,serviceEpoch=0,refreshTimer;
 const pageArgument=process.argv.find(arg=>arg.startsWith('--page='));
 let lastPage=pageArgument?.slice(7)==='/settings#sprite-library'?'/settings#sprite-library':'/users',pendingPage=lastPage.startsWith('/settings')?lastPage:null;
 const preferenceFile=path.join(dataDir,'desktop-preferences.json'),languages=['en','fr','es','de','ja','pt-BR','it','ko','zh-CN','zh-TW'];let language='auto';
@@ -206,6 +207,7 @@ handle('pokestream:clipboard:write',value=>{
  if(!workspaceMode||typeof value!=='string'||value.length>32768)throw Error('Invalid clipboard text.');
  clipboard.writeText(value);
 });
+handle('pokestream:obs',(action,value)=>{if(!workspaceMode||!obs||typeof action!=='string')throw Error('obs_desktop_required');return obs.dispatch(action,value);});
 handle('pokestream:language:get',languageState);handle('pokestream:language:set',saveLanguage);
 handle('pokestream:updates:check',()=>busy?state.update:updater.check());handle('pokestream:updates:download',()=>workspaceMode?openLauncher():guarded(()=>updater.download()));
 handle('pokestream:updates:install',()=>workspaceMode?openLauncher():guarded(installUpdate));
@@ -232,6 +234,8 @@ async function startWorkspace(){
  if(!fs.existsSync(preferenceFile)){const old=await window.webContents.session.cookies.get({url:ORIGIN,name:'pokestream-language'});if(languages.includes(old[0]?.value))language=old[0].value;}
  await saveLanguage(language);
  await window.loadFile(path.join(launcherAssets,'loading.html'));await prepareServer();
+ obs=createOBS({directory:path.join(dataDir,'OBS'),authorize:async id=>{const response=await fetch(ORIGIN+'/api/local/obs/context'+(id?'?overlay='+encodeURIComponent(id):''),{headers:{Authorization:'Bearer '+env.POKESTREAM_ENGINE_ID+'.'+env.POKESTREAM_ENGINE_TOKEN},signal:AbortSignal.timeout(4000)});if(!response.ok)throw Error('obs_profile_required');return response.json();},protect:value=>{if(!safeStorage.isEncryptionAvailable())throw Error('obs_password_unavailable');return safeStorage.encryptString(value).toString('base64');},unprotect:value=>safeStorage.decryptString(Buffer.from(value,'base64')),changed:()=>{if(window&&!window.isDestroyed())window.webContents.send('pokestream:obs:changed');}});
+ void obs.start().catch(error=>log('OBS: '+error.message));
  await Promise.all([startEngine(),window.loadURL(ORIGIN+lastPage)]);
  control=createWorkspaceControl({dataDir,version:VERSION,onCommand:async(action,value)=>{
   if(action==='close'){await stopServices();await control.close();setTimeout(()=>app.quit(),100);return true;}
@@ -281,5 +285,5 @@ if(installerMode||app.requestSingleInstanceLock()){
  app.on('second-instance',()=>{if(window){if(window.isMinimized())window.restore();window.show();window.focus();}});
  app.whenReady().then(start).catch(error=>{log(error.stack||String(error));if(workspaceMode)void openLauncher().catch(()=>{});dialog.showErrorBox('PokeStream',error.message);app.quit();});
 }else app.quit();
-app.on('before-quit',()=>{quitting=true;clearInterval(refreshTimer);stopChildren();if(control)void control.close();});
+app.on('before-quit',()=>{quitting=true;clearInterval(refreshTimer);obs?.close();stopChildren();if(control)void control.close();});
 app.on('window-all-closed',()=>app.quit());

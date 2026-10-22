@@ -6,11 +6,11 @@ Free, local, open source Windows application: Adventure, Connect, Theme Creator 
 
 Download [PokeStream-Setup.exe](https://github.com/JOYKIX/PokeStream-Installer/releases/latest/download/PokeStream-Setup.exe), run it and install PokeStream. Node.js and .NET are included; no account or administrator privileges are required.
 
-**PokeStream Launcher 1.1.3** and **PokeStream 3.0.5** are separate installed programs with separate windows, native executables and shortcuts. The launcher handles installation, app updates, release notes, launch, repair and uninstallation. The app hosts the workspace and local game reader. Closing the launcher does not close a running app.
+**PokeStream Launcher 1.1.3** and **PokeStream 3.1.0** are separate installed programs with separate windows, native executables and shortcuts. The launcher handles installation, app updates, release notes, launch, repair and uninstallation. The app hosts the workspace and local game reader. Closing the launcher does not close a running app.
 
 App updates keep the launcher open. If the app is running, it closes gracefully before replacement and reopens after completion. The launcher shows progress, validates SHA256 and waits for the installer result. Its own version is checked separately; it restarts only when its own files need updating.
 
-The launcher supports English, French, Japanese, Spanish and German. System language is detected; manual changes persist and are shared with the app. Release notes for the installed version are bundled for offline use, with available update notes fetched from GitHub.
+The launcher supports English, French, Japanese, Spanish, German, Brazilian Portuguese, Italian, Korean, Simplified Chinese and Traditional Chinese. System language is detected; manual changes persist and are shared with the app. Release notes for the installed version are bundled for offline use, with available update notes fetched from GitHub.
 
 **Upgrading from 2.2.6 or earlier:** close the old app and run the new setup once. The old broken updater cannot repair its own handoff. Existing profiles, creations and sprites are preserved.
 
@@ -43,7 +43,7 @@ npm ci
 npm run desktop:pack
 ~~~
 
-Output: .artifacts/release/PokeStream-3.0.5-win-x64.exe. The setup installs both programs; app updates do not replace an unchanged launcher. Regular shortcuts start installed native executables without unpacking a portable archive again.
+Output: .artifacts/release/PokeStream-3.1.0-win-x64.exe. The setup installs both programs; app updates do not replace an unchanged launcher. Regular shortcuts start installed native executables without unpacking a portable archive again.
 
 Versions are declared in package.json: version for the app, launcherVersion for the launcher. Bundled release notes are in desktop/app/release-notes.json and must match both versions.
 
@@ -65,7 +65,7 @@ The workspace exposes an authenticated local named pipe for focus, language chan
 
 Original PokeStream code is MIT. See LICENSE, OPEN-SOURCE-NOTICES.md and desktop/connect/THIRD-PARTY-NOTICES.md. Pokémon artwork and sprites are not covered by this project's MIT license. Releases include corresponding source for the separate GPL SaveReader tool.
 
-## Modular updates (3.0.5)
+## Modular updates (3.1.0)
 
 The launcher is separate from the app. It installs signed interface and Connect components from GitHub. Downloaded sprites and profiles survive app updates.
 
@@ -74,3 +74,13 @@ Build commands and update protocol: [desktop updates](docs/desktop-updates.md).
 ## Adventure appearance
 
 Choose themes in Style → Theme, and game type badges in Style → Team → Types. French type badges are included for offline use; English PokéAPI badges use the online mode or the Types sprite pack. Team editing and Pokémon selection follow the adventure sprite style, with HOME as the first replacement when unavailable.
+
+## OBS Integration Update (3.1.0)
+
+Connect samples active emulator memory every 100 ms and sends a frame only when displayed game data changes. Server-sent events push updates to Adventure, Builder previews and OBS browser sources; idle connections exchange transport keep-alive comments without rereading the workspace. An initial snapshot is sent after reconnecting. Refresh browser sources already open in OBS once after upgrading.
+
+In OBS, enable **Tools → WebSocket Server Settings** (default port 4455). In the Windows app, select a game screen, camera or chat layer in the Builder, choose **Connect OBS**, then **Link an OBS source**. Choose its scene and source independently of the layer name. Frame the source in OBS at the layer’s initial position before linking it.
+
+PokeStream duplicates the scene item into a dedicated nested scene, preserving its complete transform, crop and input filters. Only the container follows the layer’s position, size, rotation and visibility. To adjust the internal framing afterwards, open the created PokeStream scene in OBS. Unlinking restores the original item and removes the unused container. Linked layouts save automatically after editing.
+
+Bindings stay on this PC, under Studio/OBS, scoped to the local profile, overlay and OBS scene collection. Passwords are encrypted with Windows protection; links and credentials are excluded from shared/exported overlays. The implementation uses the official [OBS WebSocket 5 protocol](https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md). No OBS plugin is required.

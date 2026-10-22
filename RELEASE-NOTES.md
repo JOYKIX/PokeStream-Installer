@@ -1,10 +1,9 @@
-# PokeStream 3.0.5
+# PokeStream 3.1.0 — OBS Integration Update
 
-## Équipe et OBS
+- Équipes, PV, K.O. et badges actualisés dès qu’ils changent.
+- Liaison des sources OBS aux calques du Compositeur.
+- Position et taille synchronisées, cadrage conservé.
 
-- Nouvelle icône chromatique devant le nom, avec une option pour la masquer.
-- Copie des liens OBS corrigée.
+## Après la mise à jour
 
-## Launcher 1.1.3
-
-- Téléchargement des mises à jour fiabilisé.
+Actualise une fois tes sources navigateur déjà ouvertes dans OBS.

@@ -28,10 +28,10 @@ export function useBuilderDocument(initial: BuilderRecord) {
     checkedIds: string[];
   } | null>(null);
   const historyRef = useRef(history);
-  const setSteps = (next: typeof history) => {
+  const setSteps = useCallback((next: typeof history) => {
     historyRef.current = next;
     setHistory(next);
-  };
+  },[]);
   const latest = useRef(data),
     saved = useRef(initial.data),
     version = useRef(initial.version),
@@ -123,9 +123,9 @@ export function useBuilderDocument(initial: BuilderRecord) {
     }, 350);
     return () => clearTimeout(timer);
   }, [data, key]);
-  async function save(
+  const save=useCallback(async (
     options: { enabled?: boolean; rotateToken?: boolean } = {},
-  ) {
+  ) => {
     if (busy.current || blocked.current) return false;
     const parsed = builderSchema.safeParse(latest.current);
     if (!parsed.success) {
@@ -209,7 +209,7 @@ export function useBuilderDocument(initial: BuilderRecord) {
       setSaving(false);
       busy.current = false;
     }
-  }
+  },[record.id,key,setSteps,update]);
   return {
     data,
     record,

@@ -1,6 +1,7 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
 import { authFetch } from "@/local/client";
+import {subscribeJSON} from "@/lib/event-source";
 import { customThemeSchema, type CustomTheme } from "./schema";
 export function useCustomThemes(initial: CustomTheme[], enabled: boolean) {
   const [themes, setThemes] = useState(initial);
@@ -39,26 +40,6 @@ export function useCustomThemes(initial: CustomTheme[], enabled: boolean) {
       return null;
     }
   }, []);
-  useEffect(() => {
-    if (!enabled) return;
-    const controller = new AbortController();
-    let pending = false;
-    const reload = () => {
-      if (document.visibilityState !== "visible" || pending) return;
-      pending = true;
-      void refresh(controller.signal).finally(() => {
-        pending = false;
-      });
-    };
-    const timer = setInterval(reload, 30000);
-    window.addEventListener("focus", reload);
-    document.addEventListener("visibilitychange", reload);
-    return () => {
-      controller.abort();
-      clearInterval(timer);
-      window.removeEventListener("focus", reload);
-      document.removeEventListener("visibilitychange", reload);
-    };
-  }, [enabled, refresh]);
+  useEffect(()=>{if(!enabled)return;return subscribeJSON<{themes:unknown}>("/api/themes/custom/events",result=>{const parsed=customThemeSchema.array().safeParse(result.themes);if(parsed.success){setThemes(parsed.data);setError("");}},()=>setError("Chargement des thèmes impossible."));},[enabled]);
   return { themes, error, refresh };
 }

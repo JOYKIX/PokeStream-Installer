@@ -1,21 +1,22 @@
 {
-  "version": "3.0.5",
+  "version": "3.1.0",
   "launcherVersion": "1.1.3",
   "date": "2026-10-22",
   "locales": {
     "fr": {
       "sections": [
         {
-          "title": "Équipe et OBS",
+          "title": "OBS Integration Update",
           "items": [
-            "Nouvelle icône chromatique devant le nom, avec une option pour la masquer.",
-            "Copie des liens OBS corrigée."
+            "Équipes, PV, K.O. et badges actualisés dès qu’ils changent.",
+            "Liaison des sources OBS aux calques du Compositeur.",
+            "Position et taille synchronisées, cadrage conservé."
           ]
         },
         {
-          "title": "Launcher 1.1.3",
+          "title": "Après la mise à jour",
           "items": [
-            "Téléchargement des mises à jour fiabilisé."
+            "Actualise une fois tes sources navigateur déjà ouvertes dans OBS."
           ]
         }
       ]
@@ -23,16 +24,17 @@
     "en": {
       "sections": [
         {
-          "title": "Team and OBS",
+          "title": "OBS Integration Update",
           "items": [
-            "New shiny icon before the name, with an option to hide it.",
-            "Fixed copying OBS links."
+            "Teams, HP, K.O. and badges update as soon as they change.",
+            "Link OBS sources to Builder layers.",
+            "Position and size stay in sync, with framing preserved."
           ]
         },
         {
-          "title": "Launcher 1.1.3",
+          "title": "After updating",
           "items": [
-            "More reliable update downloads."
+            "Refresh browser sources already open in OBS once."
           ]
         }
       ]
@@ -40,16 +42,17 @@
     "ja": {
       "sections": [
         {
-          "title": "チームとOBS",
+          "title": "OBS Integration Update",
           "items": [
-            "名前の前に新しい色違いマークを表示。設定で非表示にできます。",
-            "OBSリンクのコピーを修正。"
+            "チーム・HP・ひんし・バッジの変更をすぐに反映。",
+            "OBSソースとビルダーのレイヤーを連携。",
+            "構図を維持したまま位置とサイズを同期。"
           ]
         },
         {
-          "title": "Launcher 1.1.3",
+          "title": "更新後",
           "items": [
-            "更新のダウンロードを改善。"
+            "OBSですでに開いているブラウザソースを一度更新してください。"
           ]
         }
       ]
@@ -57,16 +60,17 @@
     "es": {
       "sections": [
         {
-          "title": "Equipo y OBS",
+          "title": "OBS Integration Update",
           "items": [
-            "Nuevo icono variocolor delante del nombre, con opción para ocultarlo.",
-            "Corregida la copia de enlaces OBS."
+            "Equipos, PS, K.O. y medallas se actualizan en cuanto cambian.",
+            "Vincula fuentes de OBS a las capas del compositor.",
+            "Posición y tamaño sincronizados, sin perder el encuadre."
           ]
         },
         {
-          "title": "Launcher 1.1.3",
+          "title": "Después de actualizar",
           "items": [
-            "Descarga de actualizaciones más fiable."
+            "Actualiza una vez las fuentes de navegador ya abiertas en OBS."
           ]
         }
       ]
@@ -74,16 +78,17 @@
     "de": {
       "sections": [
         {
-          "title": "Team und OBS",
+          "title": "OBS Integration Update",
           "items": [
-            "Neues Schillernd-Symbol vor dem Namen, das sich ausblenden lässt.",
-            "Kopieren von OBS-Links korrigiert."
+            "Teams, KP, K.O. und Orden werden bei Änderungen sofort aktualisiert.",
+            "OBS-Quellen mit Ebenen im Builder verknüpfen.",
+            "Position und Größe synchronisiert, Bildausschnitt bleibt erhalten."
           ]
         },
         {
-          "title": "Launcher 1.1.3",
+          "title": "Nach dem Update",
           "items": [
-            "Zuverlässigere Update-Downloads."
+            "Aktualisiere bereits geöffnete Browserquellen in OBS einmal."
           ]
         }
       ]
@@ -91,16 +96,17 @@
     "pt-BR": {
       "sections": [
         {
-          "title": "Equipe e OBS",
+          "title": "OBS Integration Update",
           "items": [
-            "Novo ícone shiny antes do nome, com opção para ocultar.",
-            "Cópia de links do OBS corrigida."
+            "Equipes, PV, K.O. e insígnias atualizados assim que mudam.",
+            "Vincule fontes do OBS às camadas do compositor.",
+            "Posição e tamanho sincronizados, com enquadramento preservado."
           ]
         },
         {
-          "title": "Launcher 1.1.3",
+          "title": "Após atualizar",
           "items": [
-            "Downloads de atualizações mais confiáveis."
+            "Atualize uma vez as fontes de navegador já abertas no OBS."
           ]
         }
       ]
@@ -108,16 +114,17 @@
     "it": {
       "sections": [
         {
-          "title": "Squadra e OBS",
+          "title": "OBS Integration Update",
           "items": [
-            "Nuova icona cromatica prima del nome, con opzione per nasconderla.",
-            "Corretta la copia dei link OBS."
+            "Squadre, PS, K.O. e medaglie si aggiornano appena cambiano.",
+            "Collega le sorgenti OBS ai livelli del compositore.",
+            "Posizione e dimensioni sincronizzate, inquadratura mantenuta."
           ]
         },
         {
-          "title": "Launcher 1.1.3",
+          "title": "Dopo l’aggiornamento",
           "items": [
-            "Download degli aggiornamenti più affidabile."
+            "Aggiorna una volta le sorgenti browser già aperte in OBS."
           ]
         }
       ]
@@ -125,16 +132,17 @@
     "ko": {
       "sections": [
         {
-          "title": "팀 및 OBS",
+          "title": "OBS Integration Update",
           "items": [
-            "이름 앞에 새로운 색이 다른 포켓몬 아이콘을 표시하며, 설정에서 숨길 수 있습니다.",
-            "OBS 링크 복사 오류를 수정했습니다."
+            "팀, HP, 기절 상태와 배지가 변경되면 바로 반영됩니다.",
+            "OBS 소스를 빌더 레이어에 연결할 수 있습니다.",
+            "구도를 유지하면서 위치와 크기를 동기화합니다."
           ]
         },
         {
-          "title": "Launcher 1.1.3",
+          "title": "업데이트 후",
           "items": [
-            "업데이트 다운로드의 안정성을 개선했습니다."
+            "OBS에 이미 열려 있는 브라우저 소스를 한 번 새로고침하세요."
           ]
         }
       ]
@@ -142,16 +150,17 @@
     "zh-CN": {
       "sections": [
         {
-          "title": "队伍与 OBS",
+          "title": "OBS Integration Update",
           "items": [
-            "名字前显示新的异色图标，可在设置中隐藏。",
-            "修复 OBS 链接复制问题。"
+            "队伍、HP、倒下状态和徽章发生变化时立即更新。",
+            "将 OBS 来源连接到编辑器图层。",
+            "同步位置和大小，保留原有取景。"
           ]
         },
         {
-          "title": "Launcher 1.1.3",
+          "title": "更新后",
           "items": [
-            "提升更新下载的可靠性。"
+            "请将 OBS 中已打开的浏览器来源刷新一次。"
           ]
         }
       ]
@@ -159,16 +168,17 @@
     "zh-TW": {
       "sections": [
         {
-          "title": "隊伍與 OBS",
+          "title": "OBS Integration Update",
           "items": [
-            "名字前顯示新的異色圖示，可在設定中隱藏。",
-            "修正 OBS 連結複製問題。"
+            "隊伍、HP、倒下狀態和徽章變更時立即更新。",
+            "將 OBS 來源連結至編輯器圖層。",
+            "同步位置和大小，保留原有取景。"
           ]
         },
         {
-          "title": "Launcher 1.1.3",
+          "title": "更新後",
           "items": [
-            "改善更新下載的穩定性。"
+            "請將 OBS 中已開啟的瀏覽器來源重新整理一次。"
           ]
         }
       ]

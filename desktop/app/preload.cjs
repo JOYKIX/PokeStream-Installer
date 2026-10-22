@@ -1,6 +1,7 @@
 const {contextBridge,ipcRenderer}=require('electron');
 contextBridge.exposeInMainWorld('pokeStream',Object.freeze({
  desktop:true,
+ obs:{call:(action,value)=>ipcRenderer.invoke('pokestream:obs',action,value),subscribe:callback=>{const listener=()=>callback();ipcRenderer.on('pokestream:obs:changed',listener);return()=>ipcRenderer.removeListener('pokestream:obs:changed',listener);}},
  clipboard:{writeText:value=>ipcRenderer.invoke('pokestream:clipboard:write',value)},
  language:{get:()=>ipcRenderer.invoke('pokestream:language:get'),set:value=>ipcRenderer.invoke('pokestream:language:set',value)},
  openData:()=>ipcRenderer.invoke('pokestream:open-data'),

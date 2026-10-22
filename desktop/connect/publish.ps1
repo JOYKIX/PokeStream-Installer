@@ -16,7 +16,7 @@ if ($CopyToWebsite -and [string]::IsNullOrWhiteSpace($Website)) {
     } | Select-Object -First 1
     if (-not $Website) { throw 'Pass -Website with the Studio checkout path.' }
 }
-$version = '1.0.2'
+$version = '1.1.0'
 $upstream = 'b60c6e5f1427263260061d3f8c5540b924063572'
 $archiveHash = 'E469C98A6E50F20E3CA1F3C9875CAEA3EBFFC214B0ECBD9ABF3CB504B1F5086E'
 $cache = Join-Path $PSScriptRoot '.artifacts/upstream'

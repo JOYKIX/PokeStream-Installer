@@ -4,6 +4,7 @@ import {useEffect,useState,useRef} from "react";
 import {Cable,Play,Pause,RefreshCw,FolderOpen,Settings2,ArrowUpRight,Shield,Skull,Activity} from "lucide-react";
 import {useI18n} from "@/i18n/client";
 import {authFetch} from "./client";
+import {subscribeJSON} from "@/lib/event-source";
 import {NumberInput} from "@/components/number-input";
 import {Select,SelectOption} from "@/components/select";
 type State={available:boolean;updatedAt?:string;paused:boolean;title?:string;hint?:string;reading:string;game:string;emulator?:string;selectedPid?:number;emulators:{id:number;label:string}[];activity:{time:string;message:string}[];lastSync?:string;badges?:string;deaths?:string;save?:string;emulatorPath?:string;ryujinxPort:number;citronPort:number;commandId?:string;commandError?:string};
@@ -11,13 +12,10 @@ type Target={sceneId:string|null;scene:string|null;nuzlocke:boolean;overlays:{id
 export function LocalConnect(){
  const{t}=useI18n(),[state,setState]=useState<State|null>(null),[target,setTarget]=useState<Target|null>(null),[error,setError]=useState(""),[busy,setBusy]=useState(false),[ports,setPorts]=useState({ryujinx:0,citron:0}),[tab,setTab]=useState<"session"|"settings"|"activity">("session");
  function message(value:string){const parts=value.split(" · ");return parts.map(part=>t(part)).join(" · ");}
- const initialized=useRef(false),pending=useRef<string|null>(null),pendingSince=useRef(0);
- useEffect(()=>{let cancelled=false,timer:ReturnType<typeof setTimeout>;async function refresh(){try{const [a,b]=await Promise.all([authFetch("/api/local/engine"),authFetch("/api/local/target")]);if(!a.ok||!b.ok)throw Error();const s=await a.json(),d=await b.json();if(cancelled)return;setState(s);setTarget(d);if(!initialized.current&&s.available){setPorts({ryujinx:s.ryujinxPort,citron:s.citronPort});initialized.current=true;}
- if(pending.current&&Date.now()-pendingSince.current>30000){pending.current=null;setBusy(false);setError(t("Le moteur ne répond pas. Relance PokeStream."));}
- if(pending.current&&s.commandId===pending.current){pending.current=null;setBusy(false);if(s.commandError)setError(t(s.commandError));}
- }catch{if(!cancelled)setError(t("Connexion locale indisponible."));}finally{if(!cancelled)timer=setTimeout(refresh,1500);}}
- void refresh();return()=>{cancelled=true;clearTimeout(timer);};},[t]);
- async function command(action:string,value?:unknown){setBusy(true);setError("");try{const r=await authFetch("/api/local/engine",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action,value})});if(!r.ok)throw Error();pending.current=(await r.json()).id;pendingSince.current=Date.now();}catch{setError(t("Commande impossible. Réessaie."));setBusy(false);}}
+ const initialized=useRef(false),pending=useRef<string|null>(null),latestState=useRef<State|null>(null);
+ useEffect(()=>subscribeJSON<{state:State;target:Target}|null>("/api/local/connect/events",payload=>{if(!payload)return;const {state:s,target:d}=payload;latestState.current=s;setState(s);setTarget(d);setError("");if(!initialized.current&&s.available){setPorts({ryujinx:s.ryujinxPort,citron:s.citronPort});initialized.current=true;}if(pending.current&&s.commandId===pending.current){pending.current=null;setBusy(false);if(s.commandError)setError(t(s.commandError));}},()=>setError(t("Connexion locale indisponible."))),[t]);
+ useEffect(()=>{if(!busy)return;const timer=setTimeout(()=>{if(pending.current){pending.current=null;setBusy(false);setError(t("Le moteur ne répond pas. Relance PokeStream."));}},30000);return()=>clearTimeout(timer);},[busy,t]);
+ async function command(action:string,value?:unknown){setBusy(true);setError("");try{const r=await authFetch("/api/local/engine",{method:"POST",headers:{"Content-Type":"application/json"},signal:AbortSignal.timeout(15000),body:JSON.stringify({action,value})});if(!r.ok)throw Error();pending.current=(await r.json()).id;if(latestState.current?.commandId===pending.current){pending.current=null;setBusy(false);if(latestState.current.commandError)setError(t(latestState.current.commandError));}}catch{setError(t("Commande impossible. Réessaie."));setBusy(false);}}
  async function choose(id:string){setBusy(true);try{const r=await authFetch("/api/local/target",{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify({id:id==="none"?null:id})});if(!r.ok)throw Error();setTarget(await r.json());}catch{setError(t("Changement impossible."));}finally{setBusy(false);}}
  return <main className="site-container local-connect" id="main">
  <header className="app-heading"><div><h1>Connect</h1><p>{t("Lecture du jeu et synchronisation locale.")}</p></div><button className="button secondary" disabled={busy||!state?.available} onClick={()=>void command(state?.paused?"resume":"pause")}>{state?.paused?<Play size={16}/>:<Pause size={16}/>} {t(state?.paused?"Reprendre":"Mettre en pause")}</button></header>

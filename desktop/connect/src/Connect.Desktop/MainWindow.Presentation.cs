@@ -114,7 +114,7 @@ public partial class MainWindow {
     private void LogActivity(string text) {if(activity.FirstOrDefault()?.Message==text)return;activity.Insert(0,new(DateTime.Now.ToString("HH:mm:ss"),L.Original(text)));while(activity.Count>30)activity.RemoveAt(activity.Count-1);}
     private void CopyDiagnostics_Click(object sender,RoutedEventArgs e) {
         // No credentials, paths, usernames, Pokémon identifiers or party contents in exported diagnostics.
-        string text=L.T("PokeStream Connect · 1.0.2\n")+L.T("Émulateur : ")+(selected?.Label??L.T("aucun"))+L.T("\nLecture : ")+ReadingState.Text+L.T("\nSite : ")+SyncLabel.Text+L.T("\nDernier envoi : ")+LastSyncLabel.Text+"\n"+GameStatus.Text+"\n\n"+string.Join("\n",activity.Select(a=>a.Time+"  "+a.Message));
+        string text="PokeStream Connect · 1.1.0\n"+L.T("Émulateur : ")+(selected?.Label??L.T("aucun"))+L.T("\nLecture : ")+ReadingState.Text+L.T("\nSite : ")+SyncLabel.Text+L.T("\nDernier envoi : ")+LastSyncLabel.Text+"\n"+GameStatus.Text+"\n\n"+string.Join("\n",activity.Select(a=>a.Time+"  "+a.Message));
         try {Clipboard.SetText(text);CopyDiagnosticsButton.Content=L.T("Copié");}
         catch(System.Runtime.InteropServices.ExternalException){CopyDiagnosticsButton.Content=L.T("Réessayer");}
     }

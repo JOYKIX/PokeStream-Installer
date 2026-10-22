@@ -202,7 +202,9 @@ public partial class MainWindow : Window {
         req.Headers.Add("X-Connect-Selection",selectionRevision.ToString(System.Globalization.CultureInfo.InvariantCulture));return req;
     }
     private async Task Loop() {
-        using var timer=new PeriodicTimer(TimeSpan.FromMilliseconds(500));
+        using var timer=new PeriodicTimer(TimeSpan.FromMilliseconds(100));
+        using var commands=WatchLocalCommands();
+        var destinationEvents=IpcFolder!=null?ReadDestinationEvents():Task.CompletedTask;
         try {
             while(!lifetime.IsCancellationRequested) {
                 try {LocalCommand();await Tick();}
@@ -211,10 +213,12 @@ public partial class MainWindow : Window {
                 catch(Exception e) when(e is HttpRequestException or TaskCanceledException or JsonException) {serverIssue=true;}
                 catch(Exception e) when(e is IOException or UnauthorizedAccessException or Win32Exception or ArgumentException or InvalidOperationException) {readIssue=true;GameStatus.Text=L.T("Lecture indisponible. Vérifie l’émulateur.");}
                 UpdatePresentation();WriteLocalStatus();
+                timer.Period=TimeSpan.FromMilliseconds(IpcFolder!=null&&selected!=null&&!paused?100:500);
                 if(!await timer.WaitForNextTickAsync(lifetime.Token))break;
             }
         } catch(OperationCanceledException) when(lifetime.IsCancellationRequested) { }
         finally {
+            lifetime.Cancel();try{await destinationEvents;}catch(OperationCanceledException){}
             if(networkTick!=null)try{await networkTick;}catch(Exception e)when(e is OperationCanceledException or HttpRequestException or JsonException or IOException){}
             reader?.Dispose();citraReader?.Dispose();mgbaReader?.Dispose();switchReader?.Dispose();http.Dispose();lifetime.Dispose();}
     }
@@ -303,7 +307,7 @@ public partial class MainWindow : Window {
         if(networkTick?.IsCompleted==true) {
             var completed=networkTick;networkTick=null;await completed;
         }
-        if(networkTick==null && !switchingOverlay && DateTime.UtcNow>=nextNetworkTick) {
+        if(networkTick==null && !switchingOverlay && (IpcFolder!=null || DateTime.UtcNow>=nextNetworkTick)) {
             nextNetworkTick=DateTime.UtcNow.AddSeconds(1);
             networkTick=SyncLatest();
         }
@@ -311,7 +315,7 @@ public partial class MainWindow : Window {
     private async Task SyncLatest() {
         if(switchingOverlay)return;
         int revision=selectionVersion,requestVersion=linkVersion;var source=selected;
-        if(credential!=null && DateTimeOffset.UtcNow>=nextPairCheck) {
+        if(IpcFolder==null && credential!=null && DateTimeOffset.UtcNow>=nextPairCheck) {
             nextPairCheck=DateTimeOffset.UtcNow.AddSeconds(3);
             using var request=Request(HttpMethod.Get);using var response=await http.SendAsync(request,lifetime.Token);
             if(requestVersion!=linkVersion || switchingOverlay)return;

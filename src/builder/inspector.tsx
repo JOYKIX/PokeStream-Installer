@@ -1,6 +1,6 @@
 "use client";
 import { TypeBadgePicker } from "@/components/type-badge-picker";
-import { useState } from "react";
+import { useState,type ReactNode } from "react";
 import { useI18n } from "@/i18n/client";
 import { Select, SelectOption } from "@/components/select";
 import { TEAM_LAYOUTS, type SceneData } from "@/lib/model";
@@ -46,6 +46,7 @@ export function Inspector({
   assets,
   onAsset,
   onError,
+  obsPanel,
 }: {
   data: BuilderData;
   selected: BuilderElement | undefined;
@@ -56,6 +57,7 @@ export function Inspector({
   assets: BuilderAsset[];
   onAsset: (asset: BuilderAsset) => void;
   onError: (error: string) => void;
+  obsPanel?:ReactNode;
 }) {
   const { t } = useI18n(),
     [uploading, setUploading] = useState(false),
@@ -107,6 +109,7 @@ export function Inspector({
   if (!e)
     return (
       <div className="builder-inspector">
+        {obsPanel}
         <h2>{t("Scène")}</h2>
         <label className="builder-field">
           <span>{t("Nom")}</span>
@@ -227,6 +230,7 @@ export function Inspector({
           onChange={(ev) => updateElement({ ...e, name: ev.target.value })}
         />
       </label>
+      {obsPanel}
       <Toggle
         label={t("Verrouiller")}
         checked={e.locked}

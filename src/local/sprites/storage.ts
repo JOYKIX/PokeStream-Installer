@@ -4,6 +4,7 @@ import {promises as fs,mkdirSync,lstatSync} from "node:fs";
 import path from "node:path";
 import {createHash} from "node:crypto";
 import {dataDirectory} from "../store";
+import {publishLocalChange} from "../events";
 import type {Index,SpriteFile} from "./catalog";
 export const spriteRoot=()=>path.join(dataDirectory(),"Sprites");
 export const blobHash=(data:Buffer)=>createHash("sha1").update("blob "+data.length+"\0").update(data).digest("hex");
@@ -15,7 +16,7 @@ export function imageValid(buffer:Buffer,filename:string){if(!buffer.length||buf
 export type Job={pack:string;state:string;error:string;done:number;total:number;bytes:number;updated:number};
 export type Selection={id:string;revision:string;origin:string};
 export class SpriteStorage{
- db:DatabaseSync;objects=new Map<string,number>();parts=new Map<string,number>();bundled=new Map<string,string>();selections=new Map<string,Selection>();jobs=new Map<string,Job>();scan={state:"idle",done:0,total:0};revision=0;
+ db:DatabaseSync;objects=new Map<string,number>();parts=new Map<string,number>();bundled=new Map<string,string>();selections=new Map<string,Selection>();jobs=new Map<string,Job>();scan={state:"idle",done:0,total:0};private valueRevision=0;private changeTimer:ReturnType<typeof setTimeout>|undefined;get revision(){return this.valueRevision;}set revision(value:number){this.valueRevision=value;if(!this.changeTimer)this.changeTimer=setTimeout(()=>{this.changeTimer=undefined;publishLocalChange("sprites");},250);}
  constructor(){const root=spriteRoot();mkdirSync(root,{recursive:true});if(lstatSync(root).isSymbolicLink())throw Error("sprite_path_invalid");this.db=new DatabaseSync(path.join(root,"library.sqlite"));this.db.exec("PRAGMA journal_mode=WAL; PRAGMA synchronous=NORMAL; PRAGMA busy_timeout=5000; CREATE TABLE IF NOT EXISTS objects(hash TEXT PRIMARY KEY,bytes INTEGER NOT NULL); CREATE TABLE IF NOT EXISTS packs(id TEXT PRIMARY KEY,revision TEXT NOT NULL,origin TEXT NOT NULL); CREATE TABLE IF NOT EXISTS ownership(pack TEXT NOT NULL,hash TEXT NOT NULL,PRIMARY KEY(pack,hash)); CREATE INDEX IF NOT EXISTS owners_by_hash ON ownership(hash); CREATE TABLE IF NOT EXISTS jobs(pack TEXT PRIMARY KEY,state TEXT NOT NULL,error TEXT NOT NULL,done INTEGER NOT NULL,total INTEGER NOT NULL,bytes INTEGER NOT NULL,updated INTEGER NOT NULL); CREATE TABLE IF NOT EXISTS loose(path TEXT PRIMARY KEY,bytes INTEGER NOT NULL); CREATE TABLE IF NOT EXISTS metadata(key TEXT PRIMARY KEY,value TEXT NOT NULL);");for(const r of this.db.prepare("SELECT * FROM objects").all())this.objects.set(String(r.hash),Number(r.bytes));for(const r of this.db.prepare("SELECT * FROM packs").all())this.selections.set(String(r.id),r as unknown as Selection);for(const r of this.db.prepare("SELECT * FROM jobs").all()){const job=r as unknown as Job;if(["downloading","queued","indexing"].includes(job.state)){job.state="paused";this.setJob(job);}else this.jobs.set(job.pack,job);}}
  transaction(action:()=>void){this.db.exec("BEGIN IMMEDIATE");try{action();this.db.exec("COMMIT");}catch(e){this.db.exec("ROLLBACK");throw e;}}
  object(hash:string,bytes:number){this.objects.set(hash,bytes);this.db.prepare("INSERT OR REPLACE INTO objects VALUES(?,?)").run(hash,bytes);this.revision++;}
